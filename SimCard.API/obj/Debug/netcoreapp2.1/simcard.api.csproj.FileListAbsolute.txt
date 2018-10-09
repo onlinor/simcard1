@@ -1,0 +1,14 @@
+D:\Products\SimCard\Sources\simcard.api\obj\Debug\netcoreapp2.1\simcard.api.csprojAssemblyReference.cache
+D:\Products\SimCard\Sources\simcard.api\obj\Debug\netcoreapp2.1\simcard.api.csproj.CoreCompileInputs.cache
+D:\Products\SimCard\Sources\simcard.api\obj\Debug\netcoreapp2.1\simcard.api.RazorAssemblyInfo.cache
+D:\Products\SimCard\Sources\simcard.api\obj\Debug\netcoreapp2.1\simcard.api.RazorAssemblyInfo.cs
+D:\Products\SimCard\Sources\simcard.api\obj\Debug\netcoreapp2.1\simcard.api.AssemblyInfoInputs.cache
+D:\Products\SimCard\Sources\simcard.api\obj\Debug\netcoreapp2.1\simcard.api.AssemblyInfo.cs
+D:\Products\SimCard\Sources\simcard.api\bin\Debug\netcoreapp2.1\simcard.api.deps.json
+D:\Products\SimCard\Sources\simcard.api\bin\Debug\netcoreapp2.1\simcard.api.runtimeconfig.json
+D:\Products\SimCard\Sources\simcard.api\bin\Debug\netcoreapp2.1\simcard.api.runtimeconfig.dev.json
+D:\Products\SimCard\Sources\simcard.api\bin\Debug\netcoreapp2.1\simcard.api.dll
+D:\Products\SimCard\Sources\simcard.api\bin\Debug\netcoreapp2.1\simcard.api.pdb
+D:\Products\SimCard\Sources\simcard.api\obj\Debug\netcoreapp2.1\simcard.api.RazorTargetAssemblyInfo.cache
+D:\Products\SimCard\Sources\simcard.api\obj\Debug\netcoreapp2.1\simcard.api.dll
+D:\Products\SimCard\Sources\simcard.api\obj\Debug\netcoreapp2.1\simcard.api.pdb
