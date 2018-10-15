@@ -14,17 +14,18 @@ namespace SimCard.API.Persistence.Repositories
             this.context = context;
         }        
 
-        public async Task<Shop> GetShop(int id, bool includeRelated = true)
+     /*public async Task<Shop> GetShops(int id, bool includeRelated = true)
         {
             if (!includeRelated)
                 return await context.Shops.FindAsync(id);
 
             return await context.Shops            
                 .Include(v => v.Products)                
-                .SingleOrDefaultAsync(v => v.Id == id);
+                .SingleOrDefaultAsync(v => v.Id == id); 
+                return await context.Shops.Find(id);
         }
-
-        public async Task<IEnumerable<Shop>> GetShops()
+        
+       public async Task<IEnumerable<Shop>> GetShops()
         {
             return await context.Shops.Include(m => m.Products).ToListAsync();
         }
@@ -32,6 +33,6 @@ namespace SimCard.API.Persistence.Repositories
         public void Remove(Shop shop)
         {
             context.Remove(shop);
-        }
+        }*/
     }
 }
