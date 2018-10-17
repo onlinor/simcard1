@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SimCard.API.Persistence;
 
 namespace simcard.api.Migrations
 {
     [DbContext(typeof(SimCardDBContext))]
-    partial class SimCardDBContextModelSnapshot : ModelSnapshot
+    [Migration("20181012073507_InitialCustomerModel")]
+    partial class InitialCustomerModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,8 +29,6 @@ namespace simcard.api.Migrations
 
                     b.Property<DateTime>("Birthday");
 
-                    b.Property<string>("Email");
-
                     b.Property<string>("FullName");
 
                     b.Property<bool>("Gender");
@@ -37,7 +37,9 @@ namespace simcard.api.Migrations
 
                     b.Property<string>("StoreAddress");
 
-                    b.Property<string>("StoreName");
+                    b.Property<string>("StoreNane");
+
+                    b.Property<string>("email");
 
                     b.HasKey("Id");
 

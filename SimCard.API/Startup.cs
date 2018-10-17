@@ -32,8 +32,9 @@ namespace simcard.api
             services.AddAutoMapper();
             services.AddDbContext<SimCardDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
             services.AddScoped<IShopRepository, ShopRepository>();
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-
+            services.AddCors();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -48,7 +49,8 @@ namespace simcard.api
             {
                 app.UseHsts();
             }
-
+               
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseHttpsRedirection();
             app.UseMvc();
         }

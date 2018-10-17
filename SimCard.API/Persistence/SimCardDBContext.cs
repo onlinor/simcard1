@@ -11,5 +11,6 @@ namespace SimCard.API.Persistence
         }
         
         public DbSet<Shop> Shops{get; set;}
+        public DbSet<Customer> Customers { get; set; }
     }
 }

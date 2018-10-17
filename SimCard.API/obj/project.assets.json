@@ -11582,28 +11582,30 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Chi Cuong\\.nuget\\packages\\": {},
+    "C:\\Users\\Sang Tran\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Products\\SimCard\\Sources\\simcard.api\\simcard.api.csproj",
+      "projectUniqueName": "e:\\simcard1\\SimCard.API\\simcard.api.csproj",
       "projectName": "simcard.api",
-      "projectPath": "D:\\Products\\SimCard\\Sources\\simcard.api\\simcard.api.csproj",
-      "packagesPath": "C:\\Users\\Chi Cuong\\.nuget\\packages\\",
-      "outputPath": "D:\\Products\\SimCard\\Sources\\simcard.api\\obj\\",
+      "projectPath": "e:\\simcard1\\SimCard.API\\simcard.api.csproj",
+      "packagesPath": "C:\\Users\\Sang Tran\\.nuget\\packages\\",
+      "outputPath": "e:\\simcard1\\SimCard.API\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\Chi Cuong\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Sang Tran\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.1"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
