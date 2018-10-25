@@ -1,0 +1,179 @@
+<!-- Customer Form -->
+<form #f="ngForm" (ngSubmit)="onSubmit()">
+    <h2 class="text-center text-primary">Thêm Khách Hàng</h2>
+    <hr> 
+    <div class="form-group">
+        <label>Họ và tên</label>
+        <input type="text" name="hoTen" class="form-control" 
+                #hoTen="ngModel"  
+                [(ngModel)]="customerInfo.hoTen"
+                required>
+        <span class="help-block" *ngIf="!hoTen.valid && hoTen.touched">Vui lòng nhập họ tên</span>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                <div *ngIf="!isInputYear">
+                    <label>Ngày sinh</label>
+                    <input  type="date" name="ngaySinh" class="form-control"
+                                #ngaySinh="ngModel"
+                                [(ngModel)]="customerInfo.ngaySinh"
+                                required>      
+                    <span class="help-block" *ngIf="!ngaySinh.valid && ngaySinh.touched">Vui lòng chọn ngày sinh</span>         
+                </div>
+                <div *ngIf="isInputYear">
+                    <app-date-input (day)="onGetDay($event)" (month)="onGetMonth($event)"></app-date-input>
+                </div>
+                <label>
+                    <input type="checkbox" name="isInputYear" checked="isInoutYear" [(ngModel)]="isInputYear" (click)="onHandleInputYear()">
+                    Không nhập năm sinh
+                </label>
+                
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                <label>Giới Tính</label><br>
+                <input  type="radio" name="gioiTinh" class="form-check-input" 
+                            [value]="true" 
+                            [(ngModel)]="customerInfo.gioiTinh"
+                            required>&nbsp;
+                <label class=" form-check-label">Nam</label>&nbsp;
+                <input  type="radio" name="gioiTinh" class="form-check-input" 
+                            [value]="false" 
+                            [(ngModel)]="customerInfo.gioiTinh"
+                            required>&nbsp;
+                <label class=" form-check-label"> Nữ</label><br>
+            </div>
+        </div>
+    </div>
+    <div class=" form-group">
+        <label>Tên cửa hàng</label>
+        <input  type="text" name="tenCH" class="form-control"
+                    #tenCH="ngModel"
+                    [(ngModel)]="customerInfo.tenCH"
+                    required>
+        <span class="help-block" *ngIf="!tenCH.valid && tenCH.touched">Vui lòng nhập tên cửa hàng</span>
+    </div>
+    <div class=" form-group">
+        <label>Địa chỉ cửa hàng</label>
+        <input  type="text" name="diachiCH" class="form-control"
+                    #diachiCH="ngModel"
+                    [(ngModel)]="customerInfo.diachiCH"
+                    required>
+        <span class="help-block" *ngIf="!diachiCH.valid && diachiCH.touched">Vui lòng nhập địa chỉ cửa hàng</span>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <label>Số điện thoại 1</label>
+                <input  type="text"  class="form-control" name="sdt1" 
+                            #sdt1="ngModel" pattern="^([0][0-9]{9}|[0][0-9]{10})$"
+                            [(ngModel)]="customerInfo.sdt1" 
+                            required>
+                <span class="help-block" *ngIf="!sdt1.valid && sdt1.touched">Vui lòng nhập đúng số điện thoại. bắt đầu bằng số 0 </span>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <label>Số điện thoại 2</label>
+                <input  type="text" class="form-control" name="sdt2"
+                            #sdt2="ngModel" pattern="^([0][0-9]{9}|[0][0-9]{10})$"                  
+                            [(ngModel)]="customerInfo.sdt2">
+                <span class="help-block" *ngIf="!sdt2.valid && sdt2.touched">Vui lòng nhập đúng số điện thoại. bắt đầu bằng số 0 </span>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <label>Mã khách hàng</label>
+                <input type="text" name="maKH" [disabled]="true" class="form-control" [(ngModel)]="customerInfo.maKH">
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <label>Mã thẻ TV</label>
+                <input  type="text" name="matheTV" class="form-control"
+                            #matheTV="ngModel"
+                            [(ngModel)]="customerInfo.matheTV"
+                            required>
+                <span class="help-block" *ngIf="!matheTV.valid && matheTV.touched">Vui lòng nhập mã thẻ</span>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <label>Tên công ty</label>
+                <input type="text" name="tenCongTy" class="form-control" [(ngModel)]="customerInfo.tenCongTy">
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <label>Mã số thuế</label>
+                <input type="text" name="masoThue" class="form-control" [(ngModel)]="customerInfo.masoThue ">
+            </div>
+        </div>
+    </div>
+    <div class=" form-group">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                <label>Địa chỉ hóa đơn</label>
+                <input  type="text" name="diachiHoaDon" class="form-control"
+                            #diachiHoaDon="ngModel"
+                            [(ngModel)]="customerInfo.diachiHoaDon"
+                            required>
+                <span class="help-block" *ngIf="!diachiHoaDon.valid && diachiHoaDon.touched">Vui lòng nhập địa chỉ hóa đơn</span>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                <label>Ngày đến</label>
+                <input  type="date" name="ngayDen" class="form-control"
+                            #ngayDen="ngModel"
+                            [(ngModel)]="customerInfo.ngayDen"
+                            required>
+                <span class="help-block" *ngIf="!ngayDen.valid && ngayDen.touched">Vui lòng chọn ngày đến</span>
+            </div>
+        </div>
+    </div>
+    <div class=" form-group">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <label>Nguồn đến</label>
+                <select class="form-control" name="nguonDen" [(ngModel)]="customerInfo.nguonDen">
+                    <option value="facebook">Facebook</option>
+                    <option value="zalo">Zalo</option>
+                    <option value="ctv">Cộng tác viên</option>
+                </select>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <label>Người giới thiệu</label>
+                <select class="form-control" name="ngGioiThieu" [(ngModel)]="customerInfo.ngGioiThieu">
+                    <option value="KH1">KH1</option>
+                    <option value="KH2">KH2</option>
+                    <option value="KH3">KH3</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                <label>Email</label>
+                <input type="email" name="email" class="form-control" [(ngModel)]="customerInfo.email"  email
+                    #email="ngModel" required>
+                <span class="help-block" *ngIf="!email.valid && email.touched">Vui lòng nhập đúng email</span>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                <label>Zalo</label>
+                <input type="text" name="zalo" class="form-control" [(ngModel)]="customerInfo.zalo">
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                <label>Facebook</label>
+                <input type="text" name="fb" class="form-control" [(ngModel)]="customerInfo.fb">
+            </div>
+        </div>
+    </div>
+    <div class="form-group text-center">
+        <button class="btn btn-success" type="submit" [disabled]="!f.valid">Lưu</button>&nbsp;
+        <button class="btn btn-default" type="button" (click)="onClearData()">Làm mới</button>
+    </div>
+</form>
+
+<button type="button" class="btn btn-primary" (click)="deleteCustomer()">Delete</button>
+
+<button type="button" class="btn btn-success" (click)="updateCustomer()">Update</button>
+
+<button type="button" class="btn btn-success" (click)="onGenerateMaKH()">gene</button>

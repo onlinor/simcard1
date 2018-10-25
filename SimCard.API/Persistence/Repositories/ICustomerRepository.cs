@@ -12,6 +12,8 @@ namespace SimCard.API.Persistence.Repositories
         Task<Customer> AddCustomer(Customer customer);
 
         Task<Customer> UpdateCustomer(int id, Customer customer);
+
+        Task<int> GetLastIDCustomerRecord();
         void Remove(Customer customer);
 
     }

@@ -41,6 +41,13 @@ namespace SimCard.API.Controllers
             // return customer;
         }
 
+        [HttpGet("last")]
+        public async Task<int> GetLastIDCustomerRecord()
+        {
+            var lastIDRecord = await customerRepository.GetLastIDCustomerRecord();
+            return lastIDRecord;
+        }
+
         //api/customer/id
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCustomer(int id)
@@ -51,7 +58,7 @@ namespace SimCard.API.Controllers
                 return NotFound();
 
             customerRepository.Remove(customer);
-            await unitOfWork.CompleteAsync(); // ???
+            await unitOfWork.CompleteAsync();
 
             return Ok(id);
         }
@@ -65,6 +72,7 @@ namespace SimCard.API.Controllers
                 return BadRequest();
             }
             await customerRepository.AddCustomer(customer);
+            await unitOfWork.CompleteAsync();
             return StatusCode(201);
         }
 
@@ -77,6 +85,7 @@ namespace SimCard.API.Controllers
                 return BadRequest();
             }
             await customerRepository.UpdateCustomer(id, customer);
+            await unitOfWork.CompleteAsync();
             return StatusCode(201);
         }
 

@@ -33,4 +33,8 @@ export class CustomerService {
     updateCustomer(id: number, customer: any) {
         return this.http.put(this.baseUrl + id, customer);
     }
+
+    getLastIDCustomerRecord() {
+        return this.http.get(this.baseUrl + 'last');
+    }
 }

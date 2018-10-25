@@ -44,19 +44,33 @@ namespace SimCard.API.Persistence.Repositories
 
             if (customerToUpdate != null)
             {
-                customerToUpdate.StoreName = customer.StoreName;
-                customerToUpdate.StoreAddress = customer.StoreAddress;
-                customerToUpdate.FullName = customer.FullName;
-                customerToUpdate.Gender = customer.Gender;
-                customerToUpdate.Email = customer.Email;
-                customerToUpdate.Birthday = customer.Birthday;
-                customerToUpdate.PhoneNumber = customer.PhoneNumber;
+                customerToUpdate.tenCH = customer.tenCH;
+                customerToUpdate.diachiCH = customer.diachiCH;
+                customerToUpdate.hoTen = customer.hoTen;
+                customerToUpdate.sdt1 = customer.sdt1;
+                customerToUpdate.sdt2 = customer.sdt2;
+                customerToUpdate.maKH = customer.maKH;
+                customerToUpdate.matheTV = customer.matheTV;
+                customerToUpdate.tenCongTy = customer.tenCongTy;
+                customerToUpdate.masoThue = customer.masoThue;
+                customerToUpdate.diachiHoaDon = customer.diachiHoaDon;
+                customerToUpdate.ngGioiThieu = customer.ngGioiThieu;
+                customerToUpdate.email = customer.email;
+                customerToUpdate.fb = customer.fb;
+                customerToUpdate.zalo = customer.zalo;
+                customerToUpdate.ngayDen = customer.ngayDen;
+                customerToUpdate.ngaySinh = customer.ngaySinh;
+                customerToUpdate.gioiTinh = customer.gioiTinh;
                 context.Customers.Update(customerToUpdate);
                 await context.SaveChangesAsync();
                 return customerToUpdate;
             }
-
             return null;
+        }
+
+        public async Task<int> GetLastIDCustomerRecord() {
+            int lastIDRecord = await context.Customers.MaxAsync(x => x.Id);
+            return lastIDRecord;
         }
     }
 }

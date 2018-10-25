@@ -2,7 +2,6 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SimCard.API.Persistence;
 
@@ -15,29 +14,48 @@ namespace simcard.api.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024");
 
             modelBuilder.Entity("SimCard.API.Models.Customer", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("Birthday");
+                    b.Property<string>("diachiCH");
 
-                    b.Property<string>("Email");
+                    b.Property<string>("diachiHoaDon");
 
-                    b.Property<string>("FullName");
+                    b.Property<string>("email");
 
-                    b.Property<bool>("Gender");
+                    b.Property<string>("fb");
 
-                    b.Property<string>("PhoneNumber");
+                    b.Property<bool>("gioiTinh");
 
-                    b.Property<string>("StoreAddress");
+                    b.Property<string>("hoTen");
 
-                    b.Property<string>("StoreName");
+                    b.Property<string>("maKH");
+
+                    b.Property<string>("masoThue");
+
+                    b.Property<string>("matheTV");
+
+                    b.Property<string>("ngGioiThieu");
+
+                    b.Property<DateTime>("ngayDen");
+
+                    b.Property<DateTime>("ngaySinh");
+
+                    b.Property<string>("nguonDen");
+
+                    b.Property<string>("sdt1");
+
+                    b.Property<string>("sdt2");
+
+                    b.Property<string>("tenCH");
+
+                    b.Property<string>("tenCongTy");
+
+                    b.Property<string>("zalo");
 
                     b.HasKey("Id");
 
@@ -47,8 +65,7 @@ namespace simcard.api.Migrations
             modelBuilder.Entity("SimCard.API.Models.Product", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -66,8 +83,7 @@ namespace simcard.api.Migrations
             modelBuilder.Entity("SimCard.API.Models.Shop", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Name")
                         .IsRequired()

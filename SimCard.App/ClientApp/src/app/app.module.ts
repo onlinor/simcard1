@@ -10,7 +10,9 @@ import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { CustomerComponent } from './customer/customer.component';
+import { CustomerFormComponent } from './customer/customer-form/customer-form.component';
 import { CustomerService } from './_services/customer.service';
+import { DateInputComponent } from './_commonComponent/date-input/date-input.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { CustomerService } from './_services/customer.service';
     HomeComponent,
     CounterComponent,
     FetchDataComponent,
-    CustomerComponent
+    CustomerComponent,
+    CustomerFormComponent,
+    DateInputComponent
   ],
   imports: [
     BrowserModule,
@@ -31,9 +35,7 @@ import { CustomerService } from './_services/customer.service';
       { path: 'fetch-data', component: FetchDataComponent }
     ])
   ],
-  providers: [
-    CustomerService
-  ],
+  providers: [CustomerService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
