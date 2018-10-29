@@ -23,9 +23,9 @@ export class DateInputComponent implements OnInit {
 
     onChangeMonth(month) {
         this.month = month;
-        if (month === '2') {
+        if (month === '02') {
             this.arrNgaySinh = this.arr28days;
-        } else if (month === '4' || month === '6' || month === '9' || month === '11') {
+        } else if (month === '04' || month === '06' || month === '09' || month === '11') {
             this.arrNgaySinh = this.arr30days;
         } else {
             this.arrNgaySinh = this.arr31days;

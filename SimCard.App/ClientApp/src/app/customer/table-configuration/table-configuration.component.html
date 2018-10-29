@@ -1,0 +1,138 @@
+<div class="container pd-0">
+    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+        <button class="btn btn-danger btn-block" (click)="onOpenModal()">Tùy chọn hiển thị</button>
+    </div>
+
+    <div class="modal fade" data-keyboard="false" data-backdrop="static" id="field-modal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title">Danh sách các trường dữ liệu</h2>
+                    <button type="button" class="close" (click)="onCloseModal()" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="maKH" [checked]="listColumnTable.maKH" (change)="listColumnTable.maKH = !listColumnTable.maKH">
+                                Mã khách hàng
+                            </label>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="tenCH" [checked]="listColumnTable.tenCH" (change)="listColumnTable.tenCH = !listColumnTable.tenCH">
+                                Tên cửa hàng
+                            </label>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="diachiCH" [checked]="listColumnTable.diachiCH" (change)="listColumnTable.diachiCH = !listColumnTable.diachiCH">
+                                Địa chỉ cửa hàng
+                            </label>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="hoTen" [checked]="listColumnTable.hoTen" (change)="listColumnTable.hoTen = !listColumnTable.hoTen">
+                                Họ tên
+                            </label>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="sdt1" [checked]="listColumnTable.sdt1" (change)="listColumnTable.sdt1 = !listColumnTable.sdt1">
+                                Số điện thoại 1
+                            </label>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="sdt2" [checked]="listColumnTable.sdt2" (change)="listColumnTable.sdt2 = !listColumnTable.sdt2">
+                                Số điện thoại 2
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="ngaySinh" [checked]="listColumnTable.ngaySinh" (change)="listColumnTable.ngaySinh = !listColumnTable.ngaySinh">
+                                Ngày Sinh
+                            </label>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="gioiTinh" [checked]="listColumnTable.gioiTinh" (change)="listColumnTable.gioiTinh = !listColumnTable.gioiTinh">
+                                Giới tính
+                            </label>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="email" [checked]="listColumnTable.email" (change)="listColumnTable.email = !listColumnTable.email">
+                                Email
+                            </label>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="fb" [checked]="listColumnTable.fb" (change)="listColumnTable.fb = !listColumnTable.fb">
+                                Facebook
+                            </label>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="zalo" [checked]="listColumnTable.zalo" (change)="listColumnTable.zalo = !listColumnTable.zalo">
+                                Zalo
+                            </label>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="tenCongTy" [checked]="listColumnTable.tenCongTy" (change)="listColumnTable.tenCongTy = !listColumnTable.tenCongTy">
+                                Tên công ty
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="masoThue" [checked]="listColumnTable.masoThue" (change)="listColumnTable.masoThue = !listColumnTable.masoThue">
+                                Mã số thuế
+                            </label>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="diachiHoaDon" [checked]="listColumnTable.diachiHoaDon"
+                                    (change)="listColumnTable.diachiHoaDon = !listColumnTable.diachiHoaDon">
+                                Địa chỉ hóa đơn
+                            </label>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="nguonDen" [checked]="listColumnTable.nguonDen" (change)="listColumnTable.nguonDen = !listColumnTable.nguonDen">
+                                Nguồn đến
+                            </label>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="ngayDen" [checked]="listColumnTable.ngayDen" (change)="listColumnTable.ngayDen = !listColumnTable.ngayDen">
+                                Ngày đến
+                            </label>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="ngGioiThieu" [checked]="listColumnTable.ngGioiThieu"
+                                    (change)="listColumnTable.ngGioiThieu = !listColumnTable.ngGioiThieu">
+                                Người giới thiệu
+                            </label>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="matheTV" [checked]="listColumnTable.matheTV" (change)="listColumnTable.matheTV = !listColumnTable.matheTV">
+                                Mã thẻ TV
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" (click)="onCloseModal()">Đóng</button>
+                    <button type="button" class="btn btn-primary" (click)="onSave()">Lưu</button>&nbsp;
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

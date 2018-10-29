@@ -1,11 +1,76 @@
-<!-- <p *ngFor="let customer of customers">
-    {{ customer.storeName }} - {{ customer.storeAddress}} - {{ customer.FullName }}
-</p> -->
-
 <div class="container">
     <div class="row">
-        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-            <app-customer-form></app-customer-form>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <h2 class="text-center text-primary">Quản Lí Khách Hàng</h2>
+            <hr>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pd-0">
+            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 pd-0 mb-2">
+                <app-customer-form></app-customer-form>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 pd-0 mb-2">
+                <app-table-configuration (listColumnTable)="onGetListField($event)"></app-table-configuration>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 mb-2">
+                <button type="button" class="btn btn-warning btn-block">Nhập Excel</button>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 mb-2">
+                <button type="button" class="btn btn-secondary btn-block">Xuất Excel </button>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+            <app-search-box (keyword)="onGetKeywordKH($event)"></app-search-box>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mt-20">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th *ngIf="dsFieldInTable.maKH">Mã khách hàng</th>
+                        <th *ngIf="dsFieldInTable.tenCH">Tên cửa hàng</th>
+                        <th *ngIf="dsFieldInTable.diachiCH">Địa chỉ cửa hàng</th>
+                        <th *ngIf="dsFieldInTable.hoTen">Họ tên</th>
+                        <th *ngIf="dsFieldInTable.sdt1">Số điện thoại 1</th>
+                        <th *ngIf="dsFieldInTable.sdt2">Số điện thoại 2</th>
+                        <th *ngIf="dsFieldInTable.ngaySinh">Ngày sinh</th>
+                        <th *ngIf="dsFieldInTable.gioiTinh">Giới tính</th>
+                        <th *ngIf="dsFieldInTable.email">Email</th>
+                        <th *ngIf="dsFieldInTable.zalo">Zalo</th>
+                        <th *ngIf="dsFieldInTable.fb">Facebook</th>
+                        <th *ngIf="dsFieldInTable.tenCongTy">Tên công ty</th>
+                        <th *ngIf="dsFieldInTable.masoThue">Mã số thuế</th>
+                        <th *ngIf="dsFieldInTable.diachiHoaDon">Địa chỉ hóa đơn</th>
+                        <th *ngIf="dsFieldInTable.nguonDen">Nguồn đến</th>
+                        <th *ngIf="dsFieldInTable.ngayDen">Ngày đến</th>
+                        <th *ngIf="dsFieldInTable.ngGioiThieu">Người giới thiệu</th>
+                        <th *ngIf="dsFieldInTable.matheTV">Mã thẻ TV</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let customer of customers ; let i = index" >
+                        <td *ngIf="dsFieldInTable.maKH">{{ customer.maKH}}</td>
+                        <td *ngIf="dsFieldInTable.tenCH">{{ customer.tenCH}}</td>
+                        <td *ngIf="dsFieldInTable.diachiCH">{{ customer.diachiCH}}</td>
+                        <td *ngIf="dsFieldInTable.hoTen">{{ customer.hoTen}}</td>
+                        <td *ngIf="dsFieldInTable.sdt1">{{ customer.sdt1}}</td>
+                        <td *ngIf="dsFieldInTable.sdt2">{{ customer.sdt2}}</td>
+                        <td *ngIf="dsFieldInTable.ngaySinh">{{ customer.ngaySinh | date:'longDate' }}</td>
+                        <td *ngIf="dsFieldInTable.gioiTinh">{{ customer.gioiTinh}}</td>
+                        <td *ngIf="dsFieldInTable.email">{{ customer.email}}</td>
+                        <td *ngIf="dsFieldInTable.zalo">{{ customer.zalo}}</td>
+                        <td *ngIf="dsFieldInTable.fb">{{ customer.fb}}</td>
+                        <td *ngIf="dsFieldInTable.tenCongTy">{{ customer.tenCongTy}}</td>
+                        <td *ngIf="dsFieldInTable.masoThue">{{ customer.masoThue}}</td>
+                        <td *ngIf="dsFieldInTable.diachiHoaDon">{{ customer.diachiHoaDon}}</td>
+                        <td *ngIf="dsFieldInTable.nguonDen">{{ customer.nguonDen}}</td>
+                        <td *ngIf="dsFieldInTable.ngayDen">{{ customer.ngayDen | date:'longDate'}}</td>
+                        <td *ngIf="dsFieldInTable.ngGioiThieu">{{ customer.ngGioiThieu}}</td>
+                        <td *ngIf="dsFieldInTable.matheTV">{{ customer.matheTV}}</td>
+                        <td *ngIf="isHideAllField">
+                            <button type="button" class="btn btn-dark">Xóa</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
