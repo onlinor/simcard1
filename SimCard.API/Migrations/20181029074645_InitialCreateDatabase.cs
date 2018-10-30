@@ -8,26 +8,44 @@ namespace simcard.api.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Configurations",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    MaCH = table.Column<string>(maxLength: 255, nullable: true),
+                    TenCH = table.Column<string>(maxLength: 255, nullable: true),
+                    GiaTri = table.Column<string>(maxLength: 255, nullable: false),
+                    NgayTao = table.Column<DateTime>(nullable: false),
+                    GhiChu = table.Column<string>(maxLength: 255, nullable: true),
+                    ShopID = table.Column<string>(maxLength: 255, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Configurations", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Customers",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    tenCH = table.Column<string>(nullable: true),
-                    diachiCH = table.Column<string>(nullable: true),
-                    hoTen = table.Column<string>(nullable: true),
-                    sdt1 = table.Column<string>(nullable: true),
-                    sdt2 = table.Column<string>(nullable: true),
-                    maKH = table.Column<string>(nullable: true),
-                    matheTV = table.Column<string>(nullable: true),
-                    tenCongTy = table.Column<string>(nullable: true),
-                    masoThue = table.Column<string>(nullable: true),
-                    diachiHoaDon = table.Column<string>(nullable: true),
-                    nguonDen = table.Column<string>(nullable: true),
-                    ngGioiThieu = table.Column<string>(nullable: true),
-                    email = table.Column<string>(nullable: true),
-                    fb = table.Column<string>(nullable: true),
-                    zalo = table.Column<string>(nullable: true),
+                    tenCH = table.Column<string>(maxLength: 255, nullable: true),
+                    diachiCH = table.Column<string>(maxLength: 255, nullable: true),
+                    hoTen = table.Column<string>(maxLength: 255, nullable: false),
+                    sdt1 = table.Column<string>(maxLength: 11, nullable: true),
+                    sdt2 = table.Column<string>(maxLength: 11, nullable: true),
+                    maKH = table.Column<string>(maxLength: 255, nullable: true),
+                    matheTV = table.Column<string>(maxLength: 30, nullable: false),
+                    tenCongTy = table.Column<string>(maxLength: 255, nullable: true),
+                    masoThue = table.Column<string>(maxLength: 30, nullable: true),
+                    diachiHoaDon = table.Column<string>(maxLength: 255, nullable: true),
+                    nguonDen = table.Column<string>(maxLength: 30, nullable: true),
+                    ngGioiThieu = table.Column<string>(maxLength: 255, nullable: true),
+                    email = table.Column<string>(maxLength: 255, nullable: true),
+                    fb = table.Column<string>(maxLength: 255, nullable: true),
+                    zalo = table.Column<string>(maxLength: 255, nullable: true),
                     ngayDen = table.Column<DateTime>(nullable: false),
                     ngaySinh = table.Column<DateTime>(nullable: false),
                     gioiTinh = table.Column<bool>(nullable: false)
@@ -78,6 +96,9 @@ namespace simcard.api.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Configurations");
+
             migrationBuilder.DropTable(
                 name: "Customers");
 

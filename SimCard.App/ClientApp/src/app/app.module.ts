@@ -3,8 +3,11 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-import {DropdownModule} from 'primeng/dropdown';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TableModule } from 'primeng/table';
+import { DialogModule } from 'primeng/dialog';
+import { InputTextModule } from 'primeng/inputtext';
+import { ToastModule } from 'primeng/toast';
 
 // Component
 import { AppComponent } from './app.component';
@@ -14,12 +17,15 @@ import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { CustomerComponent } from './customer/customer.component';
 import { CustomerFormComponent } from './customer/customer-form/customer-form.component';
-import { CustomerService } from './_services/customer-service/customer.service';
 import { DateInputComponent } from './_commonComponent/date-input/date-input.component';
 import { TableConfigurationComponent } from './customer/table-configuration/table-configuration.component';
 import { SearchBoxComponent } from './customer/search-box/search-box.component';
+import { ConfigurationComponent } from './configuration/configuration.component';
 
-
+// Service
+import { CustomerService } from './_services/customer-service/customer.service';
+import { ConfigurationService } from './_services/configuration-service/configuration.service';
+import { MessageService } from 'primeng/api';
 // Pipe
 import { FilterPipe } from './_pipe/filterPipe/filter.pipe';
 
@@ -35,11 +41,15 @@ import { FilterPipe } from './_pipe/filterPipe/filter.pipe';
         DateInputComponent,
         TableConfigurationComponent,
         SearchBoxComponent,
-        FilterPipe
+        FilterPipe,
+        ConfigurationComponent
     ],
     imports: [
+        ToastModule,
+        InputTextModule,
+        DialogModule,
         BrowserAnimationsModule,
-        DropdownModule,
+        TableModule,
         BrowserModule,
         HttpClientModule,
         FormsModule,
@@ -49,7 +59,7 @@ import { FilterPipe } from './_pipe/filterPipe/filter.pipe';
             { path: 'fetch-data', component: FetchDataComponent }
         ])
     ],
-    providers: [CustomerService],
+    providers: [CustomerService, ConfigurationService, MessageService],
     bootstrap: [AppComponent],
     exports: [
         FilterPipe

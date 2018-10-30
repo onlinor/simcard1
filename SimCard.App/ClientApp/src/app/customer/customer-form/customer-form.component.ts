@@ -83,6 +83,9 @@ export class CustomerFormComponent implements OnInit {
     }
     // trigger when open form
     onGenerateMaKH() {
+        if (!this.lastIDRecord) {
+            this.lastIDRecord = 0;
+        }
         this.lastIDRecord = this.lastIDRecord + 1;
         const maKH = 'KH' + this.lastIDRecord;
         this.customerInfo.maKH = maKH;

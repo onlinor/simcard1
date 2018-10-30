@@ -54,7 +54,7 @@
                         <td *ngIf="dsFieldInTable.sdt1">{{ customer.sdt1}}</td>
                         <td *ngIf="dsFieldInTable.sdt2">{{ customer.sdt2}}</td>
                         <td *ngIf="dsFieldInTable.ngaySinh">{{ customer.ngaySinh | date:'longDate' }}</td>
-                        <td *ngIf="dsFieldInTable.gioiTinh">{{ customer.gioiTinh}}</td>
+                        <td *ngIf="dsFieldInTable.gioiTinh">{{ customer.gioiTinh ? 'Nam' : 'Nữ '}}</td>
                         <td *ngIf="dsFieldInTable.email">{{ customer.email}}</td>
                         <td *ngIf="dsFieldInTable.zalo">{{ customer.zalo}}</td>
                         <td *ngIf="dsFieldInTable.fb">{{ customer.fb}}</td>

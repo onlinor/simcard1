@@ -37,8 +37,6 @@ namespace SimCard.API.Controllers
         {
             var customer = await customerRepository.GetCustomer(id);
             return mapper.Map<Customer, CustomerResource>(customer);
-            // return Ok(customer);
-            // return customer;
         }
 
         [HttpGet("last")]

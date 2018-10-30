@@ -41,7 +41,6 @@ export class TableConfigurationComponent implements OnInit {
         this.handleField.emit({
             ...this.listColumnTable // gán obj cũ qua obj mới
         });
-        console.log('table send', this.listColumnTable);
         this.onCloseModal();
     }
     // OPEN MODAL

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { CustomerService } from '../_services/customer-service/customer.service';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'app-customer',
@@ -33,7 +32,6 @@ export class CustomerComponent implements OnInit {
     };
     customers: any;
     constructor(
-        private http: HttpClient,
         private customerService: CustomerService
     ) { }
 
@@ -46,7 +44,6 @@ export class CustomerComponent implements OnInit {
             response => {
                 this.customers = response;
                 this.initialCustomer = response;
-                console.log('ini', this.initialCustomer);
             },
             error => {
                 console.log(error);
