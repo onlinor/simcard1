@@ -34,11 +34,10 @@
                     <div class="ui-g ui-fluid" *ngIf="configUpdate">
                         <div class="ui-g-12">
                             <div class="ui-g-4">
-                                <label>Giá Trị</label>
+                                <label>Giá Trị (*)</label>
                             </div>
                             <div class="ui-g-8">
                                 <input name="giaTri" pInputText  #giaTri="ngModel"  [(ngModel)]="configUpdate.giaTri" required/>
-                                <span class="help-block" *ngIf="!giaTri.valid && giaTri.touched">Vui lòng nhập giá trị</span>
                             </div>
                         </div>
                         <div class="ui-g-12">
@@ -52,7 +51,7 @@
                     </div>
                     <p-footer>
                         <div class="ui-dialog-buttonpane ui-helper-clearfix">
-                            <button type="submit" class="btn btn-success" [disabled]="!f.valid" pButton>Cập Nhật</button>
+                            <button type="submit" class="btn btn-success" [disabled]="!f.valid">Cập Nhật</button>
                         </div>
                     </p-footer>
                 </form>

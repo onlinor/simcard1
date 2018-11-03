@@ -55,6 +55,7 @@ namespace SimCard.API.Persistence.Repositories
                 customerToUpdate.masoThue = customer.masoThue;
                 customerToUpdate.diachiHoaDon = customer.diachiHoaDon;
                 customerToUpdate.ngGioiThieu = customer.ngGioiThieu;
+                customerToUpdate.nguonDen = customer.nguonDen;
                 customerToUpdate.email = customer.email;
                 customerToUpdate.fb = customer.fb;
                 customerToUpdate.zalo = customer.zalo;

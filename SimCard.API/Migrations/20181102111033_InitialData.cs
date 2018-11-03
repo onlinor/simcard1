@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace simcard.api.Migrations
 {
-    public partial class InitialCreateDatabase : Migration
+    public partial class InitialData : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -37,7 +37,7 @@ namespace simcard.api.Migrations
                     sdt1 = table.Column<string>(maxLength: 11, nullable: true),
                     sdt2 = table.Column<string>(maxLength: 11, nullable: true),
                     maKH = table.Column<string>(maxLength: 255, nullable: true),
-                    matheTV = table.Column<string>(maxLength: 30, nullable: false),
+                    matheTV = table.Column<string>(maxLength: 30, nullable: true),
                     tenCongTy = table.Column<string>(maxLength: 255, nullable: true),
                     masoThue = table.Column<string>(maxLength: 30, nullable: true),
                     diachiHoaDon = table.Column<string>(maxLength: 255, nullable: true),
@@ -53,6 +53,27 @@ namespace simcard.api.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Customers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Events",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    LoaiSK = table.Column<string>(maxLength: 255, nullable: true),
+                    MaSK = table.Column<string>(nullable: true),
+                    TenSK = table.Column<string>(maxLength: 255, nullable: false),
+                    NoiDung = table.Column<string>(maxLength: 255, nullable: true),
+                    NgayTao = table.Column<DateTime>(nullable: false),
+                    TgBatDau = table.Column<DateTime>(nullable: false),
+                    TgKetThuc = table.Column<DateTime>(nullable: false),
+                    DoiTuong = table.Column<string>(maxLength: 255, nullable: true),
+                    EventStatus = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Events", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -101,6 +122,9 @@ namespace simcard.api.Migrations
 
             migrationBuilder.DropTable(
                 name: "Customers");
+
+            migrationBuilder.DropTable(
+                name: "Events");
 
             migrationBuilder.DropTable(
                 name: "Product");

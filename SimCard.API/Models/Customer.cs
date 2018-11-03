@@ -26,7 +26,6 @@ namespace SimCard.API.Models
         [StringLength(255)]
         public string maKH { get; set; }
 
-        [Required]
         [StringLength(30)]
         public string matheTV { get; set; }
 
@@ -54,7 +53,6 @@ namespace SimCard.API.Models
         [StringLength(255)]
         public string zalo { get; set; }
 
-        [Required]
         public DateTime ngayDen { get; set; }
 
         [Required]

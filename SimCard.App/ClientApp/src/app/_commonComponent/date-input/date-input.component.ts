@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter} from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input} from '@angular/core';
 
 
 @Component({
@@ -11,14 +11,35 @@ export class DateInputComponent implements OnInit {
     arr30days = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30];
     arr28days = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28];
     arrNgaySinh = this.arr31days;
-    day: any;
-    month: any;
+
     @Output('day') onHandleDay = new EventEmitter<string>();
     @Output('month') onHandleMonth = new EventEmitter<string>();
+    @Input('dayCheck') dayCheck: any;
+    @Input('monthCheck') monthCheck: any;
+    day: any;
+    month: any;
 
     constructor() { }
 
     ngOnInit() {
+       this.recieveDayFromForm();
+    }
+
+    recieveDayFromForm() {
+        if (this.monthCheck) {
+            if (this.monthCheck < 10) {
+                this.month = '0' + this.monthCheck;
+            } else {
+                this.month = this.monthCheck.toString();
+            }
+        } else {
+            this.month = null;
+        }
+        if (this.dayCheck) {
+            this.day = this.dayCheck.toString();
+        } else {
+            this.day = null;
+        }
     }
 
     onChangeMonth(month) {
@@ -37,5 +58,4 @@ export class DateInputComponent implements OnInit {
         this.day = day;
         this.onHandleDay.emit(this.day);
     }
-
 }

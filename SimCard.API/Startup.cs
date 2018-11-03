@@ -34,6 +34,7 @@ namespace simcard.api
             services.AddScoped<IShopRepository, ShopRepository>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped<IConfigurationRepository, ConfigurationRepository>();
+            services.AddScoped<IEventRepository, EventRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddCors();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
@@ -50,7 +51,7 @@ namespace simcard.api
             {
                 app.UseHsts();
             }
-               
+
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseHttpsRedirection();
             app.UseMvc();

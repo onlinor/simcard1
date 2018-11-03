@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ConfigurationService } from '../_services/configuration-service/configuration.service';
 import { MessageService } from 'primeng/api';
+import { Subscription } from 'rxjs/subscription';
 
 @Component({
     selector: 'app-configuration',
     templateUrl: './configuration.component.html',
     styleUrls: ['./configuration.component.css']
 })
-export class ConfigurationComponent implements OnInit {
+export class ConfigurationComponent implements OnInit, OnDestroy {
+    subscription: Subscription;
     configInfo: any;
     selectedConfig: any;
     displayDialog: any;
@@ -30,20 +32,18 @@ export class ConfigurationComponent implements OnInit {
         private messageService: MessageService
     ) { }
 
+    // notify when submit success
     toastSuccess() {
         this.messageService.add({severity: 'success', detail: 'Cập nhật thành công'});
-    }
-
-    toastError() {
-        this.messageService.add({severity: 'error', detail: 'Cập nhật thất bại'});
     }
 
     ngOnInit() {
         this.getAllConfiguration();
     }
 
+    // get all config from db
     getAllConfiguration() {
-        this.configurationService.getAllConfiguration().subscribe(
+        this.subscription = this.configurationService.getAllConfiguration().subscribe(
             response => {
                 this.configInfo = response;
                 console.log('info', this.configInfo);
@@ -54,8 +54,9 @@ export class ConfigurationComponent implements OnInit {
         );
     }
 
+    // submit (update) event
     onSubmit() {
-        this.configurationService.updateCustomer(this.configUpdate.id, this.configUpdate)
+        this.subscription = this.configurationService.updateCustomer(this.configUpdate.id, this.configUpdate)
             .subscribe(() => {
                 this.toastSuccess();
                 this.getAllConfiguration();
@@ -65,10 +66,13 @@ export class ConfigurationComponent implements OnInit {
         this.displayDialog = false;
     }
 
+    // select row on table
     onRowSelect(event) {
         this.configUpdate = this.cloneConfig(event.data);
         this.displayDialog = true;
     }
+
+    // call in onRowSelect
     cloneConfig(cf: any) {
         const config = {};
         // tslint:disable-next-line:forin
@@ -76,5 +80,11 @@ export class ConfigurationComponent implements OnInit {
             config[prop] = cf[prop];
         }
         return config;
+    }
+
+    ngOnDestroy() {
+        if (this.subscription) {
+           this.subscription.unsubscribe();
+        }
     }
 }

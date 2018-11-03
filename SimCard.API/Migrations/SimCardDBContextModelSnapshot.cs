@@ -75,7 +75,6 @@ namespace simcard.api.Migrations
                         .HasMaxLength(30);
 
                     b.Property<string>("matheTV")
-                        .IsRequired()
                         .HasMaxLength(30);
 
                     b.Property<string>("ngGioiThieu")
@@ -106,6 +105,39 @@ namespace simcard.api.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Customers");
+                });
+
+            modelBuilder.Entity("SimCard.API.Models.Event", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("DoiTuong")
+                        .HasMaxLength(255);
+
+                    b.Property<bool>("EventStatus");
+
+                    b.Property<string>("LoaiSK")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("MaSK");
+
+                    b.Property<DateTime>("NgayTao");
+
+                    b.Property<string>("NoiDung")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("TenSK")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.Property<DateTime>("TgBatDau");
+
+                    b.Property<DateTime>("TgKetThuc");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Events");
                 });
 
             modelBuilder.Entity("SimCard.API.Models.Product", b =>

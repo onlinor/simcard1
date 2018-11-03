@@ -1,22 +1,17 @@
 using System;
-using System.ComponentModel.DataAnnotations;
 
-namespace SimCard.API.Models
+namespace SimCard.API.Controllers.Resources
 {
-    public class Event
+    public class EventResource
     {
         public int Id { get; set; }
 
-        [StringLength(255)]
         public string LoaiSK { get; set; }
 
         public string MaSK { get; set; }
 
-        [StringLength(255)]
-        [Required]
         public string TenSK { get; set; }
 
-        [StringLength(255)]
         public string NoiDung { get; set; }
 
         public DateTime NgayTao { get; set;}
@@ -25,9 +20,8 @@ namespace SimCard.API.Models
 
         public DateTime TgKetThuc { get; set;}
 
-        [StringLength(255)]
         public string DoiTuong { get; set; }
-
-        public Boolean EventStatus { get; set; }
+        
+        public Boolean EventStatus { get; set;}
     }
 }

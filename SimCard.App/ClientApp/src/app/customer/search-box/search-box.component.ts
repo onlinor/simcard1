@@ -15,6 +15,7 @@ export class SearchBoxComponent implements OnInit {
     ngOnInit() {
     }
 
+    // emit data 
     onSearch() {
         this.handleSearchKH.emit(this.data);
     }
