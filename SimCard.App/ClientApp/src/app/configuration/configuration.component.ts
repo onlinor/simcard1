@@ -46,7 +46,6 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
         this.subscription = this.configurationService.getAllConfiguration().subscribe(
             response => {
                 this.configInfo = response;
-                console.log('info', this.configInfo);
             },
             error => {
                 console.log(error);

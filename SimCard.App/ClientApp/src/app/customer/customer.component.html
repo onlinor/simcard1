@@ -13,20 +13,19 @@
                 <app-table-configuration (listColumnTable)="onGetListField($event)"></app-table-configuration>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 mb-2">
-                <button type="button" class="btn btn-warning btn-block">Nhập Excel</button>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 mb-2">
-                <button type="button" class="btn btn-secondary btn-block">Xuất Excel </button>
+                <input type="file" (change)="myUploader($event)" accept=".xlsx" placeholder="Upload file">
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
             <app-search-box (keyword)="onGetKeywordKH($event)"></app-search-box>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mt-20">
-            <p-table class="table-fixed" [value]='customers' selectionMode='single' (onRowSelect)="onRowSelect($event)"
-                [paginator]="true" [rows]="10">
+            <p-table [columns]="cols" #datatable class="table-fixed" [responsive]="true" [value]='customers'
+                [(selection)]="selectedCustomer" selectionMode='single' (onRowSelect)="onRowSelect($event)" [paginator]="true"
+                [rows]="10">
                 <ng-template pTemplate="caption">
-                    Danh Sách Khách Hàng
+                    <p class="header-table">Danh Sách Khách Hàng</p>
+                    <button type="button" class="float-right" pButton label="Xuất Excel" (click)="datatable.exportCSV()"></button>
                 </ng-template>
                 <ng-template pTemplate="header" let-columns>
                     <tr>
@@ -87,8 +86,11 @@
                             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                                 <div *ngIf="!isInputYear">
                                     <label>Ngày sinh (*)</label>
-                                    <input type="date" name="ngaySinh" class="form-control" [value]="customerInfo.ngaySinh| date:'yyyy-MM-dd'"
-                                        (input)="parseDate($event.target.value, 'ngaySinh')" required />
+                                    <input type="date" name="ngaySinh" class="{{!isNgaySinhValid ? 'form-control border-invalid' : 'form-control'}}"
+                                        [value]="customerInfo.ngaySinh| date:'yyyy-MM-dd'" (input)="parseDate($event.target.value, 'ngaySinh')"
+                                        required />
+                                    <span class="help-block" *ngIf="!isNgaySinhValid">Ngày sinh phải nhỏ hơn ngày
+                                        đến</span>
                                 </div>
                                 <div *ngIf="isInputYear">
                                     <app-date-input (day)="onGetDay($event)" (month)="onGetMonth($event)" [dayCheck]="dayCheck"

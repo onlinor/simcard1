@@ -29,6 +29,7 @@ import { CustomerService } from './_services/customer-service/customer.service';
 import { ConfigurationService } from './_services/configuration-service/configuration.service';
 import { MessageService } from 'primeng/api';
 import { EventsService } from './_services/events-service/events.service';
+import { FileService } from './_services/fileExcel-service/file.service';
 
 // Pipe
 import { FilterPipe } from './_pipe/filterPipe/filter.pipe';
@@ -65,7 +66,7 @@ import { FilterPipe } from './_pipe/filterPipe/filter.pipe';
             { path: 'fetch-data', component: FetchDataComponent }
         ])
     ],
-    providers: [CustomerService, ConfigurationService, MessageService, EventsService],
+    providers: [CustomerService, ConfigurationService, MessageService, EventsService, FileService],
     bootstrap: [AppComponent],
     exports: [FilterPipe]
 })

@@ -24,9 +24,6 @@ label {
 #select-control {
   height: 34px;
 }
-body #customer-dialog .ui-dialog .ui-dialog-content {
-  overflow-x: hidden;
-}
 
 .table-fixed {
   table-layout: fixed;
@@ -38,4 +35,10 @@ td {
 }
 .ml-10 {
   margin-left: 10px;
+}
+.border-invalid {
+  border: 1px solid red;
+}
+.header-table {
+  display: inline-block;
 }
