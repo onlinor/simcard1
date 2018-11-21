@@ -1,5 +1,0 @@
-<form #addproductform="ngForm" class="form-inline my-2 my-lg-0" (ngSubmit)="addProduct()">
-  <input class="form-control mr-sm-2" type="text" name="Name"
-    placeholder="name product" required [(ngModel)]="model.Name">
-  <button [disabled]="!addproductform.valid" class="btn btn-success my-2 my-sm-0" type="submit">Go</button>
-</form>
