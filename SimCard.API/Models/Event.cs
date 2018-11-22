@@ -19,15 +19,19 @@ namespace SimCard.API.Models
         [StringLength(255)]
         public string NoiDung { get; set; }
 
-        public DateTime NgayTao { get; set;}
+        public DateTime NgayTao { get; set; }
 
-        public DateTime TgBatDau { get; set;}
+        public DateTime TgBatDau { get; set; }
 
-        public DateTime TgKetThuc { get; set;}
+        public DateTime TgKetThuc { get; set; }
 
         [StringLength(255)]
         public string DoiTuong { get; set; }
 
         public Boolean EventStatus { get; set; }
+
+        public Boolean isNewEvent { get; set; }
+        
+        public Boolean isCompleteEvent { get; set; }
     }
 }

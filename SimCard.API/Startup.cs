@@ -35,6 +35,7 @@ namespace simcard.api
             services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped<IConfigurationRepository, ConfigurationRepository>();
             services.AddScoped<IEventRepository, EventRepository>();
+            services.AddScoped<IEmailRepository, EmailRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddCors();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);

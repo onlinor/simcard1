@@ -135,6 +135,10 @@ namespace simcard.api.Migrations
 
                     b.Property<DateTime>("TgKetThuc");
 
+                    b.Property<bool>("isCompleteEvent");
+
+                    b.Property<bool>("isNewEvent");
+
                     b.HasKey("Id");
 
                     b.ToTable("Events");

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SimCard.API.Models;
@@ -13,6 +14,10 @@ namespace SimCard.API.Persistence.Repositories
         {
             this.context = context;
         }
+        public List<Event> getDSEvent()
+        {
+            return context.Events.ToList();
+        }
 
         public async Task<IEnumerable<Event>> GetAllEvents()
         {
@@ -26,7 +31,8 @@ namespace SimCard.API.Persistence.Repositories
 
         public async Task<Event> AddEvent(Event eventParams)
         {
-            if (eventParams != null) {
+            if (eventParams != null)
+            {
                 await context.AddAsync(eventParams);
                 await context.SaveChangesAsync();
                 return eventParams;
@@ -37,7 +43,8 @@ namespace SimCard.API.Persistence.Repositories
         public async Task<Event> UpdateEvent(int id, Event eventParams)
         {
             var eventToUpdate = context.Events.Find(id);
-            if (eventToUpdate != null) {
+            if (eventToUpdate != null)
+            {
                 eventToUpdate.LoaiSK = eventParams.LoaiSK;
                 eventToUpdate.TenSK = eventParams.TenSK;
                 eventToUpdate.NoiDung = eventParams.NoiDung;
@@ -55,16 +62,20 @@ namespace SimCard.API.Persistence.Repositories
             int lastIDRecord = await context.Events.MaxAsync(x => x.Id);
             return lastIDRecord;
         }
-        
+
         public void Remove(Event eventParams)
         {
             context.Remove(eventParams);
         }
 
-        public async Task<Event> UpdateEventStatus(int id, Event eventParams) {
+        public async Task<Event> UpdateEventStatus(int id, Event eventParams)
+        {
             var eventToUpdate = context.Events.Find(id);
-            if (eventParams != null) {
+            if (eventParams != null)
+            {
                 eventToUpdate.EventStatus = eventParams.EventStatus;
+                eventToUpdate.isNewEvent = eventParams.isNewEvent;
+                eventToUpdate.isCompleteEvent = eventParams.isCompleteEvent;
                 context.Events.Update(eventToUpdate);
                 await context.SaveChangesAsync();
                 return eventToUpdate;

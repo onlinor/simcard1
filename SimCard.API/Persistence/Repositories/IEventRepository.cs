@@ -17,6 +17,8 @@ namespace SimCard.API.Persistence.Repositories
 
         Task<Event> UpdateEventStatus(int id, Event eventParams);
 
+        List<Event> getDSEvent();
+
         void Remove(Event eventParams);
     }
 }

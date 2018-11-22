@@ -14,14 +14,18 @@ namespace SimCard.API.Controllers.Resources
 
         public string NoiDung { get; set; }
 
-        public DateTime NgayTao { get; set;}
+        public DateTime NgayTao { get; set; }
 
-        public DateTime TgBatDau { get; set;}
+        public DateTime TgBatDau { get; set; }
 
-        public DateTime TgKetThuc { get; set;}
+        public DateTime TgKetThuc { get; set; }
 
         public string DoiTuong { get; set; }
-        
-        public Boolean EventStatus { get; set;}
+
+        public Boolean EventStatus { get; set; }
+
+        public Boolean isNewEvent { get; set; }
+
+        public Boolean isCompleteEvent { get; set; }
     }
 }
