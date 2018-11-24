@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using SimCard.API.Controllers.Resources;
 using SimCard.API.Models;
 using SimCard.API.Persistence;
-using SimCard.API.Persistence.Repositories;
+using SimCard.API.Persistence.Repositories._Shop;
 
 namespace SimCard.API.Controllers
 {
