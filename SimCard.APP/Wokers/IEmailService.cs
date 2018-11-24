@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace demo_email.Wokers
+namespace SimCard.APP.Wokers
 {
     public interface IEmailService
     {

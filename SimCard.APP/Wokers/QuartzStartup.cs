@@ -6,7 +6,8 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace demo_email.Wokers
+
+namespace SimCard.APP.Wokers
 {
     // Responsible for starting and gracefully stopping the scheduler.
     public class QuartzStartup

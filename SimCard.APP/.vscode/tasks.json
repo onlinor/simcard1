@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/demo_email.csproj"
+                "${workspaceFolder}/SimCard.APP.csproj"
             ],
             "problemMatcher": "$msCompile"
         }

@@ -13,7 +13,7 @@ using System.Net.Mail;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace demo_email.Wokers
+namespace SimCard.APP.Wokers
 {
     public class SendUserEmailsJob : IJob
     {
