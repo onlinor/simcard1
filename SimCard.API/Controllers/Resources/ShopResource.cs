@@ -5,9 +5,14 @@ namespace SimCard.API.Controllers.Resources
 {
     public class ShopResource
     {
-        public int ShopID { get; set; }
+        public int Id { get; set; }
         
         public string Name { get; set; }
         public ICollection<ProductResource> Products { get; set; }
+
+        public ShopResource ()
+        {
+            Products = new Collection<ProductResource>();
+        }
     }
 }

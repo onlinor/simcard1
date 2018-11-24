@@ -11913,11 +11913,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\working\\simcard\\simcard1\\SimCard.API\\simcard.api.csproj",
+      "projectUniqueName": "C:\\working\\pullrequest\\simcard1\\simcard1\\SimCard.API\\simcard.api.csproj",
       "projectName": "simcard.api",
-      "projectPath": "c:\\working\\simcard\\simcard1\\SimCard.API\\simcard.api.csproj",
+      "projectPath": "C:\\working\\pullrequest\\simcard1\\simcard1\\SimCard.API\\simcard.api.csproj",
       "packagesPath": "C:\\Users\\phank\\.nuget\\packages\\",
-      "outputPath": "c:\\working\\simcard\\simcard1\\SimCard.API\\obj\\",
+      "outputPath": "C:\\working\\pullrequest\\simcard1\\simcard1\\SimCard.API\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

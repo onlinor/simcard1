@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse, HttpHeaders, HttpErrorResponse} from '@angular/common/http';
-import { WarehouseConfig } from './warehouseConfig';
+import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { Warehouse } from './warehouse';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -21,15 +20,32 @@ export class WarehouseService {
 
   constructor(private http: HttpClient) { }
 
-  GetWarehouses (): Observable<HttpResponse<WarehouseConfig>> {
-    return this.http.get<WarehouseConfig>(
+  getWarehouses (): Observable<HttpResponse<Warehouse>> {
+    return this.http.get<Warehouse>(
        this.baseUrl, {observe: 'response'}
     );
   }
 
   deleteWarehouse (id: number): Observable<{}> {
-      const url = `${this.baseUrl}/remove/${id}`;
-      return this.http.delete(url, httpOptions)
+    return this.http.delete(
+      `${this.baseUrl}/remove/${id}`, httpOptions)
+      .pipe(
+        // catchError() and handleerror implement
+      );
+  }
+
+
+  addWarehouse (warehouse: Warehouse): Observable<Warehouse> {
+    return this.http.post<Warehouse>(
+      `${this.baseUrl}/add`, warehouse, httpOptions)
+      .pipe(
+        // catchError() and handleerror implement
+      );
+  }
+
+  updateWarehouse (warehouse: Warehouse): Observable<Warehouse> {
+    return this.http.put<Warehouse>(
+      `${this.baseUrl}/edit/${warehouse.id}`, warehouse, httpOptions)
       .pipe(
         // catchError() and handleerror implement
       );

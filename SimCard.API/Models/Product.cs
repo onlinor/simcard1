@@ -1,19 +1,21 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using SimCard.API.Models.RelationalClasses;
 
 namespace SimCard.API.Models
 {
     [Table("Product")]
     public class Product
     {
-        [Key]
-        public int ProductID { get; set; } 
+        public int Id { get; set; }
 
         [Required]
         [StringLength(255)]
-        public string Name { get; set; }   
-        public ICollection<ProductShop> ProductShops { get; set; }
+        public string Name { get; set; }        
+
+        public int Quantity { get; set; }
+        public string Unit { get; set; }
+        public decimal BuyingPrice { get; set; }
+        public Shop Shop { get; set; }
+        public int ShopId { get; set; }
     }
 }

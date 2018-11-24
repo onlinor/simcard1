@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SimCard.API.Models;
 
-namespace SimCard.API.Persistence.Repositories
+namespace SimCard.API.Persistence.Repositories._Shop
 {    
     public class ShopRepository : IShopRepository
     {
@@ -14,25 +14,24 @@ namespace SimCard.API.Persistence.Repositories
             this.context = context;
         }        
 
-     /*public async Task<Shop> GetShops(int id, bool includeRelated = true)
+        public async Task<Shop> GetShop(int id, bool includeRelated = true)
         {
             if (!includeRelated)
                 return await context.Shops.FindAsync(id);
 
             return await context.Shops            
                 .Include(v => v.Products)                
-                .SingleOrDefaultAsync(v => v.Id == id); 
-                return await context.Shops.Find(id);
+                .SingleOrDefaultAsync(v => v.Id == id);
         }
-        
-       public async Task<IEnumerable<Shop>> GetShops()
+
+        public async Task<IEnumerable<Shop>> GetShops()
         {
             return await context.Shops.Include(m => m.Products).ToListAsync();
         }
 
         public void Remove(Shop shop)
         {
-            context.Remove(shop);
-        }*/
+            context.Shops.Remove(shop);
+        }
     }
 }

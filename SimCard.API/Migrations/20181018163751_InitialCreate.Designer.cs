@@ -8,7 +8,7 @@ using SimCard.API.Persistence;
 namespace simcard.api.Migrations
 {
     [DbContext(typeof(SimCardDBContext))]
-    [Migration("20181014171633_InitialCreate")]
+    [Migration("20181018163751_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -19,55 +19,41 @@ namespace simcard.api.Migrations
 
             modelBuilder.Entity("SimCard.API.Models.Product", b =>
                 {
-                    b.Property<int>("ProductID")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(255);
 
-                    b.HasKey("ProductID");
+                    b.Property<int>("ShopId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ShopId");
 
                     b.ToTable("Product");
                 });
 
-            modelBuilder.Entity("SimCard.API.Models.RelationalClasses.ProductShop", b =>
-                {
-                    b.Property<int>("ShopID");
-
-                    b.Property<int>("ProductID");
-
-                    b.HasKey("ShopID", "ProductID");
-
-                    b.HasIndex("ProductID");
-
-                    b.ToTable("ProductShop");
-                });
-
             modelBuilder.Entity("SimCard.API.Models.Shop", b =>
                 {
-                    b.Property<int>("ShopID")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(255);
 
-                    b.HasKey("ShopID");
+                    b.HasKey("Id");
 
                     b.ToTable("Shop");
                 });
 
-            modelBuilder.Entity("SimCard.API.Models.RelationalClasses.ProductShop", b =>
+            modelBuilder.Entity("SimCard.API.Models.Product", b =>
                 {
-                    b.HasOne("SimCard.API.Models.Product", "Product")
-                        .WithMany("ProductShops")
-                        .HasForeignKey("ProductID")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("SimCard.API.Models.Shop", "Shop")
-                        .WithMany("ProductShops")
-                        .HasForeignKey("ShopID")
+                        .WithMany("Products")
+                        .HasForeignKey("ShopId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
