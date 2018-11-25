@@ -125,15 +125,11 @@
                                 <label>Số điện thoại 1</label>
                                 <input type="text" class="form-control" name="sdt1" #sdt1="ngModel" pattern="^([0][0-9]{9}|[0][0-9]{10}|[+][8][4][0-9]{9})$"
                                     [(ngModel)]="customerInfo.sdt1">
-                                <span class="help-block" *ngIf="!sdt1.valid && sdt1.touched">Vui lòng nhập đúng
-                                    định dạng số điện thoại </span>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                                 <label>Số điện thoại 2</label>
                                 <input type="text" class="form-control" name="sdt2" #sdt2="ngModel" pattern="^([0][0-9]{9}|[0][0-9]{10}|[+][8][4][0-9]{9})$"
                                     [(ngModel)]="customerInfo.sdt2">
-                                <span class="help-block" *ngIf="!sdt2.valid && sdt2.touched">Vui lòng nhập đúng
-                                    định dạng số điện thoại </span>
                             </div>
                         </div>
                     </div>
