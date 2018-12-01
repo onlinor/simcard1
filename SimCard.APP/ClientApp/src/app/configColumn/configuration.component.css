@@ -1,0 +1,3 @@
+:host >>> .ui-dialog .ui-dialog-titlebar-icon span {
+    display: none !important;
+}
