@@ -14,7 +14,7 @@ import { DialogModule } from 'primeng/dialog';
 import { PanelModule, ButtonModule } from 'primeng/primeng';
 import { InputTextModule } from 'primeng/inputtext';
 import { DropdownModule } from 'primeng/dropdown';
-import {CalendarModule} from 'primeng/calendar';
+import { CalendarModule } from 'primeng/calendar';
 
 
 

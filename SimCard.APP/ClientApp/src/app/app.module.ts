@@ -10,6 +10,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ToastModule } from 'primeng/toast';
 import {DropdownModule} from 'primeng/dropdown';
 import {CalendarModule} from 'primeng/calendar';
+import { PanelModule, ButtonModule } from 'primeng/primeng';
 
 // Component
 import { AppComponent } from './app.component';
@@ -43,7 +44,9 @@ import { FileService } from './_services/fileExcel-service/file.service';
         TableConfigurationComponent,
         SearchBoxComponent,
         ConfigurationComponent,
-        EventsComponent
+        EventsComponent,
+        ButtonModule,
+        PanelModule
     ],
     imports: [
         CalendarModule,

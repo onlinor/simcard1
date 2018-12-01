@@ -17,6 +17,7 @@ using Microsoft.EntityFrameworkCore.Sqlite;
 using SimCard.API.Persistence.Repositories._Shop;
 using SimCard.API.Persistence.Repositories._Warehouse;
 using SimCard.API.Persistence.Repositories._Product;
+using SimCard.API.Persistence.Repositories;
 
 namespace simcard.api
 {

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace simcard.api.Migrations
 {
-    public partial class InitialData : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -69,7 +69,9 @@ namespace simcard.api.Migrations
                     TgBatDau = table.Column<DateTime>(nullable: false),
                     TgKetThuc = table.Column<DateTime>(nullable: false),
                     DoiTuong = table.Column<string>(maxLength: 255, nullable: true),
-                    EventStatus = table.Column<bool>(nullable: false)
+                    EventStatus = table.Column<bool>(nullable: false),
+                    isNewEvent = table.Column<bool>(nullable: false),
+                    isCompleteEvent = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -90,12 +92,29 @@ namespace simcard.api.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Warehouse",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(maxLength: 255, nullable: false),
+                    Note = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Warehouse", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Product",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(maxLength: 255, nullable: false),
+                    Quantity = table.Column<int>(nullable: false),
+                    Unit = table.Column<string>(nullable: true),
+                    BuyingPrice = table.Column<decimal>(nullable: false),
                     ShopId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -128,6 +147,9 @@ namespace simcard.api.Migrations
 
             migrationBuilder.DropTable(
                 name: "Product");
+
+            migrationBuilder.DropTable(
+                name: "Warehouse");
 
             migrationBuilder.DropTable(
                 name: "Shop");

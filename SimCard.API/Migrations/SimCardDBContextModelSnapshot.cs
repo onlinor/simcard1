@@ -149,11 +149,17 @@ namespace simcard.api.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<decimal>("BuyingPrice");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(255);
 
+                    b.Property<int>("Quantity");
+
                     b.Property<int>("ShopId");
+
+                    b.Property<string>("Unit");
 
                     b.HasKey("Id");
 
@@ -174,6 +180,22 @@ namespace simcard.api.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Shop");
+                });
+
+            modelBuilder.Entity("SimCard.API.Models.Warehouse", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.Property<string>("Note");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Warehouse");
                 });
 
             modelBuilder.Entity("SimCard.API.Models.Product", b =>
