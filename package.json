@@ -1,0 +1,24 @@
+{
+  "name": "simcardproj",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/onlinor/simcard1.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/onlinor/simcard1/issues"
+  },
+  "homepage": "https://github.com/onlinor/simcard1#readme",
+  "dependencies": {
+    "primeicons": "^1.0.0",
+    "primeng": "^7.0.0-beta.1",
+    "quartz": "0.0.1"
+  }
+}
