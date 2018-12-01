@@ -12,6 +12,9 @@ namespace SimCard.API.Models
         [StringLength(255)]
         public string Name { get; set; }        
 
+        public int Quantity { get; set; }
+        public string Unit { get; set; }
+        public decimal BuyingPrice { get; set; }
         public Shop Shop { get; set; }
         public int ShopId { get; set; }
     }

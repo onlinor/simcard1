@@ -13,7 +13,10 @@ using Microsoft.Extensions.Options;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using SimCard.API.Persistence;
-using SimCard.API.Persistence.Repositories;
+using Microsoft.EntityFrameworkCore.Sqlite;
+using SimCard.API.Persistence.Repositories._Shop;
+using SimCard.API.Persistence.Repositories._Warehouse;
+using SimCard.API.Persistence.Repositories._Product;
 
 namespace simcard.api
 {
@@ -30,11 +33,15 @@ namespace simcard.api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAutoMapper();
-            services.AddDbContext<SimCardDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
+            //services.AddDbContext<SimCardDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
+            services.AddDbContext<SimCardDBContext>(Options => Options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IShopRepository, ShopRepository>();
+            services.AddScoped<IWarehouseRepository, WarehouseRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,6 +57,7 @@ namespace simcard.api
             }
 
             app.UseHttpsRedirection();
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseMvc();
         }
     }
