@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace simcard.api.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class InitialCreateData : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
