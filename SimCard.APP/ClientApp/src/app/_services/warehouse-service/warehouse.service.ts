@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { Warehouse } from './warehouse';
+import { Warehouse } from '../../_models/warehouse';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -13,7 +13,6 @@ const httpOptions = {
 @Injectable({
   providedIn: 'root'
 })
-
 export class WarehouseService {
 
   baseUrl = 'http://localhost:5000/api/warehouse';

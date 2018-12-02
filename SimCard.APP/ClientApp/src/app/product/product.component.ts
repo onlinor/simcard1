@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductService } from '../services/product.service';
-import { Product } from '../services/product';
-import { Shop } from '../services/shop';
-import { WarehouseService } from '../services/warehouse.service';
-import { Warehouse } from '../services/warehouse';
+import { ProductService } from '../_services/product-service/product.service';
+import { Product } from '../_models/product';
+import { Shop } from '../_models/shop';
+import { WarehouseService } from '../_services/warehouse-service/warehouse.service';
+import { Warehouse } from '../_models/warehouse';
 
 @Component({
   selector: 'app-product',

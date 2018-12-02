@@ -59,7 +59,11 @@ namespace SimCard.API.Persistence.Repositories
         }
         public async Task<int> GetLastIDEventRecord()
         {
-            int lastIDRecord = await context.Events.MaxAsync(x => x.Id);
+            int lastIDRecord = 0;
+            var anyRecord = await context.Events.AnyAsync();
+            if (anyRecord) {
+                lastIDRecord = await context.Events.MaxAsync(x => x.Id);
+            } 
             return lastIDRecord;
         }
 

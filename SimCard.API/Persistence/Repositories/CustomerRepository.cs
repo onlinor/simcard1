@@ -70,7 +70,11 @@ namespace SimCard.API.Persistence.Repositories
         }
 
         public async Task<int> GetLastIDCustomerRecord() {
-            int lastIDRecord = await context.Customers.MaxAsync(x => x.Id);
+            int lastIDRecord = 0;
+            var anyRecord = await context.Customers.AnyAsync();
+            if (anyRecord) {
+                lastIDRecord = await context.Customers.MaxAsync(x => x.Id);
+            }
             return lastIDRecord;
         }
     }

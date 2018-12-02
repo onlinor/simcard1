@@ -1,16 +1,24 @@
-<div class='container-fluid overflow-xy'>
-  <div class='row'>
-      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-           <!-- <app-customer></app-customer> -->
+<div class='container-fluid'>
+   <div class='row'>
+      <div class='col-sm-3'>
+         <app-nav-menu></app-nav-menu>
       </div>
-      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <!--<app-configuration></app-configuration> -->
+      <div class='col-sm-9 body-content'>
+         <router-outlet></router-outlet>
       </div>
-      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-         <app-events></app-events>
-      </div>
-  </div>
+   </div>
 </div>
-<app-warehouse></app-warehouse>
-<hr>
-<app-product></app-product>
+
+
+<!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+   <app-customer></app-customer>
+</div>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+   <app-configuration></app-configuration>
+</div>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+  <app-events></app-events>
+</div> -->
+<!-- <app-warehouse></app-warehouse>
+<hr />
+<app-product></app-product> -->

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { WarehouseService } from '../services/warehouse.service';
-import { Warehouse } from '../services/warehouse';
+import { WarehouseService } from '../_services/warehouse-service/warehouse.service';
+import { Warehouse } from '../_models/warehouse';
 
 @Component({
   selector: 'app-warehouse',

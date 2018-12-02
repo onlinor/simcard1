@@ -9,7 +9,7 @@ using SimCard.API.Persistence;
 namespace simcard.api.Migrations
 {
     [DbContext(typeof(SimCardDBContext))]
-    [Migration("20181201101528_InitialCreate")]
+    [Migration("20181201172521_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
