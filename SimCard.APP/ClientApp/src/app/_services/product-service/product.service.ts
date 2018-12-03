@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { Product } from '../../_models/product';
+import { Product } from './product';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -50,4 +50,23 @@ export class ProductService {
   //       // catchError() and handleerror implement
   //     );
   // }
+
+  UpdateQuantityByProductName (name: string, quantity: number): Observable<any> {
+
+    const pro = {name: name, quantity: quantity};
+
+    return this.http.put(
+      `${this.baseUrl}/edit`, pro, httpOptions)
+      .pipe(
+
+      );
+  }
+
+  addProducts (products: Product[]): Observable<Product> {
+    return this.http.post<Product>(
+      `${this.baseUrl}/addproducts`, products, httpOptions)
+      .pipe(
+        // catchError() and handleerror implement
+      );
+  }
 }
