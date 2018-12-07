@@ -10,8 +10,11 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ToastModule } from 'primeng/toast';
 import { DropdownModule } from 'primeng/dropdown';
 import { CalendarModule } from 'primeng/calendar';
-// import { PanelModule } from 'primeng/panel';
-// import { ButtonModule } from 'primeng/button';
+import { PanelModule } from 'primeng/panel';
+import { ButtonModule } from 'primeng/button';
+import { TabViewModule } from 'primeng/tabview';
+import { FileUploadModule } from 'primeng/fileupload';
+
 
 // Component
 import { AppComponent } from './app.component';
@@ -36,7 +39,7 @@ import { EventsService } from './_services/events-service/events.service';
 import { FileService } from './_services/fileExcel-service/file.service';
 import { WarehouseService } from './_services/warehouse-service/warehouse.service';
 import { ProductService } from './_services/product-service/product.service';
-
+import { FileImportService } from './_services/fileExcel-service/fileimport.service';
 @NgModule({
     declarations: [
         AppComponent,
@@ -50,8 +53,6 @@ import { ProductService } from './_services/product-service/product.service';
         SearchBoxComponent,
         ConfigurationComponent,
         EventsComponent,
-        // ButtonModule,
-        // PanelModule,
         ProductComponent,
         WarehouseComponent
     ],
@@ -64,8 +65,12 @@ import { ProductService } from './_services/product-service/product.service';
         BrowserAnimationsModule,
         TableModule,
         BrowserModule,
+        ButtonModule,
+        PanelModule,
         HttpClientModule,
         FormsModule,
+        TabViewModule,
+        FileUploadModule,
         RouterModule.forRoot([
             { path: '', component: HomeComponent, pathMatch: 'full' },
             { path: 'customer', component: CustomerComponent },
@@ -76,7 +81,7 @@ import { ProductService } from './_services/product-service/product.service';
         ])
     ],
     providers: [CustomerService, ConfigurationService,
-                    MessageService, EventsService, FileService,
+                    MessageService, EventsService, FileService, FileImportService,
                     ProductService, WarehouseService],
     bootstrap: [AppComponent]
 })
