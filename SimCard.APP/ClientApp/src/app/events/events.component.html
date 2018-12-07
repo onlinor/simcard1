@@ -35,7 +35,7 @@
                             'Doanh Số Cao' }}</td>
                         <td *ngIf="!rowData.isNewEvent && !rowData.isCompleteEvent">
                             <span class="{{ rowData.eventStatus ? 'label label-success' : 'label label-default'}}">
-                                {{rowData.eventStatus ? 'Đã Kích Hoạt' : 'Dừng Kích Hoạt'}}
+                                {{rowData.eventStatus ? 'Active' : 'Deactive'}}
                             </span>
                         </td>
                         <td *ngIf="rowData.isNewEvent && !rowData.isCompleteEvent">
