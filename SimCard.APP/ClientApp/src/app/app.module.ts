@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -14,39 +14,28 @@ import { PanelModule } from 'primeng/panel';
 import { ButtonModule } from 'primeng/button';
 import { TabViewModule } from 'primeng/tabview';
 import { FileUploadModule } from 'primeng/fileupload';
-
+import { CoreModule } from './core/core.module';
 
 // Component
 import { AppComponent } from './app.component';
-import { NavMenuComponent } from './nav-menu/nav-menu.component';
-import { HomeComponent } from './home/home.component';
-import { CounterComponent } from './counter/counter.component';
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
-import { CustomerComponent } from './customer/customer.component';
-import { DateInputComponent } from './_commonComponent/date-input/date-input.component';
-import { TableConfigurationComponent } from './customer/table-configuration/table-configuration.component';
-import { SearchBoxComponent } from './customer/search-box/search-box.component';
-import { ConfigurationComponent } from './configColumn/configuration.component';
-import { EventsComponent } from './events/events.component';
-import { ProductComponent } from './product/product.component';
-import { WarehouseComponent } from './warehouse/warehouse.component';
+import { SidebarComponent } from './shared/sidebar/sidebar.component';
+import { HomeComponent } from './public/home/home.component';
+import { CustomerComponent } from '././pages/customer/customer.component';
+import { DateInputComponent } from './shared/date-input/date-input.component';
+import { TableConfigurationComponent } from '././pages/customer/table-configuration/table-configuration.component';
+import { SearchBoxComponent } from '././pages/customer/search-box/search-box.component';
+import { ConfigurationComponent } from './pages/configColumn/configuration.component';
+import { EventsComponent } from './pages/events/events.component';
+import { ProductComponent } from './pages/product/product.component';
+import { WarehouseComponent } from './pages/warehouse/warehouse.component';
 
 // Service
-import { CustomerService } from './_services/customer-service/customer.service';
-import { ConfigurationService } from './_services/configuration-service/configuration.service';
 import { MessageService } from 'primeng/api';
-import { EventsService } from './_services/events-service/events.service';
-import { FileService } from './_services/fileExcel-service/file.service';
-import { WarehouseService } from './_services/warehouse-service/warehouse.service';
-import { ProductService } from './_services/product-service/product.service';
-import { FileImportService } from './_services/fileExcel-service/fileimport.service';
 @NgModule({
     declarations: [
         AppComponent,
-        NavMenuComponent,
+        SidebarComponent,
         HomeComponent,
-        CounterComponent,
-        FetchDataComponent,
         CustomerComponent,
         DateInputComponent,
         TableConfigurationComponent,
@@ -57,6 +46,8 @@ import { FileImportService } from './_services/fileExcel-service/fileimport.serv
         WarehouseComponent
     ],
     imports: [
+        CoreModule,
+        ReactiveFormsModule,
         CalendarModule,
         DropdownModule,
         ToastModule,
@@ -80,9 +71,7 @@ import { FileImportService } from './_services/fileExcel-service/fileimport.serv
             { path: 'warehouse', component: WarehouseComponent}
         ])
     ],
-    providers: [CustomerService, ConfigurationService,
-                    MessageService, EventsService, FileService, FileImportService,
-                    ProductService, WarehouseService],
+    providers: [MessageService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
