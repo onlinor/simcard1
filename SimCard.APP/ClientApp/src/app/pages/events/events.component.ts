@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { EventsService } from '../../core/services/events.service';
 import { MessageService } from 'primeng/api';
 import { Subscription } from 'rxjs/subscription';
+import { LogService } from '../../shared/logging-services/log.service';
 
 @Component({
     selector: 'app-events',
@@ -56,7 +57,8 @@ export class EventsComponent implements OnInit, OnDestroy {
         { header: 'Đối Tượng', field: 'doiTuong' },
         { header: 'Trạng Thái', field: 'eventStatus'}
     ];
-    constructor(private eventService: EventsService, private messageService: MessageService) { }
+    constructor(private eventService: EventsService, private messageService: MessageService,
+                      private logService: LogService) { }
 
     ngOnInit() {
         this.getAllEvent();
@@ -100,6 +102,7 @@ export class EventsComponent implements OnInit, OnDestroy {
             .subscribe(reponse => {
                 this.dsEvent = reponse;
             }, error => {
+                this.logService.error(error['message']);
             });
     }
 
@@ -110,6 +113,7 @@ export class EventsComponent implements OnInit, OnDestroy {
                 this.lastIDRecord = response;
                 this.onGenerateMaSK();
             }, error => {
+                this.logService.error(error['message']);
             });
     }
 
@@ -166,6 +170,7 @@ export class EventsComponent implements OnInit, OnDestroy {
                 this.toastSuccess();
                 this.getAllEvent();
             }, error => {
+                this.logService.error(error['message']);
             });
         this.displayDialog = false;
     }
@@ -179,6 +184,7 @@ export class EventsComponent implements OnInit, OnDestroy {
             this.toastUpdateEventSuccess();
             this.getAllEvent();
         }, error => {
+            this.logService.error(error['message']);
         });
         this.displayDialog = false;
     }
@@ -194,6 +200,7 @@ export class EventsComponent implements OnInit, OnDestroy {
                 this.toastSuccess();
                 this.getAllEvent();
             }, error => {
+                this.logService.error(error['message']);
             });
         } else {
             this.subscription = this.eventService.updateEvent(this.idSelectedEvent, this.eventUpdate)
@@ -201,6 +208,7 @@ export class EventsComponent implements OnInit, OnDestroy {
                     this.toastSuccess();
                     this.getAllEvent();
                 }, error => {
+                    this.logService.error(error['message']);
                 });
         }
         this.eventUpdate = {};

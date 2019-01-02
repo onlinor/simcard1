@@ -31,6 +31,9 @@ import { WarehouseComponent } from './pages/warehouse/warehouse.component';
 
 // Service
 import { MessageService } from 'primeng/api';
+import { LogService } from './shared/logging-services/log.service';
+import { LogPublishersService } from './shared/logging-services/log-publishers.service';
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -71,7 +74,7 @@ import { MessageService } from 'primeng/api';
             { path: 'warehouse', component: WarehouseComponent}
         ])
     ],
-    providers: [MessageService],
+    providers: [MessageService, LogService, LogPublishersService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
