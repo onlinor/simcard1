@@ -15,10 +15,13 @@ import { ButtonModule } from 'primeng/button';
 import { TabViewModule } from 'primeng/tabview';
 import { FileUploadModule } from 'primeng/fileupload';
 import { CoreModule } from './core/core.module';
+import { SharedModule } from './shared/shared.module';
+import { AdministrationModule } from './administration/administration.module';
+import { PublicModule } from './public/public.module';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 // Component
 import { AppComponent } from './app.component';
-import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { HomeComponent } from './public/home/home.component';
 import { CustomerComponent } from '././pages/customer/customer.component';
 import { DateInputComponent } from './shared/date-input/date-input.component';
@@ -37,7 +40,6 @@ import { LogPublishersService } from './shared/logging-services/log-publishers.s
 @NgModule({
     declarations: [
         AppComponent,
-        SidebarComponent,
         HomeComponent,
         CustomerComponent,
         DateInputComponent,
@@ -50,6 +52,9 @@ import { LogPublishersService } from './shared/logging-services/log-publishers.s
     ],
     imports: [
         CoreModule,
+        SharedModule,
+        AdministrationModule,
+        PublicModule,
         ReactiveFormsModule,
         CalendarModule,
         DropdownModule,
@@ -65,6 +70,7 @@ import { LogPublishersService } from './shared/logging-services/log-publishers.s
         FormsModule,
         TabViewModule,
         FileUploadModule,
+        AngularFontAwesomeModule,
         RouterModule.forRoot([
             { path: '', component: HomeComponent, pathMatch: 'full' },
             { path: 'customer', component: CustomerComponent },

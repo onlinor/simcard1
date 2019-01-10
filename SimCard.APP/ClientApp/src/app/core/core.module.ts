@@ -1,9 +1,14 @@
 import { NgModule, Injector } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
+
 import { CoreComponent } from './core.component';
 
 // Core
 import { ServiceLocator } from '../core/service-locator';
+
+// Ex-Modules
+import {ToastrModule} from 'ngx-toastr';
 
 // Services
 import { ApiService } from './services/api.service';
@@ -15,9 +20,21 @@ import { FileService } from './services/file.service';
 import { ConfigurationService } from './services/configuration.service';
 import { CustomerService } from './services/customer.service';
 import { EventsService } from './services/events.service';
+import { MessageService } from './services/message.service';
+import { SubscribeService } from './services/subscribe.service';
+import { PermissionService } from './services/permission.service';
+import { CrudService } from './services/crud.service';
+import { CommonService } from './services/common.service';
+
+
 
 @NgModule({
-  imports: [CommonModule],
+  imports: [CommonModule,
+  ReactiveFormsModule,
+  ToastrModule.forRoot({
+    positionClass: 'toast-bottom-right'
+  })
+],
   declarations: [CoreComponent],
   providers: [
     ApiService,
@@ -25,10 +42,15 @@ import { EventsService } from './services/events.service';
     LocalStorageService,
     WarehouseService,
     ProductService,
+    CrudService,
+    CommonService,
+    SubscribeService,
     FileService,
+    PermissionService,
     ConfigurationService,
     CustomerService,
-    EventsService
+    EventsService,
+    MessageService
   ]
 })
 export class CoreModule {

@@ -8,3 +8,7 @@ export * from './productexport.model';
 export * from './configuration.model';
 export * from './customer.model';
 export * from './event.model';
+export * from './message-config.model';
+export * from './crud-config.model';
+export * from './message-config.model';
+export * from './paging.model';
