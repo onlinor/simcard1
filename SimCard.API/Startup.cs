@@ -34,7 +34,6 @@ namespace simcard.api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAutoMapper();
-            //services.AddDbContext<SimCardDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
             services.AddDbContext<SimCardDBContext>(Options => Options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IShopRepository, ShopRepository>();
