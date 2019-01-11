@@ -47,9 +47,9 @@ namespace SimCard.APP.Wokers
 
         public async Task Execute(IJobExecutionContext context)
         {
-            var responseEmail = await client.GetStringAsync("http://localhost:5000/api/email");
+            var responseEmail = await client.GetStringAsync("http://localhost:25581/api/email");
             var dsEmail = JsonConvert.DeserializeObject<List<String>>(responseEmail);
-            var responseEventActive = await client.GetStringAsync("http://localhost:5000/api/email/eventactive");
+            var responseEventActive = await client.GetStringAsync("http://localhost:25581/api/email/eventactive");
             var dsEventActive = JsonConvert.DeserializeObject<List<Event>>(responseEventActive);      
             foreach (var eventItem in dsEventActive)
             {
