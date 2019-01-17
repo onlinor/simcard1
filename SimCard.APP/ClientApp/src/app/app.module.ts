@@ -14,6 +14,7 @@ import { PanelModule } from 'primeng/panel';
 import { ButtonModule } from 'primeng/button';
 import { TabViewModule } from 'primeng/tabview';
 import { FileUploadModule } from 'primeng/fileupload';
+import { MultiSelectModule } from 'primeng/multiselect';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { AdministrationModule } from './administration/administration.module';
@@ -31,6 +32,10 @@ import { ConfigurationComponent } from './pages/configColumn/configuration.compo
 import { EventsComponent } from './pages/events/events.component';
 import { ProductComponent } from './pages/product/product.component';
 import { WarehouseComponent } from './pages/warehouse/warehouse.component';
+import { CashbookComponent } from './pages/cashbook/cashbook.component';
+import { BankbookComponent } from './pages/bankbook/bankbook.component';
+import { FormphieuchiComponent } from './public/formphieuchi/formphieuchi.component'
+import { FormphieuthuComponent } from './public/formphieuthu/formphieuthu.component';
 
 // Service
 import { MessageService } from 'primeng/api';
@@ -48,7 +53,11 @@ import { LogPublishersService } from './shared/logging-services/log-publishers.s
         ConfigurationComponent,
         EventsComponent,
         ProductComponent,
-        WarehouseComponent
+        WarehouseComponent,
+        CashbookComponent,
+        BankbookComponent,
+        FormphieuchiComponent,
+        FormphieuthuComponent
     ],
     imports: [
         CoreModule,
@@ -69,6 +78,7 @@ import { LogPublishersService } from './shared/logging-services/log-publishers.s
         HttpClientModule,
         FormsModule,
         TabViewModule,
+        MultiSelectModule,
         FileUploadModule,
         AngularFontAwesomeModule,
         RouterModule.forRoot([
@@ -77,7 +87,9 @@ import { LogPublishersService } from './shared/logging-services/log-publishers.s
             { path: 'event', component: EventsComponent },
             { path: 'config', component: ConfigurationComponent},
             { path: 'product', component: ProductComponent},
-            { path: 'warehouse', component: WarehouseComponent}
+            { path: 'warehouse', component: WarehouseComponent},
+            { path: 'cashbook', component: CashbookComponent},
+            { path: 'bankbook', component: BankbookComponent}
         ])
     ],
     providers: [MessageService, LogService, LogPublishersService],

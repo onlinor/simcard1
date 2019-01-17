@@ -1,7 +1,11 @@
 <div>
     <div class='row'>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <h2 class="text-center text-primary">Quản Lí Cấu Hình</h2>
+            <hr>
+        </div>
         <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
-            <p-table [columns]='cols' [value]='configInfo' selectionMode='single' [(selection)]='selectedConfig'
+            <p-table [columns]='cols' [value]='configInfo' [responsive]="true" selectionMode='single' [(selection)]='selectedConfig'
                 (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="5">
                 <ng-template pTemplate="caption">
                     Danh Sách Cấu Hình
@@ -51,7 +55,7 @@
                     </div>
                     <p-footer>
                         <div class="ui-dialog-buttonpane ui-helper-clearfix float-left">
-                            <button type="submit" class="btn btn-success" [disabled]="!f.valid">Cập Nhật</button>
+                            <button type="submit" class="btn btn-success" [disabled]="!f.valid">Lưu</button>
                         </div>
                         <button type="button" class="btn btn-default float-right" (click)="onCloseForm()">
                             Đóng

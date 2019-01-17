@@ -1,38 +1,52 @@
 <div class='main-nav'>
-  <div class='navbar navbar-inverse'>
-      <div class='navbar-collapse collapse' [ngClass]='{ "in": isExpanded }'>
-          <ul class='nav navbar-nav'>
-              <li [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
-                  <a [routerLink]='["/"]' (click)='collapse()'>
-                      <span class='glyphicon glyphicon-home'></span> Home
-                  </a>
-              </li>
-              <li [routerLinkActive]='["link-active"]'>
-                  <a [routerLink]='["/customer"]' (click)='collapse()'>
-                      <span class='glyphicon glyphicon-education'></span> Customer
-                  </a>
-              </li>
-              <li [routerLinkActive]='["link-active"]'>
-                  <a [routerLink]='["/event"]' (click)='collapse()'>
-                      <span class='glyphicon glyphicon-th-list'></span> Events
-                  </a>
-              </li>
-              <li [routerLinkActive]='["link-active"]'>
-                  <a [routerLink]='["/config"]' (click)='collapse()'>
-                      <span class='glyphicon glyphicon-plus'></span> Shop Configuation
-                  </a>
-              </li>
-              <li [routerLinkActive]='["link-active"]'>
-                  <a [routerLink]='["/product"]' (click)='collapse()'>
-                      <span class='glyphicon glyphicon-star-empty'></span> Product
-                  </a>
-              </li>
-              <li [routerLinkActive]='["link-active"]'>
-                  <a [routerLink]='["/warehouse"]' (click)='collapse()'>
-                      <span class='glyphicon glyphicon-grain'></span> WareHouse
-                  </a>
-              </li>
-          </ul>
-      </div>
-  </div>
+    <div class='navbar navbar-inverse navbar-custome navbar-expand-lg'>
+        <button class="navbar-toggler collapsed bg-light" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="pi pi-list"></span>
+        </button>
+        <div class='navbar-collapse collapse' id="navbarNavAltMarkup" [ngClass]='{ "in": isExpanded }'>
+            <ul class='nav navbar-nav'>
+                <li [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
+                    <a [routerLink]='["/"]' (click)='collapse()'>
+                        <span class='pi pi-home'></span> Trang Chủ
+                    </a>
+                </li>
+                <li [routerLinkActive]='["link-active"]'>
+                    <a [routerLink]='["/customer"]' (click)='collapse()'>
+                        <span class='pi pi-user'></span> Khách Hàng
+                    </a>
+                </li>
+                <li [routerLinkActive]='["link-active"]'>
+                    <a [routerLink]='["/event"]' (click)='collapse()'>
+                        <span class='pi pi-star'></span> Sự Kiện
+                    </a>
+                </li>
+                <li [routerLinkActive]='["link-active"]'>
+                    <a [routerLink]='["/config"]' (click)='collapse()'>
+                        <span class='pi pi-cog'></span> Cấu Hình
+                    </a>
+                </li>
+                <li [routerLinkActive]='["link-active"]'>
+                    <a [routerLink]='["/product"]' (click)='collapse()'>
+                        <span class='pi pi-shopping-cart'></span> Sản Phẩm
+                    </a>
+                </li>
+                <li [routerLinkActive]='["link-active"]'>
+                    <a [routerLink]='["/warehouse"]' (click)='collapse()'>
+                        <span class='pi pi-key'></span> Nhà Kho
+                    </a>
+                </li>
+                <li [routerLinkActive]='["link-active"]'>
+                    <a [routerLink]='["/cashbook"]' (click)='collapse()'>
+                        <span class='pi pi-money-bill'></span> Sổ Tiền Mặt
+                    </a>
+                </li>
+                <li [routerLinkActive]='["link-active"]'>
+                    <a [routerLink]='["/bankbook"]' (click)='collapse()'>
+                        <span class='pi pi-inbox'></span> Sổ Ngân Hàng
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
 </div>

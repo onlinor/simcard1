@@ -1,7 +1,11 @@
 <div>
-    <div styleClass="hide-x" class="row">
+    <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <p-table [columns]='cols' [value]='dsEvent' selectionMode='single' [(selection)]='selectedEvent'
+            <h2 class="text-center text-primary">Quản Lí Sự Kiện</h2>
+            <hr>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <p-table [columns]='cols' [value]='dsEvent' [responsive]="true" selectionMode='single' [(selection)]='selectedEvent'
                 (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="5">
                 <ng-template pTemplate="caption">
                     Danh Sách Sự Kiện
@@ -39,7 +43,7 @@
                             </span>
                         </td>
                         <td *ngIf="rowData.isNewEvent && !rowData.isCompleteEvent">
-                            <span class="label label-danger">
+                            <span class="label label-primary">
                                 New
                             </span>
                         </td>
@@ -54,7 +58,7 @@
                     <div style="text-align:left">
                         <button class="btn btn-success" type="button" (click)="showDialogToAdd()">
                             <span class="glyphicon glyphicon-plus"></span>
-                            Add</button>
+                            Thêm</button>
                     </div>
                 </ng-template>
             </p-table>

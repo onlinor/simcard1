@@ -1,0 +1,5 @@
+<p>Bank</p>
+<button type="button" (click)="onShowDialogPhieuChi()" pButton icon="pi pi-info-circle" label="Phiếu Chi"></button>&nbsp;
+<app-formphieuchi [isShowDialogPhieuChi]="isShowDialogPhieuChi" (outIsShowDialogPhieuChi)="onGetIsShowDialogPhieuChi($event)"></app-formphieuchi>
+<button type="button" (click)="onShowDialogPhieuThu()" pButton icon="pi pi-info-circle" label="Phiếu Thu"></button>
+<app-formphieuthu [isShowDialogPhieuThu]="isShowDialogPhieuThu" (outIsShowDialogPhieuThu)="onGetIsShowDialogPhieuThu($event)"></app-formphieuthu>

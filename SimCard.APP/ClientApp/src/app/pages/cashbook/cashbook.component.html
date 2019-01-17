@@ -1,0 +1,13 @@
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <h2 class="text-center text-primary">Theo dõi Sổ tiền mặt</h2>
+        <hr>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        
+    </div>
+</div>
+<button type="button" (click)="onShowDialogPhieuChi()" pButton icon="pi pi-info-circle" label="Phiếu Chi"></button>&nbsp;
+<app-formphieuchi [isShowDialogPhieuChi]="isShowDialogPhieuChi" (outIsShowDialogPhieuChi)="onGetIsShowDialogPhieuChi($event)"></app-formphieuchi>
+<button type="button" (click)="onShowDialogPhieuThu()" pButton icon="pi pi-info-circle" label="Phiếu Thu"></button>
+<app-formphieuthu [isShowDialogPhieuThu]="isShowDialogPhieuThu" (outIsShowDialogPhieuThu)="onGetIsShowDialogPhieuThu($event)"></app-formphieuthu>

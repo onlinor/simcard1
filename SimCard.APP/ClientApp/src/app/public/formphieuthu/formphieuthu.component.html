@@ -1,0 +1,106 @@
+<p-dialog  [maximizable]="true" [baseZIndex]="10000" header="Thêm Phiếu Thu" [(visible)]="isShowDialogPhieuThu" [modal]="true" [responsive]="true" showEffect="fade" [width]="500">
+	<form #f="ngForm" (ngSubmit)="onSubmit()">
+			<div class="ui-g ui-fluid">
+				<div class="ui-g-12">
+					<div class="ui-g-4">
+						<label>Ngày Tạo</label>
+					</div>
+					<div class="ui-g-8">
+						<p>{{ dataPhieuThu.ngayThu | date: 'dd/MM/yyyy' }}</p>
+					</div>
+				</div>
+				<div class="ui-g-12">
+					<div class="ui-g-4">
+						<label>Số phiếu thu</label>
+					</div>
+					<div class="ui-g-6">
+						<input name="sophieuThu" autocomplete="off" pInputText [(ngModel)]="dataPhieuThu.sophieuThu" [disabled]="true" />
+					</div>
+					</div>
+				<div class="ui-g-12">
+					<div class="ui-g-4">
+						<label>Phân Bổ</label>
+					</div>
+					<div class="ui-g-6">
+						<p-dropdown placeholder="Chọn 1 phân bổ" name="phanBo" [options]="LoaiPhanBo" [(ngModel)]="selectedPhanBo">
+							</p-dropdown>
+					</div>
+				</div>
+				<div class="ui-g-12">
+					<div class="ui-g-4">
+						<label>Người nộp tiền</label>
+					</div>
+					<div class="ui-g-6">
+						<input type="text" name="ngNopTien" autocomplete="off" pInputText [(ngModel)]="dataPhieuThu.ngNopTien" />
+					</div>
+				</div>
+				<div class="ui-g-12">
+					<div class="ui-g-4">
+						<label>Đơn vị nộp</label>
+					</div>
+					<div class="ui-g-6">
+						<input type="text" name="donviNop" autocomplete="off" pInputText [(ngModel)]="dataPhieuThu.donviNop" />							
+					</div>
+				</div>
+				<div class="ui-g-12">
+					<div class="ui-g-4">
+						<label>Mã khách hàng</label>
+					</div>
+					<div class="ui-g-6">
+						<input name="maKhachHang" autocomplete="off" pInputText [(ngModel)]="dataPhieuThu.maKhachHang" />	
+					</div>
+				</div>
+				<div class="ui-g-12">
+					<div class="ui-g-4">
+						<label>Lí do nộp</label>
+					</div>
+					<div class="ui-g-6">
+						<input type="text" name="lidoNop" autocomplete="off" pInputText [(ngModel)]="dataPhieuThu.lidoNop" />
+					</div>
+				</div>
+				<div class="ui-g-12">
+					<div class="ui-g-4">
+						<label>Hình thức nộp</label>
+					</div>
+					<div class="ui-g-6">
+						<p-multiSelect name="hinhthucNop" [options]="LoaiHinhThucNop" [(ngModel)]="selectedHinhThuc" ></p-multiSelect>
+					</div>
+				</div>
+				<div class="ui-g-12">
+					<div class="ui-g-4">
+						<label>Số tiền</label>
+					</div>
+					<div class="ui-g-6">
+						<input type="number" name="soTien" autocomplete="off" pInputText [(ngModel)]="dataPhieuThu.soTien"/>
+					</div>
+				</div>
+				<div class="ui-g-12">
+					<div class="ui-g-4">
+						<label>Người thu</label>
+					</div>
+					<div class="ui-g-6">
+						<input type="text" name="nguoiThu" autocomplete="off" pInputText [(ngModel)]="dataPhieuThu.nguoiThu"/>
+					</div>
+				</div>
+				<div class="ui-g-12">
+					<div class="ui-g-4">
+						<label>Ghi chú</label>
+					</div>
+					<div class="ui-g-6">
+						<input type="text" name="ghiChu" autocomplete="off" pInputText [(ngModel)]="dataPhieuThu.ghiChu"/>
+					</div>
+				</div>
+			</div>
+
+			<p-footer>
+				<div class="float-left">
+					<button type="button" pButton icon="pi pi-spinner" (click)="onClearForm()" label="Làm mới" class="ui-button-danger"></button>&nbsp;						
+				</div>
+				<div class="float-right">
+					<button type="button" pButton icon="pi pi-print" label="In phiếu" class="ui-button-secondary"></button>&nbsp;
+					<button type="button" pButton icon="pi pi-check" (click)="onSave()" label="Lưu" class="ui-button-success"></button>&nbsp;
+					<button type="button" pButton icon="pi pi-times"  (click)="onClose()" label="Đóng" class="ui-button-primary"></button>&nbsp;
+				</div>
+			</p-footer>     
+	</form>
+</p-dialog>
