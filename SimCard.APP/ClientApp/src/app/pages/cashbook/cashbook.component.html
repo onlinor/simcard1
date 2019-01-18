@@ -1,13 +1,52 @@
 <div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="ui-xs-12 ui-sm-12 ui-md-12 ui-g-12">
         <h2 class="text-center text-primary">Theo dõi Sổ tiền mặt</h2>
         <hr>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        
+        <div class="col-lg-3">
+            <p>Chọn đơn vị</p>
+            <p-dropdown [options]="LoaiDonVi" [(ngModel)]="selectedDonVi" name="loaiDonVi">
+            </p-dropdown>
+        </div>
+        <div class="col-lg-3">
+            <p>Từ ngày</p>
+            <p-calendar [(ngModel)]="tuNgay" [showIcon]="true"></p-calendar>
+        </div>
+        <div class="col-lg-3 pr-0">
+            <p>Tới ngày</p>
+            <p-calendar [(ngModel)]="toiNgay" [showIcon]="true"></p-calendar>
+            <span class="pi pi-search ml-40 m-pointer"></span>
+        </div>
+        <div class="col-lg-3">
+            <p>Xuất dữ liệu</p>
+            <p-dropdown [options]="LoaiDuLieu" [(ngModel)]="selectedLoaiDuLieu" name="selectedLoaiDuLieu">
+            </p-dropdown>&nbsp;
+            <span class="pi pi-download m-pointer"></span>
+        </div>
     </div>
-</div>
-<button type="button" (click)="onShowDialogPhieuChi()" pButton icon="pi pi-info-circle" label="Phiếu Chi"></button>&nbsp;
-<app-formphieuchi [isShowDialogPhieuChi]="isShowDialogPhieuChi" (outIsShowDialogPhieuChi)="onGetIsShowDialogPhieuChi($event)"></app-formphieuchi>
-<button type="button" (click)="onShowDialogPhieuThu()" pButton icon="pi pi-info-circle" label="Phiếu Thu"></button>
-<app-formphieuthu [isShowDialogPhieuThu]="isShowDialogPhieuThu" (outIsShowDialogPhieuThu)="onGetIsShowDialogPhieuThu($event)"></app-formphieuthu>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="col-lg-3">
+            <p>Tồn đầu kì</p>
+            <input type="text" name="tonDauKi" class="form-control" [(ngModel)]="tonDauKi">
+        </div>
+        <div class="col-lg-3">
+            <p>Tồn cuối kì</p>
+            <input type="text" name="tonCuoiKi" class="form-control" [(ngModel)]="tonCuoiKi">
+        </div>
+        <div class="col-lg-3">
+            <p>Thu</p>
+            <input type="text" name="soTienThu" class="form-control" [(ngModel)]="soTienThu">
+        </div>
+        <div class="col-lg-3">
+            <p>Chi</p>
+            <input type="text" name="soTienChi" class="form-control" [(ngModel)]="soTienChi">
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 place-button">
+        <button type="button" (click)="onShowDialogPhieuChi()" pButton icon="pi pi-info-circle" label="Phiếu Chi"></button>&nbsp;
+        <app-formphieuchi [isShowDialogPhieuChi]="isShowDialogPhieuChi" (outIsShowDialogPhieuChi)="onGetIsShowDialogPhieuChi($event)"></app-formphieuchi>
+        <button type="button" (click)="onShowDialogPhieuThu()" pButton icon="pi pi-info-circle" label="Phiếu Thu"></button>
+        <app-formphieuthu [isShowDialogPhieuThu]="isShowDialogPhieuThu" (outIsShowDialogPhieuThu)="onGetIsShowDialogPhieuThu($event)"></app-formphieuthu>
+    </div>
+</div> 
