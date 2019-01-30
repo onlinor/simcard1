@@ -21,17 +21,18 @@ export class FormphieuchiComponent implements OnInit {
 	];
 	dataPhieuChi: any = {
 		loaiPhanBo: '',
-		ngNhanTien: '',
+		tenKhachHang: '',
 		donviNhan: '',
 		maKhachHang: '',
-		lidoChi: '',
-		hinhthucChi: '',
-		sophieuChi: '',
-		nguoiChi: '',
-		ngayChi: new Date().toLocaleDateString(),
 		ghiChu: '',
+		hinhthucChi: '',
+		maPhieu: '',
+		nguoiChi: '',
+		ngayLap: new Date().toLocaleDateString(),
+		noidungPhieu: '',
 		soTien: 0
-    };
+	};
+	dsKhachHang: any;
 	@Input("isShowDialogPhieuChi") isShowDialogPhieuChi: boolean;
 	@Output("outIsShowDialogPhieuChi") emitShowDialogPhieuChi = new EventEmitter<any>();
 	constructor() { }

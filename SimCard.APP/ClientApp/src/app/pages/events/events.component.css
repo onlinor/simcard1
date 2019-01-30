@@ -11,3 +11,9 @@ input.ng-invalid {
 :host >>> a.ng-tns-c3-1.ui-dialog-titlebar-icon.ui-dialog-titlebar-close.ui-corner-all.ng-star-inserted {
   display: none !important;
 }
+:host >>> .ui-dialog .ui-dialog-titlebar .ui-dialog-title {
+  font-weight: 600;
+}
+:host >>> .ui-dialog .ui-dialog-titlebar-icon span {
+  display: none !important;
+}

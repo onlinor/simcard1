@@ -1,44 +1,49 @@
 <div class='main-nav'>
-    <div class='navbar navbar-inverse navbar-custome navbar-expand-lg'>
-        <div class='navbar-collapse collapse' id="navbarNavAltMarkup" [ngClass]='{ "in": isExpanded }'>
+    <div class='navbar navbar-inverse navbar-expand-lg'>
+        <div class='navbar-collapse collapse bt-0' id="navbarNavAltMarkup" [ngClass]='{ "in": isExpanded }'>
+            <div class="logo-place">
+                <img src="https://picsum.photos/50/50" alt="picture">
+                <h3 class="color-white">SimCard</h3>
+                <h5 class="color-white">Success, Success, Success, Success</h5>
+            </div>
             <ul class='nav navbar-nav'>
                 <li [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
-                    <a [routerLink]='["/"]' (click)='collapse()'>
+                    <a class="item-nav" [routerLink]='["/"]' (click)='collapse()'>
                         <span class='pi pi-home'></span> Trang Chủ
                     </a>
                 </li>
                 <li [routerLinkActive]='["link-active"]'>
-                    <a [routerLink]='["/customer"]' (click)='collapse()'>
+                    <a class="item-nav" [routerLink]='["/customer"]' (click)='collapse()'>
                         <span class='pi pi-user'></span> Khách Hàng
                     </a>
                 </li>
                 <li [routerLinkActive]='["link-active"]'>
-                    <a [routerLink]='["/event"]' (click)='collapse()'>
+                    <a class="item-nav" [routerLink]='["/event"]' (click)='collapse()'>
                         <span class='pi pi-star'></span> Sự Kiện
                     </a>
                 </li>
                 <li [routerLinkActive]='["link-active"]'>
-                    <a [routerLink]='["/config"]' (click)='collapse()'>
+                    <a class="item-nav" [routerLink]='["/config"]' (click)='collapse()'>
                         <span class='pi pi-cog'></span> Cấu Hình
                     </a>
                 </li>
                 <li [routerLinkActive]='["link-active"]'>
-                    <a [routerLink]='["/product"]' (click)='collapse()'>
+                    <a class="item-nav" [routerLink]='["/product"]' (click)='collapse()'>
                         <span class='pi pi-shopping-cart'></span> Sản Phẩm
                     </a>
                 </li>
                 <li [routerLinkActive]='["link-active"]'>
-                    <a [routerLink]='["/warehouse"]' (click)='collapse()'>
+                    <a class="item-nav" [routerLink]='["/warehouse"]' (click)='collapse()'>
                         <span class='pi pi-key'></span> Nhà Kho
                     </a>
                 </li>
                 <li [routerLinkActive]='["link-active"]'>
-                    <a [routerLink]='["/cashbook"]' (click)='collapse()'>
+                    <a class="item-nav" [routerLink]='["/cashbook"]' (click)='collapse()'>
                         <span class='pi pi-money-bill'></span> Sổ Tiền Mặt
                     </a>
                 </li>
                 <li [routerLinkActive]='["link-active"]'>
-                    <a [routerLink]='["/bankbook"]' (click)='collapse()'>
+                    <a class="item-nav" [routerLink]='["/bankbook"]' (click)='collapse()'>
                         <span class='pi pi-inbox'></span> Sổ Ngân Hàng
                     </a>
                 </li>

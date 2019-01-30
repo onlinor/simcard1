@@ -6,7 +6,7 @@
 						<label>Ngày Tạo</label>
 					</div>
 					<div class="ui-g-8">
-						<p>{{ dataPhieuChi.ngayChi | date: 'dd/MM/yyyy' }}</p>
+						<p>{{ dataPhieuChi.ngayLap | date: 'dd/MM/yyyy' }}</p>
 					</div>
 				</div>
 				<div class="ui-g-12">
@@ -14,7 +14,7 @@
 						<label>Số phiếu chi</label>
 					</div>
 					<div class="ui-g-6">
-						<input name="sophieuChi" autocomplete="off" pInputText [(ngModel)]="dataPhieuChi.sophieuChi" [disabled]="true" />
+						<input name="maPhieu" autocomplete="off" pInputText [(ngModel)]="dataPhieuChi.maPhieu" [disabled]="true" />
 					</div>
 					</div>
 				<div class="ui-g-12">
@@ -22,7 +22,7 @@
 						<label>Phân Bổ</label>
 					</div>
 					<div class="ui-g-6">
-						<p-dropdown placeholder="Chọn 1 phân bổ" name="phanBo" [options]="LoaiPhanBo" [(ngModel)]="selectedPhanBo">
+						<p-dropdown placeholder="Chọn dữ liệu" name="phanBo" [options]="LoaiPhanBo" [(ngModel)]="selectedPhanBo">
 						</p-dropdown>
 					</div>
 				</div>
@@ -31,7 +31,7 @@
 						<label>Người nhận tiền</label>
 					</div>
 					<div class="ui-g-6">
-						<input type="text" name="ngNhanTien" autocomplete="off" pInputText [(ngModel)]="dataPhieuChi.ngNhanTien" />
+						<p-dropdown [options]="dsKhachHang" [(ngModel)]="dataPhieuChi.tenKhachHang" editable="true" placeholder="Chọn dữ liệu"></p-dropdown>
 					</div>
 				</div>
 				<div class="ui-g-12">
@@ -55,7 +55,7 @@
 						<label>Lí do chi</label>
 					</div>
 					<div class="ui-g-6">
-						<input type="text" name="lidoChi" autocomplete="off" pInputText [(ngModel)]="dataPhieuChi.lidoChi" />
+						<input type="text" name="noidungPhieu" autocomplete="off" pInputText [(ngModel)]="dataPhieuChi.noidungPhieu" />
 					</div>
 				</div>
 				<div class="ui-g-12">
@@ -94,7 +94,7 @@
 
 			<p-footer>
 				<div class="float-left">
-					<button type="button" pButton icon="pi pi-spinner" (click)="onClearForm()" label="Làm mới" class="ui-button-danger"></button>&nbsp;						
+					<button type="button" pButton icon="pi pi-spinner" (click)="onClearForm()" label="Làm mới" class="ui-button-primary"></button>&nbsp;						
 				</div>
 				<div class="float-right">
 					<button type="button" pButton icon="pi pi-print" label="In phiếu" class="ui-button-secondary"></button>&nbsp;

@@ -1,9 +1,9 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: "app-bankbook",
-  templateUrl: "./bankbook.component.html",
-  styleUrls: ["./bankbook.component.css"]
+  selector: 'app-bankbook',
+  templateUrl: './bankbook.component.html',
+  styleUrls: ['./bankbook.component.css']
 })
 export class BankbookComponent implements OnInit {
 	selectedDonVi: String = '';

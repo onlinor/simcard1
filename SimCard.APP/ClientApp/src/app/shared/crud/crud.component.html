@@ -1,70 +1,101 @@
-<div class="row mb-2">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-      <div class="form-inline pull-right">
-        <div class="form-group mr-2">
-          <div class="input-group" *ngIf="config.allowSearch">
-            <input type="text" class="form-control" placeholder="Type to search" autocomplete="off"
-                   (keyup.enter)="search()" spellcheck="false" autocorrect="off" tabindex="0" [(ngModel)]="searchValue">
-            <span class="input-group-btn">
-              <button class="btn btn-info" type="button" (click)="search()" tooltip="Search" placement="bottom">
-                <i class="fa fa-search" aria-hidden="true"></i>
-              </button>
-            </span>
-          </div>
+<div class="mb-2">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="form-inline pull-right">
+      <div class="form-group mr-2">
+        <div class="input-group" *ngIf="config.allowSearch">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Type to search"
+            autocomplete="off"
+            (keyup.enter)="search()"
+            spellcheck="false"
+            autocorrect="off"
+            tabindex="0"
+            [(ngModel)]="searchValue"
+          />
+          <span class="input-group-btn">
+            <button
+              class="btn btn-info"
+              type="button"
+              (click)="search()"
+              tooltip="Search"
+              placement="bottom"
+            >
+              <i class="fa fa-search" aria-hidden="true"></i>
+            </button>
+          </span>
         </div>
-        <button *ngIf="config.allowCreate" class="btn btn-success" type="button" (click)="create()">
-          Create
-        </button>
       </div>
+      <button
+        *ngIf="config.allowCreate"
+        class="btn btn-success"
+        type="button"
+        (click)="create()"
+      >
+        Create
+      </button>
     </div>
   </div>
-  <div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-      <div class="table-responsive">
-        <table class="table table-hover table-striped">
-          <thead class="thead-inverse">
-            <tr>
-              <th *ngFor="let column of config.columns">{{column.text}}</th>
-              <th>
-                Actions
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-          <tr *ngIf="data.length === 0">
-            <td [colSpan]="config.columns.length+1">No data</td>
-          </tr>
-          <tr *ngFor="let item of data">
-            <td *ngFor="let column of config.columns">
-              {{item[column.name]}}
-            </td>
-            <td class="crud-action text-center">
-              <div class="btn-group" dropdown>
-                <a dropdownToggle class="btn btn-primary btn-sm text-white">
-                  <i class="fa fa-ellipsis-h"></i>
-                </a>
-                <ul *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu">
-                  <li role="menuitem">
-                    <a class="dropdown-item" href="javascript:void(0)" (click)="onActionClick('EDIT', item)">
-                      EDIT
-                    </a>
-                  </li>
-                  <li role="menuitem">
-                      <a class="dropdown-item" href="javascript:void(0)" (click)="onActionClick('DELETE', item)">
-                        DELETE
-                      </a>
-                    </li>
-                </ul>
-              </div>
-            </td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+</div>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+  <div class="table-responsive">
+    <table class="table table-hover table-striped">
+      <thead class="thead-inverse">
+        <tr>
+          <th *ngFor="let column of config.columns">{{ column.text }}</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngIf="data.length === 0">
+          <td [colSpan]="config.columns.length + 1">No data</td>
+        </tr>
+        <tr *ngFor="let item of data">
+          <td *ngFor="let column of config.columns">{{ item[column.name] }}</td>
+          <td class="crud-action text-center">
+            <div class="btn-group" dropdown>
+              <a dropdownToggle class="btn btn-primary btn-sm text-white">
+                <i class="fa fa-ellipsis-h"></i>
+              </a>
+              <ul
+                *dropdownMenu
+                class="dropdown-menu dropdown-menu-right"
+                role="menu"
+              >
+                <li role="menuitem">
+                  <a
+                    class="dropdown-item"
+                    href="javascript:void(0)"
+                    (click)="onActionClick('EDIT', item)"
+                  >
+                    EDIT
+                  </a>
+                </li>
+                <li role="menuitem">
+                  <a
+                    class="dropdown-item"
+                    href="javascript:void(0)"
+                    (click)="onActionClick('DELETE', item)"
+                  >
+                    DELETE
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-  <pagination [(ngModel)]="paging.currentPage" [totalItems]="paging.totalRecords" [rotate]="false"
-              (pageChanged)="pageChanged($event)" [itemsPerPage]="paging.pageSize" [maxSize]="10" [boundaryLinks]="true"
-              *ngIf="paging.totalPages>1"></pagination>
-
-  
+</div>
+<pagination
+  [(ngModel)]="paging.currentPage"
+  [totalItems]="paging.totalRecords"
+  [rotate]="false"
+  (pageChanged)="pageChanged($event)"
+  [itemsPerPage]="paging.pageSize"
+  [maxSize]="10"
+  [boundaryLinks]="true"
+  *ngIf="paging.totalPages > 1"
+></pagination>

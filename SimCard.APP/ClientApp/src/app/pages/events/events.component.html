@@ -1,166 +1,164 @@
-<div>
-    <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <h2 class="text-center text-primary">Quản Lí Sự Kiện</h2>
-            <hr>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <p-table [columns]='cols' [value]='dsEvent' [responsive]="true" selectionMode='single' [(selection)]='selectedEvent'
-                (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="5">
-                <ng-template pTemplate="caption">
-                    Danh Sách Sự Kiện
-                </ng-template>
-                <ng-template pTemplate="header" let-columns>
-                    <tr>
-                        <th styleClass="cor">STT</th>
-                        <th>Loại Sự Kiện</th>
-                        <th>Mã Sự Kiện</th>
-                        <th>Tên Sự Kiện</th>
-                        <th>Nội Dung</th>
-                        <th>Ngày Tạo</th>
-                        <th>Thời Gian Bắt Đầu</th>
-                        <th>Thời Gian Kết Thúc</th>
-                        <th>Đối Tượng</th>
-                        <th>Trạng Thái</th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
-                    <tr [pSelectableRow]="rowData">
-                        <td>{{rowIndex + 1}}</td>
-                        <td>{{rowData.loaiSK}}</td>
-                        <td>{{rowData.maSK}}</td>
-                        <td>{{rowData.tenSK}}</td>
-                        <td>{{rowData.noiDung}}</td>
-                        <td>{{rowData.ngayTao | date: 'dd/MM/yyyy' }}</td>
-                        <td>{{rowData.tgBatDau | date: 'dd/MM/yyyy' }}</td>
-                        <td>{{rowData.tgKetThuc | date: 'dd/MM/yyyy' }}</td>
-                        <td>{{rowData.doiTuong === 'All' ? 'Tất Cả Khách Hàng' : rowData.doiTuong === 'LNC' ? 'Lợi
-                            Nhuận Cao' :
-                            'Doanh Số Cao' }}</td>
-                        <td *ngIf="!rowData.isNewEvent && !rowData.isCompleteEvent">
-                            <span class="{{ rowData.eventStatus ? 'label label-success' : 'label label-default'}}">
-                                {{rowData.eventStatus ? 'Active' : 'Deactive'}}
-                            </span>
-                        </td>
-                        <td *ngIf="rowData.isNewEvent && !rowData.isCompleteEvent">
-                            <span class="label label-primary">
-                                New
-                            </span>
-                        </td>
-                        <td *ngIf="!rowData.isNewEvent && rowData.isCompleteEvent">
-                            <span class="label label-danger">
-                                Completed
-                            </span>
-                        </td>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="summary" let-rowData>
-                    <div style="text-align:left">
-                        <button class="btn btn-success" type="button" (click)="showDialogToAdd()">
-                            <span class="glyphicon glyphicon-plus"></span>
-                            Thêm</button>
-                    </div>
-                </ng-template>
-            </p-table>
-            <p-toast position="top-center" [showTransitionOptions]="'200ms ease-out'" [hideTransitionOptions]="'250ms ease-out'"></p-toast>
-            <p-dialog header="Chi Tiết Sự Kiện" [(visible)]="displayDialog" [responsive]="true" showEffect="fade"
-                [modal]="true" [width]="700">
-                <form #f="ngForm" (ngSubmit)="onSubmit()">
-                    <div class="ui-g ui-fluid" *ngIf="eventUpdate">
-                        <div class="ui-g-12">
-                            <div class="ui-g-4">
-                                <label>Ngày Tạo</label>
-                            </div>
-                            <div class="ui-g-8">
-                                <p>{{ eventUpdate.ngayTao | date: 'dd/MM/yyyy' }}</p>
-                            </div>
+<div class="row pb-60">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pb-20">
+        <h2 class="text-center text-primary">Quản Lí Sự Kiện</h2>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <p-table [columns]='cols' [value]='dsEvent' [responsive]="true" selectionMode='single' [(selection)]='selectedEvent'
+            (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="5">
+            <ng-template pTemplate="caption">
+                Danh Sách Sự Kiện
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th styleClass="cor">STT</th>
+                    <th>Loại Sự Kiện</th>
+                    <th>Mã Sự Kiện</th>
+                    <th>Tên Sự Kiện</th>
+                    <th>Nội Dung</th>
+                    <th>Ngày Tạo</th>
+                    <th>Thời Gian Bắt Đầu</th>
+                    <th>Thời Gian Kết Thúc</th>
+                    <th>Đối Tượng</th>
+                    <th>Trạng Thái</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+                <tr [pSelectableRow]="rowData">
+                    <td>{{rowIndex + 1}}</td>
+                    <td>{{rowData.loaiSK}}</td>
+                    <td>{{rowData.maSK}}</td>
+                    <td>{{rowData.tenSK}}</td>
+                    <td>{{rowData.noiDung}}</td>
+                    <td>{{rowData.ngayTao | date: 'dd/MM/yyyy' }}</td>
+                    <td>{{rowData.tgBatDau | date: 'dd/MM/yyyy' }}</td>
+                    <td>{{rowData.tgKetThuc | date: 'dd/MM/yyyy' }}</td>
+                    <td>{{rowData.doiTuong === 'All' ? 'Tất Cả Khách Hàng' : rowData.doiTuong === 'LNC' ? 'Lợi
+                        Nhuận Cao' :
+                        'Doanh Số Cao' }}</td>
+                    <td *ngIf="!rowData.isNewEvent && !rowData.isCompleteEvent">
+                        <span class="{{ rowData.eventStatus ? 'label label-success' : 'label label-default'}}">
+                            {{rowData.eventStatus ? 'Active' : 'Deactive'}}
+                        </span>
+                    </td>
+                    <td *ngIf="rowData.isNewEvent && !rowData.isCompleteEvent">
+                        <span class="label label-primary">
+                            New
+                        </span>
+                    </td>
+                    <td *ngIf="!rowData.isNewEvent && rowData.isCompleteEvent">
+                        <span class="label label-danger">
+                            Completed
+                        </span>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="summary" let-rowData>
+                <div style="text-align:left">
+                    <button class="btn btn-success" type="button" (click)="showDialogToAdd()">
+                        <span class="glyphicon glyphicon-plus"></span>
+                        Thêm</button>
+                </div>
+            </ng-template>
+        </p-table>
+        <p-toast position="top-center" [showTransitionOptions]="'200ms ease-out'" [hideTransitionOptions]="'250ms ease-out'"></p-toast>
+        <p-dialog header="Chi Tiết Sự Kiện" [(visible)]="displayDialog" [responsive]="true" showEffect="fade"
+            [modal]="true" [width]="700">
+            <form #f="ngForm" (ngSubmit)="onSubmit()">
+                <div class="ui-g ui-fluid" *ngIf="eventUpdate">
+                    <div class="ui-g-12">
+                        <div class="ui-g-4">
+                            <label>Ngày Tạo</label>
                         </div>
-                        <div class="ui-g-12">
-                            <div class="ui-g-4">
-                                <label>Loại Sự Kiện</label>
-                            </div>
-                            <div class="ui-g-8">
-                                <p-dropdown name="loaiSK" [options]="LoaiSK" [(ngModel)]="selectedLoaiSK">
-                                </p-dropdown>
-                            </div>
-                        </div>
-                        <div class="ui-g-12">
-                            <div class="ui-g-4">
-                                <label>Mã Sự Kiện</label>
-                            </div>
-                            <div class="ui-g-8">
-                                <input name="maSK" pInputText [(ngModel)]="eventUpdate.maSK" [disabled]="true" />
-                            </div>
-                        </div>
-                        <div class="ui-g-12">
-                            <div class="ui-g-4">
-                                <label>Tên Sự Kiện</label>
-                            </div>
-                            <div class="ui-g-8">
-                                <input autofocus autocomplete="off" name="tenSK" pInputText [(ngModel)]="eventUpdate.tenSK" required />
-                            </div>
-                        </div>
-                        <div class="ui-g-12">
-                            <div class="ui-g-4">
-                                <label>Nội Dung</label>
-                            </div>
-                            <div class="ui-g-8">
-                                <input name="noiDung" autocomplete="off" pInputText [(ngModel)]="eventUpdate.noiDung" />
-                            </div>
-                        </div>
-                        <div class="ui-g-12">
-                            <div class="ui-g-4">
-                                <label>Đối Tượng</label>
-                            </div>
-                            <div class="ui-g-8">
-                                <p-dropdown name="doiTuong" [options]="LoaiDoiTuong" [(ngModel)]="selectedDoiTuong">
-                                </p-dropdown>
-                            </div>
-                        </div>
-                        <div class="ui-g-12">
-                            <div class="ui-g-4">
-                                <label>Thời Gian Bắt Đầu</label>
-                            </div>
-                            <div class="ui-g-8">
-                                <input type="date" name="tgBatDau" class="form-control"
-                                    [value]="eventUpdate.tgBatDau | date:'yyyy-MM-dd'" (input)="parseDate($event.target.value, 'tgBatDau')" />
-                            </div>
-                        </div>
-                        <div class="ui-g-12">
-                            <div class="ui-g-4">
-                                <label>Thời Gian Kết Thúc</label>
-                            </div>
-                            <div class="ui-g-8">
-                                <input type="date" name="tgKetThuc" class="form-control"
-                                    [value]="eventUpdate.tgKetThuc | date:'yyyy-MM-dd'" (input)="parseDate($event.target.value, 'tgKetThuc')" />
-                            </div>
+                        <div class="ui-g-8">
+                            <p>{{ eventUpdate.ngayTao | date: 'dd/MM/yyyy' }}</p>
                         </div>
                     </div>
-                    <p-footer>
-                        <div>
-                            <div class="ui-dialog-buttonpane ui-helper-clearfix float-left" *ngIf="isDisplayButton">
-                                <button class="{{ eventUpdate.eventStatus ? 'btn btn-secondary' : 'btn btn-primary'}}" type="button"
-                                    (click)="onActiveEvent()" [disabled]="eventUpdate.isCompleteEvent">
-                                    <span class="{{ eventUpdate.eventStatus ? 'glyphicon glyphicon-remove-circle' : 'glyphicon glyphicon-ok-circle'}}"></span>
-                                    {{ eventUpdate.eventStatus ? 'Dừng Kích Hoạt' : 'Kích Hoạt'}}
-                                </button>&nbsp;&nbsp;
-                                
-                            </div>
-                            <div class="ui-dialog-buttonpane ui-helper-clearfix float-right">
-                                <button type="button" class="btn btn-danger" (click)="onDeleteEvent()" *ngIf="isDisplayButton">
-                                    Xóa
-                                </button>
-                                <button type="submit" class="btn btn-success ml-20" [disabled]="!f.valid || isNgayKetThucBlank || isNgayBatDauBlank || !eventUpdate.tgBatDau || !eventUpdate.tgKetThuc || !isValidNgayKetThuc || !isValidNgayBatDau">
-                                    Lưu
-                                </button>
-                                <button type="button" class="btn btn-default ml-20" (click)="onCloseForm()">
-                                    Đóng
-                                </button>
-                            </div>
+                    <div class="ui-g-12">
+                        <div class="ui-g-4">
+                            <label>Loại Sự Kiện</label>
                         </div>
-                    </p-footer>            
-                </form>
-            </p-dialog>
-        </div>
+                        <div class="ui-g-8">
+                            <p-dropdown name="loaiSK" [options]="LoaiSK" [(ngModel)]="selectedLoaiSK">
+                            </p-dropdown>
+                        </div>
+                    </div>
+                    <div class="ui-g-12">
+                        <div class="ui-g-4">
+                            <label>Mã Sự Kiện</label>
+                        </div>
+                        <div class="ui-g-8">
+                            <input name="maSK" pInputText [(ngModel)]="eventUpdate.maSK" [disabled]="true" />
+                        </div>
+                    </div>
+                    <div class="ui-g-12">
+                        <div class="ui-g-4">
+                            <label>Tên Sự Kiện</label>
+                        </div>
+                        <div class="ui-g-8">
+                            <input autofocus autocomplete="off" name="tenSK" pInputText [(ngModel)]="eventUpdate.tenSK"
+                                required />
+                        </div>
+                    </div>
+                    <div class="ui-g-12">
+                        <div class="ui-g-4">
+                            <label>Nội Dung</label>
+                        </div>
+                        <div class="ui-g-8">
+                            <input name="noiDung" autocomplete="off" pInputText [(ngModel)]="eventUpdate.noiDung" />
+                        </div>
+                    </div>
+                    <div class="ui-g-12">
+                        <div class="ui-g-4">
+                            <label>Đối Tượng</label>
+                        </div>
+                        <div class="ui-g-8">
+                            <p-dropdown name="doiTuong" [options]="LoaiDoiTuong" [(ngModel)]="selectedDoiTuong">
+                            </p-dropdown>
+                        </div>
+                    </div>
+                    <div class="ui-g-12">
+                        <div class="ui-g-4">
+                            <label>Thời Gian Bắt Đầu</label>
+                        </div>
+                        <div class="ui-g-8">
+                            <input type="date" name="tgBatDau" class="form-control" [value]="eventUpdate.tgBatDau | date:'yyyy-MM-dd'"
+                                (input)="parseDate($event.target.value, 'tgBatDau')" />
+                        </div>
+                    </div>
+                    <div class="ui-g-12">
+                        <div class="ui-g-4">
+                            <label>Thời Gian Kết Thúc</label>
+                        </div>
+                        <div class="ui-g-8">
+                            <input type="date" name="tgKetThuc" class="form-control" [value]="eventUpdate.tgKetThuc | date:'yyyy-MM-dd'"
+                                (input)="parseDate($event.target.value, 'tgKetThuc')" />
+                        </div>
+                    </div>
+                </div>
+                <p-footer>
+                    <div>
+                        <div class="ui-dialog-buttonpane ui-helper-clearfix float-left" *ngIf="isDisplayButton">
+                            <button class="{{ eventUpdate.eventStatus ? 'btn btn-secondary' : 'btn btn-primary'}}" type="button"
+                                (click)="onActiveEvent()" [disabled]="eventUpdate.isCompleteEvent">
+                                <span class="{{ eventUpdate.eventStatus ? 'glyphicon glyphicon-remove-circle' : 'glyphicon glyphicon-ok-circle'}}"></span>
+                                {{ eventUpdate.eventStatus ? 'Dừng Kích Hoạt' : 'Kích Hoạt'}}
+                            </button>&nbsp;&nbsp;
+
+                        </div>
+                        <div class="ui-dialog-buttonpane ui-helper-clearfix float-right">
+                            <button type="button" class="btn btn-danger" (click)="onDeleteEvent()" *ngIf="isDisplayButton">
+                                Xóa
+                            </button>
+                            <button type="submit" class="btn btn-success ml-20" [disabled]="!f.valid || isNgayKetThucBlank || isNgayBatDauBlank || !eventUpdate.tgBatDau || !eventUpdate.tgKetThuc || !isValidNgayKetThuc || !isValidNgayBatDau">
+                                Lưu
+                            </button>
+                            <button type="button" class="btn btn-default ml-20" (click)="onCloseForm()">
+                                Đóng
+                            </button>
+                        </div>
+                    </div>
+                </p-footer>
+            </form>
+        </p-dialog>
     </div>
 </div>

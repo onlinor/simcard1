@@ -36,6 +36,8 @@ import { CashbookComponent } from './pages/cashbook/cashbook.component';
 import { BankbookComponent } from './pages/bankbook/bankbook.component';
 import { FormphieuchiComponent } from './public/formphieuchi/formphieuchi.component'
 import { FormphieuthuComponent } from './public/formphieuthu/formphieuthu.component';
+import { FooterComponent } from './shared/footer/footer.component';
+import { HeaderComponent } from './shared/header/header.component';
 
 // Service
 import { MessageService } from 'primeng/api';
@@ -57,7 +59,9 @@ import { LogPublishersService } from './shared/logging-services/log-publishers.s
         CashbookComponent,
         BankbookComponent,
         FormphieuchiComponent,
-        FormphieuthuComponent
+        FormphieuthuComponent,
+        FooterComponent,
+        HeaderComponent
     ],
     imports: [
         CoreModule,

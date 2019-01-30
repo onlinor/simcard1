@@ -18,11 +18,22 @@ li.link-active a:focus {
     right: 0;
     z-index: 1;
 }
-.navbar-custome {
-    justify-content: normal;
-    min-height: 30px;
+.bt-0 {
+    border-top: none !important;
 }
-
+.color-white {
+    color: white;
+}
+.logo-place {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    border-bottom: 1px solid #eee;
+}
+.item-nav {
+    padding: 5px 16px !important;
+}
 @media (min-width: 768px) {
     /* On small screens, convert the nav menu to a vertical sidebar */
     .main-nav {
@@ -59,7 +70,7 @@ li.link-active a:focus {
         /* If a menu item's text is too long, truncate it */
         width: 100%;
         white-space: nowrap;
-        overflow: hidden;
+        overflow-x: hidden;
         text-overflow: ellipsis;
     }
 }

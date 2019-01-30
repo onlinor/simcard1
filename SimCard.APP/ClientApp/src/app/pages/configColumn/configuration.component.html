@@ -1,68 +1,65 @@
-<div>
-    <div class='row'>
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <h2 class="text-center text-primary">Quản Lí Cấu Hình</h2>
-            <hr>
-        </div>
-        <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
-            <p-table [columns]='cols' [value]='configInfo' [responsive]="true" selectionMode='single' [(selection)]='selectedConfig'
-                (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="5">
-                <ng-template pTemplate="caption">
-                    Danh Sách Cấu Hình
-                </ng-template>
-                <ng-template pTemplate="header" let-columns>
-                    <tr>
-                        <th>STT</th>
-                        <th *ngFor="let col of columns" [pSortableColumn]="col.field">
-                            {{col.header}}
-                            <p-sortIcon [field]="col.field"></p-sortIcon>
-                        </th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
-                    <tr [pSelectableRow]="rowData">
-                        <td>{{rowIndex + 1}}</td>
-                        <td>{{rowData.maCH}}</td>
-                        <td>{{rowData.tenCH}}</td>
-                        <td>{{rowData.giaTri}}</td>
-                        <td>{{rowData.ngayTao | date:'dd/MM/yyyy' }}</td>
-                        <td>{{rowData.ghiChu}}</td>
-                    </tr>
-                </ng-template>
-            </p-table>
-            <p-toast position="top-center"
-                        [showTransitionOptions]="'200ms ease-out'" [hideTransitionOptions]="'250ms ease-out'"></p-toast>
-            <p-dialog header="Chi Tiết Cấu Hình" [(visible)]="displayDialog" [responsive]="true" showEffect="fade"
-                [modal]="true" [width]="300">
-                <form #f="ngForm" (ngSubmit)="onSubmit()">
-                    <div class="ui-g ui-fluid" *ngIf="configUpdate">
-                        <div class="ui-g-12">
-                            <div class="ui-g-4">
-                                <label>Giá Trị <span style="color: red">(*)</span></label>
-                            </div>
-                            <div class="ui-g-8">
-                                <input name="giaTri" pInputText  #giaTri="ngModel"  [(ngModel)]="configUpdate.giaTri" required/>
-                            </div>
+<div class='row pb-60'>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pb-20">
+        <h2 class="text-center text-primary">Quản Lí Cấu Hình</h2>
+    </div>
+    <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+        <p-table [columns]='cols' [value]='configInfo' [responsive]="true" selectionMode='single' [(selection)]='selectedConfig'
+            (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="5">
+            <ng-template pTemplate="caption">
+                Danh Sách Cấu Hình
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th>STT</th>
+                    <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                        {{col.header}}
+                        <p-sortIcon [field]="col.field"></p-sortIcon>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+                <tr [pSelectableRow]="rowData">
+                    <td>{{rowIndex + 1}}</td>
+                    <td>{{rowData.maCH}}</td>
+                    <td>{{rowData.tenCH}}</td>
+                    <td>{{rowData.giaTri}}</td>
+                    <td>{{rowData.ngayTao | date:'dd/MM/yyyy' }}</td>
+                    <td>{{rowData.ghiChu}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+        <p-toast position="top-center" [showTransitionOptions]="'200ms ease-out'" [hideTransitionOptions]="'250ms ease-out'"></p-toast>
+        <p-dialog header="Chi Tiết Cấu Hình" [(visible)]="displayDialog" [responsive]="true" showEffect="fade"
+            [modal]="true" [width]="300">
+            <form #f="ngForm" (ngSubmit)="onSubmit()">
+                <div class="ui-g ui-fluid" *ngIf="configUpdate">
+                    <div class="ui-g-12">
+                        <div class="ui-g-4">
+                            <label>Giá Trị <span style="color: red">(*)</span></label>
                         </div>
-                        <div class="ui-g-12">
-                            <div class="ui-g-4">
-                                <label>Ghi Chú</label>
-                            </div>
-                            <div class="ui-g-8">
-                                <input name="ghiChu" pInputText [(ngModel)]="configUpdate.ghiChu" />
-                            </div>
+                        <div class="ui-g-8">
+                            <input name="giaTri" pInputText #giaTri="ngModel" [(ngModel)]="configUpdate.giaTri"
+                                required />
                         </div>
                     </div>
-                    <p-footer>
-                        <div class="ui-dialog-buttonpane ui-helper-clearfix float-left">
-                            <button type="submit" class="btn btn-success" [disabled]="!f.valid">Lưu</button>
+                    <div class="ui-g-12">
+                        <div class="ui-g-4">
+                            <label>Ghi Chú</label>
                         </div>
-                        <button type="button" class="btn btn-default float-right" (click)="onCloseForm()">
-                            Đóng
-                        </button>
-                    </p-footer>
-                </form>
-            </p-dialog>
-        </div>
+                        <div class="ui-g-8">
+                            <input name="ghiChu" pInputText [(ngModel)]="configUpdate.ghiChu" />
+                        </div>
+                    </div>
+                </div>
+                <p-footer>
+                    <div class="ui-dialog-buttonpane ui-helper-clearfix float-left">
+                        <button type="submit" class="btn btn-success" [disabled]="!f.valid">Lưu</button>
+                    </div>
+                    <button type="button" class="btn btn-default float-right" (click)="onCloseForm()">
+                        Đóng
+                    </button>
+                </p-footer>
+            </form>
+        </p-dialog>
     </div>
 </div>
