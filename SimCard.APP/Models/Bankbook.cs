@@ -3,8 +3,7 @@ using System;
 
 namespace SimCard.API.Models
 {
-    public class Cashbook
-    {
+    public class Bankbook {
         public int Id { get; set; }
 
         public DateTime NgayLap { get; set; }

@@ -2,7 +2,7 @@
 	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pb-20">
 		<h2 class="text-center text-primary">Theo dõi Sổ tiền mặt</h2>
 	</div>
-	<!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 		<div class="col-lg-3">
 			<p>Chọn đơn vị</p>
 			<p-dropdown [options]="LoaiDonVi" [(ngModel)]="selectedDonVi" name="loaiDonVi">
@@ -40,10 +40,13 @@
 			<p>Chi</p>
 			<input type="text" name="soTienChi" class="form-control" [(ngModel)]="soTienChi" />
 		</div>
-	</div> -->
+	</div>
 	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 place-button">
 		<button type="button" (click)="onShowDialogPhieuChi()" pButton icon="pi pi-info-circle" label="Phiếu Chi"></button>&nbsp;
-		<app-formphieuchi [isShowDialogPhieuChi]="isShowDialogPhieuChi" (outIsShowDialogPhieuChi)="onGetIsShowDialogPhieuChi($event)"></app-formphieuchi>
+		<app-formphieuchi [isShowDialogPhieuChi]="isShowDialogPhieuChi"
+									(outIsShowDialogPhieuChi)="onGetIsShowDialogPhieuChi($event)"
+									(outDataPhieuChi)="onGetDataPhieuChi($event)"></app-formphieuchi>
+									
 		<button type="button" (click)="onShowDialogPhieuThu()" pButton icon="pi pi-info-circle" label="Phiếu Thu"></button>
 		<app-formphieuthu [isShowDialogPhieuThu]="isShowDialogPhieuThu" (outIsShowDialogPhieuThu)="onGetIsShowDialogPhieuThu($event)"></app-formphieuthu>
 	</div>
@@ -51,7 +54,7 @@
 		<p-table [columns]="cols" #datatable class="table-fixed" [responsive]="true" [value]="cashbook" [(selection)]="selectedCashbook"
 			selectionMode="single" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="10">
 			<ng-template pTemplate="caption">
-				<p class="header-table">Danh Sách Sổ tiền mặt</p>
+				<p class="header-table">Danh Sách Sổ Tiền Mặt</p>
 				<button type="button" class="float-right" pButton label="Xuất Excel" (click)="datatable.exportCSV()"
 					icon="pi pi-download">
 				</button>
@@ -65,9 +68,13 @@
 			</ng-template>
 			<ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
 				<tr [pSelectableRow]="rowData">
-					<td *ngFor="let col of columns">
-						{{rowData[col.field]}}
-					</td>
+					<td>{{rowData.ngayLap}}</td>
+					<td>{{rowData.tenKhachHang}}</td>
+					<td>{{rowData.maPhieu}}</td>
+					<td>{{rowData.noidungPhieu}}</td>
+					<td>{{rowData.sotienThu}}</td>
+					<td>{{rowData.sotienChi}}</td>
+					<td>{{rowData.congDon}}</td>
 				</tr>
 			</ng-template>
 		</p-table>

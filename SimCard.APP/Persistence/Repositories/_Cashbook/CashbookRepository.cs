@@ -9,7 +9,7 @@ namespace SimCard.API.Persistence.Repositories
     public class CashbookRepository : ICashbookRepository
     {
         private readonly SimCardDBContext context;
-       public CashbookRepository(SimCardDBContext context)
+        public CashbookRepository(SimCardDBContext context)
         {
             this.context = context;
         }

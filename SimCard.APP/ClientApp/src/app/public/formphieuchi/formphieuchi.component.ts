@@ -26,40 +26,45 @@ export class FormphieuchiComponent implements OnInit {
 		maKhachHang: '',
 		ghiChu: '',
 		hinhthucChi: '',
-		maPhieu: '',
+		maPhieu: 'PC',
 		nguoiChi: '',
 		ngayLap: new Date().toLocaleDateString(),
 		noidungPhieu: '',
 		soTien: 0
 	};
+	donvinhan = '';
 	dsKhachHang: any;
 	@Input("isShowDialogPhieuChi") isShowDialogPhieuChi: boolean;
 	@Output("outIsShowDialogPhieuChi") emitShowDialogPhieuChi = new EventEmitter<any>();
+	@Output("outDataPhieuChi") emitDataPhieuChi = new EventEmitter<any>();
 	constructor() { }
 
 	ngOnInit() {
 	}
 
-	onSave() {
+	onSubmit() {
 		this.dataPhieuChi.loaiPhanBo = this.selectedPhanBo;
 		this.dataPhieuChi.hinhthucChi = this.selectedHinhThuc;
 		this.isShowDialogPhieuChi = false;
 		this.emitShowDialogPhieuChi.emit(this.isShowDialogPhieuChi);
-		this.ngForm.reset();
+		this.emitDataPhieuChi.emit(this.dataPhieuChi);
+		// this.dataPhieuChi = {};
+		// this.dataPhieuChi.maPhieu = 'PC';
+		// this.dataPhieuChi.ngayLap = new Date().toLocaleDateString();
 	}
 
 	onClose() {
+		this.dataPhieuChi = {};
+		this.dataPhieuChi.ngayLap = new Date().toLocaleDateString();
 		this.isShowDialogPhieuChi = false;
 		this.emitShowDialogPhieuChi.emit(this.isShowDialogPhieuChi);
-		this.ngForm.reset();
-	}
-	
-	onSubmit() {
-
+		this.dataPhieuChi.maPhieu = 'PC';
 	}
 
 	onClearForm() {
-		this.ngForm.reset();
+		this.dataPhieuChi = {};
+		this.dataPhieuChi.maPhieu = 'PC';
+		this.dataPhieuChi.ngayLap = new Date().toLocaleDateString();
 	}
 
 }

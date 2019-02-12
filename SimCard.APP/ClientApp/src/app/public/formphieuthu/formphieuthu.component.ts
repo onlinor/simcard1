@@ -48,7 +48,6 @@ export class FormphieuthuComponent implements OnInit {
 		this.dataPhieuThu.loaiPhanBo = this.selectedPhanBo;
 		this.isShowDialogPhieuThu = false;
 		this.emitShowDialogPhieuThu.emit(this.isShowDialogPhieuThu);
-		this.ngForm.reset();
 	}
 
 	onClose() {

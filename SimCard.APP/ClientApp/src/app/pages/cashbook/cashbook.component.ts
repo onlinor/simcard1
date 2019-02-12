@@ -36,8 +36,10 @@ export class CashbookComponent implements OnInit {
         { field: 'sotienChi', header: 'Số Tiền Chi'},
         { field: 'congDon', header: 'Cộng Dồn'}
     ];
-    cashbook: any;
+    cashbook: any = [];
     selectedCashbook: any;
+    dataPhieuChi: any;
+    dataPhieuThu: any;
 
     constructor() { }
 
@@ -51,6 +53,13 @@ export class CashbookComponent implements OnInit {
         this.isShowDialogPhieuChi = data;
     }
 
+    onGetDataPhieuChi(data: any) {
+        this.dataPhieuChi = data;
+        this.cashbook.push(this.dataPhieuChi);
+        console.log('phieuchi', this.dataPhieuChi);
+        console.log('cashbook', this.cashbook);
+    }
+
     onShowDialogPhieuThu() {
         this.isShowDialogPhieuThu = true;
     }
@@ -59,7 +68,7 @@ export class CashbookComponent implements OnInit {
         this.isShowDialogPhieuThu = data;
     }
     
-    onRowSelect(event) {
+    onRowSelect(data: any) {
 
     }
 }

@@ -34,7 +34,15 @@ li.link-active a:focus {
 .item-nav {
     padding: 5px 16px !important;
 }
-@media (min-width: 768px) {
+.mw-sidebar {
+    min-width: 250px;
+}
+@media (max-width: 989px) {
+    .main-nav {
+        position: static;
+    }
+}
+@media (min-width: 990px) {
     /* On small screens, convert the nav menu to a vertical sidebar */
     .main-nav {
         height: 100%;

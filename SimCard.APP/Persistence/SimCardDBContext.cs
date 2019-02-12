@@ -16,5 +16,6 @@ namespace SimCard.API.Persistence
         public DbSet<Product> Products{get; set;}
         public DbSet<Warehouse> Warehouses{get; set;}
         public DbSet<Cashbook> Cashbook {get; set; }
+        public DbSet<Bankbook> Bankbook {get; set; }
     }
 }

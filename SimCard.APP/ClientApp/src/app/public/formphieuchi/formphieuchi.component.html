@@ -31,7 +31,7 @@
 						<label>Người nhận tiền</label>
 					</div>
 					<div class="ui-g-6">
-						<p-dropdown [options]="dsKhachHang" [(ngModel)]="dataPhieuChi.tenKhachHang" editable="true" placeholder="Chọn dữ liệu"></p-dropdown>
+						<p-dropdown name="dsKhachHang" [options]="dsKhachHang" [(ngModel)]="dataPhieuChi.tenKhachHang" editable="true" placeholder="Chọn dữ liệu"></p-dropdown>
 					</div>
 				</div>
 				<div class="ui-g-12">
@@ -98,7 +98,7 @@
 				</div>
 				<div class="float-right">
 					<button type="button" pButton icon="pi pi-print" label="In phiếu" class="ui-button-secondary"></button>&nbsp;
-					<button type="button" pButton icon="pi pi-check" (click)="onSave()" label="Lưu" class="ui-button-success"></button>&nbsp;
+					<button type="submit" pButton icon="pi pi-check" label="Lưu" class="ui-button-success"></button>&nbsp;
 					<button type="button" pButton icon="pi pi-times"  (click)="onClose()" label="Đóng" class="ui-button-primary"></button>&nbsp;
 				</div>
 			</p-footer>     

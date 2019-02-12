@@ -38,7 +38,7 @@ namespace SimCard.API.Controllers
             return mapper.Map<Cashbook, CashbookResource>(cashbook);
         }
 
-        //api/customer/id
+        //api/cashbook/id
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCashbook(int id)
         {
@@ -53,7 +53,7 @@ namespace SimCard.API.Controllers
             return Ok(id);
         }
 
-         //api/customer
+         //api/cashbook
         [HttpPost]
         public async Task<IActionResult> AddCashbook(Cashbook cashbook)
         {
@@ -66,7 +66,7 @@ namespace SimCard.API.Controllers
             return StatusCode(201);
         }
 
-        //api/customer 
+        //api/cashbook 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateCashbook(int id, Cashbook cashbook)
         {
