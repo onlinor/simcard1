@@ -8,6 +8,64 @@ namespace SimCard.APP.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Bankbook",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    NgayLap = table.Column<DateTime>(nullable: false),
+                    TenKhachHang = table.Column<string>(maxLength: 255, nullable: true),
+                    MaKhachHang = table.Column<string>(maxLength: 255, nullable: true),
+                    MaPhieu = table.Column<string>(maxLength: 255, nullable: true),
+                    NoiDungPhieu = table.Column<string>(maxLength: 255, nullable: true),
+                    SoTienThu = table.Column<int>(nullable: false),
+                    SoTienChi = table.Column<int>(nullable: false),
+                    CongDon = table.Column<int>(nullable: false),
+                    DonViNop = table.Column<string>(maxLength: 255, nullable: true),
+                    DonViNhan = table.Column<string>(maxLength: 255, nullable: true),
+                    LiDoNop = table.Column<string>(maxLength: 255, nullable: true),
+                    LiDoChi = table.Column<string>(maxLength: 255, nullable: true),
+                    HinhThucNop = table.Column<string>(maxLength: 255, nullable: true),
+                    HinhThucChi = table.Column<string>(maxLength: 255, nullable: true),
+                    NguoiChi = table.Column<string>(maxLength: 255, nullable: true),
+                    NguoiThu = table.Column<string>(maxLength: 255, nullable: true),
+                    GhiChu = table.Column<string>(maxLength: 255, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Bankbook", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Cashbook",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    NgayLap = table.Column<DateTime>(nullable: false),
+                    TenKhachHang = table.Column<string>(maxLength: 255, nullable: true),
+                    MaKhachHang = table.Column<string>(maxLength: 255, nullable: true),
+                    MaPhieu = table.Column<string>(maxLength: 255, nullable: true),
+                    NoiDungPhieu = table.Column<string>(maxLength: 255, nullable: true),
+                    SoTienThu = table.Column<int>(nullable: false),
+                    SoTienChi = table.Column<int>(nullable: false),
+                    CongDon = table.Column<int>(nullable: false),
+                    DonViNop = table.Column<string>(maxLength: 255, nullable: true),
+                    DonViNhan = table.Column<string>(maxLength: 255, nullable: true),
+                    LiDoNop = table.Column<string>(maxLength: 255, nullable: true),
+                    LiDoChi = table.Column<string>(maxLength: 255, nullable: true),
+                    HinhThucNop = table.Column<string>(maxLength: 255, nullable: true),
+                    HinhThucChi = table.Column<string>(maxLength: 255, nullable: true),
+                    NguoiChi = table.Column<string>(maxLength: 255, nullable: true),
+                    NguoiThu = table.Column<string>(maxLength: 255, nullable: true),
+                    GhiChu = table.Column<string>(maxLength: 255, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Cashbook", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Configurations",
                 columns: table => new
                 {
@@ -136,6 +194,12 @@ namespace SimCard.APP.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Bankbook");
+
+            migrationBuilder.DropTable(
+                name: "Cashbook");
+
             migrationBuilder.DropTable(
                 name: "Configurations");
 

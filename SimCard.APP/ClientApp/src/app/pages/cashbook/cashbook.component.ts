@@ -27,19 +27,21 @@ export class CashbookComponent implements OnInit {
     isShowDialogPhieuChi: boolean = false;
     isShowDialogPhieuThu: boolean = false;
     cols: any = [
-        { field: 'stt', header: 'STT' },
         { fleld: 'ngayLap', header: 'Ngày Lập'},
         { field: 'tenKhachHang', header: 'Tên Khách Hàng'},
         { field: 'maPhieu', header: 'Mã Phiếu'},
         { field: 'noidungPhieu', header: 'Nội Dung Phiếu'},
         { field: 'sotienThu', header: 'Số Tiền Thu'},
-        { field: 'sotienChi', header: 'Số Tiền Chi'},
-        { field: 'congDon', header: 'Cộng Dồn'}
+        { field: 'sotienChi', header: 'Số Tiền Chi'}
+        //{ field: 'congDon', header: 'Cộng Dồn'}
     ];
     cashbook: any = [];
     selectedCashbook: any;
     dataPhieuChi: any;
     dataPhieuThu: any;
+    isNewCashBook: boolean;
+    idSelectedCashbook: any;
+    cashbookTemp: any;
 
     constructor() { }
 
@@ -47,6 +49,7 @@ export class CashbookComponent implements OnInit {
 
     onShowDialogPhieuChi() {
         this.isShowDialogPhieuChi = true;
+        this.isNewCashBook = true;
     }
 
     onGetIsShowDialogPhieuChi(data: any) {
@@ -68,7 +71,20 @@ export class CashbookComponent implements OnInit {
         this.isShowDialogPhieuThu = data;
     }
     
-    onRowSelect(data: any) {
+    onRowSelect(event: any) {
+        this.isShowDialogPhieuChi = true;
+        this.isNewCashBook = false;
+        this.cashbookTemp = this.cloneCashbook(event.data);
+        console.log('temp', this.cashbookTemp);
+    }
 
+    // call in onSelectRow to through obj
+    cloneCashbook(cashbook: any) {
+        const cashbookToUpdate = {};
+        // tslint:disable-next-line:forin
+        for (const prop in cashbook) {
+            cashbookToUpdate[prop] = cashbook[prop];
+        }
+        return cashbookToUpdate;
     }
 }

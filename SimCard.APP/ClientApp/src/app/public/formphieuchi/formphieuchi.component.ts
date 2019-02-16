@@ -30,16 +30,20 @@ export class FormphieuchiComponent implements OnInit {
 		nguoiChi: '',
 		ngayLap: new Date().toLocaleDateString(),
 		noidungPhieu: '',
-		soTien: 0
+		sotienChi: 0
 	};
 	donvinhan = '';
 	dsKhachHang: any;
 	@Input("isShowDialogPhieuChi") isShowDialogPhieuChi: boolean;
+	@Input("isNewCashBook") isNewCashBook: boolean;
+	@Input("cashbookTemp") cashbookTemp: any;
 	@Output("outIsShowDialogPhieuChi") emitShowDialogPhieuChi = new EventEmitter<any>();
 	@Output("outDataPhieuChi") emitDataPhieuChi = new EventEmitter<any>();
-	constructor() { }
+	constructor() {
+	}
 
 	ngOnInit() {
+		console.log('test', this.cashbookTemp);
 	}
 
 	onSubmit() {
@@ -48,9 +52,9 @@ export class FormphieuchiComponent implements OnInit {
 		this.isShowDialogPhieuChi = false;
 		this.emitShowDialogPhieuChi.emit(this.isShowDialogPhieuChi);
 		this.emitDataPhieuChi.emit(this.dataPhieuChi);
-		// this.dataPhieuChi = {};
-		// this.dataPhieuChi.maPhieu = 'PC';
-		// this.dataPhieuChi.ngayLap = new Date().toLocaleDateString();
+		this.dataPhieuChi = {};
+		this.dataPhieuChi.maPhieu = 'PC';
+		this.dataPhieuChi.ngayLap = new Date().toLocaleDateString();
 	}
 
 	onClose() {

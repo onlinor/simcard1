@@ -44,6 +44,8 @@
 	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 place-button">
 		<button type="button" (click)="onShowDialogPhieuChi()" pButton icon="pi pi-info-circle" label="Phiếu Chi"></button>&nbsp;
 		<app-formphieuchi [isShowDialogPhieuChi]="isShowDialogPhieuChi"
+									[isNewCashBook]="isNewCashBook"
+									[cashbookTemp]="cashbookTemp"
 									(outIsShowDialogPhieuChi)="onGetIsShowDialogPhieuChi($event)"
 									(outDataPhieuChi)="onGetDataPhieuChi($event)"></app-formphieuchi>
 									
@@ -68,13 +70,13 @@
 			</ng-template>
 			<ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
 				<tr [pSelectableRow]="rowData">
-					<td>{{rowData.ngayLap}}</td>
+					<td>{{rowData.ngayLap | date: "dd/MM/yyyy"}}</td>
 					<td>{{rowData.tenKhachHang}}</td>
 					<td>{{rowData.maPhieu}}</td>
 					<td>{{rowData.noidungPhieu}}</td>
 					<td>{{rowData.sotienThu}}</td>
 					<td>{{rowData.sotienChi}}</td>
-					<td>{{rowData.congDon}}</td>
+					<!-- <td>{{rowData.congDon}}</td> -->
 				</tr>
 			</ng-template>
 		</p-table>

@@ -9,7 +9,7 @@ using SimCard.API.Persistence;
 namespace SimCard.APP.Migrations
 {
     [DbContext(typeof(SimCardDBContext))]
-    [Migration("20190111092741_InitialCreate")]
+    [Migration("20190214083525_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -17,6 +17,120 @@ namespace SimCard.APP.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.1.4-rtm-31024");
+
+            modelBuilder.Entity("SimCard.API.Models.Bankbook", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("CongDon");
+
+                    b.Property<string>("DonViNhan")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("DonViNop")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("GhiChu")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("HinhThucChi")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("HinhThucNop")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("LiDoChi")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("LiDoNop")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("MaKhachHang")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("MaPhieu")
+                        .HasMaxLength(255);
+
+                    b.Property<DateTime>("NgayLap");
+
+                    b.Property<string>("NguoiChi")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("NguoiThu")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("NoiDungPhieu")
+                        .HasMaxLength(255);
+
+                    b.Property<int>("SoTienChi");
+
+                    b.Property<int>("SoTienThu");
+
+                    b.Property<string>("TenKhachHang")
+                        .HasMaxLength(255);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Bankbook");
+                });
+
+            modelBuilder.Entity("SimCard.API.Models.Cashbook", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("CongDon");
+
+                    b.Property<string>("DonViNhan")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("DonViNop")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("GhiChu")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("HinhThucChi")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("HinhThucNop")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("LiDoChi")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("LiDoNop")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("MaKhachHang")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("MaPhieu")
+                        .HasMaxLength(255);
+
+                    b.Property<DateTime>("NgayLap");
+
+                    b.Property<string>("NguoiChi")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("NguoiThu")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("NoiDungPhieu")
+                        .HasMaxLength(255);
+
+                    b.Property<int>("SoTienChi");
+
+                    b.Property<int>("SoTienThu");
+
+                    b.Property<string>("TenKhachHang")
+                        .HasMaxLength(255);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Cashbook");
+                });
 
             modelBuilder.Entity("SimCard.API.Models.Configuration", b =>
                 {
