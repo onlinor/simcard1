@@ -1,8 +1,9 @@
 export class Product {
-    id: number;
-    name: string;
-    quantity: number;
-    unit: string;
-    buyingprice: number;
-    shopid: number;
+  ma: string;
+  ten: string;
+  soluong: number;
+  menhgia: number;
+  chietkhau: number;
+  dongia: number;
+  thanhtien: number;
 }

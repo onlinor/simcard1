@@ -1,7 +1,10 @@
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using OfficeOpenXml;
 using SimCard.API.Controllers.Resources;
 using SimCard.API.Models;
 using SimCard.API.Persistence;
@@ -55,6 +58,43 @@ namespace SimCard.API.Controllers
             return Ok();
         }
 
+
+                [HttpPost("/api/product/import")]
+        public List<ImportProduct> ImportProduct()
+        {
+            var fileUploaded = Request.Form.Files[0];
+            using (var ms = new MemoryStream())
+            {
+                fileUploaded.CopyTo(ms);
+                try
+                {
+                    using (ExcelPackage package = new ExcelPackage(ms))
+                    {
+                        List<ImportProduct> importProductList = new List<ImportProduct>();
+
+                        ExcelWorksheet worksheet = package.Workbook.Worksheets[0];
+                        int rowCount = worksheet.Dimension.Rows;
+                        for (int row = 2; row <= rowCount; row++)
+                        {
+                            var importProduct = new ImportProduct();
+
+                            importProduct.Ten = worksheet.Cells[row, 1].Value.ToString();
+                            importProduct.Ma = worksheet.Cells[row, 2].Value.ToString();
+                            importProduct.SoLuong = Int32.Parse(worksheet.Cells[row, 3].Value.ToString());
+                            importProduct.MenhGia = Decimal.Parse(worksheet.Cells[row, 4].Value.ToString());
+                            importProduct.ChietKhau = Decimal.Parse(worksheet.Cells[row, 5].Value.ToString());
+                            importProductList.Add(importProduct);
+                        }
+                        return importProductList;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    var errorEx = ex;
+                    return null;
+                }
+            }
+        }
         // [HttpPut("/api/warehouse/edit/{id}")]
         // public async Task<IActionResult> EditWarehouse (WarehouseResource wh)
         // {
