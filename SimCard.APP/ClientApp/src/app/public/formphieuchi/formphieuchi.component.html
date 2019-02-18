@@ -1,4 +1,5 @@
-<p-dialog [maximizable]="true" [baseZIndex]="10000" header="Thêm Phiếu Chi" [(visible)]="isShowDialogPhieuChi" [modal]="true" [responsive]="true" showEffect="fade" [width]="500">
+<p-dialog [maximizable]="true" [baseZIndex]="10000" header="Thêm Phiếu Chi" [(visible)]="isShowDialogPhieuChi" [modal]="true" 
+			[responsive]="true" showEffect="fade" [width]="500" >
 	<form #f="ngForm" (ngSubmit)="onSubmit()">
 			<div class="ui-g ui-fluid">
 				<div class="ui-g-12">
@@ -22,11 +23,11 @@
 						<label>Phân Bổ</label>
 					</div>
 					<div class="ui-g-6">
-						<p-dropdown placeholder="Chọn dữ liệu" name="phanBo" [options]="LoaiPhanBo" [(ngModel)]="selectedPhanBo">
+						<p-dropdown placeholder="Chọn dữ liệu" name="phanBo" [options]="LoaiPhanBo" [(ngModel)]="dataPhieuChi.loaiPhanBo">
 						</p-dropdown>
 					</div>
 				</div>
-				<div class="ui-g-12">
+				<div class="ui-g-12" >
 					<div class="ui-g-4">
 						<label>Người nhận tiền</label>
 					</div>
@@ -50,7 +51,7 @@
 						<input type="text" name="maKhachHang" autocomplete="off" pInputText [(ngModel)]="dataPhieuChi.maKhachHang" />	
 					</div>
 				</div>
-				<div class="ui-g-12">
+				<div class="ui-g-12" >
 					<div class="ui-g-4">
 						<label>Lí do chi</label>
 					</div>
@@ -63,7 +64,15 @@
 						<label>Hình thức chi</label>
 					</div>
 					<div class="ui-g-6">
-						<p-multiSelect name="hinhthucChi" [options]="LoaiHinhThucChi" [(ngModel)]="selectedHinhThuc" ></p-multiSelect>
+						<p-multiSelect name="hinhthucChi" (onChange)="onChangeHTC($event)" [options]="LoaiHinhThucChi" [(ngModel)]="dataPhieuChi.hinhthucChi" ></p-multiSelect>
+					</div>
+				</div>
+				<div class="ui-g-12" *ngIf="hinhthucCK">
+					<div class="ui-g-4">
+						<label>Ngân Hàng</label>
+					</div>
+					<div class="ui-g-6">
+						<p-multiSelect name="loaiNganHang" [options]="LoaiNganHang" [(ngModel)]="dataPhieuChi.loaiNganHang"></p-multiSelect>
 					</div>
 				</div>
 				<div class="ui-g-12">

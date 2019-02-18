@@ -22,7 +22,7 @@
 						<label>Phân Bổ</label>
 					</div>
 					<div class="ui-g-6">
-						<p-dropdown placeholder="Chọn dữ liệu" name="phanBo" [options]="LoaiPhanBo" [(ngModel)]="selectedPhanBo">
+						<p-dropdown placeholder="Chọn dữ liệu" name="phanBo" [options]="LoaiPhanBo" [(ngModel)]="dataPhieuThu.loaiPhanBo">
 							</p-dropdown>
 					</div>
 				</div>
@@ -63,7 +63,15 @@
 						<label>Hình thức nộp</label>
 					</div>
 					<div class="ui-g-6">
-						<p-multiSelect name="hinhthucNop" [options]="LoaiHinhThucNop" [(ngModel)]="selectedHinhThuc" ></p-multiSelect>
+						<p-multiSelect name="hinhthucNop" (onChange)="onChangeHTT($event)" [options]="LoaiHinhThucNop" [(ngModel)]="dataPhieuThu.hinhthucNop" ></p-multiSelect>
+					</div>
+				</div>
+				<div class="ui-g-12" *ngIf="hinhthucCK">
+					<div class="ui-g-4">
+						<label>Ngân Hàng</label>
+					</div>
+					<div class="ui-g-6">
+						<p-multiSelect name="loaiNganHang" [options]="LoaiNganHang" [(ngModel)]="dataPhieuThu.loaiNganHang"></p-multiSelect>
 					</div>
 				</div>
 				<div class="ui-g-12">
@@ -71,7 +79,7 @@
 						<label>Số tiền</label>
 					</div>
 					<div class="ui-g-6">
-						<input type="number" name="soTien" autocomplete="off" pInputText [(ngModel)]="dataPhieuThu.soTien"/>
+						<input type="number" name="soTien" autocomplete="off" pInputText [(ngModel)]="dataPhieuThu.sotienThu"/>
 					</div>
 				</div>
 				<div class="ui-g-12">
@@ -98,7 +106,7 @@
 				</div>
 				<div class="float-right">
 					<button type="button" pButton icon="pi pi-print" label="In phiếu" class="ui-button-secondary"></button>&nbsp;
-					<button type="button" pButton icon="pi pi-check" (click)="onSave()" label="Lưu" class="ui-button-success"></button>&nbsp;
+					<button type="submit" pButton icon="pi pi-check" label="Lưu" class="ui-button-success"></button>&nbsp;
 					<button type="button" pButton icon="pi pi-times"  (click)="onClose()" label="Đóng" class="ui-button-primary"></button>&nbsp;
 				</div>
 			</p-footer>     

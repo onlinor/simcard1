@@ -28,10 +28,6 @@ label {
   table-layout: fixed;
   width: 100%;
 }
-th,
-td {
-  word-wrap: break-word;
-}
 .ml-10 {
   margin-left: 10px;
 }

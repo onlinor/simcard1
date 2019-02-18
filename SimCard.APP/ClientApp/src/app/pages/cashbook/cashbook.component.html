@@ -34,23 +34,23 @@
 		</div>
 		<div class="col-lg-3">
 			<p>Thu</p>
-			<input type="text" name="soTienThu" class="form-control" [(ngModel)]="soTienThu" />
+			<input type="text" name="searchSoTienThu" class="form-control" [(ngModel)]="searchSoTienThu" />
 		</div>
 		<div class="col-lg-3">
 			<p>Chi</p>
-			<input type="text" name="soTienChi" class="form-control" [(ngModel)]="soTienChi" />
+			<input type="text" name="searchSoTienChi" class="form-control" [(ngModel)]="searchSoTienChi" />
 		</div>
 	</div>
 	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 place-button">
 		<button type="button" (click)="onShowDialogPhieuChi()" pButton icon="pi pi-info-circle" label="Phiếu Chi"></button>&nbsp;
 		<app-formphieuchi [isShowDialogPhieuChi]="isShowDialogPhieuChi"
-									[isNewCashBook]="isNewCashBook"
-									[cashbookTemp]="cashbookTemp"
 									(outIsShowDialogPhieuChi)="onGetIsShowDialogPhieuChi($event)"
 									(outDataPhieuChi)="onGetDataPhieuChi($event)"></app-formphieuchi>
 									
 		<button type="button" (click)="onShowDialogPhieuThu()" pButton icon="pi pi-info-circle" label="Phiếu Thu"></button>
-		<app-formphieuthu [isShowDialogPhieuThu]="isShowDialogPhieuThu" (outIsShowDialogPhieuThu)="onGetIsShowDialogPhieuThu($event)"></app-formphieuthu>
+		<app-formphieuthu [isShowDialogPhieuThu]="isShowDialogPhieuThu"
+									(outIsShowDialogPhieuThu)="onGetIsShowDialogPhieuThu($event)"
+									(outDataPhieuThu)="onGetDataPhieuThu($event)"></app-formphieuthu>
 	</div>
 	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mt-20">
 		<p-table [columns]="cols" #datatable class="table-fixed" [responsive]="true" [value]="cashbook" [(selection)]="selectedCashbook"

@@ -71,6 +71,7 @@ namespace SimCard.API.Persistence.Repositories
                 cashbookToUpdate.NguoiChi = cashbookParams.NguoiChi;
                 cashbookToUpdate.NguoiThu = cashbookParams.NguoiThu;
                 cashbookToUpdate.GhiChu = cashbookParams.GhiChu;
+                cashbookToUpdate.LoaiNganHang = cashbookParams.LoaiNganHang;
                 context.Cashbook.Update(cashbookToUpdate);
                 await context.SaveChangesAsync();
                 return cashbookToUpdate;

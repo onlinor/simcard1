@@ -51,5 +51,8 @@ namespace SimCard.API.Models
 
         [StringLength(255)]
         public string GhiChu { get; set; }
+        
+        [StringLength(255)]
+        public string LoaiNganHang { get; set; }
     }
 }
