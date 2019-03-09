@@ -7,7 +7,7 @@ namespace SimCard.API.Models
     {
         public int Id { get; set; }
 
-        public DateTime NgayLap { get; set; }
+        public DateTime? NgayLap { get; set; }
 
         [StringLength(255)]
         public string TenKhachHang { get; set; }
@@ -32,12 +32,6 @@ namespace SimCard.API.Models
         public string DonViNhan { get; set; }
 
         [StringLength(255)]
-        public string LiDoNop { get; set; }
-
-        [StringLength(255)]
-        public string LiDoChi { get; set; }
-
-        [StringLength(255)]
         public string HinhThucNop { get; set; }
 
         [StringLength(255)]
@@ -51,8 +45,7 @@ namespace SimCard.API.Models
 
         [StringLength(255)]
         public string GhiChu { get; set; }
-        
-        [StringLength(255)]
-        public string LoaiNganHang { get; set; }
+
+        public string LoaiNganHang { get; set;}
     }
 }

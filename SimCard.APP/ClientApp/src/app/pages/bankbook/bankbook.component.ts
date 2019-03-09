@@ -1,11 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { FormphieuchibankbookComponent } from '../../public/formphieuchibankbook/formphieuchibankbook.component';
+import { FormphieuthubankbookComponent } from '../../public/formphieuthubankbook/formphieuthubankbook.component';
+import { Subscription } from 'rxjs/subscription';
+import { BankbookService } from '../../core/services/bankbook.service';
 
 @Component({
   selector: 'app-bankbook',
   templateUrl: './bankbook.component.html',
   styleUrls: ['./bankbook.component.css']
 })
-export class BankbookComponent implements OnInit {
+export class BankbookComponent implements OnInit, OnDestroy {
+	@ViewChild(FormphieuchibankbookComponent)
+	myFormChiChild: FormphieuchibankbookComponent;
+	@ViewChild(FormphieuthubankbookComponent)
+	myFormThuChild: FormphieuthubankbookComponent;
 	selectedDonVi: String = '';
 	LoaiDonVi = [
 		{ label: 'Shop 1', value: 'CN1' },
@@ -25,14 +33,13 @@ export class BankbookComponent implements OnInit {
         { label: 'Image', value: 'IMG' }
 	];
 	cols: any = [
-        { field: 'stt', header: 'STT' },
         { fleld: 'ngayLap', header: 'Ngày Lập'},
         { field: 'tenKhachHang', header: 'Tên Khách Hàng'},
         { field: 'maPhieu', header: 'Mã Phiếu'},
-        { field: 'noidungPhieu', header: 'Nội Dung Phiếu'},
-        { field: 'sotienThu', header: 'Số Tiền Thu'},
-        { field: 'sotienChi', header: 'Số Tiền Chi'},
-        { field: 'congDon', header: 'Cộng Dồn'}
+        { field: 'noiDungPhieu', header: 'Nội Dung Phiếu'},
+        { field: 'soTienThu', header: 'Số Tiền Thu'},
+        { field: 'soTienChi', header: 'Số Tiền Chi'}
+        // { field: 'congDon', header: 'Cộng Dồn'}
     ];
 	tuNgay: any;
 	toiNgay: any;
@@ -40,35 +47,127 @@ export class BankbookComponent implements OnInit {
     tonCuoiKi: any;
     soTienThu: any;
 	soTienChi: any;
-	bankBook: any = [];
-    selectedBankbook: any;
+	searchSoTienThu: any;
+	searchSoTienChi: any;
 	isShowDialogPhieuChi: boolean = false;
 	isShowDialogPhieuThu: boolean = false;
-	constructor() {}
+	bankbook: any = [];
+    selectedBankbook: any;
+	dataPhieuChi: any;
+	dataPhieuThu: any;
+	isNewCashBook: boolean;
+	idSelectedBankbook: any;
+	bankbookTemp: any;
+	recieveBankbook: any;
+	subscription: Subscription;
 
-	ngOnInit() {}
+	constructor(private bankbookService: BankbookService) {}
+
+	ngOnInit() {
+		this.getAllBankbook();
+	}
+
+	getAllBankbook() {
+		this.subscription = this.bankbookService.getAllBankbook()
+			.subscribe(
+				response => {
+					this.bankbook = response;
+				},
+				error => {}
+			)
+	}
 	
 	onShowDialogPhieuChi() {
 		this.isShowDialogPhieuChi = true;
+		this.isNewCashBook = true;
 	}
 
 	onGetIsShowDialogPhieuChi(data: any) {
 		this.isShowDialogPhieuChi = data;
 	}
 
+	onGetDataPhieuChi(data: any) {
+		this.getAllBankbook();
+		let bankbook = [...this.bankbook];
+		this.dataPhieuChi = data;
+		if(this.isNewCashBook) {
+			bankbook.push(this.dataPhieuChi);
+		} else {
+			bankbook[this.bankbook.indexOf(this.selectedBankbook)] = this.dataPhieuChi;
+		}
+		this.bankbook = bankbook;
+		this.dataPhieuChi = null;
+	}
+
+	onGetDataPhieuThu(data: any) {
+		this.getAllBankbook();
+		let bankbook = [...this.bankbook];
+		this.dataPhieuThu = data;
+		if (this.isNewCashBook) {
+			bankbook.push(this.dataPhieuThu);
+		} else {
+			bankbook[this.bankbook.indexOf(this.selectedBankbook)] = this.dataPhieuThu;
+		}
+		this.bankbook = bankbook;
+		this.dataPhieuThu = null;
+	}
+
 	onShowDialogPhieuThu() {
 		this.isShowDialogPhieuThu = true;
+		this.isNewCashBook = true;
 	}
 
 	onGetIsShowDialogPhieuThu(data: any) {
 		this.isShowDialogPhieuThu = data;
 	}
 
-	onGetDataPhieuChi(data: any) {
 
+	onRowSelect(event: any) {
+		let PC = 'PC';
+		let kieuMaPhieu = event.data['maPhieu'];
+		let isPC = kieuMaPhieu.includes(PC);
+		this.isNewCashBook = false;
+		this.bankbookTemp = this.cloneBankbook(event.data);
+		this.idSelectedBankbook = event.data.id;
+		if (isPC) {
+			this.isShowDialogPhieuChi = true;
+			let checkHTChi = '';
+			if(this.bankbookTemp['hinhThucChi']) {
+				checkHTChi = this.bankbookTemp['hinhThucChi'];
+			}
+			if (checkHTChi === 'TM,CK') {
+				this.myFormChiChild.theATM = true;
+			} else {
+				this.myFormChiChild.theATM = false;
+			}
+			this.myFormChiChild.dataPhieuChi = this.bankbookTemp;
+		} else {
+			this.isShowDialogPhieuThu = true;
+			let checkHTThu = '';
+			if(this.bankbookTemp['hinhThucNop']) {
+				checkHTThu = this.bankbookTemp['hinhThucNop'];
+			}
+			if (checkHTThu === 'TM,CK' ) {
+				this.myFormThuChild.theATM = true;
+			} else {
+				this.myFormThuChild.theATM = false;
+			}
+			this.myFormThuChild.dataPhieuThu = this.bankbookTemp;
+		}
+	}
+	// call in onSelectRow to through obj
+	cloneBankbook(bankbook: any) {
+		const bankbookToUpdate = {};
+		// tslint:disable-next-line:forin
+		for (const prop in bankbook) {
+			bankbookToUpdate[prop] = bankbook[prop];
+		}
+		return bankbookToUpdate;
 	}
 
-	onRowSelect(data: any) {
-
-    }
+	ngOnDestroy() {
+		if (this.subscription) {
+			this.subscription.unsubscribe();
+		}
+	}
 }

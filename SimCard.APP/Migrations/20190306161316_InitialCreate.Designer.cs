@@ -9,7 +9,7 @@ using SimCard.API.Persistence;
 namespace SimCard.APP.Migrations
 {
     [DbContext(typeof(SimCardDBContext))]
-    [Migration("20190214083525_InitialCreate")]
+    [Migration("20190306161316_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,11 +40,7 @@ namespace SimCard.APP.Migrations
                     b.Property<string>("HinhThucNop")
                         .HasMaxLength(255);
 
-                    b.Property<string>("LiDoChi")
-                        .HasMaxLength(255);
-
-                    b.Property<string>("LiDoNop")
-                        .HasMaxLength(255);
+                    b.Property<string>("LoaiNganHang");
 
                     b.Property<string>("MaKhachHang")
                         .HasMaxLength(255);
@@ -97,11 +93,7 @@ namespace SimCard.APP.Migrations
                     b.Property<string>("HinhThucNop")
                         .HasMaxLength(255);
 
-                    b.Property<string>("LiDoChi")
-                        .HasMaxLength(255);
-
-                    b.Property<string>("LiDoNop")
-                        .HasMaxLength(255);
+                    b.Property<string>("LoaiNganHang");
 
                     b.Property<string>("MaKhachHang")
                         .HasMaxLength(255);
@@ -109,7 +101,7 @@ namespace SimCard.APP.Migrations
                     b.Property<string>("MaPhieu")
                         .HasMaxLength(255);
 
-                    b.Property<DateTime>("NgayLap");
+                    b.Property<DateTime?>("NgayLap");
 
                     b.Property<string>("NguoiChi")
                         .HasMaxLength(255);

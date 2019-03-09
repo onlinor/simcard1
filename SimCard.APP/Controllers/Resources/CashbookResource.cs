@@ -24,10 +24,6 @@ namespace SimCard.API.Controllers.Resources
 
         public string DonViNhan { get; set; }
 
-        public string LiDoNop { get; set; }
-
-        public string LiDoChi { get; set; }
-
         public string HinhThucNop { get; set; }
 
         public string HinhThucChi { get; set; }
@@ -37,6 +33,8 @@ namespace SimCard.API.Controllers.Resources
         public string NguoiThu { get; set; }
 
         public string GhiChu { get; set; }
+
+        public string LoaiNganHang { get; set; }
 
     }
 }

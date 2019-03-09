@@ -13,6 +13,8 @@ namespace SimCard.API.Mapping
             CreateMap<Customer, CustomerResource>();
             CreateMap<Configuration, ConfigurationResource>();
             CreateMap<Event, EventResource>();
+            CreateMap<Cashbook, CashbookResource>();
+            CreateMap<Bankbook, BankbookResource>();
         }
     }
 }

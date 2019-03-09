@@ -1,14 +1,15 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from "@angular/core";
 import { Subscription } from "rxjs/subscription";
-import { CashbookService } from "../../core/services/cashbook.service";
+import { BankbookService } from "../../core/services/bankbook.service";
 
 @Component({
-  selector: "app-formphieuthu",
-  templateUrl: "./formphieuthu.component.html",
-  styleUrls: ["./formphieuthu.component.css"]
+  selector: 'app-formphieuthubankbook',
+  templateUrl: './formphieuthubankbook.component.html',
+  styleUrls: ['./formphieuthubankbook.component.css']
 })
-export class FormphieuthuComponent implements OnInit, OnDestroy {
-	LoaiNganHang = [
+
+export class FormphieuthubankbookComponent implements OnInit, OnDestroy {
+  LoaiNganHang = [
 		{label: 'Chọn', value: 'default'},
 		{label: 'Agribank', value: 'AGB'},
 		{label: 'Vietcombank', value: 'VCB'},
@@ -53,11 +54,11 @@ export class FormphieuthuComponent implements OnInit, OnDestroy {
 
 	@Input("isShowDialogPhieuThu") isShowDialogPhieuThu: boolean;
 	@Input("isNewCashBook")  isNewCashBook: boolean;
-	@Input("idSelectedCashbook") idSelectedCashbook;
+	@Input("idSelectedBankbook") idSelectedBankbook;
 	@Output("outIsShowDialogPhieuThu") emitShowDialogPhieuThu = new EventEmitter<any>();
 	@Output("outDataPhieuThu") emitDataPhieuThu = new EventEmitter<any>();
 	
-	constructor(private cashbookService: CashbookService) {
+	constructor(private bankbookService: BankbookService) {
 
 	}
 
@@ -84,14 +85,14 @@ export class FormphieuthuComponent implements OnInit, OnDestroy {
 		this.isShowDialogPhieuThu = false;
 		this.emitShowDialogPhieuThu.emit(this.isShowDialogPhieuThu);
 		if(this.isNewCashBook) {
-			this.subscription = this.cashbookService.addCashbook(this.dataPhieuThu)
+			this.subscription = this.bankbookService.addBankbook(this.dataPhieuThu)
 				.subscribe(() => {	
 					this.emitDataPhieuThu.emit({...this.dataPhieuThu});
 					}, error => {
 					}
 				);
 		} else {
-			this.subscription = this.cashbookService.updateCashbook(this.idSelectedCashbook, this.dataPhieuThu)
+			this.subscription = this.bankbookService.updateBankbook(this.idSelectedBankbook, this.dataPhieuThu)
 				.subscribe(() => {
 						this.emitDataPhieuThu.emit({...this.dataPhieuThu});
 					}, error => {

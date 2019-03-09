@@ -44,11 +44,15 @@
 	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 place-button">
 		<button type="button" (click)="onShowDialogPhieuChi()" pButton icon="pi pi-info-circle" label="Phiếu Chi"></button>&nbsp;
 		<app-formphieuchi [isShowDialogPhieuChi]="isShowDialogPhieuChi"
+									[isNewCashBook]="isNewCashBook"
+									[idSelectedCashbook]="idSelectedCashbook"
 									(outIsShowDialogPhieuChi)="onGetIsShowDialogPhieuChi($event)"
 									(outDataPhieuChi)="onGetDataPhieuChi($event)"></app-formphieuchi>
 									
 		<button type="button" (click)="onShowDialogPhieuThu()" pButton icon="pi pi-info-circle" label="Phiếu Thu"></button>
 		<app-formphieuthu [isShowDialogPhieuThu]="isShowDialogPhieuThu"
+									[isNewCashBook]="isNewCashBook"
+									[idSelectedCashbook]="idSelectedCashbook"
 									(outIsShowDialogPhieuThu)="onGetIsShowDialogPhieuThu($event)"
 									(outDataPhieuThu)="onGetDataPhieuThu($event)"></app-formphieuthu>
 	</div>
@@ -73,9 +77,9 @@
 					<td>{{rowData.ngayLap | date: "dd/MM/yyyy"}}</td>
 					<td>{{rowData.tenKhachHang}}</td>
 					<td>{{rowData.maPhieu}}</td>
-					<td>{{rowData.noidungPhieu}}</td>
-					<td>{{rowData.sotienThu}}</td>
-					<td>{{rowData.sotienChi}}</td>
+					<td>{{rowData.noiDungPhieu}}</td>
+					<td>{{rowData.soTienThu}}</td>
+					<td>{{rowData.soTienChi}}</td>
 					<!-- <td>{{rowData.congDon}}</td> -->
 				</tr>
 			</ng-template>

@@ -23,13 +23,12 @@ namespace SimCard.APP.Migrations
                     CongDon = table.Column<int>(nullable: false),
                     DonViNop = table.Column<string>(maxLength: 255, nullable: true),
                     DonViNhan = table.Column<string>(maxLength: 255, nullable: true),
-                    LiDoNop = table.Column<string>(maxLength: 255, nullable: true),
-                    LiDoChi = table.Column<string>(maxLength: 255, nullable: true),
                     HinhThucNop = table.Column<string>(maxLength: 255, nullable: true),
                     HinhThucChi = table.Column<string>(maxLength: 255, nullable: true),
                     NguoiChi = table.Column<string>(maxLength: 255, nullable: true),
                     NguoiThu = table.Column<string>(maxLength: 255, nullable: true),
-                    GhiChu = table.Column<string>(maxLength: 255, nullable: true)
+                    GhiChu = table.Column<string>(maxLength: 255, nullable: true),
+                    LoaiNganHang = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -42,7 +41,7 @@ namespace SimCard.APP.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    NgayLap = table.Column<DateTime>(nullable: false),
+                    NgayLap = table.Column<DateTime>(nullable: true),
                     TenKhachHang = table.Column<string>(maxLength: 255, nullable: true),
                     MaKhachHang = table.Column<string>(maxLength: 255, nullable: true),
                     MaPhieu = table.Column<string>(maxLength: 255, nullable: true),
@@ -52,13 +51,12 @@ namespace SimCard.APP.Migrations
                     CongDon = table.Column<int>(nullable: false),
                     DonViNop = table.Column<string>(maxLength: 255, nullable: true),
                     DonViNhan = table.Column<string>(maxLength: 255, nullable: true),
-                    LiDoNop = table.Column<string>(maxLength: 255, nullable: true),
-                    LiDoChi = table.Column<string>(maxLength: 255, nullable: true),
                     HinhThucNop = table.Column<string>(maxLength: 255, nullable: true),
                     HinhThucChi = table.Column<string>(maxLength: 255, nullable: true),
                     NguoiChi = table.Column<string>(maxLength: 255, nullable: true),
                     NguoiThu = table.Column<string>(maxLength: 255, nullable: true),
-                    GhiChu = table.Column<string>(maxLength: 255, nullable: true)
+                    GhiChu = table.Column<string>(maxLength: 255, nullable: true),
+                    LoaiNganHang = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

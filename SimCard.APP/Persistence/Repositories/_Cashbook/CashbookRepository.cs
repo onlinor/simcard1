@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SimCard.API.Models;
 
-namespace SimCard.API.Persistence.Repositories 
+namespace SimCard.API.Persistence.Repositories
 {
     public class CashbookRepository : ICashbookRepository
     {
@@ -34,15 +34,16 @@ namespace SimCard.API.Persistence.Repositories
             return await context.Cashbook.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<int> GetLastIDCashbookRecord()
-        {
-            int lastIDRecord = 0;
-            var anyRecord = await context.Cashbook.AnyAsync();
-            if (anyRecord) {
-                lastIDRecord = await context.Cashbook.MaxAsync(x => x.Id);
-            } 
-            return lastIDRecord;
-        }
+        // public async Task<int> GetLastIDCashbookRecord()
+        // {
+        //     return 1;
+        //     // int lastIDRecord = 0;
+        //     // var anyRecord = await context.Cashbook.AnyAsync();
+        //     // if (anyRecord) {
+        //     //     lastIDRecord = await context.Cashbook.MaxAsync(x => x.Id);
+        //     // } 
+        //     // return lastIDRecord;
+        // }
 
         public void Remove(Cashbook cashbookParams)
         {
@@ -66,8 +67,6 @@ namespace SimCard.API.Persistence.Repositories
                 cashbookToUpdate.DonViNop = cashbookParams.DonViNop;
                 cashbookToUpdate.HinhThucChi = cashbookParams.HinhThucChi;
                 cashbookToUpdate.HinhThucNop = cashbookParams.HinhThucNop;
-                cashbookToUpdate.LiDoChi = cashbookParams.LiDoChi;
-                cashbookToUpdate.LiDoNop = cashbookParams.LiDoNop;
                 cashbookToUpdate.NguoiChi = cashbookParams.NguoiChi;
                 cashbookToUpdate.NguoiThu = cashbookParams.NguoiThu;
                 cashbookToUpdate.GhiChu = cashbookParams.GhiChu;

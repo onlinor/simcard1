@@ -50,17 +50,17 @@ namespace SimCard.APP.Wokers
             var responseEmail = await client.GetStringAsync("http://localhost:25581/api/email");
             var dsEmail = JsonConvert.DeserializeObject<List<String>>(responseEmail);
             var responseEventActive = await client.GetStringAsync("http://localhost:25581/api/email/eventactive");
-            var dsEventActive = JsonConvert.DeserializeObject<List<Event>>(responseEventActive);      
+            var dsEventActive = JsonConvert.DeserializeObject<List<Event>>(responseEventActive);
             foreach (var eventItem in dsEventActive)
             {
-                foreach ( var email in dsEmail)
+                foreach (var email in dsEmail)
                 {
                     using (var message = new MailMessage("crushssc1996@gmail.com", email.ToString()))
                     {
                         message.Subject = "Khuyến Mãi Event";
-                        message.Body = "Su Kien: " + eventItem.TenSK.ToString() + "\n" + "Ma Su Kien: " + eventItem.MaSK.ToString() + "\n" + 
+                        message.Body = "Su Kien: " + eventItem.TenSK.ToString() + "\n" + "Ma Su Kien: " + eventItem.MaSK.ToString() + "\n" +
                                         "Tu ngay: " + eventItem.TgBatDau.ToString() + " Den ngay: " + eventItem.TgKetThuc.ToString();
-                        using (SmtpClient client = new SmtpClient 
+                        using (SmtpClient client = new SmtpClient
                         {
                             EnableSsl = true,
                             Host = "smtp.gmail.com",
@@ -72,7 +72,7 @@ namespace SimCard.APP.Wokers
                         }
                     }
                 }
-                
+
             }
             // Example #1: Write an array of strings to a file.
             // Create a string array that consists of three lines.

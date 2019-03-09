@@ -13,7 +13,7 @@ namespace SimCard.API.Persistence.Repositories
 
         Task<Cashbook> UpdateCashbook(int id, Cashbook cashbookParams);
 
-        Task<int> GetLastIDCashbookRecord();
+        // Task<int> GetLastIDCashbookRecord();
 
         void Remove(Cashbook cashbookParams);
     }

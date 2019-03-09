@@ -31,12 +31,6 @@ namespace SimCard.API.Models
         public string DonViNhan { get; set; }
 
         [StringLength(255)]
-        public string LiDoNop { get; set; }
-
-        [StringLength(255)]
-        public string LiDoChi { get; set; }
-
-        [StringLength(255)]
         public string HinhThucNop { get; set; }
 
         [StringLength(255)]
@@ -50,5 +44,8 @@ namespace SimCard.API.Models
 
         [StringLength(255)]
         public string GhiChu { get; set; }
+
+        public string LoaiNganHang { get; set;}
+
     }
 }

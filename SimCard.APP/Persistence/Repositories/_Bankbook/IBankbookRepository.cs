@@ -14,7 +14,7 @@ namespace SimCard.API.Persistence.Repositories
 
         Task<Bankbook> UpdateBankbook(int id, Bankbook bankbookParams);
 
-        Task<int> GetLastIDBankbookRecord();
+        //Task<int> GetLastIDBankbookRecord();
 
         void Remove(Bankbook bankbookParams);
     }

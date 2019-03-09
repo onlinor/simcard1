@@ -38,5 +38,7 @@ namespace SimCard.API.Controllers.Resources
 
         public string GhiChu { get; set; }
 
+        public string LoaiNganHang { get; set; }
+
     }
 }

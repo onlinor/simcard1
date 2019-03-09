@@ -35,15 +35,16 @@ namespace SimCard.API.Persistence.Repositories
              return await context.Bankbook.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<int> GetLastIDBankbookRecord()
-        {
-            int lastIDRecord = 0;
-            var anyRecord = await context.Bankbook.AnyAsync();
-            if (anyRecord) {
-                lastIDRecord = await context.Bankbook.MaxAsync(x => x.Id);
-            } 
-            return lastIDRecord;
-        }
+        // public async Task<int> GetLastIDBankbookRecord()
+        // {
+        //     return 1;
+        //     // int lastIDRecord = 0;
+        //     // var anyRecord = await context.Bankbook.AnyAsync();
+        //     // if (anyRecord) {
+        //     //     lastIDRecord = await context.Bankbook.MaxAsync(x => x.Id);
+        //     // } 
+        //     // return lastIDRecord;
+        // }
 
         public void Remove(Bankbook bankbookParams)
         {
@@ -67,11 +68,10 @@ namespace SimCard.API.Persistence.Repositories
                 bankbookToUpdate.DonViNop = bankbookParams.DonViNop;
                 bankbookToUpdate.HinhThucChi = bankbookParams.HinhThucChi;
                 bankbookToUpdate.HinhThucNop = bankbookParams.HinhThucNop;
-                bankbookToUpdate.LiDoChi = bankbookParams.LiDoChi;
-                bankbookToUpdate.LiDoNop = bankbookParams.LiDoNop;
                 bankbookToUpdate.NguoiChi = bankbookParams.NguoiChi;
                 bankbookToUpdate.NguoiThu = bankbookParams.NguoiThu;
                 bankbookToUpdate.GhiChu = bankbookParams.GhiChu;
+                bankbookToUpdate.LoaiNganHang = bankbookParams.LoaiNganHang;
                 context.Bankbook.Update(bankbookToUpdate);
                 await context.SaveChangesAsync();
                 return bankbookToUpdate;

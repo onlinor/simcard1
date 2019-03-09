@@ -79,11 +79,11 @@ namespace SimCard.API.Controllers
             return StatusCode(201);
         }
 
-        [HttpGet("last")]
-        public async Task<int> GetLastIDBankbookRecord()
-        {
-            var lastIDRecord = await bankbookRepository.GetLastIDBankbookRecord();
-            return lastIDRecord;
-        }
+        // [HttpGet("last")]
+        // public async Task<int> GetLastIDBankbookRecord()
+        // {
+        //     var lastIDRecord = await bankbookRepository.GetLastIDBankbookRecord();
+        //     return lastIDRecord;
+        // }
     }
 }
