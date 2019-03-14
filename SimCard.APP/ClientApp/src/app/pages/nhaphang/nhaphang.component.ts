@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { FileService, ProductService } from '../../core/services';
-import { Product, ExportType, Shop } from '../../core/models';
+import { FileService, ProductService, PhieunhapService, WarehouseService } from '../../core/services';
+import { Product, ExportType, Phieunhap, Warehouse } from '../../core/models';
 
 @Component({
   selector: 'app-nhaphang',
@@ -14,17 +14,11 @@ export class NhaphangComponent implements OnInit {
 
   tableProducts: Product[] = [];
 
-  tempProName: string;
-  tempProId: number;
-
-  exporttypes: ExportType[];
-  selectedtype: ExportType;
-
   products: Product[];
   tabviewpro: Product[];
 
-  shops: Shop[];
-  selectedShop: Shop;
+  venders: Warehouse[];
+  selectedVender: Warehouse;
 
   // phieu section
   totalMoney: number;
@@ -33,18 +27,26 @@ export class NhaphangComponent implements OnInit {
   Thanhtoan: number;
   Conlai: number;
 
+  // phieu nhap
+  phieunhap: Phieunhap = new Phieunhap();
+  idphieunhap: string;
   constructor(
     private fileService: FileService,
-    private productService: ProductService
+    private productService: ProductService,
+    private phieuhangService: PhieunhapService,
+    private venderService: WarehouseService
   ) { }
 
   ngOnInit() {
     this.showProductsResponse();
+    this.getVenders();
   }
 
-  addProduct() {
+  Save() {
     this.productService.save(this.tableProducts).subscribe(() => {
     this.showProductsResponse();
+    this.savePhieunhap();
+
     this.tableProducts = [];
     });
   }
@@ -189,6 +191,24 @@ export class NhaphangComponent implements OnInit {
       return true;
     }
     return false;
+  }
+
+  generateID () {
+    this.phieuhangService.getID().subscribe(resp => {
+      this.idphieunhap = resp.id;
+    });
+  }
+
+  getVenders() {
+    this.venderService.getAll().subscribe( resp => {
+    this.venders = resp;
+    });
+  }
+
+  savePhieunhap() {
+    this.phieunhap.Dssanpham = this.tableProducts;
+    this.phieunhap.Tennhacungcap = this.selectedVender.name;
+    this.phieuhangService.addPhieunhap(this.phieunhap).subscribe(() => {});
   }
 }
 

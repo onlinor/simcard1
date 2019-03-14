@@ -28,6 +28,7 @@ import { CommonService } from './services/common.service';
 import { CashbookService } from './services/cashbook.service';
 import { BankbookService } from './services/bankbook.service';
 import { NetworkService } from './services/network.service';
+import { PhieunhapService } from './services/phieunhap.service';
 
 @NgModule({
   imports: [
@@ -55,7 +56,8 @@ import { NetworkService } from './services/network.service';
     MessageService,
     CashbookService,
     BankbookService,
-    NetworkService
+    NetworkService,
+    PhieunhapService
   ]
 })
 export class CoreModule {

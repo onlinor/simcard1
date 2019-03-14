@@ -24,25 +24,25 @@ export class NetworkComponent implements OnInit {
   constructor(private networkService: NetworkService) { }
 
   ngOnInit() {
-      this.networkService.getAll().subscribe(
-        networks => this.networks = networks
-      );
+    this.networkService.getAll().subscribe(
+      networks => this.networks = networks
+    );
 
-      this.cols = [
-          { field: 'ten', header: 'Tên' },
-          { field: 'ma', header: 'Mã' },
-          { field: 'menhgia', header: 'Mệnh giá' },
-          { field: 'chietkhaudauvao', header: 'Chiết Khấu Đầu Vào' },
-          { field: 'chietkhaucaonhat', header: 'Chiết Khấu Cao Nhất' },
-          { field: 'buocnhay', header: 'Bước Nhảy' },
-          { field: 'khungtien_1', header: 'Khoảng Giá 1' },
-          { field: 'khungtien_2', header: 'Khoảng Giá 2' },
-          { field: 'khungtien_3', header: 'Khoảng Giá 3' },
-          { field: 'khungtien_4', header: 'Khoảng Giá 4' },
-          { field: 'khungtien_5', header: 'Khoảng Giá 5' },
-          { field: 'khungtien_6', header: 'Khoảng Giá 6' },
-          { field: 'khungtien_7', header: 'Khoảng Giá 7' }
-      ];
+    this.cols = [
+      { field: 'ten', header: 'Tên' },
+      { field: 'ma', header: 'Mã' },
+      { field: 'menhgia', header: 'Mệnh giá' },
+      { field: 'chietkhaudauvao', header: 'Chiết Khấu Đầu Vào' },
+      { field: 'chietkhaucaonhat', header: 'Chiết Khấu Cao Nhất' },
+      { field: 'buocnhay', header: 'Bước Nhảy' },
+      { field: 'khungtien_1', header: 'Khoảng Giá 1' },
+      { field: 'khungtien_2', header: 'Khoảng Giá 2' },
+      { field: 'khungtien_3', header: 'Khoảng Giá 3' },
+      { field: 'khungtien_4', header: 'Khoảng Giá 4' },
+      { field: 'khungtien_5', header: 'Khoảng Giá 5' },
+      { field: 'khungtien_6', header: 'Khoảng Giá 6' },
+      { field: 'khungtien_7', header: 'Khoảng Giá 7' }
+    ];
   }
 
   showDialogToAdd() {
@@ -73,11 +73,11 @@ export class NetworkComponent implements OnInit {
 
   onRowSelect(event) {
       this.newNetwork = false;
-      this.network = this.cloneCar(event.data);
+      this.network = this.cloneNetwork(event.data);
       this.displayDialog = true;
   }
 
-  cloneCar(n: Network): Network {
+  cloneNetwork(n: Network): Network {
       // tslint:disable-next-line:prefer-const
       let network = new Network();
       // tslint:disable-next-line:forin

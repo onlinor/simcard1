@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SimCard.APP.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class initialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -135,6 +135,50 @@ namespace SimCard.APP.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Network",
+                columns: table => new
+                {
+                    Ma = table.Column<string>(nullable: false),
+                    Ten = table.Column<string>(maxLength: 255, nullable: false),
+                    Menhgia = table.Column<int>(nullable: false),
+                    Chietkhaudauvao = table.Column<float>(nullable: false),
+                    Chietkhaucaonhat = table.Column<float>(nullable: false),
+                    Buocnhay = table.Column<float>(nullable: false),
+                    Khungtien_1 = table.Column<string>(nullable: true),
+                    Khungtien_2 = table.Column<string>(nullable: true),
+                    Khungtien_3 = table.Column<string>(nullable: true),
+                    Khungtien_4 = table.Column<string>(nullable: true),
+                    Khungtien_5 = table.Column<string>(nullable: true),
+                    Khungtien_6 = table.Column<string>(nullable: true),
+                    Khungtien_7 = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Network", x => x.Ma);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Phieunhap",
+                columns: table => new
+                {
+                    Prefixid = table.Column<string>(nullable: false),
+                    Suffixid = table.Column<int>(nullable: false),
+                    Ngaylap = table.Column<DateTime>(nullable: false),
+                    Nhanvienlap = table.Column<string>(nullable: true),
+                    Tennhacungcap = table.Column<string>(nullable: true),
+                    Congnocu = table.Column<decimal>(nullable: false),
+                    Nguoidaidien = table.Column<string>(nullable: true),
+                    Sodienthoai = table.Column<int>(nullable: false),
+                    Ghichu = table.Column<string>(nullable: true),
+                    Tienthanhtoan = table.Column<decimal>(nullable: false),
+                    Tienconlai = table.Column<decimal>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Phieunhap", x => new { x.Prefixid, x.Suffixid });
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Shop",
                 columns: table => new
                 {
@@ -165,13 +209,13 @@ namespace SimCard.APP.Migrations
                 name: "Product",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                    Id = table.Column<string>(nullable: false),
                     Name = table.Column<string>(maxLength: 255, nullable: false),
                     Quantity = table.Column<int>(nullable: false),
-                    Unit = table.Column<string>(nullable: true),
-                    BuyingPrice = table.Column<decimal>(nullable: false),
-                    ShopId = table.Column<int>(nullable: false)
+                    Unit = table.Column<int>(nullable: false),
+                    PhieunhapPrefixid = table.Column<string>(nullable: true),
+                    PhieunhapSuffixid = table.Column<int>(nullable: true),
+                    ShopId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -181,13 +225,24 @@ namespace SimCard.APP.Migrations
                         column: x => x.ShopId,
                         principalTable: "Shop",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Product_Phieunhap_PhieunhapPrefixid_PhieunhapSuffixid",
+                        columns: x => new { x.PhieunhapPrefixid, x.PhieunhapSuffixid },
+                        principalTable: "Phieunhap",
+                        principalColumns: new[] { "Prefixid", "Suffixid" },
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Product_ShopId",
                 table: "Product",
                 column: "ShopId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Product_PhieunhapPrefixid_PhieunhapSuffixid",
+                table: "Product",
+                columns: new[] { "PhieunhapPrefixid", "PhieunhapSuffixid" });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -208,6 +263,9 @@ namespace SimCard.APP.Migrations
                 name: "Events");
 
             migrationBuilder.DropTable(
+                name: "Network");
+
+            migrationBuilder.DropTable(
                 name: "Product");
 
             migrationBuilder.DropTable(
@@ -215,6 +273,9 @@ namespace SimCard.APP.Migrations
 
             migrationBuilder.DropTable(
                 name: "Shop");
+
+            migrationBuilder.DropTable(
+                name: "Phieunhap");
         }
     }
 }

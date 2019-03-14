@@ -2,20 +2,21 @@
   <div class="ui-g-8">
   <h3 class="text-center text-primary">Nhập Kho</h3>
   <div class="ui-g">
-      <div class="ui-g-3">
-          <button pButton type="button" label="Phiếu Mới" icon="fa fa-plus"></button>
+      <div class="ui-g-4">
+          <button pButton type="button" label="Phiếu Mới" icon="fa fa-plus"
+          (click)="generateID()"></button>
       </div>
-      <div class="ui-g-3">
+      <div class="ui-g-4">
           <button pButton type="button" label="Sửa Phiếu" icon="fa fa-edit"></button>
       </div>
-      <div class="ui-g-2">
+      <div class="ui-g-4">
           <button pButton type="button" label="Hủy Phiếu" icon="fa fa-ban"></button>
       </div>
   </div>
   <div class="ui-g">
       <div class="ui-g-4">
           <p>Nhân Viên Lập</p>
-          <input type="text" pInputText/>    
+          <input [(ngModel)]="phieunhap.Nhanvienlap" type="text" pInputText/>    
       </div>   
       <div class="ui-g-4">
           <p>Nhập Bằng File Excel</p>
@@ -32,31 +33,31 @@
   <div class="ui-g">
       <div class="ui-g-4">
           <p>Số Phiếu</p>
-          <input type="text" pInputText [(ngModel)]="tempProId" />
+          <input type="text" [disabled]="true"  pInputText [(ngModel)]="idphieunhap"/>
       </div>
       <div class="ui-g-4">
           <p>Ngày Lập</p>
-          <p-inputMask mask="99/99/9999" placeholder="30/10/1996" slotChar="mm/dd/yyyy"></p-inputMask>
+          <p-inputMask [(ngModel)]="phieunhap.Ngaylap" mask="99/99/9999" placeholder="30/10/1996" slotChar="mm/dd/yyyy"></p-inputMask>
       </div>
   </div>
   <div class="ui-g">
       <div class="ui-g-4">
           <p>Tên Nhà CC</p>
-          <p-dropdown [options]="shops" [(ngModel)]="selectedShop" placeholder="Chọn Nhà CC" optionLabel="name" [showClear]="true"></p-dropdown>
+          <p-dropdown [options]="venders" [(ngModel)]="selectedVender" placeholder="Chọn Nhà CC" optionLabel="name" [showClear]="true"></p-dropdown>
       </div>
       <div class="ui-g-4">
           <p>Công Nợ Cũ</p>
-          <input type="text" pInputText pKeyFilter="money" />
+          <input type="text" [(ngModel)]="phieunhap.Congnocu" pInputText pKeyFilter="money" />
       </div>
   </div>
   <div class="ui-g">
       <div class="ui-g-4">
           <p>Người Đại Diện</p>
-          <input type="text" pInputText [(ngModel)]="tempProName" />
+          <input type="text"  [(ngModel)]="phieunhap.Nguoidaidien" pInputText [(ngModel)]="tempProName" />
       </div>
       <div class="ui-g-4">
           <p>Số Điện Thoại</p>
-          <input type="text" pInputText pKeyFilter="num">
+          <input type="text"  [(ngModel)]="phieunhap.Sodienthoai" pInputText pKeyFilter="num">
       </div>
   </div>
   <p-table [value]="tableProducts" selectionMode="single" [paginator]="true" [rows]="15" (onEditComplete)="rowTableCompleted($event)">
@@ -97,7 +98,7 @@
   </p-table>
   <div class="ui-g-12">
       <span class="ui-float-label">
-          <input id="float-input" type="text" style="width:100%" pInputText> 
+          <input id="float-input"  [(ngModel)]="phieunhap.Ghichu" type="text" style="width:100%" pInputText> 
           <label for="float-input">Ghi Chú</label>
       </span>
   </div>
@@ -130,14 +131,14 @@
   <br>
   <div class="ui-g-12">
     <div class="ui-g-2">
-      <button pButton type="button"  (click)="addProduct()" label="Lưu" icon="fa fa-save"></button>
+      <button pButton type="button"  (click)="Save()" label="Lưu" icon="fa fa-save"></button>
     </div>
     <div class="ui-g-2">
       <button pButton type="button" label="In Phiếu" icon="fa fa-print"></button>
     </div>
     <div class="ui-g-6">
       <label for="xuatdulieu">Xuất Dữ Liệu:</label>
-      <p-dropdown [options]="exporttypes" [(ngModel)]="selectedtype" id="xuatdulieu" placeholder="Chọn Định Dạng" optionLabel="name" [showClear]="true"></p-dropdown>
+      <p-dropdown id="xuatdulieu" placeholder="Chọn Định Dạng" optionLabel="name" [showClear]="true"></p-dropdown>
     </div>
     <div class="ui-g-2">
       <button pButton type="button" icon="fa fa-save" ></button>

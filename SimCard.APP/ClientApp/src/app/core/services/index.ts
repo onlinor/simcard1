@@ -13,3 +13,4 @@ export * from './common.service';
 export * from './crud.service';
 export * from './permission.service';
 export * from './subscribe.service';
+export * from './phieunhap.service';

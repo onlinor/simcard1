@@ -1,20 +1,19 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit } from '@angular/core';
 import {
   Product,
   Warehouse,
   ProductExport,
-  Shop,
   ExportType,
   Bank
-} from "../../core/models";
-import { ProductService } from "../../core/services/product.service";
-import { WarehouseService } from "../../core/services/warehouse.service";
-import { FileService } from "../../core/services/file.service";
+} from '../../core/models';
+import { ProductService } from '../../core/services/product.service';
+import { WarehouseService } from '../../core/services/warehouse.service';
+import { FileService } from '../../core/services/file.service';
 
 @Component({
-  selector: "app-product",
-  templateUrl: "./product.component.html",
-  styleUrls: ["./product.component.css"]
+  selector: 'app-product',
+  templateUrl: './product.component.html',
+  styleUrls: ['./product.component.css']
 })
 export class ProductComponent implements OnInit {
   text: string;
@@ -34,9 +33,6 @@ export class ProductComponent implements OnInit {
   };
 
   selectedProduct: Product;
-
-  shops: Shop[];
-  selectedShop: Shop;
 
   exporttypes: ExportType[];
   selectedtype: ExportType;
@@ -97,12 +93,6 @@ export class ProductComponent implements OnInit {
   showProductsResponse() {
     this.productService.getAll().subscribe(resp => {
       this.products = resp;
-    });
-  }
-
-  getWarehouse() {
-    this.warehouseService.getAll().subscribe(resp => {
-      this.warehouses = resp;
     });
   }
 
