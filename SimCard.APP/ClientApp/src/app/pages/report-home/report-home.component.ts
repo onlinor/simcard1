@@ -8,7 +8,7 @@ import {
   CustomerService,
   BankbookService
 } from '../../core/services';
-import { ReportConstant } from '../../core';
+import { ReportConstant, ExportConstant } from '../../core';
 
 @Component({
   selector: 'app-report-home',
@@ -48,6 +48,10 @@ export class ReportHomeComponent implements OnInit {
     bankAccount: true
   };
 
+  // Supported Export Methods
+  selectedExportMethod = 'xlsx';
+  supportedExportMethods = ExportConstant.SupportedExportMethod;
+
   // Report types
   reports = ReportConstant.SupportedReports;
 
@@ -82,7 +86,18 @@ export class ReportHomeComponent implements OnInit {
     console.log(this.selectedFilter);
   }
 
-  clearFilter() {
+  export() {
+    switch (this.selectedExportMethod) {
+      case 'xlsx':
+        this.exportToExcel();
+        break;
+      default:
+        this.exportToPdf();
+        break;
+    }
+  }
+
+  private clearFilter() {
     this.selectedFilter = {
       shop: 0,
       from: null,
@@ -94,7 +109,7 @@ export class ReportHomeComponent implements OnInit {
     };
   }
 
-  getShops() {
+  private getShops() {
     this.shopService.getAll().subscribe(
       result => {
         this.shops = result;
@@ -103,7 +118,7 @@ export class ReportHomeComponent implements OnInit {
     );
   }
 
-  getProducts() {
+  private getProducts() {
     this.productService.getAll().subscribe(
       result => {
         this.products = result;
@@ -112,7 +127,7 @@ export class ReportHomeComponent implements OnInit {
     );
   }
 
-  getWarehouses() {
+  private getWarehouses() {
     this.warehouseService.getAll().subscribe(
       result => {
         this.warehouses = result;
@@ -121,7 +136,7 @@ export class ReportHomeComponent implements OnInit {
     );
   }
 
-  getCustomers() {
+  private getCustomers() {
     this.customerService.getAllCustomer().subscribe(
       result => {
         this.customers = result;
@@ -130,7 +145,7 @@ export class ReportHomeComponent implements OnInit {
     );
   }
 
-  getBankAccounts() {
+  private getBankAccounts() {
     this.bankService.getAllBankbook().subscribe(
       result => {
         this.bankAccounts = result;
@@ -139,21 +154,21 @@ export class ReportHomeComponent implements OnInit {
     );
   }
 
-  exportToExcel() {
-    this.docExportingService
-      .exportReportToExcel(this.selectedReport)
-      .subscribe(
-        result => { },
-        error => console.log('Error getting data from API')
-      );
+  private exportToExcel() {
+    this.docExportingService.exportReportToExcel(this.selectedReport).subscribe(
+      result => {
+        console.log('File exported.');
+      },
+      error => console.log('Error getting data from API')
+    );
   }
 
-  exportToPdf() {
-    this.docExportingService
-      .exportReportToPdf(this.selectedReport)
-      .subscribe(
-        result => { },
-        error => console.log('Error getting data from API')
-      );
+  private exportToPdf() {
+    this.docExportingService.exportReportToPdf(this.selectedReport).subscribe(
+      result => {
+        console.log('File exported.');
+      },
+      error => console.log('Error getting data from API')
+    );
   }
 }

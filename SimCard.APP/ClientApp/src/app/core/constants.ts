@@ -26,6 +26,19 @@ export class DefaultDataConstant {
   static IMG_DEFAULT_URL = './assets/images/defaultUploadImage.png';
 }
 
+export class ExportConstant {
+  static SupportedExportMethod = [
+    {
+      label: 'XLSX',
+      value: 'xlsx'
+    },
+    {
+      label: 'PDF',
+      value: 'pdf'
+    }
+  ];
+}
+
 export class ReportConstant {
   static SupportedReports = [
     {
