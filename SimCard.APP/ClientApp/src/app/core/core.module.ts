@@ -59,7 +59,7 @@ import { PhieunhapService } from './services/phieunhap.service';
     BankbookService,
     ReportService,
     DocExportingService,
-    ShopService
+    ShopService,
     NetworkService,
     PhieunhapService
   ]
