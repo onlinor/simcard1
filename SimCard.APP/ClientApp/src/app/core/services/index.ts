@@ -13,3 +13,8 @@ export * from './common.service';
 export * from './crud.service';
 export * from './permission.service';
 export * from './subscribe.service';
+export * from './report.service';
+export * from './doc-exporting.service';
+export * from './shop.service';
+export * from './customer.service';
+export * from './bankbook.service';

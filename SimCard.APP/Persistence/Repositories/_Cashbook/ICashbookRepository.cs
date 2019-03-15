@@ -1,4 +1,7 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using SimCard.API.Models;
 
@@ -16,5 +19,7 @@ namespace SimCard.API.Persistence.Repositories
         // Task<int> GetLastIDCashbookRecord();
 
         void Remove(Cashbook cashbookParams);
+
+        IQueryable<Cashbook> Query(Expression<Func<Cashbook, bool>> predicate);
     }
 }

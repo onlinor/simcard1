@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SimCard.API.Models;
@@ -32,6 +34,11 @@ namespace SimCard.API.Persistence.Repositories
         public async Task<Cashbook> GetCashbook(int id)
         {
             return await context.Cashbook.FirstOrDefaultAsync(x => x.Id == id);
+        }
+
+        public IQueryable<Cashbook> Query(Expression<Func<Cashbook, bool>> predicate)
+        {
+            return context.Cashbook.Where(predicate);
         }
 
         // public async Task<int> GetLastIDCashbookRecord()

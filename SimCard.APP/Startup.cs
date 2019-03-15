@@ -48,6 +48,7 @@ namespace SimCard.APP
             services.AddScoped<IWarehouseRepository, WarehouseRepository>();
             services.AddScoped<ICashbookRepository, CashbookRepository>();
             services.AddScoped<IBankbookRepository, BankbookRepository>();
+            services.AddScoped<IReportRepository, ReportRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddCors();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);

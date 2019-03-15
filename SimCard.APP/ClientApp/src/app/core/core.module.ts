@@ -1,39 +1,40 @@
-import { NgModule, Injector } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { ReactiveFormsModule } from "@angular/forms";
+import { NgModule, Injector } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
-import { CoreComponent } from "./core.component";
+import { CoreComponent } from './core.component';
 
 // Core
-import { ServiceLocator } from "../core/service-locator";
+import { ServiceLocator } from '../core/service-locator';
 
 // Ex-Modules
-import { ToastrModule } from "ngx-toastr";
+import { ToastrModule } from 'ngx-toastr';
 
 // Services
-import { ApiService } from "./services/api.service";
-import { BaseService } from "./services/base.service";
-import { LocalStorageService } from "./services/local-storage.service";
-import { WarehouseService } from "./services/warehouse.service";
-import { ProductService } from "./services/product.service";
-import { FileService } from "./services/file.service";
-import { ConfigurationService } from "./services/configuration.service";
-import { CustomerService } from "./services/customer.service";
-import { EventsService } from "./services/events.service";
-import { MessageService } from "./services/message.service";
-import { SubscribeService } from "./services/subscribe.service";
-import { PermissionService } from "./services/permission.service";
-import { CrudService } from "./services/crud.service";
-import { CommonService } from "./services/common.service";
-import { CashbookService } from "./services/cashbook.service";
-import { BankbookService } from "./services/bankbook.service";
+import { ApiService } from './services/api.service';
+import { BaseService } from './services/base.service';
+import { LocalStorageService } from './services/local-storage.service';
+import { WarehouseService } from './services/warehouse.service';
+import { ProductService } from './services/product.service';
+import { FileService } from './services/file.service';
+import { ConfigurationService } from './services/configuration.service';
+import { CustomerService } from './services/customer.service';
+import { EventsService } from './services/events.service';
+import { MessageService } from './services/message.service';
+import { SubscribeService } from './services/subscribe.service';
+import { PermissionService } from './services/permission.service';
+import { CrudService } from './services/crud.service';
+import { CommonService } from './services/common.service';
+import { CashbookService } from './services/cashbook.service';
+import { BankbookService } from './services/bankbook.service';
+import { ReportService, ShopService, DocExportingService } from './services';
 
 @NgModule({
   imports: [
     CommonModule,
     ReactiveFormsModule,
     ToastrModule.forRoot({
-      positionClass: "toast-bottom-right"
+      positionClass: 'toast-bottom-right'
     })
   ],
   declarations: [CoreComponent],
@@ -53,7 +54,10 @@ import { BankbookService } from "./services/bankbook.service";
     EventsService,
     MessageService,
     CashbookService,
-    BankbookService
+    BankbookService,
+    ReportService,
+    DocExportingService,
+    ShopService
   ]
 })
 export class CoreModule {

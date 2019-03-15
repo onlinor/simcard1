@@ -47,6 +47,7 @@ import { FormphieuthubankbookComponent } from './public/formphieuthubankbook/for
 import { MessageService } from "primeng/api";
 import { LogService } from "./shared/logging-services/log.service";
 import { LogPublishersService } from "./shared/logging-services/log-publishers.service";
+import { ReportHomeComponent } from './pages/report-home/report-home.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { LogPublishersService } from "./shared/logging-services/log-publishers.s
     FooterComponent,
     HeaderComponent,
     FormphieuchibankbookComponent,
-    FormphieuthubankbookComponent
+    FormphieuthubankbookComponent,
+    ReportHomeComponent
   ],
   imports: [
     CoreModule,
@@ -101,7 +103,8 @@ import { LogPublishersService } from "./shared/logging-services/log-publishers.s
       { path: "product", component: ProductComponent },
       { path: "warehouse", component: WarehouseComponent },
       { path: "cashbook", component: CashbookComponent },
-      { path: "bankbook", component: BankbookComponent }
+      { path: "bankbook", component: BankbookComponent },
+      { path: "report-home", component: ReportHomeComponent }
     ])
   ],
   providers: [MessageService, LogService, LogPublishersService],
