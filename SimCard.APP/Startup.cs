@@ -19,8 +19,10 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using SimCard.API.Persistence.Repositories._Shop;
 using SimCard.API.Persistence.Repositories._Warehouse;
 using SimCard.API.Persistence.Repositories._Product;
+using SimCard.API.Persistence.Repositories._Network;
 using SimCard.API.Persistence.Repositories;
 using SimCard.APP.Wokers;
+using SimCard.API.Persistence.Repositories._Phieunhap;
 
 namespace SimCard.APP
 {
@@ -49,6 +51,8 @@ namespace SimCard.APP
             services.AddScoped<ICashbookRepository, CashbookRepository>();
             services.AddScoped<IBankbookRepository, BankbookRepository>();
             services.AddScoped<IReportRepository, ReportRepository>();
+            services.AddScoped<INetworkRepository, NetworkRepository>();
+            services.AddScoped<IPhieunhapRepository, PhieunhapRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddCors();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);

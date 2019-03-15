@@ -6,16 +6,17 @@ namespace SimCard.API.Models
     [Table("Product")]
     public class Product
     {
-        public int Id { get; set; }
+        [Key]
+        public string Id { get; set; }
 
         [Required]
         [StringLength(255)]
         public string Name { get; set; }        
 
         public int Quantity { get; set; }
-        public string Unit { get; set; }
-        public decimal BuyingPrice { get; set; }
+        public int Unit { get; set; }
+/*         public decimal BuyingPrice { get; set; }
         public Shop Shop { get; set; }
-        public int ShopId { get; set; }
+        public int ShopId { get; set; } */
     }
 }

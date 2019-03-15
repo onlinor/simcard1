@@ -6,4 +6,6 @@ export class Product {
   chietkhau: number;
   dongia: number;
   thanhtien: number;
+  soluongnhap?: number;
+  soluongxuat?: number;
 }

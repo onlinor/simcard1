@@ -17,5 +17,13 @@ namespace SimCard.API.Persistence
         public DbSet<Warehouse> Warehouses{get; set;}
         public DbSet<Cashbook> Cashbook {get; set; }
         public DbSet<Bankbook> Bankbook {get; set; }
+        public DbSet<Network> Networks {get; set; }
+        public DbSet<Phieunhap> Phieunhaps {get; set; }
+        
+        // Configure composite key through Fluent API only 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Phieunhap>().HasKey(p => new { p.Prefixid, p.Suffixid });
+        }
     }
 }

@@ -1,0 +1,179 @@
+<div class="ui-g-12">
+  <div class="ui-g-8">
+  <h3 class="text-center text-primary">Nhập Kho</h3>
+  <div class="ui-g">
+      <div class="ui-g-4">
+          <button pButton type="button" label="Phiếu Mới" icon="fa fa-plus"
+          (click)="generateID()"></button>
+      </div>
+      <div class="ui-g-4">
+          <button pButton type="button" label="Sửa Phiếu" icon="fa fa-edit"></button>
+      </div>
+      <div class="ui-g-4">
+          <button pButton type="button" label="Hủy Phiếu" icon="fa fa-ban"></button>
+      </div>
+  </div>
+  <div class="ui-g">
+      <div class="ui-g-4">
+          <p>Nhân Viên Lập</p>
+          <input [(ngModel)]="phieunhap.Nhanvienlap" type="text" pInputText/>    
+      </div>   
+      <div class="ui-g-4">
+          <p>Nhập Bằng File Excel</p>
+          <input #myInput type="file" id="file" class="hidden" (change)="myUploader($event)" accept=".xlsx">
+          <label for="file">Chọn File</label>
+      </div>
+      <!-- <div class="ui-g-2">
+          <p>Tải Mẫu Excel</p>
+          <a href="../../excels/listproduct.xlsx" target="_self" download>
+              <i class="fa fa-download fa-2x text-primary" aria-hidden="true"></i>
+        </a>
+      </div> -->
+  </div>
+  <div class="ui-g">
+      <div class="ui-g-4">
+          <p>Số Phiếu</p>
+          <input type="text" [disabled]="true"  pInputText [(ngModel)]="idphieunhap"/>
+      </div>
+      <div class="ui-g-4">
+          <p>Ngày Lập</p>
+          <p-inputMask [(ngModel)]="phieunhap.Ngaylap" mask="99/99/9999" placeholder="30/10/1996" slotChar="mm/dd/yyyy"></p-inputMask>
+      </div>
+  </div>
+  <div class="ui-g">
+      <div class="ui-g-4">
+          <p>Tên Nhà CC</p>
+          <p-dropdown [options]="venders" [(ngModel)]="selectedVender" placeholder="Chọn Nhà CC" optionLabel="name" [showClear]="true"></p-dropdown>
+      </div>
+      <div class="ui-g-4">
+          <p>Công Nợ Cũ</p>
+          <input type="text" [(ngModel)]="phieunhap.Congnocu" pInputText pKeyFilter="money" />
+      </div>
+  </div>
+  <div class="ui-g">
+      <div class="ui-g-4">
+          <p>Người Đại Diện</p>
+          <input type="text"  [(ngModel)]="phieunhap.Nguoidaidien" pInputText [(ngModel)]="tempProName" />
+      </div>
+      <div class="ui-g-4">
+          <p>Số Điện Thoại</p>
+          <input type="text"  [(ngModel)]="phieunhap.Sodienthoai" pInputText pKeyFilter="num">
+      </div>
+  </div>
+  <p-table [value]="tableProducts" selectionMode="single" [paginator]="true" [rows]="15" (onEditComplete)="rowTableCompleted($event)">
+      <ng-template pTemplate="caption">
+          Danh Sách Sản Phẩm
+      </ng-template>
+      <ng-template pTemplate="header" let-columns>
+          <tr>
+              <th>Tên mặt hàng</th>
+              <th>Mã hàng</th>
+              <th>SL/ ĐV</th>
+              <th>Mệnh giá</th>
+              <th>CKMH(%)</th>
+              <th>Đơn giá</th>
+              <th>Thành tiền</th>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-product>
+          <tr>
+              <td>{{product.ten}}</td>
+              <td>{{product.ma}}</td>
+              <td>{{product.soluongnhap | number}}</td>
+              <td>{{product.menhgia | number}}</td>
+              <td pEditableColumn [pEditableColumn]="product" [pEditableColumnField]="'chietkhau'">
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="product.chietkhau">
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{product.chietkhau}}
+                    </ng-template>
+                </p-cellEditor>
+              </td>
+              <td>{{product.dongia}}</td>
+              <td>{{product.thanhtien}}</td>
+          </tr>
+      </ng-template>
+  </p-table>
+  <div class="ui-g-12">
+      <span class="ui-float-label">
+          <input id="float-input"  [(ngModel)]="phieunhap.Ghichu" type="text" style="width:100%" pInputText> 
+          <label for="float-input">Ghi Chú</label>
+      </span>
+  </div>
+  <div class="ui-g-8, float-right">
+    <div class="float-right">
+      <label for="tienhang">Cộng Tiền Hàng:</label>
+      <input type="text" id="tienhang" pInputText pKeyFilter="money" [(ngModel)]="totalMoney"/>
+    </div>
+    <br>
+    <div class="float-right">
+      <label for="VAT">VAT:</label>
+      <input type="text" id="VAT" pInputText pKeyFilter="money"  [(ngModel)]="vatMoney"/>
+    </div>
+    <br>
+    <div class="float-right">
+      <label for="tongcong">Tổng Cộng:</label>
+      <input type="text" id="tongcong" pInputText pKeyFilter="money" [(ngModel)]="Total"/>
+    </div>
+    <br>
+    <div class="float-right">
+      <label for="thanhtoanncc">Thanh Toán NCC:</label>
+      <input type="text" id="thanhtoanncc" pInputText pKeyFilter="money" [(ngModel)]="Thanhtoan"/>
+    </div>
+    <br>
+    <div class="float-right">
+      <label for="conlai">Còn Lại:</label>
+      <input type="text" id="conlai" pInputText pKeyFilter="money" value="{{Total - Thanhtoan}}" [(ngModel)]="Conlai"/>
+    </div>
+  </div>
+  <br>
+  <div class="ui-g-12">
+    <div class="ui-g-2">
+      <button pButton type="button"  (click)="Save()" label="Lưu" icon="fa fa-save"></button>
+    </div>
+    <div class="ui-g-2">
+      <button pButton type="button" label="In Phiếu" icon="fa fa-print"></button>
+    </div>
+    <div class="ui-g-6">
+      <label for="xuatdulieu">Xuất Dữ Liệu:</label>
+      <p-dropdown id="xuatdulieu" placeholder="Chọn Định Dạng" optionLabel="name" [showClear]="true"></p-dropdown>
+    </div>
+    <div class="ui-g-2">
+      <button pButton type="button" icon="fa fa-save" ></button>
+    </div>
+</div>
+</div>
+<div class="ui-g-4">
+  <p-tabView (onChange)="handleChange($event)">
+      <p-tabPanel header="Sim Số">
+          <p-table #dt [value]="tabviewpro" selectionMode="single" [paginator]="true" [rows]="10" (onEditComplete)="rowEditCompleted($event)">
+              <ng-template pTemplate="header" let-columns>
+                  <tr>
+                      <th>Tên</th>
+                      <th>Tồn Kho</th>
+                      <th>Số Lượng</th>
+                  </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-product>
+                  <tr>
+                      <td>{{product.ten}}</td>
+                      <td>{{product.soluong}}</td>
+                      <td pEditableColumn [pEditableColumn]="product" [pEditableColumnField]="'soluongnhap'">
+                          <p-cellEditor>
+                              <ng-template pTemplate="input">
+                                  <input type="number" min=0 oninput="validity.valid||(value='');" [(ngModel)]="product.soluongnhap">
+                              </ng-template>
+                              <ng-template pTemplate="output">
+                                  {{product.soluongnhap}}
+                              </ng-template>
+                          </p-cellEditor>
+                      </td>
+                  </tr>
+              </ng-template>
+          </p-table>
+      </p-tabPanel>
+  </p-tabView>  
+</div>
+</div>

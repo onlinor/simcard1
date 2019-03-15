@@ -18,3 +18,4 @@ export * from './doc-exporting.service';
 export * from './shop.service';
 export * from './customer.service';
 export * from './bankbook.service';
+export * from './phieunhap.service';

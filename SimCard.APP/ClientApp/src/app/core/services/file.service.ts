@@ -1,12 +1,12 @@
-import { Injectable } from "@angular/core";
-import { BaseService } from "./base.service";
-import { Observable } from "rxjs/Observable";
+import { Injectable } from '@angular/core';
+import { BaseService } from './base.service';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class FileService extends BaseService {
   constructor() {
     super();
-    this.BASE_URI = "/";
+    this.BASE_URI = '/';
   }
 
   // file uploading method

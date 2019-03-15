@@ -30,7 +30,20 @@ namespace SimCard.API.Controllers
         public async Task<IEnumerable<ProductResource>> GetProducts()
         {
             var products = await productRepository.GetProducts();
-            return mapper.Map<IEnumerable<Product>, IEnumerable<ProductResource>>(products);
+            var listOfproductresources = new List<ProductResource>();
+            foreach (var item in products)
+            {
+                var productresource = new ProductResource
+                {
+                    ma = item.Id,
+                    ten = item.Name,
+                    soluong = item.Quantity,
+                    menhgia = item.Unit
+                };
+                listOfproductresources.Add(productresource);
+            }
+            return listOfproductresources;
+            // return mapper.Map<IEnumerable<Product>, IEnumerable<ProductResource>>(products);
         }
 
         // [HttpGet("/api/warehouse/{id}")]
@@ -41,25 +54,26 @@ namespace SimCard.API.Controllers
         // }
 
         [HttpPost("/api/product/add")]
-        public async Task<IActionResult> AddProduct(ProductResource pr)
+        public async Task<IActionResult> AddProduct(ProductResource[] pr )
         {
-            var ProductToAdd = new Product
+            foreach (var item in pr)
             {
-                Name = pr.Name,
-                Quantity = pr.Quantity,
-                Unit = pr.Unit,
-                BuyingPrice = pr.Buyingprice,
-                ShopId = pr.shopid
-            };
+                var ProductToAdd = new Product
+                {
+                    Id = item.ma,
+                    Name = item.ten,
+                    Quantity = item.soluong,
+                    Unit = item.menhgia
+                };
 
-            await productRepository.AddProducts(ProductToAdd);
-            await unitOfWork.CompleteAsync();
-
+                await productRepository.AddProducts(ProductToAdd);
+                await unitOfWork.CompleteAsync();
+            }
             return Ok();
         }
 
 
-                [HttpPost("/api/product/import")]
+        [HttpPost("/api/product/import")]
         public List<ImportProduct> ImportProduct()
         {
             var fileUploaded = Request.Form.Files[0];

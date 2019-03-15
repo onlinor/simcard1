@@ -9,8 +9,8 @@ using SimCard.API.Persistence;
 namespace SimCard.APP.Migrations
 {
     [DbContext(typeof(SimCardDBContext))]
-    [Migration("20190306161316_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20190312161257_initialCreate")]
+    partial class initialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -252,26 +252,95 @@ namespace SimCard.APP.Migrations
                     b.ToTable("Events");
                 });
 
-            modelBuilder.Entity("SimCard.API.Models.Product", b =>
+            modelBuilder.Entity("SimCard.API.Models.Network", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<string>("Ma")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<decimal>("BuyingPrice");
+                    b.Property<float>("Buocnhay");
+
+                    b.Property<float>("Chietkhaucaonhat");
+
+                    b.Property<float>("Chietkhaudauvao");
+
+                    b.Property<string>("Khungtien_1");
+
+                    b.Property<string>("Khungtien_2");
+
+                    b.Property<string>("Khungtien_3");
+
+                    b.Property<string>("Khungtien_4");
+
+                    b.Property<string>("Khungtien_5");
+
+                    b.Property<string>("Khungtien_6");
+
+                    b.Property<string>("Khungtien_7");
+
+                    b.Property<int>("Menhgia");
+
+                    b.Property<string>("Ten")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.HasKey("Ma");
+
+                    b.ToTable("Network");
+                });
+
+            modelBuilder.Entity("SimCard.API.Models.Phieunhap", b =>
+                {
+                    b.Property<string>("Prefixid");
+
+                    b.Property<int>("Suffixid");
+
+                    b.Property<decimal>("Congnocu");
+
+                    b.Property<string>("Ghichu");
+
+                    b.Property<DateTime>("Ngaylap");
+
+                    b.Property<string>("Nguoidaidien");
+
+                    b.Property<string>("Nhanvienlap");
+
+                    b.Property<int>("Sodienthoai");
+
+                    b.Property<string>("Tennhacungcap");
+
+                    b.Property<decimal>("Tienconlai");
+
+                    b.Property<decimal>("Tienthanhtoan");
+
+                    b.HasKey("Prefixid", "Suffixid");
+
+                    b.ToTable("Phieunhap");
+                });
+
+            modelBuilder.Entity("SimCard.API.Models.Product", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(255);
 
+                    b.Property<string>("PhieunhapPrefixid");
+
+                    b.Property<int?>("PhieunhapSuffixid");
+
                     b.Property<int>("Quantity");
 
-                    b.Property<int>("ShopId");
+                    b.Property<int?>("ShopId");
 
-                    b.Property<string>("Unit");
+                    b.Property<int>("Unit");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ShopId");
+
+                    b.HasIndex("PhieunhapPrefixid", "PhieunhapSuffixid");
 
                     b.ToTable("Product");
                 });
@@ -308,10 +377,13 @@ namespace SimCard.APP.Migrations
 
             modelBuilder.Entity("SimCard.API.Models.Product", b =>
                 {
-                    b.HasOne("SimCard.API.Models.Shop", "Shop")
+                    b.HasOne("SimCard.API.Models.Shop")
                         .WithMany("Products")
-                        .HasForeignKey("ShopId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ShopId");
+
+                    b.HasOne("SimCard.API.Models.Phieunhap")
+                        .WithMany("Dssanpham")
+                        .HasForeignKey("PhieunhapPrefixid", "PhieunhapSuffixid");
                 });
 #pragma warning restore 612, 618
         }

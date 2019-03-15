@@ -28,13 +28,23 @@
                     </a>
                 </li>
                 <li [routerLinkActive]='["link-active"]'>
+                    <a class="item-nav" [routerLink]='["/nhaphang"]' (click)='collapse()'>
+                        <span class='pi pi-shopping-cart'></span> Nhập Hàng 
+                    </a>
+                </li>
+                <li [routerLinkActive]='["link-active"]'>
                     <a class="item-nav" [routerLink]='["/product"]' (click)='collapse()'>
-                        <span class='pi pi-shopping-cart'></span> Sản Phẩm
+                        <span class='pi pi-shopping-cart'></span> Xuất Hàng
+                    </a>
+                </li>
+                <li [routerLinkActive]='["link-active"]'>
+                    <a class="item-nav" [routerLink]='["/network"]' (click)='collapse()'>
+                        <span class='pi pi-shopping-cart'></span> Nhà Mạng
                     </a>
                 </li>
                 <li [routerLinkActive]='["link-active"]'>
                     <a class="item-nav" [routerLink]='["/warehouse"]' (click)='collapse()'>
-                        <span class='pi pi-key'></span> Nhà Kho
+                        <span class='pi pi-key'></span> Nhà Cung Cấp
                     </a>
                 </li>
                 <li [routerLinkActive]='["link-active"]'>

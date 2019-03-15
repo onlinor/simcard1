@@ -24,21 +24,20 @@ namespace SimCard.API.Controllers
         }
 
         [HttpGet("/api/warehouse")]
-        public async Task<IEnumerable<WarehouseResource>> GetWarehouses()
+        public async Task<IEnumerable<Warehouse>> GetWarehouses()
         {
             var warehouses = await warehouseRepository.GetWarehouses();
-            return mapper.Map<IEnumerable<Warehouse>, IEnumerable<WarehouseResource>>(warehouses);
-        }
+            return warehouses;        }
 
         [HttpGet("/api/warehouse/{id}")]
-        public async Task<WarehouseResource> GetWarehouse (int id)
+        public async Task<Warehouse> GetWarehouse (int id)
         {
             var warehouse = await warehouseRepository.GetWarehouse (id, true);
-            return mapper.Map<Warehouse, WarehouseResource>(warehouse);
+            return warehouse;
         }
 
         [HttpPost("/api/warehouse/add")]
-        public async Task<IActionResult> AddWarehouse(WarehouseResource wh)
+        public async Task<IActionResult> AddWarehouse(Warehouse wh)
         {
             if(await warehouseRepository.IsWarehouseExists(wh.Name.ToLower()))
             {
@@ -47,8 +46,7 @@ namespace SimCard.API.Controllers
 
             var warehouseToAdd = new Warehouse
             {
-                Name = wh.Name.ToLower(),
-                Note = wh.Note
+                Name = wh.Name.ToLower()
             };
 
             await warehouseRepository.Addwarehouse(warehouseToAdd);
@@ -58,7 +56,7 @@ namespace SimCard.API.Controllers
         }
 
         [HttpPut("/api/warehouse/edit/{id}")]
-        public async Task<IActionResult> EditWarehouse (WarehouseResource wh)
+        public async Task<IActionResult> EditWarehouse (Warehouse wh)
         {
             if(await warehouseRepository.IsWarehouseExists(wh.Name.ToLower()))
             {
@@ -68,8 +66,7 @@ namespace SimCard.API.Controllers
             var warehouseToUpdate = new Warehouse
             {
                 Id = wh.Id,
-                Name = wh.Name.ToLower(),
-                Note = wh.Note
+                Name = wh.Name.ToLower()
             };
 
             warehouseRepository.Updatewarehouse(warehouseToUpdate);
