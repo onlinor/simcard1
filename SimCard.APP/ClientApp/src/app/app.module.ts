@@ -109,7 +109,7 @@ import { ReportHomeComponent } from './pages/report-home/report-home.component';
       { path: 'cashbook', component: CashbookComponent },
       { path: 'bankbook', component: BankbookComponent },
       { path: 'nhaphang', component: NhaphangComponent },
-      { path: 'network', component: NetworkComponent }
+      { path: 'network', component: NetworkComponent },
       { path: 'report-home', component: ReportHomeComponent }
     ])
   ],
