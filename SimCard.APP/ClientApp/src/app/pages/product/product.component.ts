@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import {
   Product,
-  Warehouse,
+  Supplier,
   ProductExport,
   ExportType,
   Bank
 } from '../../core/models';
 import { ProductService } from '../../core/services/product.service';
-import { WarehouseService } from '../../core/services/warehouse.service';
+import { SupplierService } from '../../core/services/supplier.service';
 import { FileService } from '../../core/services/file.service';
 
 @Component({
@@ -40,8 +40,8 @@ export class ProductComponent implements OnInit {
   banks: Bank[];
   bank: Bank;
 
-  warehouses: Warehouse[];
-  selectedWarehouse: Warehouse;
+  suppliers: Supplier[];
+  selectedSupplier: Supplier;
   // input product
   tempPro: Product = {
     ma: null,
@@ -60,7 +60,7 @@ export class ProductComponent implements OnInit {
 
   constructor(
     private productService: ProductService,
-    private warehouseService: WarehouseService,
+    private supplierService: SupplierService,
     private fileService: FileService
   ) {}
 
@@ -96,12 +96,6 @@ export class ProductComponent implements OnInit {
     });
   }
 
-  extractWarehouses(body: any) {
-    this.warehouses = [];
-    for (const warehouse of body) {
-      this.warehouses.push(warehouse);
-    }
-  }
 
   /*   addToTable() {
     // tslint:disable-next-line:prefer-const

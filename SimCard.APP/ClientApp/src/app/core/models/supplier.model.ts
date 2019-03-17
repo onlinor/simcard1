@@ -1,4 +1,4 @@
-export class Warehouse {
+export class Supplier {
     id: number;
     name: string;
 }

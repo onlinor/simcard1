@@ -5,24 +5,24 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SimCard.API.Models;
 
-namespace SimCard.API.Persistence.Repositories._Phieunhap
+namespace SimCard.API.Persistence.Repositories._ImportReceipt
 {    
-    public class PhieunhapRepository : IPhieunhapRepository
+    public class ImportReceiptRepository : IImportReceiptsRepository
     {
         private readonly SimCardDBContext context;       
 
-        public PhieunhapRepository(SimCardDBContext context)
+        public ImportReceiptRepository(SimCardDBContext context)
         {
             this.context = context;
         }
 
-        public async Task<Phieunhap> AddPhieunhap(Phieunhap phieunhap)
+        public async Task<ImportReceipt> AddImportReceipt(ImportReceipt importReceipt)
         {
-            if (phieunhap != null)
+            if (importReceipt != null)
             {
-                await context.AddAsync(phieunhap);
+                await context.AddAsync(importReceipt);
                 await context.SaveChangesAsync();
-                return phieunhap;
+                return importReceipt;
             }
             return null;
         }
@@ -31,7 +31,7 @@ namespace SimCard.API.Persistence.Repositories._Phieunhap
         {
             var currentDate = DateTime.UtcNow.Date.ToString("yyyy-MM-dd").Replace("-", "");            
             // No data for new day
-            var existingPNs = await context.Phieunhaps.Where(x => x.Prefixid.Replace("PN", "") == currentDate).ToListAsync();
+            var existingPNs = await context.ImportReceipts.Where(x => x.Prefixid.Replace("PN", "") == currentDate).ToListAsync();
             if (existingPNs.Count() == 0)  
             {
                 return ("PN" + currentDate + ".1");

@@ -17,12 +17,12 @@ using SimCard.API.Persistence;
 using Microsoft.EntityFrameworkCore.Sqlite;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using SimCard.API.Persistence.Repositories._Shop;
-using SimCard.API.Persistence.Repositories._Warehouse;
+using SimCard.API.Persistence.Repositories._Supplier;
 using SimCard.API.Persistence.Repositories._Product;
 using SimCard.API.Persistence.Repositories._Network;
 using SimCard.API.Persistence.Repositories;
-using SimCard.APP.Wokers;
-using SimCard.API.Persistence.Repositories._Phieunhap;
+using SimCard.APP.Workers;
+using SimCard.API.Persistence.Repositories._ImportReceipt;
 
 namespace SimCard.APP
 {
@@ -47,11 +47,11 @@ namespace SimCard.APP
             services.AddScoped<IConfigurationRepository, ConfigurationRepository>();
             services.AddScoped<IEventRepository, EventRepository>();
             services.AddScoped<IEmailRepository, EmailRepository>();
-            services.AddScoped<IWarehouseRepository, WarehouseRepository>();
+            services.AddScoped<ISupplierRepository, SupplierRepository>();
             services.AddScoped<ICashbookRepository, CashbookRepository>();
             services.AddScoped<IBankbookRepository, BankbookRepository>();
             services.AddScoped<INetworkRepository, NetworkRepository>();
-            services.AddScoped<IPhieunhapRepository, PhieunhapRepository>();
+            services.AddScoped<IImportReceiptsRepository, ImportReceiptRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddCors();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);

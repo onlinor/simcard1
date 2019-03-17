@@ -3,14 +3,14 @@ import { BaseService } from './base.service';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
-export class WarehouseService extends BaseService {
+export class SupplierService extends BaseService {
 
     constructor() {
         super();
-        this.BASE_URI = '/warehouse';
+        this.BASE_URI = '/supplier';
     }
 
-    getAll (): Observable<any> {
+    getAll(): Observable<any> {
         return this.apiService.get(this.BASE_URI);
     }
 
@@ -25,18 +25,18 @@ export class WarehouseService extends BaseService {
         // return this.update(viewModel);
     }
 
-    saveWarehouse(viewModel: any): Observable<any> {
+    saveSupplier(viewModel: any): Observable<any> {
         if (this.commonService.isCreateMode(viewModel)) {
-          return this.createWarehouse(viewModel);
+          return this.createSupplier(viewModel);
         }
-        return this.updateWarehouse(viewModel);
+        return this.updateSupplier(viewModel);
     }
 
-    private updateWarehouse(viewModel: any): Observable<any> {
-        return this.apiService.put(`${this.BASE_URI}/UpdateWarehouse/${viewModel.id}`, viewModel);
+    private updateSupplier(viewModel: any): Observable<any> {
+        return this.apiService.put(`${this.BASE_URI}/Updatesupplier/${viewModel.id}`, viewModel);
     }
 
-    private createWarehouse(viewModel: any): Observable<any> {
+    private createSupplier(viewModel: any): Observable<any> {
         return this.apiService.post(`${this.BASE_URI}/add`, viewModel);
     }
 

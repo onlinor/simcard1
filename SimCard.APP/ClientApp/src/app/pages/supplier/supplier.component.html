@@ -1,4 +1,4 @@
-<p-table [columns]="cols" [value]="warehouses" selectionMode="single" [(selection)]="selectedWarehouse" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="15">
+<p-table [columns]="cols" [value]="suppliers" selectionMode="single" [(selection)]="selectedSupplier" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="15">
   <ng-template pTemplate="caption">
     Danh Sách Nhà Cung Cấp
   </ng-template>
@@ -25,13 +25,13 @@
 </p-table>
 
 <p-dialog header="Chi Tiết" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true"  [style]="{width: '300px'}">
-  <div class="ui-g ui-fluid" *ngIf="warehouse">
+  <div class="ui-g ui-fluid" *ngIf="supplier">
       <div class="ui-g-12">
           <div class="ui-g-4">
               <label for="name">Tên</label>
           </div>
           <div class="ui-g-8">
-              <input pInputText id="name" [(ngModel)]="warehouse.name" />
+              <input pInputText id="name" [(ngModel)]="supplier.name" />
           </div>
       </div>
   </div>

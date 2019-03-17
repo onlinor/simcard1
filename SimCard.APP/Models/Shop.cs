@@ -7,17 +7,10 @@ namespace SimCard.API.Models
 {
     [Table("Shop")]
     public class Shop
-    {        
-        public int Id { get; set; }
-
-        [Required]
-        [StringLength(255)]
+    {   
+        [Key]
+        public string Id { get; set; }
         public string Name { get; set; }
-        public ICollection<Product> Products { get; set; }
-
-        public Shop ()
-        {
-            Products = new Collection<Product>();
-        }
+        public bool IsTopShop { get; set; }
     }
 }

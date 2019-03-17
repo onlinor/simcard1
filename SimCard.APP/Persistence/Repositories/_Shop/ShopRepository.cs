@@ -20,13 +20,13 @@ namespace SimCard.API.Persistence.Repositories._Shop
                 return await context.Shops.FindAsync(id);
 
             return await context.Shops            
-                .Include(v => v.Products)                
-                .SingleOrDefaultAsync(v => v.Id == id);
+                .Include(v => v.Id)       //temp          
+                .SingleOrDefaultAsync(v => v.Id == "78");
         }
 
         public async Task<IEnumerable<Shop>> GetShops()
         {
-            return await context.Shops.Include(m => m.Products).ToListAsync();
+            return await context.Shops.Include(m => m.Id).ToListAsync();  //temp  
         }
 
         public void Remove(Shop shop)

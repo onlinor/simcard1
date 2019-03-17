@@ -19,7 +19,7 @@ namespace SimCard.API.Persistence.Repositories._Product
             if(await IsProductExists(pr))
             {
                 var ProductToAdd = await context.Products.FirstAsync(x => x.Name.ToLower() == pr.Name.ToLower());
-                ProductToAdd.Quantity = ProductToAdd.Quantity + pr.Quantity;
+                // ProductToAdd.Quantity = ProductToAdd.Quantity + pr.Quantity;
                 
                 context.Products.Update(ProductToAdd);
                 return ProductToAdd;

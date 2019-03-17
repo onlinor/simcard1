@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { FileService, ProductService, PhieunhapService, WarehouseService } from '../../core/services';
-import { Product, ExportType, Phieunhap, Warehouse } from '../../core/models';
+import { FileService, ProductService, PhieunhapService, SupplierService } from '../../core/services';
+import { Product, Phieunhap, Supplier } from '../../core/models';
 
 @Component({
   selector: 'app-nhaphang',
@@ -17,8 +17,8 @@ export class NhaphangComponent implements OnInit {
   products: Product[];
   tabviewpro: Product[];
 
-  venders: Warehouse[];
-  selectedVender: Warehouse;
+  suppliers: Supplier[];
+  selectedSupplier: Supplier;
 
   // phieu section
   totalMoney: number;
@@ -34,7 +34,7 @@ export class NhaphangComponent implements OnInit {
     private fileService: FileService,
     private productService: ProductService,
     private phieuhangService: PhieunhapService,
-    private venderService: WarehouseService
+    private supplierService: SupplierService
   ) { }
 
   ngOnInit() {
@@ -200,14 +200,14 @@ export class NhaphangComponent implements OnInit {
   }
 
   getVenders() {
-    this.venderService.getAll().subscribe( resp => {
-    this.venders = resp;
+    this.supplierService.getAll().subscribe( resp => {
+    this.suppliers = resp;
     });
   }
 
   savePhieunhap() {
     this.phieunhap.Dssanpham = this.tableProducts;
-    this.phieunhap.Tennhacungcap = this.selectedVender.name;
+    this.phieunhap.Tennhacungcap = this.selectedSupplier.name;
     this.phieuhangService.addPhieunhap(this.phieunhap).subscribe(() => {});
   }
 }

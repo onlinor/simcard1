@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SimCard.API.Models
@@ -8,15 +9,7 @@ namespace SimCard.API.Models
     {
         [Key]
         public string Id { get; set; }
-
-        [Required]
-        [StringLength(255)]
         public string Name { get; set; }        
-
-        public int Quantity { get; set; }
         public int Unit { get; set; }
-/*         public decimal BuyingPrice { get; set; }
-        public Shop Shop { get; set; }
-        public int ShopId { get; set; } */
     }
 }

@@ -19,7 +19,6 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
-import { AdministrationModule } from './administration/administration.module';
 import { PublicModule } from './public/public.module';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
@@ -33,7 +32,7 @@ import { SearchBoxComponent } from '././pages/customer/search-box/search-box.com
 import { ConfigurationComponent } from './pages/configColumn/configuration.component';
 import { EventsComponent } from './pages/events/events.component';
 import { ProductComponent } from './pages/product/product.component';
-import { WarehouseComponent } from './pages/warehouse/warehouse.component';
+import { SupplierComponent } from './pages/supplier/supplier.component';
 import { CashbookComponent } from './pages/cashbook/cashbook.component';
 import { BankbookComponent } from './pages/bankbook/bankbook.component';
 import { FormphieuchiComponent } from './public/formphieuchi/formphieuchi.component';
@@ -61,7 +60,7 @@ import { LogPublishersService } from './shared/logging-services/log-publishers.s
     ConfigurationComponent,
     EventsComponent,
     ProductComponent,
-    WarehouseComponent,
+    SupplierComponent,
     CashbookComponent,
     BankbookComponent,
     FormphieuchiComponent,
@@ -76,7 +75,6 @@ import { LogPublishersService } from './shared/logging-services/log-publishers.s
   imports: [
     CoreModule,
     SharedModule,
-    AdministrationModule,
     PublicModule,
     ReactiveFormsModule,
     CalendarModule,
@@ -103,7 +101,7 @@ import { LogPublishersService } from './shared/logging-services/log-publishers.s
       { path: 'event', component: EventsComponent },
       { path: 'config', component: ConfigurationComponent },
       { path: 'product', component: ProductComponent },
-      { path: 'warehouse', component: WarehouseComponent },
+      { path: 'supplier', component: SupplierComponent },
       { path: 'cashbook', component: CashbookComponent },
       { path: 'bankbook', component: BankbookComponent },
       { path: 'nhaphang', component: NhaphangComponent },

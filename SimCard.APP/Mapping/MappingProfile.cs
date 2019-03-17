@@ -15,7 +15,7 @@ namespace SimCard.API.Mapping
             CreateMap<Event, EventResource>();
             CreateMap<Cashbook, CashbookResource>();
             CreateMap<Bankbook, BankbookResource>();
-            CreateMap<Phieunhap, PhieunhapResource>();
+            CreateMap<ImportReceipt, PhieunhapResource>();
         }
     }
 }

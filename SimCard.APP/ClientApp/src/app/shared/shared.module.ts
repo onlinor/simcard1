@@ -19,7 +19,6 @@ import {TabsModule} from 'ngx-bootstrap/tabs';
 
 // Components
 import { LayoutComponent } from './layout/layout.component';
-import {CrudComponent } from './crud/crud.component';
 
 @NgModule({
   imports: [CommonModule,
@@ -35,14 +34,12 @@ import {CrudComponent } from './crud/crud.component';
     TabsModule.forRoot()
   ],
   exports: [LayoutComponent,
-    SidebarComponent,
-    CrudComponent
+    SidebarComponent
   ],
   declarations: [
     SharedComponent,
     LayoutComponent,
-    SidebarComponent,
-    CrudComponent
+    SidebarComponent
   ]
 })
 export class SharedModule {}

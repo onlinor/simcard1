@@ -14,7 +14,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { ApiService } from './services/api.service';
 import { BaseService } from './services/base.service';
 import { LocalStorageService } from './services/local-storage.service';
-import { WarehouseService } from './services/warehouse.service';
+import { SupplierService } from './services/supplier.service';
 import { ProductService } from './services/product.service';
 import { FileService } from './services/file.service';
 import { ConfigurationService } from './services/configuration.service';
@@ -43,7 +43,7 @@ import { PhieunhapService } from './services/phieunhap.service';
     ApiService,
     BaseService,
     LocalStorageService,
-    WarehouseService,
+    SupplierService,
     ProductService,
     CrudService,
     CommonService,

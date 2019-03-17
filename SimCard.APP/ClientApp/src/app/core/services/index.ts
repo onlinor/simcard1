@@ -7,7 +7,7 @@ export * from './file.service';
 export * from './local-storage.service';
 export * from './message.service';
 export * from './product.service';
-export * from './warehouse.service';
+export * from './supplier.service';
 export * from './subscribe.service';
 export * from './common.service';
 export * from './crud.service';
