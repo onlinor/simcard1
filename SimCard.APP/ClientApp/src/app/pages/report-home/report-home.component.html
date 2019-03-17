@@ -12,6 +12,7 @@
             <span class="float-right">
               <label style="margin-right: 10px;">Xuất file</label>
               <p-dropdown [options]="supportedExportMethods" (onChange)="export()" [(ngModel)]="selectedExportMethod"></p-dropdown>
+              <button pButton style="margin-left: 5px;" type="button" icon="pi pi-print" class="ui-button-secondary"></button>
             </span>
           </div>
         </div>

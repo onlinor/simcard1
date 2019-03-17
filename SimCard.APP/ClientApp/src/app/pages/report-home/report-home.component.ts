@@ -77,6 +77,12 @@ export class ReportHomeComponent implements OnInit {
         this.reportData = result.data;
         this.reportColumns = result.columns;
         this.supportedFilter = result.supportedFilter;
+
+        this.bankAccounts = result.filterData.bankAccounts;
+        this.products = result.filterData.products;
+        this.shops = result.filterData.shops;
+        this.warehouses = result.filterData.warehouses;
+        this.customers = result.filterData.customers;
       },
       error => console.log('Error getting data from API')
     );
