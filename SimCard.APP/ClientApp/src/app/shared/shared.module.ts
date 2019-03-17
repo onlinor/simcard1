@@ -17,11 +17,13 @@ import {TooltipModule} from 'ngx-bootstrap/tooltip';
 import {AlertModule} from 'ngx-bootstrap/alert';
 import {TabsModule} from 'ngx-bootstrap/tabs';
 
+
 // Components
 import { LayoutComponent } from './layout/layout.component';
 
 @NgModule({
-  imports: [CommonModule,
+  imports: [
+    CommonModule,
     RouterModule,
     FormsModule,
     ReactiveFormsModule,

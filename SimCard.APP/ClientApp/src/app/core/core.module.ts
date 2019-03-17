@@ -27,6 +27,7 @@ import { CrudService } from './services/crud.service';
 import { CommonService } from './services/common.service';
 import { CashbookService } from './services/cashbook.service';
 import { BankbookService } from './services/bankbook.service';
+import { ReportService, ShopService, DocExportingService } from './services';
 import { NetworkService } from './services/network.service';
 import { PhieunhapService } from './services/phieunhap.service';
 
@@ -56,6 +57,9 @@ import { PhieunhapService } from './services/phieunhap.service';
     MessageService,
     CashbookService,
     BankbookService,
+    ReportService,
+    DocExportingService,
+    ShopService,
     NetworkService,
     PhieunhapService
   ]

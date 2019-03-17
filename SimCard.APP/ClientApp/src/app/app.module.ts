@@ -48,6 +48,7 @@ import { NetworkComponent } from './pages/network/network.component';
 import { MessageService } from 'primeng/api';
 import { LogService } from './shared/logging-services/log.service';
 import { LogPublishersService } from './shared/logging-services/log-publishers.service';
+import { ReportHomeComponent } from './pages/report-home/report-home.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import { LogPublishersService } from './shared/logging-services/log-publishers.s
     HeaderComponent,
     FormphieuchibankbookComponent,
     FormphieuthubankbookComponent,
+    ReportHomeComponent,
     NhaphangComponent,
     NetworkComponent
   ],
@@ -105,7 +107,8 @@ import { LogPublishersService } from './shared/logging-services/log-publishers.s
       { path: 'cashbook', component: CashbookComponent },
       { path: 'bankbook', component: BankbookComponent },
       { path: 'nhaphang', component: NhaphangComponent },
-      { path: 'network', component: NetworkComponent }
+      { path: 'network', component: NetworkComponent },
+      { path: 'report-home', component: ReportHomeComponent }
     ])
   ],
   providers: [MessageService, LogService, LogPublishersService],

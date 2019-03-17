@@ -1,4 +1,7 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SimCard.API.Models;
@@ -27,6 +30,11 @@ namespace SimCard.API.Persistence.Repositories._Shop
         public async Task<IEnumerable<Shop>> GetShops()
         {
             return await context.Shops.Include(m => m.Id).ToListAsync();  //temp  
+        }
+
+        public IQueryable<Shop> Query(Expression<Func<Shop, bool>> predicate)
+        {
+            return context.Shops.Where(predicate);
         }
 
         public void Remove(Shop shop)

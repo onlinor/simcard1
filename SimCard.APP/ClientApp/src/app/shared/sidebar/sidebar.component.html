@@ -57,6 +57,11 @@
                         <span class='pi pi-inbox'></span> Sổ Ngân Hàng
                     </a>
                 </li>
+                <li [routerLinkActive]='["link-active"]'>
+                    <a class="item-nav" [routerLink]='["/report-home"]' (click)='collapse()'>
+                        <span class='pi pi-inbox'></span> Báo Cáo
+                    </a>
+                </li>
             </ul>
         </div>
     </div>

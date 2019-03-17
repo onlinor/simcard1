@@ -50,6 +50,7 @@ namespace SimCard.APP
             services.AddScoped<ISupplierRepository, SupplierRepository>();
             services.AddScoped<ICashbookRepository, CashbookRepository>();
             services.AddScoped<IBankbookRepository, BankbookRepository>();
+            services.AddScoped<IReportRepository, ReportRepository>();
             services.AddScoped<INetworkRepository, NetworkRepository>();
             services.AddScoped<IImportReceiptsRepository, ImportReceiptRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
