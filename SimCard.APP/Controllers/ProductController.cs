@@ -37,7 +37,7 @@ namespace SimCard.API.Controllers
                 {
                     ma = item.Id,
                     ten = item.Name,
-                    // soluong = item.Quantity,
+                    soluong = item.Quantity,
                     menhgia = item.Unit
                 };
                 listOfproductresources.Add(productresource);
@@ -62,7 +62,7 @@ namespace SimCard.API.Controllers
                 {
                     Id = item.ma,
                     Name = item.ten,
-                    // Quantity = item.soluong,
+                    Quantity = item.soluong,
                     Unit = item.menhgia
                 };
 

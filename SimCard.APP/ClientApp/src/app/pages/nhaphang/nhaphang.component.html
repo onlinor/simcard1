@@ -47,7 +47,7 @@
       </div>
       <div class="ui-g-4">
           <p>Công Nợ Cũ</p>
-          <input type="text" [(ngModel)]="phieunhap.Congnocu" pInputText pKeyFilter="money" />
+          <input type="number" [(ngModel)]="phieunhap.Congnocu" pInputText pKeyFilter="money" />
       </div>
   </div>
   <div class="ui-g">
@@ -105,27 +105,27 @@
   <div class="ui-g-8, float-right">
     <div class="float-right">
       <label for="tienhang">Cộng Tiền Hàng:</label>
-      <input type="text" id="tienhang" pInputText pKeyFilter="money" [(ngModel)]="totalMoney"/>
+      <input type="number" id="tienhang" pInputText pKeyFilter="money" [(ngModel)]="totalMoney"/>
     </div>
     <br>
     <div class="float-right">
       <label for="VAT">VAT:</label>
-      <input type="text" id="VAT" pInputText pKeyFilter="money"  [(ngModel)]="vatMoney"/>
+      <input type="number" id="VAT" pInputText pKeyFilter="money"  [(ngModel)]="vatMoney"/>
     </div>
     <br>
     <div class="float-right">
       <label for="tongcong">Tổng Cộng:</label>
-      <input type="text" id="tongcong" pInputText pKeyFilter="money" [(ngModel)]="Total"/>
+      <input type="number" id="tongcong" pInputText pKeyFilter="money" [(ngModel)]="Total"/>
     </div>
     <br>
     <div class="float-right">
       <label for="thanhtoanncc">Thanh Toán NCC:</label>
-      <input type="text" id="thanhtoanncc" pInputText pKeyFilter="money" [(ngModel)]="Thanhtoan"/>
+      <input type="number"[(ngModel)]="phieunhap.Tienthanhtoan" pInputText pKeyFilter="money" [(ngModel)]="Thanhtoan"/>
     </div>
     <br>
     <div class="float-right">
       <label for="conlai">Còn Lại:</label>
-      <input type="text" id="conlai" pInputText pKeyFilter="money" value="{{Total - Thanhtoan}}" [(ngModel)]="Conlai"/>
+      <input type="number" [(ngModel)]="Conlai" id="conlai" pInputText pKeyFilter="money" value="{{Total - Thanhtoan}}"/>
     </div>
   </div>
   <br>

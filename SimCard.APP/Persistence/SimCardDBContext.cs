@@ -11,7 +11,6 @@ namespace SimCard.API.Persistence
         }
         public DbSet<Shop> Shops{get; set;}
         public DbSet<Product> Products{get; set;}
-        public DbSet<ProductShop> ProductShops{get; set;}
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Configuration> Configurations { get; set; }
         public DbSet<Event> Events { get; set;}
@@ -26,7 +25,8 @@ namespace SimCard.API.Persistence
         // Configure composite key through Fluent API only 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ProductShop>().HasKey(x => new {x.ProductID, x.ShopID});
+            modelBuilder.Entity<ImportReceipt>().HasKey(x => new {x.Prefixid, x.Suffixid});
+
         }
     }
 }

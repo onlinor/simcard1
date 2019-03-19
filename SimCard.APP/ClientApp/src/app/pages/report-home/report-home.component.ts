@@ -4,7 +4,7 @@ import {
   DocExportingService,
   ProductService,
   ShopService,
-  WarehouseService,
+  SupplierService,
   CustomerService,
   BankbookService
 } from '../../core/services';
@@ -60,7 +60,7 @@ export class ReportHomeComponent implements OnInit {
     private docExportingService: DocExportingService,
     private shopService: ShopService,
     private productService: ProductService,
-    private warehouseService: WarehouseService,
+    private supplierService: SupplierService,
     private customerService: CustomerService,
     private bankService: BankbookService
   ) { }
@@ -134,7 +134,7 @@ export class ReportHomeComponent implements OnInit {
   }
 
   private getWarehouses() {
-    this.warehouseService.getAll().subscribe(
+    this.supplierService.getAll().subscribe(
       result => {
         this.warehouses = result;
       },

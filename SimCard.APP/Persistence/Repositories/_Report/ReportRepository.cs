@@ -7,7 +7,7 @@ using SimCard.API.Controllers.Resources;
 using SimCard.API.Persistence.Repositories;
 using SimCard.API.Persistence.Repositories._Product;
 using SimCard.API.Persistence.Repositories._Shop;
-using SimCard.API.Persistence.Repositories._Warehouse;
+using SimCard.API.Persistence.Repositories._Supplier;
 using SimCard.APP.Controllers.Resources;
 
 namespace SimCard.API.Persistence.Repositories
@@ -19,7 +19,7 @@ namespace SimCard.API.Persistence.Repositories
         private readonly IBankbookRepository _bankbookRepository;
         private readonly ICustomerRepository _customerRepository;
         private readonly IShopRepository _shopRepository;
-        private readonly IWarehouseRepository _warehouseRepository;
+        private readonly ISupplierRepository _supplierRepository;
 
         public ReportRepository(
             IProductRepository productRepository,
@@ -27,14 +27,14 @@ namespace SimCard.API.Persistence.Repositories
             IBankbookRepository bankbookRepository,
             ICustomerRepository customerRepository,
             IShopRepository shopRepository,
-            IWarehouseRepository warehouseRepository)
+            ISupplierRepository supplierRepository)
         {
             _productRepository = productRepository;
             _cashbookRepository = cashbookRepository;
             _bankbookRepository = bankbookRepository;
             _customerRepository = customerRepository;
             _shopRepository = shopRepository;
-            _warehouseRepository = warehouseRepository;
+            _supplierRepository = supplierRepository;
         }
 
         public async Task<List<ExpandoObject>> GetReport(int type, ReportFilterResource filter)
@@ -171,16 +171,16 @@ namespace SimCard.API.Persistence.Repositories
             var products = await _productRepository.GetProducts();
             foreach (var product in products)
             {
-                dynamic line = new List<ExpandoObject>();
+/*                 dynamic line = new List<ExpandoObject>();
                 line.MatHang = product.Name;
                 line.MaHang = product.Id;
                 line.SoLuongToanCongTy = 0;
-                var shops = await _shopRepository.Query(s => true).Include(s => s.Products).ToListAsync();
+                var shops = await _shopRepository.Query(s => true).Include(s => s.).ToListAsync();
                 foreach (var shop in shops)
                 {
                     line[shop.Name] = shop.Products.FirstOrDefault(p => p.Id == product.Id).Quantity;
                 }
-                result.Add(line);
+                result.Add(line) */;
             }
             return result;
         }

@@ -1,6 +1,6 @@
 import { Product } from './product.model';
 
-export class Phieunhap {
+export class ImportReceipt {
     Prefixid: string;
     Suffixid: string;
     Ngaylap: Date;

@@ -13,5 +13,5 @@ export * from './paging.model';
 export * from './exporttype.model';
 export * from './bank.model';
 export * from './network.model';
-export * from './phieunhap.model';
+export * from './importreceipt.model';
 
