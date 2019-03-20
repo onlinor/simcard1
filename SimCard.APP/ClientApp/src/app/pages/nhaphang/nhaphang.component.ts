@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FileService, ProductService, PhieunhapService, SupplierService } from '../../core/services';
-import { Product, Phieunhap, Supplier } from '../../core/models';
+import { Product, ExportType, ImportReceipt, Supplier } from '../../core/models';
 
 @Component({
   selector: 'app-nhaphang',
@@ -17,8 +17,8 @@ export class NhaphangComponent implements OnInit {
   products: Product[];
   tabviewpro: Product[];
 
-  suppliers: Supplier[];
-  selectedSupplier: Supplier;
+  venders: Supplier[];
+  selectedVender: Supplier;
 
   // phieu section
   totalMoney: number;
@@ -28,13 +28,14 @@ export class NhaphangComponent implements OnInit {
   Conlai: number;
 
   // phieu nhap
-  phieunhap: Phieunhap = new Phieunhap();
+  phieunhap: ImportReceipt = new ImportReceipt();
   idphieunhap: string;
+
   constructor(
     private fileService: FileService,
     private productService: ProductService,
     private phieuhangService: PhieunhapService,
-    private supplierService: SupplierService
+    private venderService: SupplierService
   ) { }
 
   ngOnInit() {
@@ -200,15 +201,18 @@ export class NhaphangComponent implements OnInit {
   }
 
   getVenders() {
-    this.supplierService.getAll().subscribe( resp => {
-    this.suppliers = resp;
+    this.venderService.getAll().subscribe( resp => {
+    this.venders = resp;
     });
   }
 
   savePhieunhap() {
+    this.phieunhap.Prefixid = this.idphieunhap.substring(0, 10);
+    this.phieunhap.Suffixid = this.idphieunhap.substr(11);
     this.phieunhap.Dssanpham = this.tableProducts;
-    this.phieunhap.Tennhacungcap = this.selectedSupplier.name;
+    this.phieunhap.Tennhacungcap = this.selectedVender.name;
+    this.phieunhap.Tienthanhtoan = this.Thanhtoan;
+    this.phieunhap.Tienconlai = this.Total - this.Thanhtoan;
     this.phieuhangService.addPhieunhap(this.phieunhap).subscribe(() => {});
   }
 }
-
