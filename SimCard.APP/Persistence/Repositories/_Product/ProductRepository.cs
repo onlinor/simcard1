@@ -9,46 +9,42 @@ namespace SimCard.API.Persistence.Repositories
 {
     public class ProductRepository : IProductRepository
     {
-        private readonly SimCardDBContext context;
+        private readonly SimCardDBContext _context;
 
         public ProductRepository(SimCardDBContext context)
         {
-            this.context = context;
+            _context = context;
         }
 
         public async Task<Product> AddProducts(Product pr)
         {
             if (await IsProductExists(pr))
             {
-                Product ProductToAdd = await context.Products.FirstAsync(x => x.Name.ToLower() == pr.Name.ToLower());
+                Product productToAdd = await _context.Products.FirstAsync(x => x.Name.ToLower() == pr.Name.ToLower());
                 // ProductToAdd.Quantity = ProductToAdd.Quantity + pr.Quantity;
 
-                context.Products.Update(ProductToAdd);
-                return ProductToAdd;
+                _context.Products.Update(productToAdd);
+                return productToAdd;
             }
 
-            await context.Products.AddAsync(pr);
+            await _context.Products.AddAsync(pr);
 
             return pr;
         }
 
         public async Task<Product> GetProduct(int id, bool includeRelated = true)
         {
-            // if (!includeRelated)
-            //     return await context.Products.FindAsync(id);
-
-            return await context.Products
-                .FindAsync(id);
+            return await _context.Products.FindAsync(id);
         }
 
         public async Task<IEnumerable<Product>> GetProducts()
         {
-            return await context.Products.ToListAsync();
+            return await _context.Products.ToListAsync();
         }
 
         public async Task<bool> IsProductExists(Product pr)
         {
-            if (await context.Products.AnyAsync(x => x.Name.ToLower() == pr.Name.ToLower()))
+            if (await _context.Products.AnyAsync(x => x.Name.ToLower() == pr.Name.ToLower()))
             {
                 return true;
             }
@@ -58,7 +54,7 @@ namespace SimCard.API.Persistence.Repositories
 
         public void Remove(Product product)
         {
-            context.Products.Remove(product);
+            _context.Products.Remove(product);
         }
 
         public void UpdateProduct(Product pr)

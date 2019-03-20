@@ -47,12 +47,11 @@ namespace SimCard.API.Controllers
                 return BadRequest(wh.Name + " already exists!");
             }
 
-            Supplier SupplierToAdd = new Supplier
+
+            await _supplierRepository.AddSupplier(new Supplier
             {
                 Name = wh.Name.ToLower()
-            };
-
-            await _supplierRepository.AddSupplier(SupplierToAdd);
+            });
             await _unitOfWork.CompleteAsync();
 
             return Ok();
@@ -66,13 +65,12 @@ namespace SimCard.API.Controllers
                 return BadRequest(wh.Name + " already exists!");
             }
 
-            Supplier SupplierToUpdate = new Supplier
+
+            _supplierRepository.UpdateSupplier(new Supplier
             {
                 Id = wh.Id,
                 Name = wh.Name.ToLower()
-            };
-
-            _supplierRepository.UpdateSupplier(SupplierToUpdate);
+            });
             await _unitOfWork.CompleteAsync();
 
             return Ok();

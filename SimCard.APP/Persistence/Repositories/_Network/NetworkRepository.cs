@@ -13,7 +13,7 @@ namespace SimCard.API.Persistence.Repositories
 
         public NetworkRepository(SimCardDBContext context)
         {
-            this._context = context;
+            _context = context;
         }
 
         public async Task<Network> AddNetwork(Network Nw)

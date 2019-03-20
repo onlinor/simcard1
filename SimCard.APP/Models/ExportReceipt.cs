@@ -11,7 +11,7 @@ namespace SimCard.API.Models
         public int ID { get; set; }
         public string Prefixid { get; set; }
         public int Suffixid { get; set; }
-        public DateTime CreateDate { get; set; }        
+        public DateTime CreateDate { get; set; }
         public string CreateByStaff { get; set; }
         public string SupplierName { get; set; }
         public decimal OldDebt { get; set; }

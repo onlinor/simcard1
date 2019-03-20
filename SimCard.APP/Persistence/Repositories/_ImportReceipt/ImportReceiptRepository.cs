@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using SimCard.API.Models;
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -14,7 +15,7 @@ namespace SimCard.API.Persistence.Repositories
 
         public ImportReceiptRepository(SimCardDBContext context)
         {
-            this._context = context;
+            _context = context;
         }
 
         public async Task<ImportReceipt> AddImportReceipt(ImportReceipt importReceipt)
@@ -32,7 +33,7 @@ namespace SimCard.API.Persistence.Repositories
         {
             string currentDate = DateTime.UtcNow.Date.ToString("yyyy-MM-dd").Replace("-", "");
             // No data for new day
-            System.Collections.Generic.List<ImportReceipt> existingPNs = await _context.ImportReceipts.Where(x => x.Prefixid.Replace("PN", "") == currentDate).ToListAsync();
+            List<ImportReceipt> existingPNs = await _context.ImportReceipts.Where(x => x.Prefixid.Replace("PN", "") == currentDate).ToListAsync();
             if (existingPNs.Count() == 0)
             {
                 return ("PN" + currentDate + ".1");

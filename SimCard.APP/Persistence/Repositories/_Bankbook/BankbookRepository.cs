@@ -9,18 +9,19 @@ namespace SimCard.API.Persistence.Repositories
 {
     public class BankbookRepository : IBankbookRepository
     {
-        private readonly SimCardDBContext context;
+        private readonly SimCardDBContext _context;
+
         public BankbookRepository(SimCardDBContext context)
         {
-            this.context = context;
+            _context = context;
         }
 
         public async Task<Bankbook> AddBankbook(Bankbook bankbookParams)
         {
             if (bankbookParams != null)
             {
-                await context.AddAsync(bankbookParams);
-                await context.SaveChangesAsync();
+                await _context.AddAsync(bankbookParams);
+                await _context.SaveChangesAsync();
                 return bankbookParams;
             }
             return null;
@@ -28,12 +29,12 @@ namespace SimCard.API.Persistence.Repositories
 
         public async Task<IEnumerable<Bankbook>> GetAllBankbook()
         {
-            return await context.Bankbook.ToListAsync();
+            return await _context.Bankbook.ToListAsync();
         }
 
         public async Task<Bankbook> GetBankbook(int id)
         {
-            return await context.Bankbook.FirstOrDefaultAsync(x => x.Id == id);
+            return await _context.Bankbook.FirstOrDefaultAsync(x => x.Id == id);
         }
 
         // public async Task<int> GetLastIDBankbookRecord()
@@ -49,12 +50,12 @@ namespace SimCard.API.Persistence.Repositories
 
         public void Remove(Bankbook bankbookParams)
         {
-            context.Remove(bankbookParams);
+            _context.Remove(bankbookParams);
         }
 
         public async Task<Bankbook> UpdateBankbook(int id, Bankbook bankbookParams)
         {
-            Bankbook bankbookToUpdate = context.Bankbook.Find(id);
+            Bankbook bankbookToUpdate = _context.Bankbook.Find(id);
             if (bankbookParams != null)
             {
                 bankbookToUpdate.NgayLap = bankbookParams.NgayLap;
@@ -73,8 +74,8 @@ namespace SimCard.API.Persistence.Repositories
                 bankbookToUpdate.NguoiThu = bankbookParams.NguoiThu;
                 bankbookToUpdate.GhiChu = bankbookParams.GhiChu;
                 bankbookToUpdate.LoaiNganHang = bankbookParams.LoaiNganHang;
-                context.Bankbook.Update(bankbookToUpdate);
-                await context.SaveChangesAsync();
+                _context.Bankbook.Update(bankbookToUpdate);
+                await _context.SaveChangesAsync();
                 return bankbookToUpdate;
             }
             return null;

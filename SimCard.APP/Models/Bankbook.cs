@@ -1,9 +1,10 @@
-using System.ComponentModel.DataAnnotations;
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace SimCard.API.Models
 {
-    public class Bankbook {
+    public class Bankbook
+    {
         public int Id { get; set; }
 
         public DateTime NgayLap { get; set; }
@@ -45,7 +46,6 @@ namespace SimCard.API.Models
         [StringLength(255)]
         public string GhiChu { get; set; }
 
-        public string LoaiNganHang { get; set;}
-
+        public string LoaiNganHang { get; set; }
     }
 }

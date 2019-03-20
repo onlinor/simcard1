@@ -28,11 +28,10 @@ namespace SimCard.API.Controllers
         [HttpGet("/api/phieunhap/taoma")]
         public async Task<PhieunhapResource> GetPhieunhaps()
         {
-            PhieunhapResource phieunhapResource = new PhieunhapResource
+            return new PhieunhapResource
             {
                 ID = await _importReceiptRepository.GenerateID()
             };
-            return phieunhapResource;
         }
 
         [HttpPost("/api/phieunhap/add")]

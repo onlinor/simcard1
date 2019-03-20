@@ -117,24 +117,24 @@ namespace SimCard.API.Controllers
                             Customer customer = new Customer
                             {
                                 Id = int.Parse(worksheet.Cells[row, 1].Value.ToString()),
-                                tenCH = worksheet.Cells[row, 2].Value.ToString(),
-                                diachiCH = worksheet.Cells[row, 3].Value.ToString(),
-                                hoTen = worksheet.Cells[row, 4].Value.ToString(),
-                                sdt1 = worksheet.Cells[row, 5].Value.ToString(),
-                                sdt2 = worksheet.Cells[row, 6].Value.ToString(),
-                                maKH = worksheet.Cells[row, 7].Value.ToString(),
-                                matheTV = worksheet.Cells[row, 8].Value.ToString(),
-                                tenCongTy = worksheet.Cells[row, 9].Value.ToString(),
-                                masoThue = worksheet.Cells[row, 10].Value.ToString(),
-                                diachiHoaDon = worksheet.Cells[row, 11].Value.ToString(),
-                                nguonDen = worksheet.Cells[row, 12].Value.ToString(),
-                                ngGioiThieu = worksheet.Cells[row, 13].Value.ToString(),
-                                email = worksheet.Cells[row, 14].Value.ToString(),
-                                fb = worksheet.Cells[row, 15].Value.ToString(),
-                                zalo = worksheet.Cells[row, 16].Value.ToString(),
-                                ngayDen = DateTime.Parse(worksheet.Cells[row, 17].Value.ToString()),
-                                ngaySinh = DateTime.Parse(worksheet.Cells[row, 18].Value.ToString()),
-                                gioiTinh = bool.Parse(worksheet.Cells[row, 19].Value.ToString())
+                                TenCH = worksheet.Cells[row, 2].Value.ToString(),
+                                DiachiCH = worksheet.Cells[row, 3].Value.ToString(),
+                                HoTen = worksheet.Cells[row, 4].Value.ToString(),
+                                Sdt1 = worksheet.Cells[row, 5].Value.ToString(),
+                                Sdt2 = worksheet.Cells[row, 6].Value.ToString(),
+                                MaKH = worksheet.Cells[row, 7].Value.ToString(),
+                                MatheTV = worksheet.Cells[row, 8].Value.ToString(),
+                                TenCongTy = worksheet.Cells[row, 9].Value.ToString(),
+                                MasoThue = worksheet.Cells[row, 10].Value.ToString(),
+                                DiachiHoaDon = worksheet.Cells[row, 11].Value.ToString(),
+                                NguonDen = worksheet.Cells[row, 12].Value.ToString(),
+                                NgGioiThieu = worksheet.Cells[row, 13].Value.ToString(),
+                                Email = worksheet.Cells[row, 14].Value.ToString(),
+                                Fb = worksheet.Cells[row, 15].Value.ToString(),
+                                Zalo = worksheet.Cells[row, 16].Value.ToString(),
+                                NgayDen = DateTime.Parse(worksheet.Cells[row, 17].Value.ToString()),
+                                NgaySinh = DateTime.Parse(worksheet.Cells[row, 18].Value.ToString()),
+                                GioiTinh = bool.Parse(worksheet.Cells[row, 19].Value.ToString())
                             };
                             customerList.Add(customer);
                         }

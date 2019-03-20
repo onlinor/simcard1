@@ -10,33 +10,34 @@ namespace SimCard.API.Persistence.Repositories
 {
     public class EventRepository : IEventRepository
     {
-        private readonly SimCardDBContext context;
+        private readonly SimCardDBContext _context;
 
         public EventRepository(SimCardDBContext context)
         {
-            this.context = context;
+            _context = context;
         }
+
         public List<Event> getDSEvent()
         {
-            return context.Events.ToList();
+            return _context.Events.ToList();
         }
 
         public async Task<IEnumerable<Event>> GetAllEvents()
         {
-            return await context.Events.ToListAsync();
+            return await _context.Events.ToListAsync();
         }
 
         public async Task<Event> GetEvent(int id)
         {
-            return await context.Events.FirstOrDefaultAsync(x => x.Id == id);
+            return await _context.Events.FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<Event> AddEvent(Event eventParams)
         {
             if (eventParams != null)
             {
-                await context.AddAsync(eventParams);
-                await context.SaveChangesAsync();
+                await _context.AddAsync(eventParams);
+                await _context.SaveChangesAsync();
                 return eventParams;
             }
             return null;
@@ -44,7 +45,7 @@ namespace SimCard.API.Persistence.Repositories
 
         public async Task<Event> UpdateEvent(int id, Event eventParams)
         {
-            Event eventToUpdate = context.Events.Find(id);
+            Event eventToUpdate = _context.Events.Find(id);
             if (eventToUpdate != null)
             {
                 eventToUpdate.LoaiSK = eventParams.LoaiSK;
@@ -53,8 +54,8 @@ namespace SimCard.API.Persistence.Repositories
                 eventToUpdate.TgBatDau = eventParams.TgBatDau;
                 eventToUpdate.TgKetThuc = eventParams.TgKetThuc;
                 eventToUpdate.DoiTuong = eventParams.DoiTuong;
-                context.Events.Update(eventToUpdate);
-                await context.SaveChangesAsync();
+                _context.Events.Update(eventToUpdate);
+                await _context.SaveChangesAsync();
                 return eventToUpdate;
             }
             return null;
@@ -62,29 +63,29 @@ namespace SimCard.API.Persistence.Repositories
         public async Task<int> GetLastIDEventRecord()
         {
             int lastIDRecord = 0;
-            bool anyRecord = await context.Events.AnyAsync();
+            bool anyRecord = await _context.Events.AnyAsync();
             if (anyRecord)
             {
-                lastIDRecord = await context.Events.MaxAsync(x => x.Id);
+                lastIDRecord = await _context.Events.MaxAsync(x => x.Id);
             }
             return lastIDRecord;
         }
 
         public void Remove(Event eventParams)
         {
-            context.Remove(eventParams);
+            _context.Remove(eventParams);
         }
 
         public async Task<Event> UpdateEventStatus(int id, Event eventParams)
         {
-            Event eventToUpdate = context.Events.Find(id);
+            Event eventToUpdate = _context.Events.Find(id);
             if (eventParams != null)
             {
                 eventToUpdate.EventStatus = eventParams.EventStatus;
-                eventToUpdate.isNewEvent = eventParams.isNewEvent;
-                eventToUpdate.isCompleteEvent = eventParams.isCompleteEvent;
-                context.Events.Update(eventToUpdate);
-                await context.SaveChangesAsync();
+                eventToUpdate.IsNewEvent = eventParams.IsNewEvent;
+                eventToUpdate.IsCompleteEvent = eventParams.IsCompleteEvent;
+                _context.Events.Update(eventToUpdate);
+                await _context.SaveChangesAsync();
                 return eventToUpdate;
             }
             return null;

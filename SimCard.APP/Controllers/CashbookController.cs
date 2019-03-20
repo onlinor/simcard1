@@ -20,17 +20,18 @@ namespace SimCard.API.Controllers
         private readonly ICashbookRepository _cashbookRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public CashbookController(ICashbookRepository cashbookRepository, IMapper mapper, IUnitOfWork unitOfWork) {
+        public CashbookController(ICashbookRepository cashbookRepository, IMapper mapper, IUnitOfWork unitOfWork)
+        {
             _cashbookRepository = cashbookRepository;
             _mapper = mapper;
             _unitOfWork = unitOfWork;
         }
-        
+
         //api/cashbook
         [HttpGet]
-        public async Task<IEnumerable<CashbookResource>> GetAllCashbook() 
+        public async Task<IEnumerable<CashbookResource>> GetAllCashbook()
         {
-            var cashbook = await _cashbookRepository.GetAllCashbook();
+            IEnumerable<Cashbook> cashbook = await _cashbookRepository.GetAllCashbook();
             return _mapper.Map<IEnumerable<Cashbook>, IEnumerable<CashbookResource>>(cashbook);
         }
 
@@ -38,7 +39,7 @@ namespace SimCard.API.Controllers
         [HttpGet("{id}")]
         public async Task<CashbookResource> GetCashbook(int id)
         {
-            var cashbook = await _cashbookRepository.GetCashbook(id);
+            Cashbook cashbook = await _cashbookRepository.GetCashbook(id);
             return _mapper.Map<Cashbook, CashbookResource>(cashbook);
         }
 
@@ -46,10 +47,12 @@ namespace SimCard.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCashbook(int id)
         {
-            var cashbook = await _cashbookRepository.GetCashbook(id);
+            Cashbook cashbook = await _cashbookRepository.GetCashbook(id);
 
             if (cashbook == null)
+            {
                 return NotFound();
+            }
 
             _cashbookRepository.Remove(cashbook);
             await _unitOfWork.CompleteAsync();
@@ -57,7 +60,7 @@ namespace SimCard.API.Controllers
             return Ok(id);
         }
 
-         //api/cashbook
+        //api/cashbook
         [HttpPost]
         public async Task<IActionResult> AddCashbook(Cashbook cashbook)
         {

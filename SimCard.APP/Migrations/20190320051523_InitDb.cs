@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SimCard.APP.Migrations
 {
-    public partial class inialCreate : Migration
+    public partial class InitDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -87,24 +87,24 @@ namespace SimCard.APP.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    tenCH = table.Column<string>(maxLength: 255, nullable: true),
-                    diachiCH = table.Column<string>(maxLength: 255, nullable: true),
-                    hoTen = table.Column<string>(maxLength: 255, nullable: false),
-                    sdt1 = table.Column<string>(maxLength: 11, nullable: true),
-                    sdt2 = table.Column<string>(maxLength: 11, nullable: true),
-                    maKH = table.Column<string>(maxLength: 255, nullable: true),
-                    matheTV = table.Column<string>(maxLength: 30, nullable: true),
-                    tenCongTy = table.Column<string>(maxLength: 255, nullable: true),
-                    masoThue = table.Column<string>(maxLength: 30, nullable: true),
-                    diachiHoaDon = table.Column<string>(maxLength: 255, nullable: true),
-                    nguonDen = table.Column<string>(maxLength: 30, nullable: true),
-                    ngGioiThieu = table.Column<string>(maxLength: 255, nullable: true),
-                    email = table.Column<string>(maxLength: 255, nullable: true),
-                    fb = table.Column<string>(maxLength: 255, nullable: true),
-                    zalo = table.Column<string>(maxLength: 255, nullable: true),
-                    ngayDen = table.Column<DateTime>(nullable: false),
-                    ngaySinh = table.Column<DateTime>(nullable: false),
-                    gioiTinh = table.Column<bool>(nullable: false)
+                    TenCH = table.Column<string>(maxLength: 255, nullable: true),
+                    DiachiCH = table.Column<string>(maxLength: 255, nullable: true),
+                    HoTen = table.Column<string>(maxLength: 255, nullable: false),
+                    Sdt1 = table.Column<string>(maxLength: 11, nullable: true),
+                    Sdt2 = table.Column<string>(maxLength: 11, nullable: true),
+                    MaKH = table.Column<string>(maxLength: 255, nullable: true),
+                    MatheTV = table.Column<string>(maxLength: 30, nullable: true),
+                    TenCongTy = table.Column<string>(maxLength: 255, nullable: true),
+                    MasoThue = table.Column<string>(maxLength: 30, nullable: true),
+                    DiachiHoaDon = table.Column<string>(maxLength: 255, nullable: true),
+                    NguonDen = table.Column<string>(maxLength: 30, nullable: true),
+                    NgGioiThieu = table.Column<string>(maxLength: 255, nullable: true),
+                    Email = table.Column<string>(maxLength: 255, nullable: true),
+                    Fb = table.Column<string>(maxLength: 255, nullable: true),
+                    Zalo = table.Column<string>(maxLength: 255, nullable: true),
+                    NgayDen = table.Column<DateTime>(nullable: false),
+                    NgaySinh = table.Column<DateTime>(nullable: false),
+                    GioiTinh = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -126,12 +126,36 @@ namespace SimCard.APP.Migrations
                     TgKetThuc = table.Column<DateTime>(nullable: false),
                     DoiTuong = table.Column<string>(maxLength: 255, nullable: true),
                     EventStatus = table.Column<bool>(nullable: false),
-                    isNewEvent = table.Column<bool>(nullable: false),
-                    isCompleteEvent = table.Column<bool>(nullable: false)
+                    IsNewEvent = table.Column<bool>(nullable: false),
+                    IsCompleteEvent = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Events", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Export Receipt",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Prefixid = table.Column<string>(nullable: true),
+                    Suffixid = table.Column<int>(nullable: false),
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    CreateByStaff = table.Column<string>(nullable: true),
+                    SupplierName = table.Column<string>(nullable: true),
+                    OldDebt = table.Column<decimal>(nullable: false),
+                    RepresentativePerson = table.Column<string>(nullable: true),
+                    PhoneNumber = table.Column<int>(nullable: false),
+                    Note = table.Column<string>(nullable: true),
+                    MoneyPaid = table.Column<decimal>(nullable: false),
+                    Debt = table.Column<decimal>(nullable: false),
+                    Shopid = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Export Receipt", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -226,41 +250,6 @@ namespace SimCard.APP.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Export Receipt",
-                columns: table => new
-                {
-                    ID = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Prefixid = table.Column<string>(nullable: true),
-                    Suffixid = table.Column<int>(nullable: false),
-                    CreateDate = table.Column<DateTime>(nullable: false),
-                    CreateByStaff = table.Column<string>(nullable: true),
-                    SupplierName = table.Column<string>(nullable: true),
-                    OldDebt = table.Column<decimal>(nullable: false),
-                    RepresentativePerson = table.Column<string>(nullable: true),
-                    PhoneNumber = table.Column<int>(nullable: false),
-                    Note = table.Column<string>(nullable: true),
-                    MoneyPaid = table.Column<decimal>(nullable: false),
-                    Debt = table.Column<decimal>(nullable: false),
-                    ShopId = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Export Receipt", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_Export Receipt_Shop_ShopId",
-                        column: x => x.ShopId,
-                        principalTable: "Shop",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Export Receipt_ShopId",
-                table: "Export Receipt",
-                column: "ShopId");
-
             migrationBuilder.CreateIndex(
                 name: "IX_Product_ImportReceiptPrefixid_ImportReceiptSuffixid",
                 table: "Product",
@@ -294,10 +283,10 @@ namespace SimCard.APP.Migrations
                 name: "Product");
 
             migrationBuilder.DropTable(
-                name: "Supplier");
+                name: "Shop");
 
             migrationBuilder.DropTable(
-                name: "Shop");
+                name: "Supplier");
 
             migrationBuilder.DropTable(
                 name: "Import Receipt");

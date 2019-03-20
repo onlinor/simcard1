@@ -9,30 +9,31 @@ namespace SimCard.API.Persistence.Repositories
 {
     public class ConfigurationRepository : IConfigurationRepository
     {
-        private readonly SimCardDBContext context;
+        private readonly SimCardDBContext _context;
+
         public ConfigurationRepository(SimCardDBContext context)
         {
-            this.context = context;
+            _context = context;
         }
         public async Task<IEnumerable<Configuration>> GetAllConfiguration()
         {
-            return await context.Configurations.ToListAsync();
+            return await _context.Configurations.ToListAsync();
         }
 
         public async Task<Configuration> GetConfiguration(int id)
         {
-            return await context.Configurations.FirstOrDefaultAsync(x => x.Id == id);
+            return await _context.Configurations.FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<Configuration> UpdateConfiguration(int id, Configuration configuration)
         {
-            Configuration configurationUpdate = context.Configurations.Find(id);
+            Configuration configurationUpdate = _context.Configurations.Find(id);
             if (configurationUpdate != null)
             {
                 configurationUpdate.GiaTri = configuration.GiaTri;
                 configurationUpdate.GhiChu = configuration.GhiChu;
-                context.Configurations.Update(configurationUpdate);
-                await context.SaveChangesAsync();
+                _context.Configurations.Update(configurationUpdate);
+                await _context.SaveChangesAsync();
                 return configurationUpdate;
             }
             return null;

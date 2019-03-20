@@ -34,19 +34,18 @@ namespace SimCard.API.Controllers
         public async Task<IEnumerable<ProductResource>> GetProducts()
         {
             IEnumerable<Product> products = await _productRepository.GetProducts();
-            List<ProductResource> listOfproductresources = new List<ProductResource>();
+            List<ProductResource> productResources = new List<ProductResource>();
             foreach (Product item in products)
             {
-                ProductResource productresource = new ProductResource
+                productResources.Add(new ProductResource
                 {
-                    ma = item.Id,
-                    ten = item.Name,
-                    soluong = item.Quantity,
-                    menhgia = item.Unit
-                };
-                listOfproductresources.Add(productresource);
+                    Ma = item.Id,
+                    Ten = item.Name,
+                    Soluong = item.Quantity,
+                    Menhgia = item.Unit
+                });
             }
-            return listOfproductresources;
+            return productResources;
             // return mapper.Map<IEnumerable<Product>, IEnumerable<ProductResource>>(products);
         }
 
@@ -62,15 +61,13 @@ namespace SimCard.API.Controllers
         {
             foreach (ProductResource item in pr)
             {
-                Product ProductToAdd = new Product
+                await _productRepository.AddProducts(new Product
                 {
-                    Id = item.ma,
-                    Name = item.ten,
-                    Quantity = item.soluong,
-                    Unit = item.menhgia
-                };
-
-                await _productRepository.AddProducts(ProductToAdd);
+                    Id = item.Ma,
+                    Name = item.Ten,
+                    Quantity = item.Soluong,
+                    Unit = item.Menhgia
+                });
                 await _unitOfWork.CompleteAsync();
             }
             return Ok();

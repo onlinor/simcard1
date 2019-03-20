@@ -8,57 +8,57 @@ namespace SimCard.API.Models
         public int Id { get; set; }
 
         [StringLength(255)]
-        public string tenCH { get; set; }
+        public string TenCH { get; set; }
 
         [StringLength(255)]
-        public string diachiCH { get; set; }
+        public string DiachiCH { get; set; }
 
         [Required]
         [StringLength(255)]
-        public string hoTen { get; set; }
+        public string HoTen { get; set; }
 
         [StringLength(11)]
-        public string sdt1 { get; set; }
+        public string Sdt1 { get; set; }
 
         [StringLength(11)]
-        public string sdt2 { get; set; }
+        public string Sdt2 { get; set; }
 
         [StringLength(255)]
-        public string maKH { get; set; }
+        public string MaKH { get; set; }
 
         [StringLength(30)]
-        public string matheTV { get; set; }
+        public string MatheTV { get; set; }
 
         [StringLength(255)]
-        public string tenCongTy { get; set; }
+        public string TenCongTy { get; set; }
 
         [StringLength(30)]
-        public string masoThue { get; set; }
+        public string MasoThue { get; set; }
 
         [StringLength(255)]
-        public string diachiHoaDon { get; set; }
+        public string DiachiHoaDon { get; set; }
 
         [StringLength(30)]
-        public string nguonDen { get; set; }
+        public string NguonDen { get; set; }
 
         [StringLength(255)]
-        public string ngGioiThieu { get; set; }
-        
-        [StringLength(255)]
-        public string email { get; set; }
+        public string NgGioiThieu { get; set; }
 
         [StringLength(255)]
-        public string fb { get; set; }
+        public string Email { get; set; }
 
         [StringLength(255)]
-        public string zalo { get; set; }
+        public string Fb { get; set; }
 
-        public DateTime ngayDen { get; set; }
+        [StringLength(255)]
+        public string Zalo { get; set; }
+
+        public DateTime NgayDen { get; set; }
 
         [Required]
-        public DateTime ngaySinh { get; set; }
+        public DateTime NgaySinh { get; set; }
 
         [Required]
-        public Boolean gioiTinh { get; set; }
+        public bool GioiTinh { get; set; }
     }
 }

@@ -1,5 +1,3 @@
-using System;
-
 namespace SimCard.API.Models
 {
     public class ImportProduct

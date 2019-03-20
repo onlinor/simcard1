@@ -14,7 +14,7 @@ namespace SimCard.APP.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024");
+                .HasAnnotation("ProductVersion", "2.1.8-servicing-32085");
 
             modelBuilder.Entity("SimCard.API.Models.Bankbook", b =>
                 {
@@ -156,56 +156,56 @@ namespace SimCard.APP.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("diachiCH")
+                    b.Property<string>("DiachiCH")
                         .HasMaxLength(255);
 
-                    b.Property<string>("diachiHoaDon")
+                    b.Property<string>("DiachiHoaDon")
                         .HasMaxLength(255);
 
-                    b.Property<string>("email")
+                    b.Property<string>("Email")
                         .HasMaxLength(255);
 
-                    b.Property<string>("fb")
+                    b.Property<string>("Fb")
                         .HasMaxLength(255);
 
-                    b.Property<bool>("gioiTinh");
+                    b.Property<bool>("GioiTinh");
 
-                    b.Property<string>("hoTen")
+                    b.Property<string>("HoTen")
                         .IsRequired()
                         .HasMaxLength(255);
 
-                    b.Property<string>("maKH")
+                    b.Property<string>("MaKH")
                         .HasMaxLength(255);
 
-                    b.Property<string>("masoThue")
+                    b.Property<string>("MasoThue")
                         .HasMaxLength(30);
 
-                    b.Property<string>("matheTV")
+                    b.Property<string>("MatheTV")
                         .HasMaxLength(30);
 
-                    b.Property<string>("ngGioiThieu")
+                    b.Property<string>("NgGioiThieu")
                         .HasMaxLength(255);
 
-                    b.Property<DateTime>("ngayDen");
+                    b.Property<DateTime>("NgayDen");
 
-                    b.Property<DateTime>("ngaySinh");
+                    b.Property<DateTime>("NgaySinh");
 
-                    b.Property<string>("nguonDen")
+                    b.Property<string>("NguonDen")
                         .HasMaxLength(30);
 
-                    b.Property<string>("sdt1")
+                    b.Property<string>("Sdt1")
                         .HasMaxLength(11);
 
-                    b.Property<string>("sdt2")
+                    b.Property<string>("Sdt2")
                         .HasMaxLength(11);
 
-                    b.Property<string>("tenCH")
+                    b.Property<string>("TenCH")
                         .HasMaxLength(255);
 
-                    b.Property<string>("tenCongTy")
+                    b.Property<string>("TenCongTy")
                         .HasMaxLength(255);
 
-                    b.Property<string>("zalo")
+                    b.Property<string>("Zalo")
                         .HasMaxLength(255);
 
                     b.HasKey("Id");
@@ -222,6 +222,10 @@ namespace SimCard.APP.Migrations
                         .HasMaxLength(255);
 
                     b.Property<bool>("EventStatus");
+
+                    b.Property<bool>("IsCompleteEvent");
+
+                    b.Property<bool>("IsNewEvent");
 
                     b.Property<string>("LoaiSK")
                         .HasMaxLength(255);
@@ -240,10 +244,6 @@ namespace SimCard.APP.Migrations
                     b.Property<DateTime>("TgBatDau");
 
                     b.Property<DateTime>("TgKetThuc");
-
-                    b.Property<bool>("isCompleteEvent");
-
-                    b.Property<bool>("isNewEvent");
 
                     b.HasKey("Id");
 
@@ -273,15 +273,13 @@ namespace SimCard.APP.Migrations
 
                     b.Property<string>("RepresentativePerson");
 
-                    b.Property<string>("ShopId");
+                    b.Property<string>("Shopid");
 
                     b.Property<int>("Suffixid");
 
                     b.Property<string>("SupplierName");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("ShopId");
 
                     b.ToTable("Export Receipt");
                 });
@@ -399,13 +397,6 @@ namespace SimCard.APP.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Supplier");
-                });
-
-            modelBuilder.Entity("SimCard.API.Models.ExportReceipt", b =>
-                {
-                    b.HasOne("SimCard.API.Models.Shop", "Shop")
-                        .WithMany()
-                        .HasForeignKey("ShopId");
                 });
 
             modelBuilder.Entity("SimCard.API.Models.Product", b =>

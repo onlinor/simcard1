@@ -12,17 +12,18 @@ namespace SimCard.API.Persistence.Repositories
 {
     public class CashbookRepository : ICashbookRepository
     {
-        private readonly SimCardDBContext context;
+        private readonly SimCardDBContext _context;
+
         public CashbookRepository(SimCardDBContext context)
         {
-            this.context = context;
+            _context = context;
         }
         public async Task<Cashbook> AddCashbook(Cashbook cashbookParams)
         {
             if (cashbookParams != null)
             {
-                await context.AddAsync(cashbookParams);
-                await context.SaveChangesAsync();
+                await _context.AddAsync(cashbookParams);
+                await _context.SaveChangesAsync();
                 return cashbookParams;
             }
             return null;
@@ -30,17 +31,17 @@ namespace SimCard.API.Persistence.Repositories
 
         public async Task<IEnumerable<Cashbook>> GetAllCashbook()
         {
-            return await context.Cashbook.ToListAsync();
+            return await _context.Cashbook.ToListAsync();
         }
 
         public async Task<Cashbook> GetCashbook(int id)
         {
-            return await context.Cashbook.FirstOrDefaultAsync(x => x.Id == id);
+            return await _context.Cashbook.FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public IQueryable<Cashbook> Query(Expression<Func<Cashbook, bool>> predicate)
         {
-            return context.Cashbook.Where(predicate);
+            return _context.Cashbook.Where(predicate);
         }
 
         // public async Task<int> GetLastIDCashbookRecord()
@@ -56,12 +57,12 @@ namespace SimCard.API.Persistence.Repositories
 
         public void Remove(Cashbook cashbookParams)
         {
-            context.Remove(cashbookParams);
+            _context.Remove(cashbookParams);
         }
 
         public async Task<Cashbook> UpdateCashbook(int id, Cashbook cashbookParams)
         {
-            Cashbook cashbookToUpdate = context.Cashbook.Find(id);
+            Cashbook cashbookToUpdate = _context.Cashbook.Find(id);
             if (cashbookParams != null)
             {
                 cashbookToUpdate.NgayLap = cashbookParams.NgayLap;
@@ -80,8 +81,8 @@ namespace SimCard.API.Persistence.Repositories
                 cashbookToUpdate.NguoiThu = cashbookParams.NguoiThu;
                 cashbookToUpdate.GhiChu = cashbookParams.GhiChu;
                 cashbookToUpdate.LoaiNganHang = cashbookParams.LoaiNganHang;
-                context.Cashbook.Update(cashbookToUpdate);
-                await context.SaveChangesAsync();
+                _context.Cashbook.Update(cashbookToUpdate);
+                await _context.SaveChangesAsync();
                 return cashbookToUpdate;
             }
             return null;

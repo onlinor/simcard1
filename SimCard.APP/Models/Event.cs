@@ -28,10 +28,10 @@ namespace SimCard.API.Models
         [StringLength(255)]
         public string DoiTuong { get; set; }
 
-        public Boolean EventStatus { get; set; }
+        public bool EventStatus { get; set; }
 
-        public Boolean isNewEvent { get; set; }
-        
-        public Boolean isCompleteEvent { get; set; }
+        public bool IsNewEvent { get; set; }
+
+        public bool IsCompleteEvent { get; set; }
     }
 }
