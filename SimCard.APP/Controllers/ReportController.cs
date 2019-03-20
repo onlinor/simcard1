@@ -31,9 +31,9 @@ namespace SimCard.API.Controllers
         {
             var result = new ReportDataResource();
             result.Data = await GetReport(type, filter);
+            result.Columns = GetKeysFromObject(result.Data[0]);
             result.FilterData = await GetFilterData(type);
-            result.SupportedFilters = GetKeyFromObject(result.FilterData);
-            result.Columns = GetKeyFromObject(result.Data[0]);
+            result.SupportedFilters = GetKeysFromObject(result.FilterData);
             return result;
         }
 
@@ -47,7 +47,7 @@ namespace SimCard.API.Controllers
             return await _reportRepository.GetFilterData(type);
         }
 
-        private List<String> GetKeyFromObject(ExpandoObject data)
+        private List<String> GetKeysFromObject(ExpandoObject data)
         {
             var result = new List<String>();
             foreach (var property in (IDictionary<String, Object>)data)
