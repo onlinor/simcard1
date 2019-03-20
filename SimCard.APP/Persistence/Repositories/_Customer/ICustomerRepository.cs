@@ -1,6 +1,7 @@
+using SimCard.API.Models;
+
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using SimCard.API.Models;
 
 namespace SimCard.API.Persistence.Repositories
 {

@@ -1,54 +1,58 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using AutoMapper;
+
 using Microsoft.AspNetCore.Mvc;
+
 using SimCard.API.Controllers.Resources;
 using SimCard.API.Models;
 using SimCard.API.Persistence;
 using SimCard.API.Persistence.Repositories;
 
-namespace SimCard.API.Controllers 
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace SimCard.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class CashbookController : ControllerBase
     {
-        private readonly IMapper mapper;
-        private readonly ICashbookRepository cashbookRepository;
-        private readonly IUnitOfWork unitOfWork;
+        private readonly IMapper _mapper;
+        private readonly ICashbookRepository _cashbookRepository;
+        private readonly IUnitOfWork _unitOfWork;
+
         public CashbookController(ICashbookRepository cashbookRepository, IMapper mapper, IUnitOfWork unitOfWork) {
-            this.cashbookRepository = cashbookRepository;
-            this.mapper = mapper;
-            this.unitOfWork = unitOfWork;
+            _cashbookRepository = cashbookRepository;
+            _mapper = mapper;
+            _unitOfWork = unitOfWork;
         }
         
         //api/cashbook
         [HttpGet]
         public async Task<IEnumerable<CashbookResource>> GetAllCashbook() 
         {
-            var cashbook = await cashbookRepository.GetAllCashbook();
-            return mapper.Map<IEnumerable<Cashbook>, IEnumerable<CashbookResource>>(cashbook);
+            var cashbook = await _cashbookRepository.GetAllCashbook();
+            return _mapper.Map<IEnumerable<Cashbook>, IEnumerable<CashbookResource>>(cashbook);
         }
 
         //api/cashbook/id
         [HttpGet("{id}")]
         public async Task<CashbookResource> GetCashbook(int id)
         {
-            var cashbook = await cashbookRepository.GetCashbook(id);
-            return mapper.Map<Cashbook, CashbookResource>(cashbook);
+            var cashbook = await _cashbookRepository.GetCashbook(id);
+            return _mapper.Map<Cashbook, CashbookResource>(cashbook);
         }
 
         //api/cashbook/id
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCashbook(int id)
         {
-            var cashbook = await cashbookRepository.GetCashbook(id);
+            var cashbook = await _cashbookRepository.GetCashbook(id);
 
             if (cashbook == null)
                 return NotFound();
 
-            cashbookRepository.Remove(cashbook);
-            await unitOfWork.CompleteAsync();
+            _cashbookRepository.Remove(cashbook);
+            await _unitOfWork.CompleteAsync();
 
             return Ok(id);
         }
@@ -61,8 +65,8 @@ namespace SimCard.API.Controllers
             {
                 return BadRequest();
             }
-            await cashbookRepository.AddCashbook(cashbook);
-            await unitOfWork.CompleteAsync();
+            await _cashbookRepository.AddCashbook(cashbook);
+            await _unitOfWork.CompleteAsync();
             return StatusCode(201);
         }
 
@@ -74,8 +78,8 @@ namespace SimCard.API.Controllers
             {
                 return BadRequest();
             }
-            await cashbookRepository.UpdateCashbook(id, cashbook);
-            await unitOfWork.CompleteAsync();
+            await _cashbookRepository.UpdateCashbook(id, cashbook);
+            await _unitOfWork.CompleteAsync();
             return StatusCode(201);
         }
 

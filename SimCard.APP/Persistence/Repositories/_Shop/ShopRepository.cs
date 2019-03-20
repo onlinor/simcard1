@@ -1,28 +1,32 @@
+using Microsoft.EntityFrameworkCore;
+
+using SimCard.API.Models;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using SimCard.API.Models;
 
-namespace SimCard.API.Persistence.Repositories._Shop
-{    
+namespace SimCard.API.Persistence.Repositories
+{
     public class ShopRepository : IShopRepository
     {
-        private readonly SimCardDBContext context;    
+        private readonly SimCardDBContext context;
 
         public ShopRepository(SimCardDBContext context)
         {
             this.context = context;
-        }        
+        }
 
         public async Task<Shop> GetShop(int id, bool includeRelated = true)
         {
             if (!includeRelated)
+            {
                 return await context.Shops.FindAsync(id);
+            }
 
-            return await context.Shops            
+            return await context.Shops
                 .Include(v => v.Id)       //temp          
                 .SingleOrDefaultAsync(v => v.Id == "78");
         }

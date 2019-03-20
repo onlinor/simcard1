@@ -1,23 +1,19 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+
 using Quartz;
-using Quartz.Logging;
+
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Net.Mail;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace SimCard.APP.Workers
 {
     public class SendUserEmailsJob : IJob
     {
-        private static readonly HttpClient client = new HttpClient();
+        private static readonly HttpClient _client = new HttpClient();
         public class Event
         {
             public int Id { get; set; }
@@ -38,24 +34,24 @@ namespace SimCard.APP.Workers
 
             public string DoiTuong { get; set; }
 
-            public Boolean EventStatus { get; set; }
+            public bool EventStatus { get; set; }
 
-            public Boolean isNewEvent { get; set; }
+            public bool IsNewEvent { get; set; }
 
-            public Boolean isCompleteEvent { get; set; }
+            public bool IsCompleteEvent { get; set; }
         }
 
         public async Task Execute(IJobExecutionContext context)
         {
-            var responseEmail = await client.GetStringAsync("http://localhost:25581/api/email");
-            var dsEmail = JsonConvert.DeserializeObject<List<String>>(responseEmail);
-            var responseEventActive = await client.GetStringAsync("http://localhost:25581/api/email/eventactive");
-            var dsEventActive = JsonConvert.DeserializeObject<List<Event>>(responseEventActive);
-            foreach (var eventItem in dsEventActive)
+            string responseEmail = await _client.GetStringAsync("http://localhost:25581/api/email");
+            List<string> dsEmail = JsonConvert.DeserializeObject<List<string>>(responseEmail);
+            string responseEventActive = await _client.GetStringAsync("http://localhost:25581/api/email/eventactive");
+            List<Event> dsEventActive = JsonConvert.DeserializeObject<List<Event>>(responseEventActive);
+            foreach (Event eventItem in dsEventActive)
             {
-                foreach (var email in dsEmail)
+                foreach (string email in dsEmail)
                 {
-                    using (var message = new MailMessage("crushssc1996@gmail.com", email.ToString()))
+                    using (MailMessage message = new MailMessage("crushssc1996@gmail.com", email.ToString()))
                     {
                         message.Subject = "Khuyến Mãi Event";
                         message.Body = "Su Kien: " + eventItem.TenSK.ToString() + "\n" + "Ma Su Kien: " + eventItem.MaSK.ToString() + "\n" +

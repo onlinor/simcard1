@@ -1,14 +1,8 @@
+using SimCard.API.Controllers.Resources;
+
 using System.Collections.Generic;
 using System.Dynamic;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using SimCard.API.Controllers.Resources;
-using SimCard.API.Persistence.Repositories;
-using SimCard.API.Persistence.Repositories._Product;
-using SimCard.API.Persistence.Repositories._Shop;
-using SimCard.API.Persistence.Repositories._Supplier;
-using SimCard.APP.Controllers.Resources;
 
 namespace SimCard.API.Persistence.Repositories
 {
@@ -39,7 +33,7 @@ namespace SimCard.API.Persistence.Repositories
 
         public async Task<List<ExpandoObject>> GetReport(int type, ReportFilterResource filter)
         {
-            var result = new List<ExpandoObject>();
+            List<ExpandoObject> result = new List<ExpandoObject>();
             switch (type)
             {
                 case 1:
@@ -92,53 +86,53 @@ namespace SimCard.API.Persistence.Repositories
 
         public async Task<ExpandoObject> GetFilterData(int type)
         {
-            var result = new ExpandoObject();
+            ExpandoObject result = new ExpandoObject();
             switch (type)
             {
                 case 1:
-                    result = await GetFilterData_ChiTietChiPhiHoatDongKinhDoanh();
+                    result = await GetFilterData_XuatNhapTonTongHop();
                     return result;
                 case 2:
-                    result = await GetFilterData_ChiTietThuChiKhac();
-                    return result;
-                case 3:
-                    result = await GetFilterData_ChiTietXuatHangVaLoiNhuan();
-                    return result;
-                case 4:
-                    result = await GetFilterData_CongNoKhachHangToanCongTy();
-                    return result;
-                case 5:
                     result = await GetFilterData_HangTonKho();
                     return result;
-                case 6:
-                    result = await GetFilterData_KetQuaKinhDoanh();
-                    return result;
-                case 7:
-                    result = await GetFilterData_NhapHangTheoMatHang();
-                    return result;
-                case 8:
+                case 3:
                     result = await GetFilterData_NhapHangTheoNhaCungCap();
                     return result;
-                case 9:
-                    result = await GetFilterData_TongHopChiPhiHoatDongKinhDoanh();
+                case 4:
+                    result = await GetFilterData_NhapHangTheoMatHang();
                     return result;
-                case 10:
+                case 5:
+                    result = await GetFilterData_ChiTietXuatHangVaLoiNhuan();
+                    return result;
+                case 6:
+                    result = await GetFilterData_TongHopXuatHangVaLoiNhuanTheoMatHang();
+                    return result;
+                case 7:
+                    result = await GetFilterData_TongHopXuatHangLoiNhuanCongNoTheoKhachHang();
+                    return result;
+                case 8:
+                    result = await GetFilterData_CongNoKhachHangToanCongTy();
+                    return result;
+                case 9:
                     result = await GetFilterData_TongHopCongNoKhachHangToanTungCN();
                     return result;
-                case 11:
+                case 10:
                     result = await GetFilterData_TongHopGiaoDichVaSoDuTKNHToanCongTy();
+                    return result;
+                case 11:
+                    result = await GetFilterData_ChiTietThuChiKhac();
                     return result;
                 case 12:
                     result = await GetFilterData_TongHopThuChiKhac();
                     return result;
                 case 13:
-                    result = await GetFilterData_TongHopXuatHangLoiNhuanCongNoTheoKhachHang();
+                    result = await GetFilterData_ChiTietChiPhiHoatDongKinhDoanh();
                     return result;
                 case 14:
-                    result = await GetFilterData_TongHopXuatHangVaLoiNhuanTheoMatHang();
+                    result = await GetFilterData_TongHopChiPhiHoatDongKinhDoanh();
                     return result;
                 default:
-                    result = await GetFilterData_XuatNhapTonTongHop();
+                    result = await GetFilterData_KetQuaKinhDoanh();
                     return result;
             }
         }
@@ -168,19 +162,20 @@ namespace SimCard.API.Persistence.Repositories
         private async Task<List<ExpandoObject>> Report_HangTonKho(ReportFilterResource filter)
         {
             List<ExpandoObject> result = new List<ExpandoObject>();
-            var products = await _productRepository.GetProducts();
-            foreach (var product in products)
+            IEnumerable<Models.Product> products = await _productRepository.GetProducts();
+            foreach (Models.Product product in products)
             {
-/*                 dynamic line = new List<ExpandoObject>();
-                line.MatHang = product.Name;
-                line.MaHang = product.Id;
-                line.SoLuongToanCongTy = 0;
-                var shops = await _shopRepository.Query(s => true).Include(s => s.).ToListAsync();
-                foreach (var shop in shops)
-                {
-                    line[shop.Name] = shop.Products.FirstOrDefault(p => p.Id == product.Id).Quantity;
-                }
-                result.Add(line) */;
+                /*                 dynamic line = new List<ExpandoObject>();
+                                line.MatHang = product.Name;
+                                line.MaHang = product.Id;
+                                line.SoLuongToanCongTy = 0;
+                                var shops = await _shopRepository.Query(s => true).Include(s => s.).ToListAsync();
+                                foreach (var shop in shops)
+                                {
+                                    line[shop.Name] = shop.Products.FirstOrDefault(p => p.Id == product.Id).Quantity;
+                                }
+                                result.Add(line) */
+                ;
             }
             return result;
         }
@@ -235,7 +230,7 @@ namespace SimCard.API.Persistence.Repositories
             dynamic result = new ExpandoObject();
             if (filter.Shop != 0) // Chi nhánh
             {
-                
+
             }
             else // Toàn công ty
             {

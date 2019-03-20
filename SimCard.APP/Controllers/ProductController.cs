@@ -1,39 +1,43 @@
+using AutoMapper;
+
+using Microsoft.AspNetCore.Mvc;
+
+using OfficeOpenXml;
+
+using SimCard.API.Controllers.Resources;
+using SimCard.API.Models;
+using SimCard.API.Persistence;
+using SimCard.API.Persistence.Repositories;
+
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
-using OfficeOpenXml;
-using SimCard.API.Controllers.Resources;
-using SimCard.API.Models;
-using SimCard.API.Persistence;
-using SimCard.API.Persistence.Repositories._Product;
 
 namespace SimCard.API.Controllers
 {
     [ApiController]
     public class ProductController : Controller
     {
-        private readonly IProductRepository productRepository;
-        private readonly IUnitOfWork unitOfWork;
-        private readonly IMapper mapper;
+        private readonly IProductRepository _productRepository;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public ProductController (IProductRepository productRepository, IUnitOfWork unitOfWork, IMapper mapper)
+        public ProductController(IProductRepository productRepository, IUnitOfWork unitOfWork, IMapper mapper)
         {
-            this.productRepository = productRepository;
-            this.unitOfWork = unitOfWork;
-            this.mapper = mapper;
+            _productRepository = productRepository;
+            _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
         [HttpGet("/api/product")]
         public async Task<IEnumerable<ProductResource>> GetProducts()
         {
-            var products = await productRepository.GetProducts();
-            var listOfproductresources = new List<ProductResource>();
-            foreach (var item in products)
+            IEnumerable<Product> products = await _productRepository.GetProducts();
+            List<ProductResource> listOfproductresources = new List<ProductResource>();
+            foreach (Product item in products)
             {
-                var productresource = new ProductResource
+                ProductResource productresource = new ProductResource
                 {
                     ma = item.Id,
                     ten = item.Name,
@@ -54,11 +58,11 @@ namespace SimCard.API.Controllers
         // }
 
         [HttpPost("/api/product/add")]
-        public async Task<IActionResult> AddProduct(ProductResource[] pr )
+        public async Task<IActionResult> AddProduct(ProductResource[] pr)
         {
-            foreach (var item in pr)
+            foreach (ProductResource item in pr)
             {
-                var ProductToAdd = new Product
+                Product ProductToAdd = new Product
                 {
                     Id = item.ma,
                     Name = item.ten,
@@ -66,8 +70,8 @@ namespace SimCard.API.Controllers
                     Unit = item.menhgia
                 };
 
-                await productRepository.AddProducts(ProductToAdd);
-                await unitOfWork.CompleteAsync();
+                await _productRepository.AddProducts(ProductToAdd);
+                await _unitOfWork.CompleteAsync();
             }
             return Ok();
         }
@@ -76,8 +80,8 @@ namespace SimCard.API.Controllers
         [HttpPost("/api/product/import")]
         public List<ImportProduct> ImportProduct()
         {
-            var fileUploaded = Request.Form.Files[0];
-            using (var ms = new MemoryStream())
+            Microsoft.AspNetCore.Http.IFormFile fileUploaded = Request.Form.Files[0];
+            using (MemoryStream ms = new MemoryStream())
             {
                 fileUploaded.CopyTo(ms);
                 try
@@ -90,13 +94,14 @@ namespace SimCard.API.Controllers
                         int rowCount = worksheet.Dimension.Rows;
                         for (int row = 2; row <= rowCount; row++)
                         {
-                            var importProduct = new ImportProduct();
-
-                            importProduct.Ten = worksheet.Cells[row, 1].Value.ToString();
-                            importProduct.Ma = worksheet.Cells[row, 2].Value.ToString();
-                            importProduct.SoLuong = Int32.Parse(worksheet.Cells[row, 3].Value.ToString());
-                            importProduct.MenhGia = Decimal.Parse(worksheet.Cells[row, 4].Value.ToString());
-                            importProduct.ChietKhau = Decimal.Parse(worksheet.Cells[row, 5].Value.ToString());
+                            ImportProduct importProduct = new ImportProduct
+                            {
+                                Ten = worksheet.Cells[row, 1].Value.ToString(),
+                                Ma = worksheet.Cells[row, 2].Value.ToString(),
+                                SoLuong = int.Parse(worksheet.Cells[row, 3].Value.ToString()),
+                                MenhGia = decimal.Parse(worksheet.Cells[row, 4].Value.ToString()),
+                                ChietKhau = decimal.Parse(worksheet.Cells[row, 5].Value.ToString())
+                            };
                             importProductList.Add(importProduct);
                         }
                         return importProductList;
@@ -104,7 +109,7 @@ namespace SimCard.API.Controllers
                 }
                 catch (Exception ex)
                 {
-                    var errorEx = ex;
+                    Exception errorEx = ex;
                     return null;
                 }
             }
@@ -116,7 +121,7 @@ namespace SimCard.API.Controllers
         //     {
         //         return BadRequest(wh.Name + " already exists!");
         //     }
-            
+
         //     var warehouseToUpdate = new Warehouse
         //     {
         //         Id = wh.Id,
@@ -126,7 +131,7 @@ namespace SimCard.API.Controllers
 
         //     warehouseRepository.Updatewarehouse(warehouseToUpdate);
         //     await unitOfWork.CompleteAsync();
-            
+
         //     return Ok();   
         // }
 

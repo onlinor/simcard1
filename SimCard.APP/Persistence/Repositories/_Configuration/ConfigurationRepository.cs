@@ -1,7 +1,9 @@
+using Microsoft.EntityFrameworkCore;
+
+using SimCard.API.Models;
+
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using SimCard.API.Models;
 
 namespace SimCard.API.Persistence.Repositories
 {
@@ -24,8 +26,9 @@ namespace SimCard.API.Persistence.Repositories
 
         public async Task<Configuration> UpdateConfiguration(int id, Configuration configuration)
         {
-            var configurationUpdate = context.Configurations.Find(id);
-            if ( configurationUpdate != null ) {
+            Configuration configurationUpdate = context.Configurations.Find(id);
+            if (configurationUpdate != null)
+            {
                 configurationUpdate.GiaTri = configuration.GiaTri;
                 configurationUpdate.GhiChu = configuration.GhiChu;
                 context.Configurations.Update(configurationUpdate);

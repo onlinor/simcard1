@@ -1,10 +1,12 @@
+using Microsoft.EntityFrameworkCore;
+
+using SimCard.API.Models;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using SimCard.API.Models;
 
 namespace SimCard.API.Persistence.Repositories
 {
@@ -59,7 +61,7 @@ namespace SimCard.API.Persistence.Repositories
 
         public async Task<Cashbook> UpdateCashbook(int id, Cashbook cashbookParams)
         {
-            var cashbookToUpdate = context.Cashbook.Find(id);
+            Cashbook cashbookToUpdate = context.Cashbook.Find(id);
             if (cashbookParams != null)
             {
                 cashbookToUpdate.NgayLap = cashbookParams.NgayLap;

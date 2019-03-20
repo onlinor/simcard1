@@ -1,7 +1,9 @@
+using Microsoft.EntityFrameworkCore;
+
+using SimCard.API.Models;
+
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using SimCard.API.Models;
 
 namespace SimCard.API.Persistence.Repositories
 {
@@ -40,7 +42,7 @@ namespace SimCard.API.Persistence.Repositories
 
         public async Task<Customer> UpdateCustomer(int id, Customer customer)
         {
-            var customerToUpdate = context.Customers.Find(id);
+            Customer customerToUpdate = context.Customers.Find(id);
 
             if (customerToUpdate != null)
             {
@@ -69,10 +71,12 @@ namespace SimCard.API.Persistence.Repositories
             return null;
         }
 
-        public async Task<int> GetLastIDCustomerRecord() {
+        public async Task<int> GetLastIDCustomerRecord()
+        {
             int lastIDRecord = 0;
-            var anyRecord = await context.Customers.AnyAsync();
-            if (anyRecord) {
+            bool anyRecord = await context.Customers.AnyAsync();
+            if (anyRecord)
+            {
                 lastIDRecord = await context.Customers.MaxAsync(x => x.Id);
             }
             return lastIDRecord;

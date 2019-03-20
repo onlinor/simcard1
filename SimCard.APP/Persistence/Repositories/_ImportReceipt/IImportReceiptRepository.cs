@@ -1,12 +1,12 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using SimCard.API.Models;
 
-namespace SimCard.API.Persistence.Repositories._ImportReceipt
+using System.Threading.Tasks;
+
+namespace SimCard.API.Persistence.Repositories
 {
     public interface IImportReceiptsRepository
     {
-        Task<string> GenerateID(); 
+        Task<string> GenerateID();
         Task<ImportReceipt> AddImportReceipt(ImportReceipt importReceipt);
     }
 }

@@ -1,54 +1,61 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using AutoMapper;
+
 using Microsoft.AspNetCore.Mvc;
+
 using SimCard.API.Controllers.Resources;
 using SimCard.API.Models;
 using SimCard.API.Persistence;
 using SimCard.API.Persistence.Repositories;
 
-namespace SimCard.API.Controllers 
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace SimCard.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class BankbookController : ControllerBase
     {
-        private readonly IMapper mapper;
-        private readonly IBankbookRepository bankbookRepository;
-        private readonly IUnitOfWork unitOfWork;
-        public BankbookController(IBankbookRepository bankbookRepository, IMapper mapper, IUnitOfWork unitOfWork) {
-            this.bankbookRepository = bankbookRepository;
-            this.mapper = mapper;
-            this.unitOfWork = unitOfWork;
+        private readonly IMapper _mapper;
+        private readonly IBankbookRepository _bankbookRepository;
+        private readonly IUnitOfWork _unitOfWork;
+
+        public BankbookController(IBankbookRepository bankbookRepository, IMapper mapper, IUnitOfWork unitOfWork)
+        {
+            _bankbookRepository = bankbookRepository;
+            _mapper = mapper;
+            _unitOfWork = unitOfWork;
         }
 
         //api/bankbook
         [HttpGet]
-        public async Task<IEnumerable<BankbookResource>> GetAllBankbook() 
+        public async Task<IEnumerable<BankbookResource>> GetAllBankbook()
         {
-            var bankbook = await bankbookRepository.GetAllBankbook();
-            return mapper.Map<IEnumerable<Bankbook>, IEnumerable<BankbookResource>>(bankbook);
+            IEnumerable<Bankbook> bankbook = await _bankbookRepository.GetAllBankbook();
+            return _mapper.Map<IEnumerable<Bankbook>, IEnumerable<BankbookResource>>(bankbook);
         }
 
         //api/bankbook/id
         [HttpGet("{id}")]
         public async Task<BankbookResource> GetBankbook(int id)
         {
-            var bankbook = await bankbookRepository.GetBankbook(id);
-            return mapper.Map<Bankbook, BankbookResource>(bankbook);
+            Bankbook bankbook = await _bankbookRepository.GetBankbook(id);
+            return _mapper.Map<Bankbook, BankbookResource>(bankbook);
         }
 
         //api/bankbook/id
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteBankbook(int id)
         {
-            var bankbook = await bankbookRepository.GetBankbook(id);
+            Bankbook bankbook = await _bankbookRepository.GetBankbook(id);
 
             if (bankbook == null)
+            {
                 return NotFound();
+            }
 
-            bankbookRepository.Remove(bankbook);
-            await unitOfWork.CompleteAsync();
+            _bankbookRepository.Remove(bankbook);
+            await _unitOfWork.CompleteAsync();
 
             return Ok(id);
         }
@@ -61,8 +68,8 @@ namespace SimCard.API.Controllers
             {
                 return BadRequest();
             }
-            await bankbookRepository.AddBankbook(bankbook);
-            await unitOfWork.CompleteAsync();
+            await _bankbookRepository.AddBankbook(bankbook);
+            await _unitOfWork.CompleteAsync();
             return StatusCode(201);
         }
 
@@ -74,8 +81,8 @@ namespace SimCard.API.Controllers
             {
                 return BadRequest();
             }
-            await bankbookRepository.UpdateBankbook(id, bankbook);
-            await unitOfWork.CompleteAsync();
+            await _bankbookRepository.UpdateBankbook(id, bankbook);
+            await _unitOfWork.CompleteAsync();
             return StatusCode(201);
         }
 

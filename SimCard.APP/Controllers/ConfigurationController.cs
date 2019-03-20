@@ -1,11 +1,14 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using AutoMapper;
+
 using Microsoft.AspNetCore.Mvc;
+
 using SimCard.API.Controllers.Resources;
 using SimCard.API.Models;
 using SimCard.API.Persistence;
 using SimCard.API.Persistence.Repositories;
+
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SimCard.API.Controllers
 {
@@ -13,30 +16,31 @@ namespace SimCard.API.Controllers
     [ApiController]
     public class ConfigurationController : ControllerBase
     {
-        private readonly IMapper mapper;
-        private readonly IConfigurationRepository configurationRepository;
-        private readonly IUnitOfWork unitOfWork;
+        private readonly IMapper _mapper;
+        private readonly IConfigurationRepository _configurationRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public ConfigurationController(IConfigurationRepository configurationRepository, IUnitOfWork unitOfWork, IMapper mapper) {
-            this.configurationRepository = configurationRepository;
-            this.unitOfWork = unitOfWork;
-            this.mapper = mapper;
+        public ConfigurationController(IConfigurationRepository configurationRepository, IUnitOfWork unitOfWork, IMapper mapper)
+        {
+            _configurationRepository = configurationRepository;
+            _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
         // api/configuration
         [HttpGet]
         public async Task<IEnumerable<ConfigurationResource>> GetAllConfiguration()
         {
-            var configuration = await configurationRepository.GetAllConfiguration();
-            return mapper.Map<IEnumerable<Configuration>, IEnumerable<ConfigurationResource>>(configuration);
+            IEnumerable<Configuration> configuration = await _configurationRepository.GetAllConfiguration();
+            return _mapper.Map<IEnumerable<Configuration>, IEnumerable<ConfigurationResource>>(configuration);
         }
 
         // api/configuration/id
         [HttpGet("{id}")]
         public async Task<ConfigurationResource> GetConfiguration(int id)
         {
-            var configuration = await configurationRepository.GetConfiguration(id);
-            return mapper.Map<Configuration, ConfigurationResource>(configuration);
+            Configuration configuration = await _configurationRepository.GetConfiguration(id);
+            return _mapper.Map<Configuration, ConfigurationResource>(configuration);
         }
 
         // api/customer 
@@ -47,8 +51,8 @@ namespace SimCard.API.Controllers
             {
                 return BadRequest();
             }
-            await configurationRepository.UpdateConfiguration(id, configuration);
-            await unitOfWork.CompleteAsync();
+            await _configurationRepository.UpdateConfiguration(id, configuration);
+            await _unitOfWork.CompleteAsync();
             return StatusCode(201);
         }
     }

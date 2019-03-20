@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SimCard.API.Models;
 
-namespace SimCard.API.Persistence.Repositories._Supplier
+namespace SimCard.API.Persistence.Repositories
 {
     public class SupplierRepository : ISupplierRepository
     {

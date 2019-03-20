@@ -1,28 +1,16 @@
-// <PackageReference Include="EPPlus" Version="4.5.2.1" />
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using AutoMapper;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using AutoMapper;
-using Microsoft.EntityFrameworkCore;
+
 using SimCard.API.Persistence;
-using Microsoft.EntityFrameworkCore.Sqlite;
-using Microsoft.AspNetCore.SpaServices.AngularCli;
-using SimCard.API.Persistence.Repositories._Shop;
-using SimCard.API.Persistence.Repositories._Supplier;
-using SimCard.API.Persistence.Repositories._Product;
-using SimCard.API.Persistence.Repositories._Network;
 using SimCard.API.Persistence.Repositories;
 using SimCard.APP.Workers;
-using SimCard.API.Persistence.Repositories._ImportReceipt;
 
 namespace SimCard.APP
 {
@@ -39,7 +27,6 @@ namespace SimCard.APP
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAutoMapper();
-            //services.AddDbContext<SimCardDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
             services.AddDbContext<SimCardDBContext>(Options => Options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IShopRepository, ShopRepository>();
@@ -68,7 +55,7 @@ namespace SimCard.APP
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IApplicationLifetime lifetime)
         {
             // the following 3 lines hook QuartzStartup into web host lifecycle
-            var quartz = new QuartzStartup();
+            QuartzStartup quartz = new QuartzStartup();
             lifetime.ApplicationStarted.Register(quartz.Start);
             lifetime.ApplicationStopping.Register(quartz.Stop);
 

@@ -1,13 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Dynamic;
-using System.Threading.Tasks;
 using AutoMapper;
+
 using Microsoft.AspNetCore.Mvc;
+
 using SimCard.API.Controllers.Resources;
 using SimCard.API.Persistence;
 using SimCard.API.Persistence.Repositories;
 using SimCard.APP.Controllers.Resources;
+
+using System.Collections.Generic;
+using System.Dynamic;
+using System.Threading.Tasks;
 
 namespace SimCard.API.Controllers
 {
@@ -29,8 +31,10 @@ namespace SimCard.API.Controllers
         [HttpPost("/api/Report/GetReport")]
         public async Task<ReportDataResource> GetReport([FromBody] ReportFilterResource filter, int type)
         {
-            var result = new ReportDataResource();
-            result.Data = await GetReport(type, filter);
+            ReportDataResource result = new ReportDataResource
+            {
+                Data = await GetReport(type, filter)
+            };
             result.Columns = GetKeysFromObject(result.Data[0]);
             result.FilterData = await GetFilterData(type);
             result.SupportedFilters = GetKeysFromObject(result.FilterData);
@@ -47,10 +51,10 @@ namespace SimCard.API.Controllers
             return await _reportRepository.GetFilterData(type);
         }
 
-        private List<String> GetKeysFromObject(ExpandoObject data)
+        private List<string> GetKeysFromObject(ExpandoObject data)
         {
-            var result = new List<String>();
-            foreach (var property in (IDictionary<String, Object>)data)
+            List<string> result = new List<string>();
+            foreach (KeyValuePair<string, object> property in data)
             {
                 result.Add(property.Key);
             }

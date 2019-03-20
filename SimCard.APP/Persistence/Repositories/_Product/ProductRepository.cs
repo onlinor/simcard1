@@ -1,13 +1,15 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+
 using SimCard.API.Models;
 
-namespace SimCard.API.Persistence.Repositories._Product
-{    
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace SimCard.API.Persistence.Repositories
+{
     public class ProductRepository : IProductRepository
     {
-        private readonly SimCardDBContext context;       
+        private readonly SimCardDBContext context;
 
         public ProductRepository(SimCardDBContext context)
         {
@@ -16,18 +18,18 @@ namespace SimCard.API.Persistence.Repositories._Product
 
         public async Task<Product> AddProducts(Product pr)
         {
-            if(await IsProductExists(pr))
+            if (await IsProductExists(pr))
             {
-                var ProductToAdd = await context.Products.FirstAsync(x => x.Name.ToLower() == pr.Name.ToLower());
+                Product ProductToAdd = await context.Products.FirstAsync(x => x.Name.ToLower() == pr.Name.ToLower());
                 // ProductToAdd.Quantity = ProductToAdd.Quantity + pr.Quantity;
-                
+
                 context.Products.Update(ProductToAdd);
                 return ProductToAdd;
             }
 
             await context.Products.AddAsync(pr);
 
-            return pr;           
+            return pr;
         }
 
         public async Task<Product> GetProduct(int id, bool includeRelated = true)
@@ -35,7 +37,7 @@ namespace SimCard.API.Persistence.Repositories._Product
             // if (!includeRelated)
             //     return await context.Products.FindAsync(id);
 
-            return await context.Products            
+            return await context.Products
                 .FindAsync(id);
         }
 
@@ -47,7 +49,10 @@ namespace SimCard.API.Persistence.Repositories._Product
         public async Task<bool> IsProductExists(Product pr)
         {
             if (await context.Products.AnyAsync(x => x.Name.ToLower() == pr.Name.ToLower()))
+            {
                 return true;
+            }
+
             return false;
         }
 

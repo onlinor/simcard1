@@ -1,11 +1,14 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using AutoMapper;
+
 using Microsoft.AspNetCore.Mvc;
+
 using SimCard.API.Controllers.Resources;
 using SimCard.API.Models;
 using SimCard.API.Persistence;
 using SimCard.API.Persistence.Repositories;
+
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SimCard.API.Controllers
 {
@@ -13,49 +16,53 @@ namespace SimCard.API.Controllers
     [ApiController]
     public class EventController : ControllerBase
     {
-        private readonly IMapper mapper;
-        private readonly IEventRepository eventRepository;
-        private readonly IUnitOfWork unitOfWork;
-        public EventController(IEventRepository eventRepository, IMapper mapper, IUnitOfWork unitOfWork) {
-            this.eventRepository = eventRepository;
-            this.mapper = mapper;
-            this.unitOfWork = unitOfWork;
+        private readonly IMapper _mapper;
+        private readonly IEventRepository _eventRepository;
+        private readonly IUnitOfWork _unitOfWork;
+
+        public EventController(IEventRepository eventRepository, IMapper mapper, IUnitOfWork unitOfWork)
+        {
+            _eventRepository = eventRepository;
+            _mapper = mapper;
+            _unitOfWork = unitOfWork;
         }
         // api/event
         [HttpGet]
-        public async Task<IEnumerable<EventResource>> GetAllEvents() 
+        public async Task<IEnumerable<EventResource>> GetAllEvents()
         {
-            var events = await eventRepository.GetAllEvents();
-            return mapper.Map<IEnumerable<Event>, IEnumerable<EventResource>>(events);
+            IEnumerable<Event> events = await _eventRepository.GetAllEvents();
+            return _mapper.Map<IEnumerable<Event>, IEnumerable<EventResource>>(events);
         }
 
         // api/event/id
         [HttpGet("{id}")]
-        public async Task<EventResource> GetEvent(int id) 
+        public async Task<EventResource> GetEvent(int id)
         {
-            var eventParams = await eventRepository.GetEvent(id);
-            return mapper.Map<Event, EventResource>(eventParams);
+            Event eventParams = await _eventRepository.GetEvent(id);
+            return _mapper.Map<Event, EventResource>(eventParams);
         }
 
         // api/event/last
         [HttpGet("last")]
         public async Task<int> GetLastIDEventRecord()
         {
-            var lastIDRecord = await eventRepository.GetLastIDEventRecord();
+            int lastIDRecord = await _eventRepository.GetLastIDEventRecord();
             return lastIDRecord;
         }
-        
+
         // api/event/id
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteEvent(int id)
         {
-            var eventPrams = await eventRepository.GetEvent(id);
+            Event eventPrams = await _eventRepository.GetEvent(id);
 
             if (eventPrams == null)
+            {
                 return NotFound();
+            }
 
-            eventRepository.Remove(eventPrams);
-            await unitOfWork.CompleteAsync();
+            _eventRepository.Remove(eventPrams);
+            await _unitOfWork.CompleteAsync();
 
             return Ok(id);
         }
@@ -68,8 +75,8 @@ namespace SimCard.API.Controllers
             {
                 return BadRequest();
             }
-            await eventRepository.AddEvent(eventParams);
-            await unitOfWork.CompleteAsync();
+            await _eventRepository.AddEvent(eventParams);
+            await _unitOfWork.CompleteAsync();
             return StatusCode(201);
         }
 
@@ -81,20 +88,21 @@ namespace SimCard.API.Controllers
             {
                 return BadRequest();
             }
-            await eventRepository.UpdateEvent(id, eventParams);
-            await unitOfWork.CompleteAsync();
+            await _eventRepository.UpdateEvent(id, eventParams);
+            await _unitOfWork.CompleteAsync();
             return StatusCode(201);
         }
 
         // api/event/status/id
         [HttpPut("status/{id}")]
         public async Task<IActionResult> UpdateEventStatus(int id, Event eventParams)
-        { 
-            if (eventParams == null) {
+        {
+            if (eventParams == null)
+            {
                 return BadRequest();
             }
-            await eventRepository.UpdateEventStatus(id, eventParams);
-            await unitOfWork.CompleteAsync();
+            await _eventRepository.UpdateEventStatus(id, eventParams);
+            await _unitOfWork.CompleteAsync();
             return StatusCode(201);
         }
     }

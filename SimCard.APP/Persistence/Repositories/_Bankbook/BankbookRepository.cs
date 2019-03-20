@@ -1,8 +1,9 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+
 using SimCard.API.Models;
+
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SimCard.API.Persistence.Repositories
 {
@@ -32,7 +33,7 @@ namespace SimCard.API.Persistence.Repositories
 
         public async Task<Bankbook> GetBankbook(int id)
         {
-             return await context.Bankbook.FirstOrDefaultAsync(x => x.Id == id);
+            return await context.Bankbook.FirstOrDefaultAsync(x => x.Id == id);
         }
 
         // public async Task<int> GetLastIDBankbookRecord()
@@ -53,7 +54,7 @@ namespace SimCard.API.Persistence.Repositories
 
         public async Task<Bankbook> UpdateBankbook(int id, Bankbook bankbookParams)
         {
-            var bankbookToUpdate = context.Bankbook.Find(id);
+            Bankbook bankbookToUpdate = context.Bankbook.Find(id);
             if (bankbookParams != null)
             {
                 bankbookToUpdate.NgayLap = bankbookParams.NgayLap;

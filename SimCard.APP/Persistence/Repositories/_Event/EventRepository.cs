@@ -1,8 +1,10 @@
+using Microsoft.EntityFrameworkCore;
+
+using SimCard.API.Models;
+
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using SimCard.API.Models;
 
 namespace SimCard.API.Persistence.Repositories
 {
@@ -42,7 +44,7 @@ namespace SimCard.API.Persistence.Repositories
 
         public async Task<Event> UpdateEvent(int id, Event eventParams)
         {
-            var eventToUpdate = context.Events.Find(id);
+            Event eventToUpdate = context.Events.Find(id);
             if (eventToUpdate != null)
             {
                 eventToUpdate.LoaiSK = eventParams.LoaiSK;
@@ -60,10 +62,11 @@ namespace SimCard.API.Persistence.Repositories
         public async Task<int> GetLastIDEventRecord()
         {
             int lastIDRecord = 0;
-            var anyRecord = await context.Events.AnyAsync();
-            if (anyRecord) {
+            bool anyRecord = await context.Events.AnyAsync();
+            if (anyRecord)
+            {
                 lastIDRecord = await context.Events.MaxAsync(x => x.Id);
-            } 
+            }
             return lastIDRecord;
         }
 
@@ -74,7 +77,7 @@ namespace SimCard.API.Persistence.Repositories
 
         public async Task<Event> UpdateEventStatus(int id, Event eventParams)
         {
-            var eventToUpdate = context.Events.Find(id);
+            Event eventToUpdate = context.Events.Find(id);
             if (eventParams != null)
             {
                 eventToUpdate.EventStatus = eventParams.EventStatus;

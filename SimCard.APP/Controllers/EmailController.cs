@@ -1,10 +1,12 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using AutoMapper;
+
 using Microsoft.AspNetCore.Mvc;
-using SimCard.API.Controllers.Resources;
+
 using SimCard.API.Models;
 using SimCard.API.Persistence.Repositories;
+
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SimCard.API.Controllers
 {
@@ -12,26 +14,27 @@ namespace SimCard.API.Controllers
     [ApiController]
     public class EmailController : ControllerBase
     {
-        private readonly IMapper mapper;
-        private readonly IEmailRepository emailRepository;
+        private readonly IMapper _mapper;
+        private readonly IEmailRepository _emailRepository;
+
         public EmailController(IEmailRepository emailRepository, IMapper mapper)
         {
-            this.emailRepository = emailRepository;
-            this.mapper = mapper;
+            _emailRepository = emailRepository;
+            _mapper = mapper;
         }
 
         // api/email
         [HttpGet]
         public async Task<List<string>> GetAllEmail()
         {
-            var dsEmail = await emailRepository.GetAllEmail();
+            List<string> dsEmail = await _emailRepository.GetAllEmail();
             return dsEmail;
         }
 
-        [HttpGet("eventactive")] 
+        [HttpGet("eventactive")]
         public async Task<List<Event>> GetListEventActive()
         {
-            var dsEventActive = await emailRepository.GetListEventActive();
+            List<Event> dsEventActive = await _emailRepository.GetListEventActive();
             return dsEventActive;
         }
     }

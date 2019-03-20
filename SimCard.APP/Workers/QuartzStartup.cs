@@ -1,10 +1,8 @@
 ﻿using Quartz;
 using Quartz.Impl;
+
 using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Linq;
-using System.Threading.Tasks;
 
 
 namespace SimCard.APP.Workers
@@ -29,7 +27,7 @@ namespace SimCard.APP.Workers
 
             // Grab the Scheduler instance from the Factory
 
-            var schedulerFactory = new StdSchedulerFactory(properties);
+            StdSchedulerFactory schedulerFactory = new StdSchedulerFactory(properties);
             _scheduler = schedulerFactory.GetScheduler().Result;
             _scheduler.Start().Wait();
 
