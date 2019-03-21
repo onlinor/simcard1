@@ -2,10 +2,9 @@ using AutoMapper;
 
 using Microsoft.AspNetCore.Mvc;
 
-using SimCard.APP.Controllers.Resources;
-using SimCard.APP.Models;
 using SimCard.APP.Persistence;
 using SimCard.APP.Persistence.Repositories;
+using SimCard.APP.ViewModels;
 
 using System.Threading.Tasks;
 
@@ -26,23 +25,23 @@ namespace SimCard.APP.Controllers
         }
 
         [HttpGet("/api/phieunhap/taoma")]
-        public async Task<PhieunhapResource> GetPhieunhaps()
+        public async Task<ImportReceiptViewModel> GetPhieunhaps()
         {
-            return new PhieunhapResource
+            return new ImportReceiptViewModel
             {
-                ID = await _importReceiptRepository.GenerateID()
+                Ma = await _importReceiptRepository.GenerateID()
             };
         }
 
         [HttpPost("/api/phieunhap/add")]
-        public async Task<IActionResult> AddPhieunhap(ImportReceipt importReceipt)
+        public async Task<IActionResult> AddPhieunhap(ImportReceiptViewModel importReceipt)
         {
             if (importReceipt == null)
             {
                 return BadRequest();
             }
             await _importReceiptRepository.AddImportReceipt(importReceipt);
-            await _unitOfWork.CompleteAsync();
+            await _unitOfWork.SaveChangeAsync();
             return StatusCode(201);
         }
     }

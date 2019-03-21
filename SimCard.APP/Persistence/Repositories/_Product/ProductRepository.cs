@@ -1,6 +1,9 @@
+using AutoMapper;
+
 using Microsoft.EntityFrameworkCore;
 
 using SimCard.APP.Models;
+using SimCard.APP.ViewModels;
 
 using System;
 using System.Collections.Generic;
@@ -13,61 +16,83 @@ namespace SimCard.APP.Persistence.Repositories
     public class ProductRepository : IProductRepository
     {
         private readonly SimCardDBContext _context;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public ProductRepository(SimCardDBContext context)
+        public ProductRepository(SimCardDBContext context, IUnitOfWork unitOfWork)
         {
             _context = context;
+            _unitOfWork = unitOfWork;
         }
 
-        public async Task<Product> AddProducts(Product pr)
+        public async Task<bool> AddProduct(ProductViewModel productViewModel)
         {
-            if (await IsProductExists(pr))
+            if (await IsProductExists(productViewModel.Ma))
             {
-                Product product = await _context.Products.FirstAsync(x => x.Name.ToLower() == pr.Name.ToLower());
-                // ProductToAdd.Quantity = ProductToAdd.Quantity + pr.Quantity;
-
-                _context.Products.Update(product);
-                return product;
+                Product p = await _context.Products.FirstAsync(x => x.Ma.ToLower() == productViewModel.Ma.ToLower());
+                p.Quantity = p.Quantity + productViewModel.Soluong;
+                _context.Products.Update(p);
             }
-
-            await _context.Products.AddAsync(pr);
-
-            return pr;
-        }
-
-        public async Task<Product> GetProduct(int id)
-        {
-            return await _context.Products.FindAsync(id);
-        }
-
-        public async Task<IEnumerable<Product>> GetProducts()
-        {
-            return await _context.Products.ToListAsync();
-        }
-
-        public async Task<bool> IsProductExists(Product pr)
-        {
-            if (await _context.Products.AnyAsync(x => x.Name.ToLower() == pr.Name.ToLower()))
+            else
             {
-                return true;
+                Product product = Mapper.Map<Product>(productViewModel);
+                await _context.Products.AddAsync(product);
             }
+            return await _unitOfWork.SaveChangeAsync();
+        }
 
+        public async Task<bool> AddProducts(List<ProductViewModel> productViewModels)
+        {
+            foreach (var item in productViewModels)
+            {
+                if (await IsProductExists(item.Ma))
+                {
+                    Product p = await _context.Products.FirstAsync(x => x.Ma.ToLower() == item.Ma.ToLower());
+                    p.Quantity = p.Quantity + item.Soluong;
+                    _context.Products.Update(p);
+                }
+                else
+                {
+                    Product product = Mapper.Map<Product>(item);
+                    await _context.Products.AddAsync(product);
+                }
+            }
+            return await _unitOfWork.SaveChangeAsync();
+        }
+
+        public async Task<ProductViewModel> GetProduct(int id)
+        {
+            return Mapper.Map<ProductViewModel>(await _context.Products.FindAsync(id));
+        }
+
+        public async Task<IEnumerable<ProductViewModel>> GetProducts()
+        {
+            return Mapper.Map<List<ProductViewModel>>(await _context.Products.ToListAsync());
+        }
+
+        public async Task<bool> IsProductExists(string code)
+        {
+            return await _context.Products.AnyAsync(x => x.Ma.ToLower() == code.ToLower());
+        }
+
+        public async Task<bool> Remove(int id)
+        {
+            Product product = await _context.Products.FindAsync(id);
+            if (product != null)
+            {
+                _context.Products.Remove(product);
+                await _unitOfWork.SaveChangeAsync();
+            }
             return false;
-        }
-
-        public void Remove(Product product)
-        {
-            _context.Products.Remove(product);
-        }
-
-        public void UpdateProduct(Product pr)
-        {
-            throw new System.NotImplementedException();
         }
 
         public IQueryable<Product> Query(Expression<Func<Product, bool>> predicate)
         {
             return _context.Products.Where(predicate);
+        }
+
+        public void UpdateProduct(ProductViewModel productViewModel)
+        {
+            throw new NotImplementedException();
         }
     }
 }

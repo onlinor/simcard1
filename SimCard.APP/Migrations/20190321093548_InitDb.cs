@@ -214,7 +214,7 @@ namespace SimCard.APP.Migrations
                     DateModified = table.Column<DateTime>(nullable: true),
                     Prefix = table.Column<string>(nullable: true),
                     Suffix = table.Column<int>(nullable: false),
-                    CreateByStaff = table.Column<string>(nullable: true),
+                    Nhanvienlap = table.Column<string>(nullable: true),
                     OldDebt = table.Column<decimal>(nullable: false),
                     RepresentativePerson = table.Column<string>(nullable: true),
                     PhoneNumber = table.Column<int>(nullable: false),
@@ -256,6 +256,7 @@ namespace SimCard.APP.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     DateCreated = table.Column<DateTime>(nullable: false),
                     DateModified = table.Column<DateTime>(nullable: true),
+                    Ma = table.Column<string>(nullable: true),
                     Prefix = table.Column<string>(nullable: true),
                     Suffix = table.Column<int>(nullable: false),
                     Nhanvienlap = table.Column<string>(nullable: true),
@@ -266,30 +267,23 @@ namespace SimCard.APP.Migrations
                     Tienthanhtoan = table.Column<decimal>(nullable: false),
                     Tienconlai = table.Column<decimal>(nullable: false),
                     ShopId = table.Column<int>(nullable: false),
-                    ImportFromShopId = table.Column<int>(nullable: true),
-                    ImportFromSupplierId = table.Column<int>(nullable: true)
+                    SupplierId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ImportReceipts", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ImportReceipts_Shops_ImportFromShopId",
-                        column: x => x.ImportFromShopId,
-                        principalTable: "Shops",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_ImportReceipts_Suppliers_ImportFromSupplierId",
-                        column: x => x.ImportFromSupplierId,
-                        principalTable: "Suppliers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_ImportReceipts_Shops_ShopId",
                         column: x => x.ShopId,
                         principalTable: "Shops",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ImportReceipts_Suppliers_SupplierId",
+                        column: x => x.SupplierId,
+                        principalTable: "Suppliers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -301,11 +295,12 @@ namespace SimCard.APP.Migrations
                     DateCreated = table.Column<DateTime>(nullable: false),
                     DateModified = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(maxLength: 255, nullable: false),
+                    Ma = table.Column<string>(nullable: true),
+                    Price = table.Column<decimal>(nullable: false),
                     Quantity = table.Column<int>(nullable: false),
-                    Unit = table.Column<int>(nullable: false),
-                    BuyingPrice = table.Column<decimal>(nullable: false),
+                    BuyingPrice = table.Column<decimal>(nullable: true),
                     ShopId = table.Column<int>(nullable: true),
-                    SupplierId = table.Column<int>(nullable: false)
+                    SupplierId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -320,32 +315,6 @@ namespace SimCard.APP.Migrations
                         name: "FK_Products_Suppliers_SupplierId",
                         column: x => x.SupplierId,
                         principalTable: "Suppliers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ImportReceiptProducts",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    DateCreated = table.Column<DateTime>(nullable: false),
-                    DateModified = table.Column<DateTime>(nullable: true),
-                    Ten = table.Column<string>(nullable: true),
-                    Ma = table.Column<string>(nullable: true),
-                    SoLuong = table.Column<int>(nullable: false),
-                    MenhGia = table.Column<decimal>(nullable: false),
-                    ChietKhau = table.Column<decimal>(nullable: false),
-                    ImportReceiptId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ImportReceiptProducts", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ImportReceiptProducts_ImportReceipts_ImportReceiptId",
-                        column: x => x.ImportReceiptId,
-                        principalTable: "ImportReceipts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -374,6 +343,36 @@ namespace SimCard.APP.Migrations
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_ExportReceiptProducts_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ImportReceiptProducts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    DateCreated = table.Column<DateTime>(nullable: false),
+                    DateModified = table.Column<DateTime>(nullable: true),
+                    ProductId = table.Column<int>(nullable: false),
+                    Quantity = table.Column<int>(nullable: false),
+                    ChietKhau = table.Column<decimal>(nullable: false),
+                    ImportReceiptId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ImportReceiptProducts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ImportReceiptProducts_ImportReceipts_ImportReceiptId",
+                        column: x => x.ImportReceiptId,
+                        principalTable: "ImportReceipts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ImportReceiptProducts_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "Id",
@@ -411,19 +410,19 @@ namespace SimCard.APP.Migrations
                 column: "ImportReceiptId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ImportReceipts_ImportFromShopId",
-                table: "ImportReceipts",
-                column: "ImportFromShopId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ImportReceipts_ImportFromSupplierId",
-                table: "ImportReceipts",
-                column: "ImportFromSupplierId");
+                name: "IX_ImportReceiptProducts_ProductId",
+                table: "ImportReceiptProducts",
+                column: "ProductId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ImportReceipts_ShopId",
                 table: "ImportReceipts",
                 column: "ShopId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ImportReceipts_SupplierId",
+                table: "ImportReceipts",
+                column: "SupplierId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_ShopId",
@@ -468,10 +467,10 @@ namespace SimCard.APP.Migrations
                 name: "ExportReceipts");
 
             migrationBuilder.DropTable(
-                name: "Products");
+                name: "ImportReceipts");
 
             migrationBuilder.DropTable(
-                name: "ImportReceipts");
+                name: "Products");
 
             migrationBuilder.DropTable(
                 name: "Customers");

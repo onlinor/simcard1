@@ -2,10 +2,10 @@ using AutoMapper;
 
 using Microsoft.AspNetCore.Mvc;
 
-using SimCard.APP.Controllers.Resources;
 using SimCard.APP.Models;
 using SimCard.APP.Persistence;
 using SimCard.APP.Persistence.Repositories;
+using SimCard.APP.ViewModels;
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -29,18 +29,18 @@ namespace SimCard.APP.Controllers
 
         // api/configuration
         [HttpGet]
-        public async Task<IEnumerable<ConfigurationResource>> GetAllConfiguration()
+        public async Task<IEnumerable<ConfigurationViewModel>> GetAllConfiguration()
         {
             IEnumerable<Configuration> configuration = await _configurationRepository.GetAllConfiguration();
-            return _mapper.Map<IEnumerable<Configuration>, IEnumerable<ConfigurationResource>>(configuration);
+            return _mapper.Map<IEnumerable<Configuration>, IEnumerable<ConfigurationViewModel>>(configuration);
         }
 
         // api/configuration/id
         [HttpGet("{id}")]
-        public async Task<ConfigurationResource> GetConfiguration(int id)
+        public async Task<ConfigurationViewModel> GetConfiguration(int id)
         {
             Configuration configuration = await _configurationRepository.GetConfiguration(id);
-            return _mapper.Map<Configuration, ConfigurationResource>(configuration);
+            return _mapper.Map<Configuration, ConfigurationViewModel>(configuration);
         }
 
         // api/customer 
@@ -52,7 +52,7 @@ namespace SimCard.APP.Controllers
                 return BadRequest();
             }
             await _configurationRepository.UpdateConfiguration(id, configuration);
-            await _unitOfWork.CompleteAsync();
+            await _unitOfWork.SaveChangeAsync();
             return StatusCode(201);
         }
     }

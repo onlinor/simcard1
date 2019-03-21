@@ -2,10 +2,10 @@ using AutoMapper;
 
 using Microsoft.AspNetCore.Mvc;
 
-using SimCard.APP.Controllers.Resources;
 using SimCard.APP.Models;
 using SimCard.APP.Persistence;
 using SimCard.APP.Persistence.Repositories;
+using SimCard.APP.ViewModels;
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -29,18 +29,18 @@ namespace SimCard.APP.Controllers
 
         //api/cashbook
         [HttpGet]
-        public async Task<IEnumerable<CashbookResource>> GetAllCashbook()
+        public async Task<IEnumerable<CashbookViewModel>> GetAllCashbook()
         {
             IEnumerable<Cashbook> cashbook = await _cashbookRepository.GetAllCashbook();
-            return _mapper.Map<IEnumerable<Cashbook>, IEnumerable<CashbookResource>>(cashbook);
+            return _mapper.Map<IEnumerable<Cashbook>, IEnumerable<CashbookViewModel>>(cashbook);
         }
 
         //api/cashbook/id
         [HttpGet("{id}")]
-        public async Task<CashbookResource> GetCashbook(int id)
+        public async Task<CashbookViewModel> GetCashbook(int id)
         {
             Cashbook cashbook = await _cashbookRepository.GetCashbook(id);
-            return _mapper.Map<Cashbook, CashbookResource>(cashbook);
+            return _mapper.Map<Cashbook, CashbookViewModel>(cashbook);
         }
 
         //api/cashbook/id
@@ -55,7 +55,7 @@ namespace SimCard.APP.Controllers
             }
 
             _cashbookRepository.Remove(cashbook);
-            await _unitOfWork.CompleteAsync();
+            await _unitOfWork.SaveChangeAsync();
 
             return Ok(id);
         }
@@ -69,7 +69,7 @@ namespace SimCard.APP.Controllers
                 return BadRequest();
             }
             await _cashbookRepository.AddCashbook(cashbook);
-            await _unitOfWork.CompleteAsync();
+            await _unitOfWork.SaveChangeAsync();
             return StatusCode(201);
         }
 
@@ -82,7 +82,7 @@ namespace SimCard.APP.Controllers
                 return BadRequest();
             }
             await _cashbookRepository.UpdateCashbook(id, cashbook);
-            await _unitOfWork.CompleteAsync();
+            await _unitOfWork.SaveChangeAsync();
             return StatusCode(201);
         }
 

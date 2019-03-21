@@ -1,7 +1,7 @@
 using AutoMapper;
 
-using SimCard.APP.Controllers.Resources;
 using SimCard.APP.Models;
+using SimCard.APP.ViewModels;
 
 namespace SimCard.APP.Mapping
 {
@@ -9,14 +9,15 @@ namespace SimCard.APP.Mapping
     {
         public MappingProfile()
         {
-            CreateMap<Shop, ShopResource>();
-            CreateMap<Product, ProductResource>();
-            CreateMap<Customer, CustomerResource>();
-            CreateMap<Configuration, ConfigurationResource>();
-            CreateMap<Event, EventResource>();
-            CreateMap<Cashbook, CashbookResource>();
-            CreateMap<Bankbook, BankbookResource>();
-            CreateMap<ImportReceipt, PhieunhapResource>();
+            CreateMap<Shop, ShopViewModel>().ReverseMap();
+            CreateMap<Product, ProductViewModel>().ReverseMap();
+            CreateMap<Customer, CustomerViewModel>().ReverseMap();
+            CreateMap<Configuration, ConfigurationViewModel>().ReverseMap();
+            CreateMap<Event, EventViewModel>().ReverseMap();
+            CreateMap<Cashbook, CashbookViewModel>().ReverseMap();
+            CreateMap<Bankbook, BankbookViewModel>().ReverseMap();
+            CreateMap<ImportReceipt, ImportReceiptViewModel>().ReverseMap();
+            CreateMap<ExportReceipt, ExportReceiptViewModel>().ReverseMap();
         }
     }
 }

@@ -1,11 +1,12 @@
 export class Product {
+  id: number;
   ma: string;
   ten: string;
-  soluong: number;
-  menhgia: number;
-  chietkhau: number;
-  dongia: number;
-  thanhtien: number;
+  soLuong: number;
+  menhGia: number;
+  chietKhau: number;
+  donGia: number;
+  thanhTien: number;
   soluongnhap?: number;
   soluongxuat?: number;
 }

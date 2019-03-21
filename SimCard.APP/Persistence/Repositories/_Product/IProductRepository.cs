@@ -1,5 +1,5 @@
 using SimCard.APP.Models;
-
+using SimCard.APP.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,18 +10,20 @@ namespace SimCard.APP.Persistence.Repositories
 {
     public interface IProductRepository
     {
-        Task<IEnumerable<Product>> GetProducts();
+        Task<IEnumerable<ProductViewModel>> GetProducts();
 
-        Task<Product> GetProduct(int id);
+        Task<ProductViewModel> GetProduct(int id);
 
         IQueryable<Product> Query(Expression<Func<Product, bool>> predicate);
 
-        Task<Product> AddProducts(Product pr);
+        Task<bool> AddProduct(ProductViewModel productViewModel);
 
-        void UpdateProduct(Product pr);
+        Task<bool> AddProducts(List<ProductViewModel> productViewModels);
 
-        void Remove(Product product);
+        void UpdateProduct(ProductViewModel productViewModel);
 
-        Task<bool> IsProductExists(Product pr);
+        Task<bool> Remove(int id);
+
+        Task<bool> IsProductExists(string code);
     }
 }

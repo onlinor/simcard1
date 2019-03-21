@@ -9,7 +9,7 @@ namespace SimCard.APP.Models
 
         public int Suffix { get; set; }
 
-        public string CreateByStaff { get; set; }
+        public string Nhanvienlap { get; set; }
 
         public decimal OldDebt { get; set; }
 

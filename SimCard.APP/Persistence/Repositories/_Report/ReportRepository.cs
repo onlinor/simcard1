@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using SimCard.APP.Controllers.Resources;
+
+using SimCard.APP.ViewModels;
 
 using System.Collections.Generic;
 using System.Dynamic;
@@ -32,7 +33,7 @@ namespace SimCard.APP.Persistence.Repositories
             _supplierRepository = supplierRepository;
         }
 
-        public async Task<List<ExpandoObject>> GetReport(int type, ReportFilterResource filter)
+        public async Task<List<ExpandoObject>> GetReport(int type, ReportFilterViewModel filter)
         {
             List<ExpandoObject> result = new List<ExpandoObject>();
             switch (type)
@@ -140,27 +141,27 @@ namespace SimCard.APP.Persistence.Repositories
 
         // Function to get report
 
-        private async Task<List<ExpandoObject>> Report_ChiTietChiPhiHoatDongKinhDoanh(ReportFilterResource filter)
+        private async Task<List<ExpandoObject>> Report_ChiTietChiPhiHoatDongKinhDoanh(ReportFilterViewModel filter)
         {
             throw new System.NotImplementedException();
         }
 
-        private async Task<List<ExpandoObject>> Report_ChiTietThuChiKhac(ReportFilterResource filter)
+        private async Task<List<ExpandoObject>> Report_ChiTietThuChiKhac(ReportFilterViewModel filter)
         {
             throw new System.NotImplementedException();
         }
 
-        private async Task<List<ExpandoObject>> Report_ChiTietXuatHangVaLoiNhuan(ReportFilterResource filter)
+        private async Task<List<ExpandoObject>> Report_ChiTietXuatHangVaLoiNhuan(ReportFilterViewModel filter)
         {
             throw new System.NotImplementedException();
         }
 
-        private async Task<List<ExpandoObject>> Report_CongNoKhachHangToanCongTy(ReportFilterResource filter)
+        private async Task<List<ExpandoObject>> Report_CongNoKhachHangToanCongTy(ReportFilterViewModel filter)
         {
             throw new System.NotImplementedException();
         }
 
-        private async Task<List<ExpandoObject>> Report_HangTonKho(ReportFilterResource filter)
+        private async Task<List<ExpandoObject>> Report_HangTonKho(ReportFilterViewModel filter)
         {
             List<ExpandoObject> result = new List<ExpandoObject>();
             //IEnumerable<Models.Product> products = await _productRepository.GetProducts();
@@ -180,52 +181,52 @@ namespace SimCard.APP.Persistence.Repositories
             return result;
         }
 
-        private async Task<List<ExpandoObject>> Report_KetQuaKinhDoanh(ReportFilterResource filter)
+        private async Task<List<ExpandoObject>> Report_KetQuaKinhDoanh(ReportFilterViewModel filter)
         {
             throw new System.NotImplementedException();
         }
 
-        private async Task<List<ExpandoObject>> Report_NhapHangTheoMatHang(ReportFilterResource filter)
+        private async Task<List<ExpandoObject>> Report_NhapHangTheoMatHang(ReportFilterViewModel filter)
         {
             throw new System.NotImplementedException();
         }
 
-        private async Task<List<ExpandoObject>> Report_NhapHangTheoNhaCungCap(ReportFilterResource filter)
+        private async Task<List<ExpandoObject>> Report_NhapHangTheoNhaCungCap(ReportFilterViewModel filter)
         {
             throw new System.NotImplementedException();
         }
 
-        private async Task<List<ExpandoObject>> Report_TongHopChiPhiHoatDongKinhDoanh(ReportFilterResource filter)
+        private async Task<List<ExpandoObject>> Report_TongHopChiPhiHoatDongKinhDoanh(ReportFilterViewModel filter)
         {
             throw new System.NotImplementedException();
         }
 
-        private async Task<List<ExpandoObject>> Report_TongHopCongNoKhachHangToanTungCN(ReportFilterResource filter)
+        private async Task<List<ExpandoObject>> Report_TongHopCongNoKhachHangToanTungCN(ReportFilterViewModel filter)
         {
             throw new System.NotImplementedException();
         }
 
-        private async Task<List<ExpandoObject>> Report_TongHopGiaoDichVaSoDuTKNHToanCongTy(ReportFilterResource filter)
+        private async Task<List<ExpandoObject>> Report_TongHopGiaoDichVaSoDuTKNHToanCongTy(ReportFilterViewModel filter)
         {
             throw new System.NotImplementedException();
         }
 
-        private async Task<List<ExpandoObject>> Report_TongHopThuChiKhac(ReportFilterResource filter)
+        private async Task<List<ExpandoObject>> Report_TongHopThuChiKhac(ReportFilterViewModel filter)
         {
             throw new System.NotImplementedException();
         }
 
-        private async Task<List<ExpandoObject>> Report_TongHopXuatHangLoiNhuanCongNoTheoKhachHang(ReportFilterResource filter)
+        private async Task<List<ExpandoObject>> Report_TongHopXuatHangLoiNhuanCongNoTheoKhachHang(ReportFilterViewModel filter)
         {
             throw new System.NotImplementedException();
         }
 
-        private async Task<List<ExpandoObject>> Report_TongHopXuatHangVaLoiNhuanTheoMatHang(ReportFilterResource filter)
+        private async Task<List<ExpandoObject>> Report_TongHopXuatHangVaLoiNhuanTheoMatHang(ReportFilterViewModel filter)
         {
             throw new System.NotImplementedException();
         }
 
-        private async Task<List<ExpandoObject>> Report_XuatNhapTonTongHop(ReportFilterResource filter)
+        private async Task<List<ExpandoObject>> Report_XuatNhapTonTongHop(ReportFilterViewModel filter)
         {
             dynamic result = new ExpandoObject();
             if (filter.Shop != 0) // Chi nhánh

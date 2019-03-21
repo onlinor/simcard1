@@ -8,12 +8,12 @@ namespace SimCard.APP.Persistence
 
         public UnitOfWork(SimCardDBContext context)
         {
-            this._context = context;
+            _context = context;
         }
 
-        public async Task CompleteAsync()
+        public async Task<bool> SaveChangeAsync()
         {
-            await _context.SaveChangesAsync();
+            return (await _context.SaveChangesAsync()) > 0;
         }
     }
 }

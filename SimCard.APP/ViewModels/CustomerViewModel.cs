@@ -1,8 +1,8 @@
 using System;
 
-namespace SimCard.APP.Controllers.Resources
+namespace SimCard.APP.ViewModels
 {
-    public class CustomerResource
+    public class CustomerViewModel
     {
         public int Id { get; set; }
         public string TenCH { get; set; }

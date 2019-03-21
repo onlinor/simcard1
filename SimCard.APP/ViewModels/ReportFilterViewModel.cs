@@ -1,8 +1,8 @@
 using System;
 
-namespace SimCard.APP.Controllers.Resources
+namespace SimCard.APP.ViewModels
 {
-    public class ReportFilterResource
+    public class ReportFilterViewModel
     {
         public int Shop { get; set; } 
 

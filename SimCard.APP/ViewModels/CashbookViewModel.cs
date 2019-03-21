@@ -1,8 +1,8 @@
 using System;
 
-namespace SimCard.APP.Controllers.Resources
+namespace SimCard.APP.ViewModels
 {
-    public class CashbookResource
+    public class CashbookViewModel
     {
         public int Id { get; set; }
 
@@ -17,7 +17,9 @@ namespace SimCard.APP.Controllers.Resources
         public string NoiDungPhieu { get; set; }
 
         public int SoTienThu { get; set; }
+
         public int SoTienChi { get; set; }
+
         public int CongDon { get; set; }
 
         public string DonViNop { get; set; }
@@ -35,6 +37,5 @@ namespace SimCard.APP.Controllers.Resources
         public string GhiChu { get; set; }
 
         public string LoaiNganHang { get; set; }
-
     }
 }

@@ -44,13 +44,14 @@ export class ProductComponent implements OnInit {
   selectedSupplier: Supplier;
   // input product
   tempPro: Product = {
+    id: 0,
     ma: null,
     ten: null,
-    soluong: null,
-    menhgia: null,
-    chietkhau: null,
-    dongia: null,
-    thanhtien: null
+    soLuong: null,
+    menhGia: null,
+    chietKhau: null,
+    donGia: null,
+    thanhTien: null
   };
   tempProName: string;
   tempProId: number;
@@ -129,40 +130,37 @@ export class ProductComponent implements OnInit {
     this.tableproducts = null;
   }
 
-  myUploader(event) {
-    // tslint:disable-next-line:prefer-const
-    let fileList: FileList = event.target.files;
+  myUploader(event: any) {
+    const fileList: FileList = event.target.files;
     if (fileList.length > 0) {
-      // tslint:disable-next-line:prefer-const
-      let file: File = fileList[0];
-      // tslint:disable-next-line:prefer-const
-      let formData = new FormData();
+      const file: File = fileList[0];
+      const formData = new FormData();
       formData.append(file.name, file);
 
-      this.fileService.Upload(formData).subscribe(Response => {
-        // tslint:disable-next-line:prefer-const
-        let tempProducts = Object.assign([], this.tableproducts);
-        // tslint:disable-next-line:prefer-const
-        let temp = Object.assign([], Response);
+      this.fileService.uploadProductList(formData).subscribe(Response => {
+        const tempProducts = Object.assign([], this.tableproducts);
+        const temp = Object.assign([], Response);
 
-        temp.forEach(element => {
-          this.tempPro.ma = element.ma;
-          this.tempPro.ten = element.ten;
-          this.tempPro.soluong = element.soLuong;
-          this.tempPro.menhgia = element.menhGia;
-          this.tempPro.chietkhau = element.chietKhau;
-          this.tempPro.dongia = 10;
-          this.tempPro.thanhtien = 20;
+        temp.forEach((product: Product) => {
+          this.tempPro.id = 0;
+          this.tempPro.ma = product.ma;
+          this.tempPro.ten = product.ten;
+          this.tempPro.soLuong = product.soLuong;
+          this.tempPro.menhGia = product.menhGia;
+          this.tempPro.chietKhau = product.chietKhau;
+          this.tempPro.donGia = 10;
+          this.tempPro.thanhTien = 20;
 
           tempProducts.push(this.tempPro);
           this.tempPro = {
+            id: 0,
             ma: null,
             ten: null,
-            soluong: null,
-            menhgia: null,
-            chietkhau: null,
-            dongia: null,
-            thanhtien: null
+            soLuong: null,
+            menhGia: null,
+            chietKhau: null,
+            donGia: null,
+            thanhTien: null
           };
           this.tableproducts = tempProducts;
         });
@@ -193,14 +191,11 @@ export class ProductComponent implements OnInit {
      */
   }
 
-  rowEditCompleted(event) {
+  rowEditCompleted(event: any) {
     if (event.data.quantity === 0 || event.data.quantity === null) {
       // I will do something later :)
     } else {
-      // tslint:disable-next-line:prefer-const
-      let tempProducts = Object.assign([], this.exportpro);
-      // tslint:disable-next-line:prefer-const
-      // tslint:disable-next-line:label-position
+      const tempProducts = Object.assign([], this.exportpro);
       this.pro.name = event.data.name;
       this.pro.denomination = null;
       this.pro.quantity = event.data.quantity;

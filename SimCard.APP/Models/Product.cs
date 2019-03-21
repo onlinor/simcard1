@@ -7,13 +7,16 @@ namespace SimCard.APP.Models
     {
         [Required]
         [StringLength(255)]
-        public string Name { get; set; }        
+        public string Name { get; set; }
+
+        public string Ma { get; set; }
+
+        public decimal Price { get; set; }
 
         public int Quantity { get; set; }
 
-        public int Unit { get; set; }
-
-        public decimal BuyingPrice { get; set; }
+        // Shop will have buying price but supplier does not
+        public decimal? BuyingPrice { get; set; }
 
         [ForeignKey("ShopId")]
         public Shop Shop { get; set; }
@@ -23,6 +26,6 @@ namespace SimCard.APP.Models
         [ForeignKey("SupplierId")]
         public Supplier Supplier { get; set; }
 
-        public int SupplierId { get; set; }
+        public int? SupplierId { get; set; }
     }
 }

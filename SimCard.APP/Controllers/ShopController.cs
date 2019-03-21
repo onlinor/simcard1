@@ -2,11 +2,10 @@ using AutoMapper;
 
 using Microsoft.AspNetCore.Mvc;
 
-using SimCard.APP.Controllers.Resources;
 using SimCard.APP.Models;
 using SimCard.APP.Persistence;
-
 using SimCard.APP.Persistence.Repositories;
+using SimCard.APP.ViewModels;
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -27,10 +26,10 @@ namespace SimCard.APP.Controllers
         }
 
         [HttpGet("/api/shops")]
-        public async Task<IEnumerable<ShopResource>> GetShops()
+        public async Task<IEnumerable<ShopViewModel>> GetShops()
         {
             IEnumerable<Shop> shops = await _shopRepository.GetShops();
-            return _mapper.Map<IEnumerable<Shop>, IEnumerable<ShopResource>>(shops);
+            return _mapper.Map<IEnumerable<Shop>, IEnumerable<ShopViewModel>>(shops);
         }
 
         [HttpDelete("{id}")]
@@ -44,7 +43,7 @@ namespace SimCard.APP.Controllers
             }
 
             _shopRepository.Remove(shop);
-            await _unitOfWork.CompleteAsync();
+            await _unitOfWork.SaveChangeAsync();
 
             return Ok(id);
         }

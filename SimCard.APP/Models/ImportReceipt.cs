@@ -5,8 +5,10 @@ namespace SimCard.APP.Models
 {
     public class ImportReceipt : BaseEntity
     {
-        public string Prefix { get; set; }
+        public string Ma { get; set; }
 
+        public string Prefix { get; set; }
+        
         public int Suffix { get; set; }
 
         public string Nhanvienlap { get; set; }
@@ -30,16 +32,10 @@ namespace SimCard.APP.Models
 
         public int ShopId { get; set; }
 
-        // Import from another shop: for branches only
-        [ForeignKey("ImportFromShopId")]
-        public Shop ImportFromShop { get; set; }
-
-        public int? ImportFromShopId { get; set; }
-
         // Import from a supplier: for parent shop only
-        [ForeignKey("ImportFromSupplierId")]
-        public Supplier ImportFromSupplier { get; set; }
+        [ForeignKey("SupplierId")]
+        public Supplier Supplier { get; set; }
 
-        public int? ImportFromSupplierId { get; set; }
+        public int? SupplierId { get; set; }
     }
 }

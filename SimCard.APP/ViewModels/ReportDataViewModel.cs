@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Dynamic;
 
-namespace SimCard.APP.Controllers.Resources
+namespace SimCard.APP.ViewModels
 {
-    public class ReportDataResource
+    public class ReportDataViewModel
     {
         public List<ExpandoObject> Data { get; set; }
 

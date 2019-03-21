@@ -2,10 +2,10 @@ using AutoMapper;
 
 using Microsoft.AspNetCore.Mvc;
 
-using SimCard.APP.Controllers.Resources;
 using SimCard.APP.Models;
 using SimCard.APP.Persistence;
 using SimCard.APP.Persistence.Repositories;
+using SimCard.APP.ViewModels;
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -28,18 +28,18 @@ namespace SimCard.APP.Controllers
         }
         // api/event
         [HttpGet]
-        public async Task<IEnumerable<EventResource>> GetAllEvents()
+        public async Task<IEnumerable<EventViewModel>> GetAllEvents()
         {
             IEnumerable<Event> events = await _eventRepository.GetAllEvents();
-            return _mapper.Map<IEnumerable<Event>, IEnumerable<EventResource>>(events);
+            return _mapper.Map<IEnumerable<Event>, IEnumerable<EventViewModel>>(events);
         }
 
         // api/event/id
         [HttpGet("{id}")]
-        public async Task<EventResource> GetEvent(int id)
+        public async Task<EventViewModel> GetEvent(int id)
         {
             Event eventParams = await _eventRepository.GetEvent(id);
-            return _mapper.Map<Event, EventResource>(eventParams);
+            return _mapper.Map<Event, EventViewModel>(eventParams);
         }
 
         // api/event/last
@@ -62,7 +62,7 @@ namespace SimCard.APP.Controllers
             }
 
             _eventRepository.Remove(eventPrams);
-            await _unitOfWork.CompleteAsync();
+            await _unitOfWork.SaveChangeAsync();
 
             return Ok(id);
         }
@@ -76,7 +76,7 @@ namespace SimCard.APP.Controllers
                 return BadRequest();
             }
             await _eventRepository.AddEvent(eventParams);
-            await _unitOfWork.CompleteAsync();
+            await _unitOfWork.SaveChangeAsync();
             return StatusCode(201);
         }
 
@@ -89,7 +89,7 @@ namespace SimCard.APP.Controllers
                 return BadRequest();
             }
             await _eventRepository.UpdateEvent(id, eventParams);
-            await _unitOfWork.CompleteAsync();
+            await _unitOfWork.SaveChangeAsync();
             return StatusCode(201);
         }
 
@@ -102,7 +102,7 @@ namespace SimCard.APP.Controllers
                 return BadRequest();
             }
             await _eventRepository.UpdateEventStatus(id, eventParams);
-            await _unitOfWork.CompleteAsync();
+            await _unitOfWork.SaveChangeAsync();
             return StatusCode(201);
         }
     }

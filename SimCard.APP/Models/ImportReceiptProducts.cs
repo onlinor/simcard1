@@ -1,14 +1,15 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace SimCard.APP.Models
 {
     public class ImportReceiptProducts : BaseEntity
     {
-        public string Ten { get; set; }
+        [ForeignKey("ProductId")]
+        public Product Product { get; set; }
 
-        public string Ma { get; set; }
+        public int ProductId { get; set; }
 
-        public int SoLuong { get; set; }
-
-        public decimal MenhGia { get; set; }
+        public int Quantity { get; set; }
 
         public decimal ChietKhau { get; set; }
     }

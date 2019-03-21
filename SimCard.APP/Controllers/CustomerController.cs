@@ -4,10 +4,10 @@ using Microsoft.AspNetCore.Mvc;
 
 using OfficeOpenXml;
 
-using SimCard.APP.Controllers.Resources;
 using SimCard.APP.Models;
 using SimCard.APP.Persistence;
 using SimCard.APP.Persistence.Repositories;
+using SimCard.APP.ViewModels;
 
 using System;
 using System.Collections.Generic;
@@ -33,18 +33,18 @@ namespace SimCard.APP.Controllers
 
         //api/customer
         [HttpGet]
-        public async Task<IEnumerable<CustomerResource>> GetAllCustomers()
+        public async Task<IEnumerable<CustomerViewModel>> GetAllCustomers()
         {
             IEnumerable<Customer> customers = await _customerRepository.GetAllCustomers();
-            return _mapper.Map<IEnumerable<Customer>, IEnumerable<CustomerResource>>(customers);
+            return _mapper.Map<IEnumerable<Customer>, IEnumerable<CustomerViewModel>>(customers);
         }
 
         //api/customer/id
         [HttpGet("{id}")]
-        public async Task<CustomerResource> GetCustomer(int id)
+        public async Task<CustomerViewModel> GetCustomer(int id)
         {
             Customer customer = await _customerRepository.GetCustomer(id);
-            return _mapper.Map<Customer, CustomerResource>(customer);
+            return _mapper.Map<Customer, CustomerViewModel>(customer);
         }
 
         [HttpGet("last")]
@@ -66,7 +66,7 @@ namespace SimCard.APP.Controllers
             }
 
             _customerRepository.Remove(customer);
-            await _unitOfWork.CompleteAsync();
+            await _unitOfWork.SaveChangeAsync();
 
             return Ok(id);
         }
@@ -80,7 +80,7 @@ namespace SimCard.APP.Controllers
                 return BadRequest();
             }
             await _customerRepository.AddCustomer(customer);
-            await _unitOfWork.CompleteAsync();
+            await _unitOfWork.SaveChangeAsync();
             return StatusCode(201);
         }
 
@@ -93,7 +93,7 @@ namespace SimCard.APP.Controllers
                 return BadRequest();
             }
             await _customerRepository.UpdateCustomer(id, customer);
-            await _unitOfWork.CompleteAsync();
+            await _unitOfWork.SaveChangeAsync();
             return StatusCode(201);
         }
 

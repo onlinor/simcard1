@@ -10,7 +10,7 @@ export class FileService extends BaseService {
   }
 
   // file uploading method
-  Upload(viewModel: any): Observable<any> {
-    return this.apiService.post(`${this.BASE_URI}product/import`, viewModel);
+  uploadProductList(file: any): Observable<any> {
+    return this.apiService.post(`${this.BASE_URI}product/uploadProductList`, file);
   }
 }

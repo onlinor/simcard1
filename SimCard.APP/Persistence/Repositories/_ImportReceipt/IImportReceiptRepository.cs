@@ -1,4 +1,5 @@
 using SimCard.APP.Models;
+using SimCard.APP.ViewModels;
 
 using System.Threading.Tasks;
 
@@ -7,6 +8,7 @@ namespace SimCard.APP.Persistence.Repositories
     public interface IImportReceiptRepository
     {
         Task<string> GenerateID();
-        Task<ImportReceipt> AddImportReceipt(ImportReceipt importReceipt);
+
+        Task<ImportReceipt> AddImportReceipt(ImportReceiptViewModel importReceipt);
     }
 }

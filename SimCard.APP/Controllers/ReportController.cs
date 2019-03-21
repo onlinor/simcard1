@@ -2,9 +2,9 @@ using AutoMapper;
 
 using Microsoft.AspNetCore.Mvc;
 
-using SimCard.APP.Controllers.Resources;
 using SimCard.APP.Persistence;
 using SimCard.APP.Persistence.Repositories;
+using SimCard.APP.ViewModels;
 
 using System.Collections.Generic;
 using System.Dynamic;
@@ -28,9 +28,9 @@ namespace SimCard.APP.Controllers
         }
 
         [HttpPost("/api/Report/GetReport")]
-        public async Task<ReportDataResource> GetReport([FromBody] ReportFilterResource filter, int type)
+        public async Task<ReportDataViewModel> GetReport([FromBody] ReportFilterViewModel filter, int type)
         {
-            ReportDataResource result = new ReportDataResource
+            ReportDataViewModel result = new ReportDataViewModel
             {
                 Data = await GetReport(type, filter)
             };
@@ -40,7 +40,7 @@ namespace SimCard.APP.Controllers
             return result;
         }
 
-        private async Task<List<ExpandoObject>> GetReport(int type, ReportFilterResource filter)
+        private async Task<List<ExpandoObject>> GetReport(int type, ReportFilterViewModel filter)
         {
             return await _reportRepository.GetReport(type, filter);
         }

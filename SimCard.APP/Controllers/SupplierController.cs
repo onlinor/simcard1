@@ -52,7 +52,7 @@ namespace SimCard.APP.Controllers
             {
                 Name = wh.Name.ToLower()
             });
-            await _unitOfWork.CompleteAsync();
+            await _unitOfWork.SaveChangeAsync();
 
             return Ok();
         }
@@ -71,7 +71,7 @@ namespace SimCard.APP.Controllers
                 Id = wh.Id,
                 Name = wh.Name.ToLower()
             });
-            await _unitOfWork.CompleteAsync();
+            await _unitOfWork.SaveChangeAsync();
 
             return Ok();
         }
@@ -87,7 +87,7 @@ namespace SimCard.APP.Controllers
             }
 
             _supplierRepository.Remove(supplier);
-            await _unitOfWork.CompleteAsync();
+            await _unitOfWork.SaveChangeAsync();
 
             return Ok();
         }

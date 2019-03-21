@@ -6,11 +6,6 @@ namespace SimCard.APP.Persistence
 {
     public class SimCardDBContext : DbContext
     {
-        public SimCardDBContext(DbContextOptions<SimCardDBContext> options) : base(options)
-        {
-
-        }
-
         public DbSet<Shop> Shops { get; set; }
 
         public DbSet<Product> Products { get; set; }
@@ -34,5 +29,12 @@ namespace SimCard.APP.Persistence
         public DbSet<ImportReceiptProducts> ImportReceiptProducts { get; set; }
 
         public DbSet<ExportReceipt> ExportReceipts { get; set; }
+
+        public DbSet<ExportReceiptProducts> ExportReceiptProducts { get; set; }
+
+        public SimCardDBContext(DbContextOptions<SimCardDBContext> options) : base(options)
+        {
+
+        }
     }
 }

@@ -4,6 +4,6 @@ namespace SimCard.APP.Persistence
 {
     public interface IUnitOfWork
     {
-         Task CompleteAsync();
+        Task<bool> SaveChangeAsync();
     }
 }

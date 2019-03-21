@@ -1,8 +1,8 @@
 using System;
 
-namespace SimCard.APP.Controllers.Resources
+namespace SimCard.APP.ViewModels
 {
-    public class ConfigurationResource
+    public class ConfigurationViewModel
     {
         public int Id { get; set; }
 

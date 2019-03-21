@@ -1,6 +1,16 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { FileService, ProductService, PhieunhapService, SupplierService } from '../../core/services';
-import { Product, ExportType, ImportReceipt, Supplier } from '../../core/models';
+import {
+  FileService,
+  ProductService,
+  PhieunhapService,
+  SupplierService
+} from '../../core/services';
+import {
+  Product,
+  ExportType,
+  ImportReceipt,
+  Supplier
+} from '../../core/models';
 
 @Component({
   selector: 'app-nhaphang',
@@ -8,24 +18,23 @@ import { Product, ExportType, ImportReceipt, Supplier } from '../../core/models'
   styleUrls: ['./nhaphang.component.css']
 })
 export class NhaphangComponent implements OnInit {
-
   @ViewChild('myInput')
   myInputVariable: ElementRef;
 
-  tableProducts: Product[] = [];
+  tableProducts: Array<Product> = [];
 
-  products: Product[];
-  tabviewpro: Product[];
+  products: Array<Product> = [];
+  tabviewpro: Array<Product> = [];
 
-  venders: Supplier[];
+  venders: Array<Supplier> = [];
   selectedVendor: Supplier;
 
   // phieu section
-  totalMoney: number;
-  vatMoney: number;
-  Total: number;
-  Thanhtoan: number;
-  Conlai: number;
+  totalMoney = 0;
+  vatMoney = 0;
+  total = 0;
+  thanhtoan = 0;
+  conlai = 0;
 
   // phieu nhap
   phieunhap: ImportReceipt = new ImportReceipt();
@@ -40,54 +49,28 @@ export class NhaphangComponent implements OnInit {
 
   ngOnInit() {
     this.showProductsResponse();
-    this.getVenders();
+    this.getVendors();
   }
 
-  Save() {
+  save() {
     this.productService.save(this.tableProducts).subscribe(() => {
-    this.showProductsResponse();
-    this.savePhieunhap();
+      this.showProductsResponse();
+      this.savePhieunhap();
 
-    this.tableProducts = [];
+      this.tableProducts = [];
     });
   }
 
-  myUploader(event) {
-    // tslint:disable-next-line:prefer-const
-    let fileList: FileList = event.target.files;
+  uploadProductList(event: any) {
+    const fileList: FileList = event.target.files;
     if (fileList.length > 0) {
-      // tslint:disable-next-line:prefer-const
-      let file: File = fileList[0];
-      // tslint:disable-next-line:prefer-const
-      let formData = new FormData();
+      const file: File = fileList[0];
+      const formData = new FormData();
       formData.append(file.name, file);
 
-      this.fileService.Upload(formData).subscribe(Response => {
-        // tslint:disable-next-line:prefer-const
-        let tempProducts = Object.assign([], this.tableProducts);
-        // tslint:disable-next-line:prefer-const
-        let productstoadd = Object.assign([], Response);
-        let tempPro: Product = new Product();
-
-        productstoadd.forEach(element => {
-          if (this.isProductexist(element.ma, this.tableProducts)) {
-            tempPro = this.tableProducts.find(x => x.ma === element.ma);
-            tempPro.soluongnhap = tempPro.soluongnhap += element.soLuong;
-            tempPro.thanhtien = tempPro.soluongnhap * tempPro.dongia;
-          } else {
-            tempPro.ma = element.ma;
-            tempPro.ten = element.ten;
-            tempPro.soluong = tempPro.soluongnhap = element.soLuong;
-            tempPro.menhgia = element.menhGia;
-            tempPro.chietkhau = element.chietKhau;
-            tempPro.dongia = (tempPro.menhgia / 100) * (100 - tempPro.chietkhau);
-            tempPro.thanhtien = tempPro.soluongnhap * tempPro.dongia;
-            tempProducts.push(tempPro);
-            tempPro = new Product();
-            this.tableProducts = tempProducts;
-            this.updateTotalMoney(this.tableProducts);
-          }
-        });
+      this.fileService.uploadProductList(formData).subscribe((response: Array<Product>) => {
+        this.tableProducts = Object.assign(this.tableProducts, response);
+        this.updateTotalMoney();
       });
     }
     this.reset();
@@ -103,7 +86,7 @@ export class NhaphangComponent implements OnInit {
     });
   }
 
-  handleChange(e) {
+  handleChange(e: any) {
     if (e === 0) {
       this.tabviewpro = this.products;
     } else {
@@ -128,63 +111,32 @@ export class NhaphangComponent implements OnInit {
     }
   }
 
-  rowEditCompleted(event) {
+  onProductTableEditCompleted(event: any) {
+    this.updateTotalMoney();
+  }
+
+  rowEditCompleted(event: any) {
     if (event.data.soluongnhap === 0 || event.data.soluongnhap === null) {
       // I will do something later :)
     } else {
-      let selectedproduct: Product = new Product();
-
-      if (this.isProductexist(event.data.ma, this.tableProducts)) {
-        selectedproduct = this.tableProducts.find(x => x.ma === event.data.ma);
-        selectedproduct.soluongnhap += event.data.soluongnhap;
-        if (selectedproduct.thanhtien) {
-          selectedproduct.thanhtien = selectedproduct.soluongnhap * selectedproduct.dongia;
-        }
-        this.updateTotalMoney(this.tableProducts);
-      } else {
-        const addedProducts = Object.assign([], this.tableProducts);
-        selectedproduct.ma = event.data.ma;
-        selectedproduct.ten = event.data.ten;
-        selectedproduct.menhgia = event.data.menhgia;
-        selectedproduct.soluongnhap = event.data.soluongnhap;
-        selectedproduct.soluong = event.data.soluongnhap;
-        //   (this.pro.denomination * (100 - this.pro.discount)) / 100;
-        // this.pro.total = this.pro.quantity * this.pro.unitprice;
-        // if (tempProducts.find(x => x.name === this.pro.name)) {
-        //   // tslint:disable-next-line:prefer-const
-        //   let item = tempProducts.find(i => i.name === this.pro.name);
-        //   item.quantity = item.quantity + this.pro.quantity;
-        // } else {
-        //   tempProducts.push(this.pro);
-        // }
-        addedProducts.push(selectedproduct);
-        this.tableProducts = addedProducts;
-        this.updateTotalMoney(this.tableProducts);
-      }
+      const selectedProduct = this.tableProducts.find(
+        x => x.ma === event.data.ma
+      );
+      selectedProduct.donGia =
+        (selectedProduct.menhGia * (100 - selectedProduct.chietKhau)) / 100;
+      selectedProduct.thanhTien =
+        selectedProduct.soluongnhap * selectedProduct.donGia;
+        this.updateTotalMoney();
     }
   }
 
-  rowTableCompleted(event) {
-    if (event.data.soluongnhap === 0 || event.data.soluongnhap === null) {
-      // I will do something later :)
-    } else {
-      const selectedProduct = this.tableProducts.find(x => x.ma === event.data.ma);
-      selectedProduct.dongia = selectedProduct.menhgia * (100 - selectedProduct.chietkhau) / 100;
-      selectedProduct.thanhtien = selectedProduct.soluongnhap * selectedProduct.dongia;
-      this.updateTotalMoney(this.tableProducts);
-    }
-  }
-
-  updateTotalMoney(tableProducts: Product[]) {
+  updateTotalMoney() {
     this.totalMoney = 0;
-    // tslint:disable-next-line:forin
-    tableProducts.forEach(element => {
-      if (element.thanhtien) {
-        this.totalMoney += element.thanhtien;
-      }
+    this.tableProducts.forEach(line => {
+      this.totalMoney += line.soLuong * (line.menhGia - line.menhGia * line.chietKhau / 100);
     });
     this.vatMoney = (this.totalMoney * 10) / 100;
-    this.Total = this.totalMoney + this.vatMoney;
+    this.total = this.totalMoney + this.vatMoney;
   }
 
   isProductexist(ma: string, tables: Product[]): Boolean {
@@ -194,25 +146,25 @@ export class NhaphangComponent implements OnInit {
     return false;
   }
 
-  generateID () {
+  generateID() {
     this.phieuhangService.getID().subscribe(resp => {
       this.idphieunhap = resp.id;
     });
   }
 
-  getVenders() {
-    this.venderService.getAll().subscribe( resp => {
-    this.venders = resp;
+  getVendors() {
+    this.venderService.getAll().subscribe(resp => {
+      this.venders = resp;
     });
   }
 
   savePhieunhap() {
     this.phieunhap.prefix = this.idphieunhap.substring(0, 10);
     this.phieunhap.suffix = this.idphieunhap.substr(11);
-    this.phieunhap.Dssanpham = this.tableProducts;
-    this.phieunhap.Tennhacungcap = this.selectedVendor.name;
-    this.phieunhap.Tienthanhtoan = this.Thanhtoan;
-    this.phieunhap.Tienconlai = this.Total - this.Thanhtoan;
-    this.phieuhangService.addPhieunhap(this.phieunhap).subscribe(() => {});
+    this.phieunhap.products = this.tableProducts;
+    this.phieunhap.tennhacungcap = this.selectedVendor.name;
+    this.phieunhap.tienthanhtoan = this.thanhtoan;
+    this.phieunhap.tienconlai = this.total - this.thanhtoan;
+    this.phieuhangService.addPhieunhap(this.phieunhap).subscribe(() => { });
   }
 }

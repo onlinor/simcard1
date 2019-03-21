@@ -7,7 +7,8 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-
+using Newtonsoft.Json.Serialization;
+using SimCard.APP.Mapping;
 using SimCard.APP.Persistence;
 using SimCard.APP.Persistence.Repositories;
 using SimCard.APP.Workers;
@@ -26,6 +27,12 @@ namespace SimCard.APP
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            Mapper.Initialize(cfg =>
+            {
+                cfg.AddProfile<MappingProfile>();
+                cfg.CreateMissingTypeMaps = true;
+            });
+
             services.AddAutoMapper();
             services.AddDbContext<SimCardDBContext>(Options => Options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<IProductRepository, ProductRepository>();
@@ -42,8 +49,8 @@ namespace SimCard.APP
             services.AddScoped<IImportReceiptRepository, ImportReceiptRepository>();
             services.AddScoped<IExportReceiptRepository, ExportReceiptRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddCors();
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddCors();        
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1).AddJsonOptions(options => options.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver()); ;
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -84,9 +91,6 @@ namespace SimCard.APP
 
             app.UseSpa(spa =>
             {
-                // To learn more about options for serving an Angular SPA from ASP.NET Core,
-                // see https://go.microsoft.com/fwlink/?linkid=864501
-
                 spa.Options.SourcePath = "ClientApp";
 
                 if (env.IsDevelopment())

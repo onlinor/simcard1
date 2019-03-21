@@ -1,7 +1,8 @@
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 
 using SimCard.APP.Models;
-
+using SimCard.APP.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,10 +19,11 @@ namespace SimCard.APP.Persistence.Repositories
             _context = context;
         }
 
-        public async Task<ImportReceipt> AddImportReceipt(ImportReceipt importReceipt)
+        public async Task<ImportReceipt> AddImportReceipt(ImportReceiptViewModel importReceiptViewModel)
         {
-            if (importReceipt != null)
+            if (importReceiptViewModel != null)
             {
+                var importReceipt = Mapper.Map<ImportReceipt>(importReceiptViewModel);
                 await _context.AddAsync(importReceipt);
                 await _context.SaveChangesAsync();
                 return importReceipt;

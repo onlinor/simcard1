@@ -1,16 +1,16 @@
 import { Product } from './product.model';
 
 export class ImportReceipt {
-    prefix: string;
-    suffix: string;
-    dateCreated: Date;
-    Nhanvienlap: string;
-    Tennhacungcap: string;
-    Congnocu: number;
-    Nguoidaidien: string;
-    Sodienthoai: number;
-    Dssanpham: Product[];
-    Ghichu: string;
-    Tienthanhtoan: number;
-    Tienconlai: number;
+  prefix: string;
+  suffix: string;
+  dateCreated: Date;
+  nhanvienlap: string;
+  tennhacungcap: string;
+  congnocu: number;
+  nguoidaidien: string;
+  sodienthoai: number;
+  products: Product[];
+  ghichu: string;
+  tienthanhtoan: number;
+  tienconlai: number;
 }

@@ -1,8 +1,8 @@
 using System;
 
-namespace SimCard.APP.Controllers.Resources
+namespace SimCard.APP.ViewModels
 {
-    public class BankbookResource
+    public class BankbookViewModel
     {
         public int Id { get; set; }
 
