@@ -3,7 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using SimCard.API.Persistence;
+using SimCard.APP.Persistence;
 
 namespace SimCard.APP.Migrations
 {
@@ -16,12 +16,16 @@ namespace SimCard.APP.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.1.8-servicing-32085");
 
-            modelBuilder.Entity("SimCard.API.Models.Bankbook", b =>
+            modelBuilder.Entity("SimCard.APP.Models.Bankbook", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("CongDon");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<DateTime?>("DateModified");
 
                     b.Property<string>("DonViNhan")
                         .HasMaxLength(255);
@@ -45,8 +49,6 @@ namespace SimCard.APP.Migrations
 
                     b.Property<string>("MaPhieu")
                         .HasMaxLength(255);
-
-                    b.Property<DateTime>("NgayLap");
 
                     b.Property<string>("NguoiChi")
                         .HasMaxLength(255);
@@ -69,12 +71,16 @@ namespace SimCard.APP.Migrations
                     b.ToTable("Bankbook");
                 });
 
-            modelBuilder.Entity("SimCard.API.Models.Cashbook", b =>
+            modelBuilder.Entity("SimCard.APP.Models.Cashbook", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("CongDon");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<DateTime?>("DateModified");
 
                     b.Property<string>("DonViNhan")
                         .HasMaxLength(255);
@@ -99,8 +105,6 @@ namespace SimCard.APP.Migrations
                     b.Property<string>("MaPhieu")
                         .HasMaxLength(255);
 
-                    b.Property<DateTime?>("NgayLap");
-
                     b.Property<string>("NguoiChi")
                         .HasMaxLength(255);
 
@@ -122,10 +126,14 @@ namespace SimCard.APP.Migrations
                     b.ToTable("Cashbook");
                 });
 
-            modelBuilder.Entity("SimCard.API.Models.Configuration", b =>
+            modelBuilder.Entity("SimCard.APP.Models.Configuration", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<DateTime?>("DateModified");
 
                     b.Property<string>("GhiChu")
                         .HasMaxLength(255);
@@ -136,8 +144,6 @@ namespace SimCard.APP.Migrations
 
                     b.Property<string>("MaCH")
                         .HasMaxLength(255);
-
-                    b.Property<DateTime>("NgayTao");
 
                     b.Property<string>("ShopID")
                         .IsRequired()
@@ -151,10 +157,14 @@ namespace SimCard.APP.Migrations
                     b.ToTable("Configurations");
                 });
 
-            modelBuilder.Entity("SimCard.API.Models.Customer", b =>
+            modelBuilder.Entity("SimCard.APP.Models.Customer", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<DateTime?>("DateModified");
 
                     b.Property<string>("DiachiCH")
                         .HasMaxLength(255);
@@ -213,10 +223,14 @@ namespace SimCard.APP.Migrations
                     b.ToTable("Customers");
                 });
 
-            modelBuilder.Entity("SimCard.API.Models.Event", b =>
+            modelBuilder.Entity("SimCard.APP.Models.Event", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<DateTime?>("DateModified");
 
                     b.Property<string>("DoiTuong")
                         .HasMaxLength(255);
@@ -231,8 +245,6 @@ namespace SimCard.APP.Migrations
                         .HasMaxLength(255);
 
                     b.Property<string>("MaSK");
-
-                    b.Property<DateTime>("NgayTao");
 
                     b.Property<string>("NoiDung")
                         .HasMaxLength(255);
@@ -250,16 +262,22 @@ namespace SimCard.APP.Migrations
                     b.ToTable("Events");
                 });
 
-            modelBuilder.Entity("SimCard.API.Models.ExportReceipt", b =>
+            modelBuilder.Entity("SimCard.APP.Models.ExportReceipt", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("CreateByStaff");
 
-                    b.Property<DateTime>("CreateDate");
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<DateTime?>("DateModified");
 
                     b.Property<decimal>("Debt");
+
+                    b.Property<int?>("ExportToCustomerId");
+
+                    b.Property<int?>("ExportToShopId");
 
                     b.Property<decimal>("MoneyPaid");
 
@@ -269,53 +287,126 @@ namespace SimCard.APP.Migrations
 
                     b.Property<int>("PhoneNumber");
 
-                    b.Property<string>("Prefixid");
+                    b.Property<string>("Prefix");
 
                     b.Property<string>("RepresentativePerson");
 
-                    b.Property<string>("Shopid");
+                    b.Property<int>("ShopId");
 
-                    b.Property<int>("Suffixid");
+                    b.Property<int>("Suffix");
 
-                    b.Property<string>("SupplierName");
+                    b.HasKey("Id");
 
-                    b.HasKey("ID");
+                    b.HasIndex("ExportToCustomerId");
 
-                    b.ToTable("Export Receipt");
+                    b.HasIndex("ExportToShopId");
+
+                    b.HasIndex("ShopId");
+
+                    b.ToTable("ExportReceipts");
                 });
 
-            modelBuilder.Entity("SimCard.API.Models.ImportReceipt", b =>
+            modelBuilder.Entity("SimCard.APP.Models.ExportReceiptProducts", b =>
                 {
-                    b.Property<string>("Prefixid");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
 
-                    b.Property<int>("Suffixid");
+                    b.Property<decimal>("ChietKhau");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<DateTime?>("DateModified");
+
+                    b.Property<int?>("ExportReceiptId");
+
+                    b.Property<int>("ProductId");
+
+                    b.Property<int>("Quantity");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ExportReceiptId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ExportReceiptProducts");
+                });
+
+            modelBuilder.Entity("SimCard.APP.Models.ImportReceipt", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<decimal>("Congnocu");
 
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<DateTime?>("DateModified");
+
                     b.Property<string>("Ghichu");
 
-                    b.Property<DateTime>("Ngaylap");
+                    b.Property<int?>("ImportFromShopId");
+
+                    b.Property<int?>("ImportFromSupplierId");
 
                     b.Property<string>("Nguoidaidien");
 
                     b.Property<string>("Nhanvienlap");
 
+                    b.Property<string>("Prefix");
+
+                    b.Property<int>("ShopId");
+
                     b.Property<int>("Sodienthoai");
 
-                    b.Property<string>("Tennhacungcap");
+                    b.Property<int>("Suffix");
 
                     b.Property<decimal>("Tienconlai");
 
                     b.Property<decimal>("Tienthanhtoan");
 
-                    b.HasKey("Prefixid", "Suffixid");
+                    b.HasKey("Id");
 
-                    b.ToTable("Import Receipt");
+                    b.HasIndex("ImportFromShopId");
+
+                    b.HasIndex("ImportFromSupplierId");
+
+                    b.HasIndex("ShopId");
+
+                    b.ToTable("ImportReceipts");
                 });
 
-            modelBuilder.Entity("SimCard.API.Models.Network", b =>
+            modelBuilder.Entity("SimCard.APP.Models.ImportReceiptProducts", b =>
                 {
-                    b.Property<string>("Ma")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<decimal>("ChietKhau");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<DateTime?>("DateModified");
+
+                    b.Property<int?>("ImportReceiptId");
+
+                    b.Property<string>("Ma");
+
+                    b.Property<decimal>("MenhGia");
+
+                    b.Property<int>("SoLuong");
+
+                    b.Property<string>("Ten");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ImportReceiptId");
+
+                    b.ToTable("ImportReceiptProducts");
+                });
+
+            modelBuilder.Entity("SimCard.APP.Models.Network", b =>
+                {
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<float>("Buocnhay");
@@ -323,6 +414,10 @@ namespace SimCard.APP.Migrations
                     b.Property<float>("Chietkhaucaonhat");
 
                     b.Property<float>("Chietkhaudauvao");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<DateTime?>("DateModified");
 
                     b.Property<string>("Khungtien_1");
 
@@ -344,19 +439,21 @@ namespace SimCard.APP.Migrations
                         .IsRequired()
                         .HasMaxLength(255);
 
-                    b.HasKey("Ma");
+                    b.HasKey("Id");
 
-                    b.ToTable("Network");
+                    b.ToTable("Networks");
                 });
 
-            modelBuilder.Entity("SimCard.API.Models.Product", b =>
+            modelBuilder.Entity("SimCard.APP.Models.Product", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("ImportReceiptPrefixid");
+                    b.Property<decimal>("BuyingPrice");
 
-                    b.Property<int?>("ImportReceiptSuffixid");
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<DateTime?>("DateModified");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -364,46 +461,127 @@ namespace SimCard.APP.Migrations
 
                     b.Property<int>("Quantity");
 
+                    b.Property<int?>("ShopId");
+
+                    b.Property<int>("SupplierId");
+
                     b.Property<int>("Unit");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ImportReceiptPrefixid", "ImportReceiptSuffixid");
+                    b.HasIndex("ShopId");
 
-                    b.ToTable("Product");
+                    b.HasIndex("SupplierId");
+
+                    b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("SimCard.API.Models.Shop", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<bool>("IsTopShop");
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Shop");
-                });
-
-            modelBuilder.Entity("SimCard.API.Models.Supplier", b =>
+            modelBuilder.Entity("SimCard.APP.Models.Shop", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<DateTime?>("DateModified");
+
+                    b.Property<string>("Name");
+
+                    b.Property<int?>("ParentId");
+
+                    b.Property<int?>("ShopId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ShopId");
+
+                    b.ToTable("Shops");
+                });
+
+            modelBuilder.Entity("SimCard.APP.Models.Supplier", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<DateTime?>("DateModified");
+
                     b.Property<string>("Name");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Supplier");
+                    b.ToTable("Suppliers");
                 });
 
-            modelBuilder.Entity("SimCard.API.Models.Product", b =>
+            modelBuilder.Entity("SimCard.APP.Models.ExportReceipt", b =>
                 {
-                    b.HasOne("SimCard.API.Models.ImportReceipt")
-                        .WithMany("Dssanpham")
-                        .HasForeignKey("ImportReceiptPrefixid", "ImportReceiptSuffixid");
+                    b.HasOne("SimCard.APP.Models.Customer", "ExportToCustomer")
+                        .WithMany()
+                        .HasForeignKey("ExportToCustomerId");
+
+                    b.HasOne("SimCard.APP.Models.Customer", "ExportToShop")
+                        .WithMany()
+                        .HasForeignKey("ExportToShopId");
+
+                    b.HasOne("SimCard.APP.Models.Shop", "Shop")
+                        .WithMany()
+                        .HasForeignKey("ShopId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("SimCard.APP.Models.ExportReceiptProducts", b =>
+                {
+                    b.HasOne("SimCard.APP.Models.ExportReceipt")
+                        .WithMany("Products")
+                        .HasForeignKey("ExportReceiptId");
+
+                    b.HasOne("SimCard.APP.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("SimCard.APP.Models.ImportReceipt", b =>
+                {
+                    b.HasOne("SimCard.APP.Models.Shop", "ImportFromShop")
+                        .WithMany()
+                        .HasForeignKey("ImportFromShopId");
+
+                    b.HasOne("SimCard.APP.Models.Supplier", "ImportFromSupplier")
+                        .WithMany()
+                        .HasForeignKey("ImportFromSupplierId");
+
+                    b.HasOne("SimCard.APP.Models.Shop", "Shop")
+                        .WithMany()
+                        .HasForeignKey("ShopId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("SimCard.APP.Models.ImportReceiptProducts", b =>
+                {
+                    b.HasOne("SimCard.APP.Models.ImportReceipt")
+                        .WithMany("Products")
+                        .HasForeignKey("ImportReceiptId");
+                });
+
+            modelBuilder.Entity("SimCard.APP.Models.Product", b =>
+                {
+                    b.HasOne("SimCard.APP.Models.Shop", "Shop")
+                        .WithMany("Products")
+                        .HasForeignKey("ShopId");
+
+                    b.HasOne("SimCard.APP.Models.Supplier", "Supplier")
+                        .WithMany("Products")
+                        .HasForeignKey("SupplierId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("SimCard.APP.Models.Shop", b =>
+                {
+                    b.HasOne("SimCard.APP.Models.Shop", "Parent")
+                        .WithMany("Childrens")
+                        .HasForeignKey("ShopId");
                 });
 #pragma warning restore 612, 618
         }

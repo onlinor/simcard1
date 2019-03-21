@@ -1,6 +1,6 @@
 using System;
 
-namespace SimCard.API.Controllers.Resources
+namespace SimCard.APP.Controllers.Resources
 {
     public class ReportFilterResource
     {

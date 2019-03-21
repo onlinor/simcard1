@@ -2,15 +2,15 @@ using AutoMapper;
 
 using Microsoft.AspNetCore.Mvc;
 
-using SimCard.API.Controllers.Resources;
-using SimCard.API.Models;
-using SimCard.API.Persistence;
-using SimCard.API.Persistence.Repositories;
+using SimCard.APP.Controllers.Resources;
+using SimCard.APP.Models;
+using SimCard.APP.Persistence;
+using SimCard.APP.Persistence.Repositories;
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SimCard.API.Controllers
+namespace SimCard.APP.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

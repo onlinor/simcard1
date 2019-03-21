@@ -4,17 +4,17 @@ using Microsoft.AspNetCore.Mvc;
 
 using OfficeOpenXml;
 
-using SimCard.API.Controllers.Resources;
-using SimCard.API.Models;
-using SimCard.API.Persistence;
-using SimCard.API.Persistence.Repositories;
+using SimCard.APP.Controllers.Resources;
+using SimCard.APP.Models;
+using SimCard.APP.Persistence;
+using SimCard.APP.Persistence.Repositories;
 
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace SimCard.API.Controllers
+namespace SimCard.APP.Controllers
 {
     [ApiController]
     public class ProductController : Controller
@@ -39,7 +39,7 @@ namespace SimCard.API.Controllers
             {
                 productResources.Add(new ProductResource
                 {
-                    Ma = item.Id,
+                    Id = item.Id,
                     Ten = item.Name,
                     Soluong = item.Quantity,
                     Menhgia = item.Unit
@@ -63,7 +63,7 @@ namespace SimCard.API.Controllers
             {
                 await _productRepository.AddProducts(new Product
                 {
-                    Id = item.Ma,
+                    Id = item.Id,
                     Name = item.Ten,
                     Quantity = item.Soluong,
                     Unit = item.Menhgia
@@ -75,7 +75,7 @@ namespace SimCard.API.Controllers
 
 
         [HttpPost("/api/product/import")]
-        public List<ImportProduct> ImportProduct()
+        public List<ImportReceiptProducts> ImportProduct()
         {
             Microsoft.AspNetCore.Http.IFormFile fileUploaded = Request.Form.Files[0];
             using (MemoryStream ms = new MemoryStream())
@@ -85,13 +85,13 @@ namespace SimCard.API.Controllers
                 {
                     using (ExcelPackage package = new ExcelPackage(ms))
                     {
-                        List<ImportProduct> importProductList = new List<ImportProduct>();
+                        List<ImportReceiptProducts> importProductList = new List<ImportReceiptProducts>();
 
                         ExcelWorksheet worksheet = package.Workbook.Worksheets[0];
                         int rowCount = worksheet.Dimension.Rows;
                         for (int row = 2; row <= rowCount; row++)
                         {
-                            ImportProduct importProduct = new ImportProduct
+                            ImportReceiptProducts importProduct = new ImportReceiptProducts
                             {
                                 Ten = worksheet.Cells[row, 1].Value.ToString(),
                                 Ma = worksheet.Cells[row, 2].Value.ToString(),

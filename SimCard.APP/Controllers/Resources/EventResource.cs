@@ -1,6 +1,6 @@
 using System;
 
-namespace SimCard.API.Controllers.Resources
+namespace SimCard.APP.Controllers.Resources
 {
     public class EventResource
     {
@@ -14,7 +14,7 @@ namespace SimCard.API.Controllers.Resources
 
         public string NoiDung { get; set; }
 
-        public DateTime NgayTao { get; set; }
+        public DateTime DateCreated { get; set; }
 
         public DateTime TgBatDau { get; set; }
 
@@ -24,8 +24,8 @@ namespace SimCard.API.Controllers.Resources
 
         public Boolean EventStatus { get; set; }
 
-        public Boolean isNewEvent { get; set; }
+        public Boolean IsNewEvent { get; set; }
 
-        public Boolean isCompleteEvent { get; set; }
+        public Boolean IsCompleteEvent { get; set; }
     }
 }

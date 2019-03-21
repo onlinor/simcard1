@@ -1,11 +1,14 @@
 using Microsoft.EntityFrameworkCore;
 
-using SimCard.API.Models;
+using SimCard.APP.Models;
 
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace SimCard.API.Persistence.Repositories
+namespace SimCard.APP.Persistence.Repositories
 {
     public class ProductRepository : IProductRepository
     {
@@ -20,11 +23,11 @@ namespace SimCard.API.Persistence.Repositories
         {
             if (await IsProductExists(pr))
             {
-                Product productToAdd = await _context.Products.FirstAsync(x => x.Name.ToLower() == pr.Name.ToLower());
+                Product product = await _context.Products.FirstAsync(x => x.Name.ToLower() == pr.Name.ToLower());
                 // ProductToAdd.Quantity = ProductToAdd.Quantity + pr.Quantity;
 
-                _context.Products.Update(productToAdd);
-                return productToAdd;
+                _context.Products.Update(product);
+                return product;
             }
 
             await _context.Products.AddAsync(pr);
@@ -32,7 +35,7 @@ namespace SimCard.API.Persistence.Repositories
             return pr;
         }
 
-        public async Task<Product> GetProduct(int id, bool includeRelated = true)
+        public async Task<Product> GetProduct(int id)
         {
             return await _context.Products.FindAsync(id);
         }
@@ -60,6 +63,11 @@ namespace SimCard.API.Persistence.Repositories
         public void UpdateProduct(Product pr)
         {
             throw new System.NotImplementedException();
+        }
+
+        public IQueryable<Product> Query(Expression<Func<Product, bool>> predicate)
+        {
+            return _context.Products.Where(predicate);
         }
     }
 }

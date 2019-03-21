@@ -17,14 +17,14 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
         maCH: '',
         tenCH: '',
         giaTri: '',
-        ngayTao: '',
+        dateCreated: '',
         ghiChu: ''
     };
     cols = [
         { header: 'Mã Cấu Hình', field: 'maCH'},
         { header: 'Tên Cấu Hình', field: 'tenCH'},
         { header: 'Giá Trị', field: 'giaTri'},
-        { header: 'Ngày Tạo', field: 'ngayTao'},
+        { header: 'Ngày Tạo', field: 'dateCreated'},
         { header: 'Ghi Chú', field: 'ghiChu'}
     ];
     constructor(

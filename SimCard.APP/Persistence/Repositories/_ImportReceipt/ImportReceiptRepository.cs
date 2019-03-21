@@ -1,15 +1,15 @@
 using Microsoft.EntityFrameworkCore;
 
-using SimCard.API.Models;
+using SimCard.APP.Models;
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SimCard.API.Persistence.Repositories
+namespace SimCard.APP.Persistence.Repositories
 {
-    public class ImportReceiptRepository : IImportReceiptsRepository
+    public class ImportReceiptRepository : IImportReceiptRepository
     {
         private readonly SimCardDBContext _context;
 
@@ -33,13 +33,13 @@ namespace SimCard.API.Persistence.Repositories
         {
             string currentDate = DateTime.UtcNow.Date.ToString("yyyy-MM-dd").Replace("-", "");
             // No data for new day
-            List<ImportReceipt> existingPNs = await _context.ImportReceipts.Where(x => x.Prefixid.Replace("PN", "") == currentDate).ToListAsync();
+            List<ImportReceipt> existingPNs = await _context.ImportReceipts.Where(x => x.Prefix.Replace("PN", "") == currentDate).ToListAsync();
             if (existingPNs.Count() == 0)
             {
                 return ("PN" + currentDate + ".1");
             }
             // Already Data in DB, genereated new suffix
-            int newSuffix = existingPNs.Max(x => x.Suffixid) + 1;
+            int newSuffix = existingPNs.Max(x => x.Suffix) + 1;
             return ("PN" + currentDate + "." + newSuffix);
         }
     }

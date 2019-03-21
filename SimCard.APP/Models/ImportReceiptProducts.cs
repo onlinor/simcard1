@@ -1,6 +1,6 @@
-namespace SimCard.API.Models
+namespace SimCard.APP.Models
 {
-    public class ImportProduct
+    public class ImportReceiptProducts : BaseEntity
     {
         public string Ten { get; set; }
 

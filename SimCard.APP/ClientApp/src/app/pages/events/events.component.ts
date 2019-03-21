@@ -39,7 +39,7 @@ export class EventsComponent implements OnInit, OnDestroy {
         tenSK: '',
         noiDung: '',
         doiTuong: '',
-        ngayTao: new Date().toLocaleDateString(),
+        dateCreated: new Date().toLocaleDateString(),
         tgBatDau: null,
         tgKetThuc: null,
         eventStatus: null,
@@ -51,7 +51,7 @@ export class EventsComponent implements OnInit, OnDestroy {
         { header: 'Mã Sự Kiện', field: 'maSK' },
         { header: 'Tên Sự Kiện', field: 'tenSK' },
         { header: 'Nội Dung', field: 'noiDung' },
-        { header: 'Ngày Tạo', field: 'ngayTao' },
+        { header: 'Ngày Tạo', field: 'dateCreated' },
         { header: 'Thời Gian Bắt Đầu', field: 'tgBatDau' },
         { header: 'Thời Gian Kết Thúc', field: 'tgKetThuc' },
         { header: 'Đối Tượng', field: 'doiTuong' },
@@ -119,7 +119,7 @@ export class EventsComponent implements OnInit, OnDestroy {
 
     // generate ngayTao
     onGenerateNgayTao() {
-        this.eventUpdate.ngayTao = new Date().toLocaleDateString();
+      this.eventUpdate.dateCreated = new Date().toLocaleDateString();
     }
 
     // generate maSK
@@ -217,7 +217,7 @@ export class EventsComponent implements OnInit, OnDestroy {
 
     // Validation for ngayTao, ngayDen, ngayKetThuc
     CompareDate() {
-        const ngayTao = new Date(this.eventUpdate.ngayTao);
+        const ngayTao = new Date(this.eventUpdate.dateCreated);
         const ngayBatDau = new Date(this.eventUpdate.tgBatDau);
         const ngayKetThuc = new Date(this.eventUpdate.tgKetThuc);
         if (ngayBatDau) {

@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-using SimCard.API.Models;
+using SimCard.APP.Models;
 
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace SimCard.API.Persistence.Repositories
+namespace SimCard.APP.Persistence.Repositories
 {
     public class CashbookRepository : ICashbookRepository
     {
@@ -65,7 +65,7 @@ namespace SimCard.API.Persistence.Repositories
             Cashbook cashbookToUpdate = _context.Cashbook.Find(id);
             if (cashbookParams != null)
             {
-                cashbookToUpdate.NgayLap = cashbookParams.NgayLap;
+                cashbookToUpdate.DateCreated = cashbookParams.DateCreated;
                 cashbookToUpdate.TenKhachHang = cashbookParams.TenKhachHang;
                 cashbookToUpdate.MaKhachHang = cashbookParams.MaKhachHang;
                 cashbookToUpdate.MaPhieu = cashbookParams.MaPhieu;

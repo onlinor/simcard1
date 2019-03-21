@@ -4,17 +4,17 @@ using Microsoft.AspNetCore.Mvc;
 
 using OfficeOpenXml;
 
-using SimCard.API.Controllers.Resources;
-using SimCard.API.Models;
-using SimCard.API.Persistence;
-using SimCard.API.Persistence.Repositories;
+using SimCard.APP.Controllers.Resources;
+using SimCard.APP.Models;
+using SimCard.APP.Persistence;
+using SimCard.APP.Persistence.Repositories;
 
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace SimCard.API.Controllers
+namespace SimCard.APP.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

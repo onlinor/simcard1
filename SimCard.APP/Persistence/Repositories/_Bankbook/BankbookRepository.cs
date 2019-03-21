@@ -1,11 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 
-using SimCard.API.Models;
+using SimCard.APP.Models;
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SimCard.API.Persistence.Repositories
+namespace SimCard.APP.Persistence.Repositories
 {
     public class BankbookRepository : IBankbookRepository
     {
@@ -58,7 +58,7 @@ namespace SimCard.API.Persistence.Repositories
             Bankbook bankbookToUpdate = _context.Bankbook.Find(id);
             if (bankbookParams != null)
             {
-                bankbookToUpdate.NgayLap = bankbookParams.NgayLap;
+                bankbookToUpdate.DateCreated = bankbookParams.DateCreated;
                 bankbookToUpdate.TenKhachHang = bankbookParams.TenKhachHang;
                 bankbookToUpdate.MaKhachHang = bankbookParams.MaKhachHang;
                 bankbookToUpdate.MaPhieu = bankbookParams.MaPhieu;

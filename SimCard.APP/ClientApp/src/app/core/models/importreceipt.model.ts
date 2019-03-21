@@ -1,9 +1,9 @@
 import { Product } from './product.model';
 
 export class ImportReceipt {
-    Prefixid: string;
-    Suffixid: string;
-    Ngaylap: Date;
+    prefix: string;
+    suffix: string;
+    dateCreated: Date;
     Nhanvienlap: string;
     Tennhacungcap: string;
     Congnocu: number;

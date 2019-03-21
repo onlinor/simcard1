@@ -4,7 +4,7 @@ export class Event {
     MaSK: string;
     TenSK: string;
     NoiDung: string;
-    NgayTao: Date;
+    DateCreated: Date;
     TgBatDau: Date;
     TgKetThuc: Date;
     DoiTuong: string;

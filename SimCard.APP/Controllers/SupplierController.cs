@@ -2,14 +2,14 @@ using AutoMapper;
 
 using Microsoft.AspNetCore.Mvc;
 
-using SimCard.API.Models;
-using SimCard.API.Persistence;
-using SimCard.API.Persistence.Repositories;
+using SimCard.APP.Models;
+using SimCard.APP.Persistence;
+using SimCard.APP.Persistence.Repositories;
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SimCard.API.Controllers
+namespace SimCard.APP.Controllers
 {
     [ApiController]
     public class SupplierController : Controller
@@ -35,7 +35,7 @@ namespace SimCard.API.Controllers
         [HttpGet("/api/Supplier/{id}")]
         public async Task<Supplier> GetSupplier(int id)
         {
-            var supplier = await _supplierRepository.GetSupplier(id, true);
+            var supplier = await _supplierRepository.GetSupplier(id);
             return supplier;
         }
 
@@ -79,7 +79,7 @@ namespace SimCard.API.Controllers
         [HttpDelete("/api/Supplier/remove/{id}")]
         public async Task<IActionResult> RemoveSupplier(int id)
         {
-            var supplier = await _supplierRepository.GetSupplier(id, true);
+            var supplier = await _supplierRepository.GetSupplier(id);
 
             if (supplier == null)
             {

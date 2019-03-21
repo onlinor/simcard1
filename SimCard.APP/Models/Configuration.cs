@@ -1,12 +1,9 @@
-using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace SimCard.API.Models
+namespace SimCard.APP.Models
 {
-    public class Configuration
+    public class Configuration : BaseEntity
     {
-        public int Id { get; set; }
-
         [StringLength(255)]
         public string MaCH { get; set; }
 
@@ -16,8 +13,6 @@ namespace SimCard.API.Models
         [StringLength(255)]
         [Required]
         public string GiaTri { get; set; }
-
-        public DateTime NgayTao { get; set; }
 
         [StringLength(255)]
         public string GhiChu { get; set; }

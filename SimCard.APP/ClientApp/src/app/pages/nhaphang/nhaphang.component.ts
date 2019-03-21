@@ -18,7 +18,7 @@ export class NhaphangComponent implements OnInit {
   tabviewpro: Product[];
 
   venders: Supplier[];
-  selectedVender: Supplier;
+  selectedVendor: Supplier;
 
   // phieu section
   totalMoney: number;
@@ -207,10 +207,10 @@ export class NhaphangComponent implements OnInit {
   }
 
   savePhieunhap() {
-    this.phieunhap.Prefixid = this.idphieunhap.substring(0, 10);
-    this.phieunhap.Suffixid = this.idphieunhap.substr(11);
+    this.phieunhap.prefix = this.idphieunhap.substring(0, 10);
+    this.phieunhap.suffix = this.idphieunhap.substr(11);
     this.phieunhap.Dssanpham = this.tableProducts;
-    this.phieunhap.Tennhacungcap = this.selectedVender.name;
+    this.phieunhap.Tennhacungcap = this.selectedVendor.name;
     this.phieunhap.Tienthanhtoan = this.Thanhtoan;
     this.phieunhap.Tienconlai = this.Total - this.Thanhtoan;
     this.phieuhangService.addPhieunhap(this.phieunhap).subscribe(() => {});

@@ -1,14 +1,19 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SimCard.API.Models
+namespace SimCard.APP.Models
 {
-    [Table("Shop")]
-    public class Shop
+    public class Shop : BaseEntity
     {
-        [Key]
-        public string Id { get; set; }
         public string Name { get; set; }
-        public bool IsTopShop { get; set; }
+
+        public List<Shop> Childrens { get; set; }
+
+        [ForeignKey("ShopId")]
+        public Shop Parent { get; set; }
+
+        public int? ParentId { get; set; }
+
+        public List<Product> Products { get; set; }
     }
 }

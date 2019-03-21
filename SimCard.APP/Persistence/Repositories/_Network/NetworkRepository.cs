@@ -1,11 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 
-using SimCard.API.Models;
+using SimCard.APP.Models;
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SimCard.API.Persistence.Repositories
+namespace SimCard.APP.Persistence.Repositories
 {
     public class NetworkRepository : INetworkRepository
     {
@@ -33,7 +33,7 @@ namespace SimCard.API.Persistence.Repositories
 
         public async Task<bool> IsNetworkExists(Network Nw)
         {
-            if (await _context.Networks.AnyAsync(x => x.Ma == Nw.Ma))
+            if (await _context.Networks.AnyAsync(x => x.Id == Nw.Id))
             {
                 return true;
             }

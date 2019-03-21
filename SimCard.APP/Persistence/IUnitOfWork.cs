@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace SimCard.API.Persistence
+namespace SimCard.APP.Persistence
 {
     public interface IUnitOfWork
     {

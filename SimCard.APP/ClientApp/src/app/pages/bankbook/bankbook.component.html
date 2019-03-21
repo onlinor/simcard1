@@ -82,7 +82,7 @@
             </ng-template>
             <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
                 <tr [pSelectableRow]="rowData">
-                    <td>{{rowData.ngayLap | date: "dd/MM/yyyy"}}</td>
+                    <td>{{rowData.dateCreated | date: "dd/MM/yyyy"}}</td>
                     <td>{{rowData.tenKhachHang}}</td>
                     <td>{{rowData.maPhieu}}</td>
                     <td>{{rowData.noiDungPhieu}}</td>

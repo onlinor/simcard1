@@ -1,27 +1,44 @@
 using System;
 
-namespace SimCard.API.Controllers.Resources
+namespace SimCard.APP.Controllers.Resources
 {
     public class CustomerResource
     {
         public int Id { get; set; }
-        public string tenCH { get; set; }
-        public string diachiCH { get; set; }
-        public string hoTen { get; set; }
-        public string sdt1 { get; set; }
-        public string sdt2 { get; set; }
-        public string maKH { get; set; }
-        public string matheTV { get; set; }
-        public string tenCongTy { get; set; }
-        public string masoThue { get; set; }
-        public string diachiHoaDon { get; set; }
-        public string nguonDen { get; set; }
-        public string ngGioiThieu { get; set; }
-        public string email { get; set; }
-        public string fb { get; set; }
-        public string zalo { get; set; }
-        public DateTime ngayDen { get; set; }
-        public DateTime ngaySinh { get; set; }
-        public Boolean gioiTinh { get; set; }
+        public string TenCH { get; set; }
+
+        public string DiachiCH { get; set; }
+
+        public string HoTen { get; set; }
+
+        public string Sdt1 { get; set; }
+
+        public string Sdt2 { get; set; }
+
+        public string MaKH { get; set; }
+
+        public string MatheTV { get; set; }
+
+        public string TenCongTy { get; set; }
+
+        public string MasoThue { get; set; }
+
+        public string DiachiHoaDon { get; set; }
+
+        public string NguonDen { get; set; }
+
+        public string NgGioiThieu { get; set; }
+
+        public string Email { get; set; }
+
+        public string Fb { get; set; }
+
+        public string Zalo { get; set; }
+
+        public DateTime NgayDen { get; set; }
+
+        public DateTime NgaySinh { get; set; }
+
+        public bool GioiTinh { get; set; }
     }
 }

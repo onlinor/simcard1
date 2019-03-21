@@ -1,10 +1,11 @@
-using SimCard.API.Controllers.Resources;
+using Microsoft.EntityFrameworkCore;
+using SimCard.APP.Controllers.Resources;
 
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Threading.Tasks;
 
-namespace SimCard.API.Persistence.Repositories
+namespace SimCard.APP.Persistence.Repositories
 {
     public class ReportRepository : IReportRepository
     {
@@ -278,7 +279,12 @@ namespace SimCard.API.Persistence.Repositories
 
         private async Task<ExpandoObject> GetFilterData_NhapHangTheoNhaCungCap()
         {
-            throw new System.NotImplementedException();
+            dynamic result = new ExpandoObject();
+            var products = await _productRepository.Query(p => p.ShopId != null).ToListAsync();
+            var shops = await _shopRepository.Query(s => true).ToListAsync();
+            result.products = products;
+            result.shops = shops;
+            return result;
         }
 
         private async Task<ExpandoObject> GetFilterData_TongHopChiPhiHoatDongKinhDoanh()
@@ -308,12 +314,22 @@ namespace SimCard.API.Persistence.Repositories
 
         private async Task<ExpandoObject> GetFilterData_TongHopXuatHangVaLoiNhuanTheoMatHang()
         {
-            throw new System.NotImplementedException();
+            dynamic result = new ExpandoObject();
+            var products = await _productRepository.Query(p => true).ToListAsync();
+            var shops = await _shopRepository.Query(s => true).ToListAsync();
+            result.products = products;
+            result.shops = shops;
+            return result;
         }
 
         private async Task<ExpandoObject> GetFilterData_XuatNhapTonTongHop()
         {
-            throw new System.NotImplementedException();
+            dynamic result = new ExpandoObject();
+            var products = await _productRepository.Query(p => true).ToListAsync();
+            var shops = await _shopRepository.Query(s => true).ToListAsync();
+            result.products = products;
+            result.shops = shops;
+            return result;
         }
     }
 }

@@ -1,10 +1,10 @@
-using SimCard.API.Models;
+using SimCard.APP.Models;
 
 using System.Threading.Tasks;
 
-namespace SimCard.API.Persistence.Repositories
+namespace SimCard.APP.Persistence.Repositories
 {
-    public interface IImportReceiptsRepository
+    public interface IImportReceiptRepository
     {
         Task<string> GenerateID();
         Task<ImportReceipt> AddImportReceipt(ImportReceipt importReceipt);

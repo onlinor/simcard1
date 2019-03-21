@@ -43,7 +43,7 @@
             <p-dropdown [options]="bankAccounts" [(ngModel)]="selectedFilter.bankAccount" placeholder="Tài khoản NH"></p-dropdown>
           </div>
           <div class="col-3">
-            <button class="ui-button-info mr-2" pButton type="button" label="Lọc" (click)="filter()" icon="pi pi-check" iconPos="left"></button>
+            <button class="ui-button-info mr-2" pButton type="button" label="Lọc" (click)="getReport()" icon="pi pi-check" iconPos="left"></button>
             <button class="ui-button-danger" pButton type="button" label="Xoá bộ lọc" (click)="clearFilter()" icon="pi pi-times" iconPos="left"></button>
           </div>
         </div>

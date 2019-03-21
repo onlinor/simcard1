@@ -1,12 +1,12 @@
 using System;
 
-namespace SimCard.API.Controllers.Resources
+namespace SimCard.APP.Controllers.Resources
 {
     public class CashbookResource
     {
         public int Id { get; set; }
 
-        public DateTime NgayLap { get; set; }
+        public DateTime DateCreated { get; set; }
 
         public string TenKhachHang { get; set; }
 

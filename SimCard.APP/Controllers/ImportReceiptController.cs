@@ -2,23 +2,23 @@ using AutoMapper;
 
 using Microsoft.AspNetCore.Mvc;
 
-using SimCard.API.Controllers.Resources;
-using SimCard.API.Models;
-using SimCard.API.Persistence;
-using SimCard.API.Persistence.Repositories;
+using SimCard.APP.Controllers.Resources;
+using SimCard.APP.Models;
+using SimCard.APP.Persistence;
+using SimCard.APP.Persistence.Repositories;
 
 using System.Threading.Tasks;
 
-namespace SimCard.API.Controllers
+namespace SimCard.APP.Controllers
 {
     [ApiController]
     public class ImportReceiptController : Controller
     {
-        private readonly IImportReceiptsRepository _importReceiptRepository;
+        private readonly IImportReceiptRepository _importReceiptRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public ImportReceiptController(IImportReceiptsRepository ImportReceiptRepository, IUnitOfWork unitOfWork, IMapper mapper)
+        public ImportReceiptController(IImportReceiptRepository ImportReceiptRepository, IUnitOfWork unitOfWork, IMapper mapper)
         {
             _importReceiptRepository = ImportReceiptRepository;
             _unitOfWork = unitOfWork;

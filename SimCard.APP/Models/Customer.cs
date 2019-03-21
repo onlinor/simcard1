@@ -1,12 +1,10 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace SimCard.API.Models
+namespace SimCard.APP.Models
 {
-    public class Customer
+    public class Customer : BaseEntity
     {
-        public int Id { get; set; }
-
         [StringLength(255)]
         public string TenCH { get; set; }
 

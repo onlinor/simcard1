@@ -1,10 +1,10 @@
-using SimCard.API.Controllers.Resources;
+using SimCard.APP.Controllers.Resources;
 
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Threading.Tasks;
 
-namespace SimCard.API.Persistence.Repositories
+namespace SimCard.APP.Persistence.Repositories
 {
     public interface IReportRepository
     {

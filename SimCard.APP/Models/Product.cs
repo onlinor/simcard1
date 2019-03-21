@@ -1,22 +1,28 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SimCard.API.Models
+namespace SimCard.APP.Models
 {
-    [Table("Product")]
-    public class Product
+    public class Product : BaseEntity
     {
-        [Key]
-        public string Id { get; set; }
-
         [Required]
         [StringLength(255)]
         public string Name { get; set; }        
 
         public int Quantity { get; set; }
+
         public int Unit { get; set; }
-/*         public decimal BuyingPrice { get; set; }
+
+        public decimal BuyingPrice { get; set; }
+
+        [ForeignKey("ShopId")]
         public Shop Shop { get; set; }
-        public int ShopId { get; set; } */
+
+        public int? ShopId { get; set; }
+
+        [ForeignKey("SupplierId")]
+        public Supplier Supplier { get; set; }
+
+        public int SupplierId { get; set; }
     }
 }

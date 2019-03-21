@@ -1,9 +1,9 @@
 using AutoMapper;
 
-using SimCard.API.Controllers.Resources;
-using SimCard.API.Models;
+using SimCard.APP.Controllers.Resources;
+using SimCard.APP.Models;
 
-namespace SimCard.API.Mapping
+namespace SimCard.APP.Mapping
 {
     public class MappingProfile : Profile
     {

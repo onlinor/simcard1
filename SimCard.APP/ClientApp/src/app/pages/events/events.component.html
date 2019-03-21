@@ -29,7 +29,7 @@
                     <td>{{rowData.maSK}}</td>
                     <td>{{rowData.tenSK}}</td>
                     <td>{{rowData.noiDung}}</td>
-                    <td>{{rowData.ngayTao | date: 'dd/MM/yyyy' }}</td>
+                    <td>{{rowData.dateCreated | date: 'dd/MM/yyyy' }}</td>
                     <td>{{rowData.tgBatDau | date: 'dd/MM/yyyy' }}</td>
                     <td>{{rowData.tgKetThuc | date: 'dd/MM/yyyy' }}</td>
                     <td>{{rowData.doiTuong === 'All' ? 'Tất Cả Khách Hàng' : rowData.doiTuong === 'LNC' ? 'Lợi
@@ -70,7 +70,7 @@
                             <label>Ngày Tạo</label>
                         </div>
                         <div class="ui-g-8">
-                            <p>{{ eventUpdate.ngayTao | date: 'dd/MM/yyyy' }}</p>
+                            <p>{{ eventUpdate.dateCreated | date: 'dd/MM/yyyy' }}</p>
                         </div>
                     </div>
                     <div class="ui-g-12">

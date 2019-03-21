@@ -63,7 +63,7 @@ export class ReportHomeComponent implements OnInit {
     private supplierService: SupplierService,
     private customerService: CustomerService,
     private bankService: BankbookService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.getShops();
@@ -72,24 +72,22 @@ export class ReportHomeComponent implements OnInit {
   }
 
   getReport() {
-    this.reportService.getReport(this.selectedReport, this.selectedFilter).subscribe(
-      result => {
-        this.reportData = result.data;
-        this.reportColumns = result.columns;
-        this.supportedFilter = result.supportedFilter;
+    this.reportService
+      .getReport(this.selectedReport, this.selectedFilter)
+      .subscribe(
+        result => {
+          this.reportData = result.data;
+          this.reportColumns = result.columns;
+          this.supportedFilter = result.supportedFilter;
 
-        this.bankAccounts = result.filterData.bankAccounts;
-        this.products = result.filterData.products;
-        this.shops = result.filterData.shops;
-        this.warehouses = result.filterData.warehouses;
-        this.customers = result.filterData.customers;
-      },
-      error => console.log('Error getting data from API')
-    );
-  }
-
-  filter() {
-    console.log(this.selectedFilter);
+          this.bankAccounts = result.filterData.bankAccounts;
+          this.products = result.filterData.products;
+          this.shops = result.filterData.shops;
+          this.warehouses = result.filterData.warehouses;
+          this.customers = result.filterData.customers;
+        },
+        error => console.log('Error getting data from API')
+      );
   }
 
   export() {

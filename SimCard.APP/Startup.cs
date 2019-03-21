@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-using SimCard.API.Persistence;
-using SimCard.API.Persistence.Repositories;
+using SimCard.APP.Persistence;
+using SimCard.APP.Persistence.Repositories;
 using SimCard.APP.Workers;
 
 namespace SimCard.APP
@@ -39,7 +39,8 @@ namespace SimCard.APP
             services.AddScoped<IBankbookRepository, BankbookRepository>();
             services.AddScoped<IReportRepository, ReportRepository>();
             services.AddScoped<INetworkRepository, NetworkRepository>();
-            services.AddScoped<IImportReceiptsRepository, ImportReceiptRepository>();
+            services.AddScoped<IImportReceiptRepository, ImportReceiptRepository>();
+            services.AddScoped<IExportReceiptRepository, ExportReceiptRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddCors();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);

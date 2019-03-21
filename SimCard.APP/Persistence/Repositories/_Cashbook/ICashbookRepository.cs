@@ -1,4 +1,4 @@
-using SimCard.API.Models;
+using SimCard.APP.Models;
 
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace SimCard.API.Persistence.Repositories
+namespace SimCard.APP.Persistence.Repositories
 {
     public interface ICashbookRepository
     {

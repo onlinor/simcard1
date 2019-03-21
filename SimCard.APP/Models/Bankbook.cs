@@ -1,14 +1,9 @@
-using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace SimCard.API.Models
+namespace SimCard.APP.Models
 {
-    public class Bankbook
+    public class Bankbook : BaseEntity
     {
-        public int Id { get; set; }
-
-        public DateTime NgayLap { get; set; }
-
         [StringLength(255)]
         public string TenKhachHang { get; set; }
 
@@ -22,7 +17,9 @@ namespace SimCard.API.Models
         public string NoiDungPhieu { get; set; }
 
         public int SoTienThu { get; set; }
+
         public int SoTienChi { get; set; }
+
         public int CongDon { get; set; }
 
         [StringLength(255)]
