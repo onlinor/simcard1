@@ -18,22 +18,23 @@ import {
   styleUrls: ['./nhaphang.component.css']
 })
 export class NhaphangComponent implements OnInit {
-  @ViewChild('myInput')
-  myInputVariable: ElementRef;
-
   tableProducts: Array<Product> = [];
 
   products: Array<Product> = [];
-  tabviewpro: Array<Product> = [];
 
-  venders: Array<Supplier> = [];
-  selectedVendor: Supplier;
+  suppliers: Array<Supplier> = [];
+
+  selectedSupplier: Supplier;
 
   // phieu section
   totalMoney = 0;
+
   vatMoney = 0;
+
   total = 0;
+
   thanhtoan = 0;
+
   conlai = 0;
 
   // phieu nhap
@@ -44,17 +45,17 @@ export class NhaphangComponent implements OnInit {
     private fileService: FileService,
     private productService: ProductService,
     private phieuhangService: PhieunhapService,
-    private venderService: SupplierService
+    private supplierService: SupplierService
   ) { }
 
   ngOnInit() {
-    this.showProductsResponse();
-    this.getVendors();
+    this.getAllProducts();
+    this.getSuppliers();
   }
 
   save() {
     this.productService.save(this.tableProducts).subscribe(() => {
-      this.showProductsResponse();
+      this.getAllProducts();
       this.savePhieunhap();
 
       this.tableProducts = [];
@@ -62,53 +63,26 @@ export class NhaphangComponent implements OnInit {
   }
 
   uploadProductList(event: any) {
-    const fileList: FileList = event.target.files;
+    const fileList: FileList = event.files;
     if (fileList.length > 0) {
       const file: File = fileList[0];
       const formData = new FormData();
       formData.append(file.name, file);
 
       this.fileService.uploadProductList(formData).subscribe((response: Array<Product>) => {
+        console.log(typeof response);
+        console.log(response);
+        console.log(this.tableProducts);
         this.tableProducts = Object.assign(this.tableProducts, response);
         this.updateTotalMoney();
       });
     }
-    this.reset();
   }
 
-  reset() {
-    this.myInputVariable.nativeElement.value = '';
-  }
-
-  showProductsResponse() {
-    this.productService.getAll().subscribe(resp => {
-      this.tabviewpro = this.products = resp;
+  getAllProducts() {
+    this.productService.getAll().subscribe(response => {
+      this.products = response;
     });
-  }
-
-  handleChange(e: any) {
-    if (e === 0) {
-      this.tabviewpro = this.products;
-    } else {
-      switch (e.index) {
-        case 0: {
-          this.tabviewpro = this.products;
-          break;
-        }
-        // case 1: {
-        //   this.tabviewpro = this.products.filter(x => x.name.includes('Sim số')).map(x => Object.assign({}, x));
-        //   break;
-        // }
-        // case 2: {
-        //   this.tabviewpro = this.products.filter(x => x.name.includes('Thẻ cào')).map(x => Object.assign({}, x));
-        //   break;
-        // }
-        default: {
-          console.log('invalid selection');
-          break;
-        }
-      }
-    }
   }
 
   onProductTableEditCompleted(event: any) {
@@ -126,7 +100,7 @@ export class NhaphangComponent implements OnInit {
         (selectedProduct.menhGia * (100 - selectedProduct.chietKhau)) / 100;
       selectedProduct.thanhTien =
         selectedProduct.soluongnhap * selectedProduct.donGia;
-        this.updateTotalMoney();
+      this.updateTotalMoney();
     }
   }
 
@@ -139,22 +113,15 @@ export class NhaphangComponent implements OnInit {
     this.total = this.totalMoney + this.vatMoney;
   }
 
-  isProductexist(ma: string, tables: Product[]): Boolean {
-    if (tables.findIndex(x => x.ma === ma) !== -1) {
-      return true;
-    }
-    return false;
-  }
-
   generateID() {
-    this.phieuhangService.getID().subscribe(resp => {
-      this.idphieunhap = resp.id;
+    this.phieuhangService.getID().subscribe(response => {
+      this.idphieunhap = response.id;
     });
   }
 
-  getVendors() {
-    this.venderService.getAll().subscribe(resp => {
-      this.venders = resp;
+  getSuppliers() {
+    this.supplierService.getAll().subscribe(response => {
+      this.suppliers = response;
     });
   }
 
@@ -162,7 +129,7 @@ export class NhaphangComponent implements OnInit {
     this.phieunhap.prefix = this.idphieunhap.substring(0, 10);
     this.phieunhap.suffix = this.idphieunhap.substr(11);
     this.phieunhap.products = this.tableProducts;
-    this.phieunhap.tennhacungcap = this.selectedVendor.name;
+    this.phieunhap.tennhacungcap = this.selectedSupplier.name;
     this.phieunhap.tienthanhtoan = this.thanhtoan;
     this.phieunhap.tienconlai = this.total - this.thanhtoan;
     this.phieuhangService.addPhieunhap(this.phieunhap).subscribe(() => { });

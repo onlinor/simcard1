@@ -19,8 +19,9 @@
             </div>
             <div class="ui-g-4">
                 <p>Nhập Bằng File Excel</p>
-                <input #myInput type="file" id="file" class="hidden" (change)="uploadProductList($event)" accept=".xlsx" />
-                <label for="file">Chọn File</label>
+                <p-fileUpload mode="basic" customUpload="true" (uploadHandler)="uploadProductList($event)" auto="true" accept=".xlsx"></p-fileUpload>
+                <!-- <input #myInput type="file" id="file" class="hidden" (change)="uploadProductList($event)" accept=".xlsx" />
+                <label for="file">Chọn File</label> -->
             </div>
         </div>
         <div class="ui-g">
@@ -36,7 +37,7 @@
         <div class="ui-g">
             <div class="ui-g-4">
                 <p>Tên Nhà CC</p>
-                <p-dropdown [options]="venders" [(ngModel)]="selectedVendor" placeholder="Chọn Nhà CC" optionLabel="name" [showClear]="true"></p-dropdown>
+                <p-dropdown [options]="suppliers" [(ngModel)]="selectedSupplier" placeholder="Chọn Nhà CC" optionLabel="name" [showClear]="true"></p-dropdown>
             </div>
             <div class="ui-g-4">
                 <p>Công Nợ Cũ</p>
@@ -88,10 +89,7 @@
                         {{ product.menhGia - (product.menhGia * product.chietKhau) / 100 }}
                     </td>
                     <td>
-                        {{
-              product.soLuong *
-                (product.menhGia - (product.menhGia * product.chietKhau) / 100)
-            }}
+                        {{ product.soLuong * (product.menhGia - (product.menhGia * product.chietKhau) / 100) }}
                     </td>
                 </tr>
             </ng-template>
@@ -106,15 +104,17 @@
             <table class="float-right table-total">
                 <tr>
                     <td>Cộng Tiền Hàng:</td>
-                    <td><input [disabled]="true" type="text" pInputText value="{{ totalMoney }}" /></td>
+                    <td>
+                        <input [disabled]="true"  type="number" pInputText value="{{ totalMoney }}" />
+                    </td>
                 </tr>
                 <tr>
                     <td>VAT:</td>
-                    <td><input [disabled]="true" type="text" pInputText value="{{ vatMoney }}" /></td>
+                    <td><input [disabled]="true" type="number" pInputText value="{{ vatMoney }}" /></td>
                 </tr>
                 <tr>
                     <td>Tổng Cộng:</td>
-                    <td><input [disabled]="true" type="text" pInputText value="{{ total }}" /></td>
+                    <td><input [disabled]="true" type="number" pInputText value="{{ total }}" /></td>
                 </tr>
                 <tr>
                     <td>Thanh Toán NCC:</td>
@@ -144,9 +144,9 @@
         </div>
     </div>
     <div class="ui-g-4">
-        <p-tabView (onChange)="handleChange($event)">
+        <p-tabView>
             <p-tabPanel header="Sim Số">
-                <p-table #dt [value]="tabviewpro" selectionMode="single" [paginator]="true" [rows]="10" (onEditComplete)="rowEditCompleted($event)">
+                <p-table #dt [value]="products" selectionMode="single" [paginator]="true" [rows]="10">
                     <ng-template pTemplate="header" let-columns>
                         <tr>
                             <th>Tên</th>
