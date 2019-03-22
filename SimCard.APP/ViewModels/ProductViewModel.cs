@@ -1,3 +1,5 @@
+using SimCard.APP.Models;
+
 namespace SimCard.APP.ViewModels
 {
     public class ProductViewModel
@@ -11,6 +13,10 @@ namespace SimCard.APP.ViewModels
         public int Soluong { get; set; }
 
         public decimal Menhgia { get; set; }
+
+        public decimal? Gianhap { get; set; }
+
+        public ProductType ProductType { get; set; }
 
         public int ShopId { get; set; }
 

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SimCard.APP.Migrations
 {
-    public partial class InitDb : Migration
+    public partial class initDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -294,11 +294,12 @@ namespace SimCard.APP.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     DateCreated = table.Column<DateTime>(nullable: false),
                     DateModified = table.Column<DateTime>(nullable: true),
-                    Name = table.Column<string>(maxLength: 255, nullable: false),
+                    Ten = table.Column<string>(maxLength: 255, nullable: false),
                     Ma = table.Column<string>(nullable: true),
-                    Price = table.Column<decimal>(nullable: false),
-                    Quantity = table.Column<int>(nullable: false),
-                    BuyingPrice = table.Column<decimal>(nullable: true),
+                    Menhgia = table.Column<decimal>(nullable: false),
+                    Soluong = table.Column<int>(nullable: false),
+                    ProductType = table.Column<string>(nullable: true),
+                    Gianhap = table.Column<decimal>(nullable: true),
                     ShopId = table.Column<int>(nullable: true),
                     SupplierId = table.Column<int>(nullable: true)
                 },

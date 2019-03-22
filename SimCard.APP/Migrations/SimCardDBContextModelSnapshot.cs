@@ -445,25 +445,27 @@ namespace SimCard.APP.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<decimal?>("BuyingPrice");
-
                     b.Property<DateTime>("DateCreated");
 
                     b.Property<DateTime?>("DateModified");
 
+                    b.Property<decimal?>("Gianhap");
+
                     b.Property<string>("Ma");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(255);
+                    b.Property<decimal>("Menhgia");
 
-                    b.Property<decimal>("Price");
-
-                    b.Property<int>("Quantity");
+                    b.Property<string>("ProductType");
 
                     b.Property<int?>("ShopId");
 
+                    b.Property<int>("Soluong");
+
                     b.Property<int?>("SupplierId");
+
+                    b.Property<string>("Ten")
+                        .IsRequired()
+                        .HasMaxLength(255);
 
                     b.HasKey("Id");
 

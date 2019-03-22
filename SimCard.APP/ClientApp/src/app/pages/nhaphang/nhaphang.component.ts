@@ -20,7 +20,7 @@ import {
 export class NhaphangComponent implements OnInit {
   tableProducts: Array<Product> = [];
 
-  products: Array<Product> = [];
+  products: [];
 
   suppliers: Array<Supplier> = [];
 
@@ -80,7 +80,7 @@ export class NhaphangComponent implements OnInit {
   }
 
   getAllProducts() {
-    this.productService.getAll().subscribe(response => {
+    this.productService.getAllGroupByType().subscribe(response => {
       this.products = response;
     });
   }

@@ -7,6 +7,7 @@ using SimCard.APP.ViewModels;
 
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -29,7 +30,7 @@ namespace SimCard.APP.Persistence.Repositories
             if (await IsProductExists(productViewModel.Ma))
             {
                 Product p = await _context.Products.FirstAsync(x => x.Ma.ToLower() == productViewModel.Ma.ToLower());
-                p.Quantity = p.Quantity + productViewModel.Soluong;
+                p.Soluong = p.Soluong + productViewModel.Soluong;
                 _context.Products.Update(p);
             }
             else
@@ -42,12 +43,12 @@ namespace SimCard.APP.Persistence.Repositories
 
         public async Task<bool> AddProducts(List<ProductViewModel> productViewModels)
         {
-            foreach (var item in productViewModels)
+            foreach (ProductViewModel item in productViewModels)
             {
                 if (await IsProductExists(item.Ma))
                 {
                     Product p = await _context.Products.FirstAsync(x => x.Ma.ToLower() == item.Ma.ToLower());
-                    p.Quantity = p.Quantity + item.Soluong;
+                    p.Soluong = p.Soluong + item.Soluong;
                     _context.Products.Update(p);
                 }
                 else
@@ -90,9 +91,30 @@ namespace SimCard.APP.Persistence.Repositories
             return _context.Products.Where(predicate);
         }
 
-        public void UpdateProduct(ProductViewModel productViewModel)
+        public async Task<bool> UpdateProduct(ProductViewModel productViewModel)
         {
-            throw new NotImplementedException();
+            Product product = await _context.Products.FindAsync(productViewModel.Id);
+            if (product != null)
+            {
+                Mapper.Map(productViewModel, product);
+                _context.Products.Update(product);
+                return await _unitOfWork.SaveChangeAsync();
+            }
+            return false;
+        }
+
+        public async Task<List<ExpandoObject>> GetAllProductsGroupByType()
+        {
+            List<ExpandoObject> result = new List<ExpandoObject>();
+            List<IGrouping<string, Product>> products = await _context.Products.GroupBy(p => p.ProductType).ToListAsync();
+            foreach (IGrouping<string, Product> item in products)
+            {
+                dynamic keyVal = new ExpandoObject();
+                keyVal.Group = item.Key;
+                keyVal.Items = Mapper.Map<List<ProductViewModel>>(item);
+                result.Add(keyVal);
+            }
+            return result;
         }
     }
 }

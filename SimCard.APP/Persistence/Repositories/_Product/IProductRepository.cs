@@ -1,7 +1,9 @@
 using SimCard.APP.Models;
 using SimCard.APP.ViewModels;
+
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -14,13 +16,15 @@ namespace SimCard.APP.Persistence.Repositories
 
         Task<ProductViewModel> GetProduct(int id);
 
+        Task<List<ExpandoObject>> GetAllProductsGroupByType();
+
         IQueryable<Product> Query(Expression<Func<Product, bool>> predicate);
 
         Task<bool> AddProduct(ProductViewModel productViewModel);
 
         Task<bool> AddProducts(List<ProductViewModel> productViewModels);
 
-        void UpdateProduct(ProductViewModel productViewModel);
+        Task<bool> UpdateProduct(ProductViewModel productViewModel);
 
         Task<bool> Remove(int id);
 

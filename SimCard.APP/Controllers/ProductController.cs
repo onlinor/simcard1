@@ -41,7 +41,6 @@ namespace SimCard.APP.Controllers
             return Ok();
         }
 
-
         [HttpPost("/api/product/uploadProductList")]
         public List<ExpandoObject> UploadProductList()
         {

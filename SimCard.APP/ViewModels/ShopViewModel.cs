@@ -8,11 +8,12 @@ namespace SimCard.APP.ViewModels
         public int Id { get; set; }
 
         public string Name { get; set; }
-        public ICollection<ProductViewModel> Products { get; set; }
+
+        public List<ProductViewModel> Products { get; set; }
 
         public ShopViewModel()
         {
-            Products = new Collection<ProductViewModel>();
+            Products = new List<ProductViewModel>();
         }
     }
 }

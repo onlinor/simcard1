@@ -40,4 +40,8 @@ export class ProductService extends BaseService {
     delete(viewModel: any): Observable<any> {
         return this.apiService.delete(`${this.BASE_URI}/remove/${viewModel.id}`);
     }
+
+    getAllGroupByType(): Observable<any> {
+        return this.apiService.get(`${this.BASE_URI}/getAllGroupByType`);
+    }
 }
