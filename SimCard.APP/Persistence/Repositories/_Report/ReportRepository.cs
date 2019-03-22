@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 
 using SimCard.APP.ViewModels;
@@ -116,7 +117,7 @@ namespace SimCard.APP.Persistence.Repositories
                     result = await GetFilterData_CongNoKhachHangToanCongTy();
                     return result;
                 case 9:
-                    result = await GetFilterData_TongHopCongNoKhachHangToanTungCN();
+                    result = await GetFilterData_TongHopCongNoKhachHangTungCN();
                     return result;
                 case 10:
                     result = await GetFilterData_TongHopGiaoDichVaSoDuTKNHToanCongTy();
@@ -244,80 +245,115 @@ namespace SimCard.APP.Persistence.Repositories
 
         private async Task<ExpandoObject> GetFilterData_ChiTietChiPhiHoatDongKinhDoanh()
         {
-            throw new System.NotImplementedException();
+            dynamic result = new ExpandoObject();
+            List<ShopViewModel> shops = Mapper.Map<List<ShopViewModel>>(await _shopRepository.GetShops());
+            result.shops = shops;
+            return result;
         }
 
         private async Task<ExpandoObject> GetFilterData_ChiTietThuChiKhac()
         {
-            throw new System.NotImplementedException();
+            dynamic result = new ExpandoObject();
+            List<ShopViewModel> shops = Mapper.Map<List<ShopViewModel>>(await _shopRepository.GetShops());
+            result.shops = shops;
+            return result;
         }
 
         private async Task<ExpandoObject> GetFilterData_ChiTietXuatHangVaLoiNhuan()
         {
-            throw new System.NotImplementedException();
+            dynamic result = new ExpandoObject();
+            List<ShopViewModel> shops = Mapper.Map<List<ShopViewModel>>(await _shopRepository.GetShops());
+            List<ProductViewModel> products = Mapper.Map<List<ProductViewModel>>(await _productRepository.Query(p => p.ShopId != null).ToListAsync());
+            result.shops = shops;
+            result.products = products;
+            return result;
         }
 
         private async Task<ExpandoObject> GetFilterData_CongNoKhachHangToanCongTy()
         {
-            throw new System.NotImplementedException();
+            return null;
         }
 
         private async Task<ExpandoObject> GetFilterData_HangTonKho()
         {
-            // No filter data needed
             return null;
         }
 
         private async Task<ExpandoObject> GetFilterData_KetQuaKinhDoanh()
         {
-            throw new System.NotImplementedException();
+            dynamic result = new ExpandoObject();
+            List<ShopViewModel> shops = Mapper.Map<List<ShopViewModel>>(await _shopRepository.GetShops());
+            result.shops = shops;
+            return result;
         }
 
         private async Task<ExpandoObject> GetFilterData_NhapHangTheoMatHang()
         {
-            throw new System.NotImplementedException();
+            dynamic result = new ExpandoObject();
+            List<ShopViewModel> shops = Mapper.Map<List<ShopViewModel>>(await _shopRepository.GetShops());
+            result.shops = shops;
+            return result;
         }
 
         private async Task<ExpandoObject> GetFilterData_NhapHangTheoNhaCungCap()
         {
             dynamic result = new ExpandoObject();
-            var products = await _productRepository.Query(p => p.ShopId != null).ToListAsync();
-            var shops = await _shopRepository.Query(s => true).ToListAsync();
-            result.products = products;
-            result.shops = shops;
+            List<ShopViewModel> shops = Mapper.Map<List<ShopViewModel>>(await _shopRepository.GetShops());
+            result.products = shops;
             return result;
         }
 
         private async Task<ExpandoObject> GetFilterData_TongHopChiPhiHoatDongKinhDoanh()
         {
-            throw new System.NotImplementedException();
+            dynamic result = new ExpandoObject();
+            List<BankbookViewModel> bankAccounts = Mapper.Map<List<BankbookViewModel>>(await _bankbookRepository.GetAllBankbook());
+            List<SupplierViewModel> suppliers = Mapper.Map<List<SupplierViewModel>>(await _supplierRepository.GetSuppliers());
+            result.bankAccounts = bankAccounts;
+            result.suppliers = suppliers;
+            return result;
         }
 
-        private async Task<ExpandoObject> GetFilterData_TongHopCongNoKhachHangToanTungCN()
+        private async Task<ExpandoObject> GetFilterData_TongHopCongNoKhachHangTungCN()
         {
-            throw new System.NotImplementedException();
+            dynamic result = new ExpandoObject();
+            List<ShopViewModel> shops = Mapper.Map<List<ShopViewModel>>(await _shopRepository.GetShops());
+            result.shops = shops;
+            return result;
         }
 
         private async Task<ExpandoObject> GetFilterData_TongHopGiaoDichVaSoDuTKNHToanCongTy()
         {
-            throw new System.NotImplementedException();
+            dynamic result = new ExpandoObject();
+            List<BankbookViewModel> bankAccounts = Mapper.Map<List<BankbookViewModel>>(await _bankbookRepository.GetAllBankbook());
+            List<SupplierViewModel> suppliers = Mapper.Map<List<SupplierViewModel>>(await _supplierRepository.GetSuppliers());
+            result.bankAccounts = bankAccounts;
+            result.suppliers = suppliers;
+            return result;
         }
 
         private async Task<ExpandoObject> GetFilterData_TongHopThuChiKhac()
         {
-            throw new System.NotImplementedException();
+            dynamic result = new ExpandoObject();
+            List<ShopViewModel> shops = Mapper.Map<List<ShopViewModel>>(await _shopRepository.GetShops());
+            result.shops = shops;
+            return result;
         }
 
         private async Task<ExpandoObject> GetFilterData_TongHopXuatHangLoiNhuanCongNoTheoKhachHang()
         {
-            throw new System.NotImplementedException();
+            dynamic result = new ExpandoObject();
+            List<ShopViewModel> shops = Mapper.Map<List<ShopViewModel>>(await _shopRepository.GetShops());
+            List<CustomerViewModel> customers = Mapper.Map<List<CustomerViewModel>>(await _customerRepository.GetAllCustomers());
+            result.shops = shops;
+            result.customers = customers;
+            return result;
         }
 
         private async Task<ExpandoObject> GetFilterData_TongHopXuatHangVaLoiNhuanTheoMatHang()
         {
             dynamic result = new ExpandoObject();
-            var products = await _productRepository.Query(p => true).ToListAsync();
-            var shops = await _shopRepository.Query(s => true).ToListAsync();
+            List<Models.Product> products = await _productRepository.Query(p => true).ToListAsync();
+            List<Models.Shop> shops = await _shopRepository.Query(s => true).ToListAsync();
             result.products = products;
             result.shops = shops;
             return result;
@@ -326,8 +362,8 @@ namespace SimCard.APP.Persistence.Repositories
         private async Task<ExpandoObject> GetFilterData_XuatNhapTonTongHop()
         {
             dynamic result = new ExpandoObject();
-            var products = await _productRepository.Query(p => true).ToListAsync();
-            var shops = await _shopRepository.Query(s => true).ToListAsync();
+            List<Models.Product> products = await _productRepository.Query(p => true).ToListAsync();
+            List<Models.Shop> shops = await _shopRepository.Query(s => true).ToListAsync();
             result.products = products;
             result.shops = shops;
             return result;
