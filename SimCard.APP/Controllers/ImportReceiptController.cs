@@ -24,21 +24,22 @@ namespace SimCard.APP.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("/api/phieunhap/taoma")]
-        public async Task<ImportReceiptViewModel> GetPhieunhaps()
+        [HttpGet("/api/importreceipt/GetProductCode")]
+        public async Task<ImportReceiptViewModel> GenerateProductCode()
         {
             return new ImportReceiptViewModel
             {
-                Ma = await _importReceiptRepository.GenerateID()
+                Ma = await _importReceiptRepository.GenerateProductCode()
             };
         }
-        
+
+        [HttpGet("/api/importreceipt/GetImport")]
         public async Task<IActionResult> GetImportSummary(List<ProductViewModel> productViewModels)
         {
             return Ok();
         }
 
-        [HttpPost("/api/phieunhap/add")]
+        [HttpPost("/api/phieunhap/Add")]
         public async Task<IActionResult> AddPhieunhap(ImportReceiptViewModel importReceipt)
         {
             if (importReceipt == null)

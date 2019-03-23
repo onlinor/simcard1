@@ -16,11 +16,11 @@ namespace SimCard.APP.ViewModels
 
         public decimal? Gianhap { get; set; }
 
-        public ProductType ProductType { get; set; }
+        // public ProductType ProductType { get; set; }
 
-        public int ShopId { get; set; }
+        public int? ShopId { get; set; }
 
-        public int SupplierId { get; set; }
+        public int? SupplierId { get; set; }
 
         public string ShopName { get; set; }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FileService,
   ProductService,
@@ -7,7 +7,6 @@ import {
 } from '../../core/services';
 import {
   Product,
-  ExportType,
   ImportReceipt,
   Supplier
 } from '../../core/models';
@@ -113,9 +112,16 @@ export class NhaphangComponent implements OnInit {
     this.total = this.totalMoney + this.vatMoney;
   }
 
-  generateID() {
-    this.phieuhangService.getID().subscribe(response => {
-      this.idphieunhap = response.id;
+  isProductexist(ma: string, tables: Product[]): Boolean {
+    if (tables.findIndex(x => x.ma === ma) !== -1) {
+      return true;
+    }
+    return false;
+  }
+
+  generateProductCode() {
+    this.phieuhangService.getProductCode().subscribe(resp => {
+      this.idphieunhap = resp.ma;
     });
   }
 

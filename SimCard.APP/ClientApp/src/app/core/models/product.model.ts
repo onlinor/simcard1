@@ -4,6 +4,7 @@ export class Product {
   ten: string;
   soLuong: number;
   menhGia: number;
+  // productType: string;
   chietKhau: number;
   donGia: number;
   thanhTien: number;

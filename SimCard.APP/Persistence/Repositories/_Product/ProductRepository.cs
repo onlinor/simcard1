@@ -103,7 +103,7 @@ namespace SimCard.APP.Persistence.Repositories
             return false;
         }
 
-        public async Task<List<ExpandoObject>> GetAllProductsGroupByType()
+        /* public async Task<List<ExpandoObject>> GetAllProductsGroupByType()
         {
             List<ExpandoObject> result = new List<ExpandoObject>();
             List<IGrouping<string, Product>> products = await _context.Products.GroupBy(p => p.ProductType).ToListAsync();
@@ -115,6 +115,6 @@ namespace SimCard.APP.Persistence.Repositories
                 result.Add(keyVal);
             }
             return result;
-        }
+        } */
     }
 }

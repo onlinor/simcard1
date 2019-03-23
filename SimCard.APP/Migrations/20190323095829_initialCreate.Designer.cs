@@ -9,14 +9,14 @@ using SimCard.APP.Persistence;
 namespace SimCard.APP.Migrations
 {
     [DbContext(typeof(SimCardDBContext))]
-    [Migration("20190322090907_initDb")]
-    partial class initDb
+    [Migration("20190323095829_initialCreate")]
+    partial class initialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.8-servicing-32085");
+                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024");
 
             modelBuilder.Entity("SimCard.APP.Models.Bankbook", b =>
                 {

@@ -22,7 +22,7 @@ namespace SimCard.APP.Models
 
         [ForeignKey("ShopId")]
         public Shop Shop { get; set; }
-
+        
         public int? ShopId { get; set; }
 
         [ForeignKey("SupplierId")]

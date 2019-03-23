@@ -14,7 +14,7 @@ namespace SimCard.APP.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.8-servicing-32085");
+                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024");
 
             modelBuilder.Entity("SimCard.APP.Models.Bankbook", b =>
                 {

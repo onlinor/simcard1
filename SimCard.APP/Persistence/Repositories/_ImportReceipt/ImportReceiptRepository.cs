@@ -34,7 +34,7 @@ namespace SimCard.APP.Persistence.Repositories
             return null;
         }
 
-        public async Task<string> GenerateID()
+        public async Task<string> GenerateProductCode()
         {
             string currentDate = DateTime.UtcNow.Date.ToString("yyyy-MM-dd").Replace("-", "");
             // No data for new day
