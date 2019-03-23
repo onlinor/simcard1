@@ -35,29 +35,30 @@ export class FormphieuchibankbookComponent implements OnInit, OnDestroy {
     { label: "Không", value: "NO" }
   ];
 
-  dataPhieuChi: any = {
-    loaiNganHang: "",
-    loaiPhanBo: "",
-    tenKhachHang: "",
-    donViNhan: "",
-    donViNop: "",
-    maKhachHang: "",
-    ghiChu: "",
-    hinhThucChi: "TM",
-    hinhThucNop: "",
-    maPhieu: "PC",
-    nguoiChi: "",
-    nguoiThu: "",
-    dateCreated: new Date().toLocaleDateString(),
-    noiDungPhieu: "",
-    soTienChi: 0,
-    soTienThu: 0,
-    congDon: 0
-  };
-  theATM: boolean = false;
-  dsKhachHang: any;
-  subscription: Subscription;
-  dataPhieuChiArray: any;
+	dataPhieuChi: any = {
+		loaiNganHang: "",
+		loaiPhanBo: "",
+		tenKhachHang: "",
+		donViNhan: "",
+		donViNop: "",
+		maKhachHang: "",
+		ghiChu: "",
+		hinhThucChi: "",
+		hinhThucNop: "",
+		maPhieu: "PC",
+		nguoiChi: "",
+		nguoiThu: "",
+		ngayLap: new Date().toLocaleDateString(),
+		noiDungPhieu: "",
+		soTienChi: 0,
+		soTienThu: 0,
+		congDon: 0
+	};
+	theATM: boolean = false;
+	cash: boolean = false;
+	dsKhachHang: any;
+	subscription: Subscription;
+	dataPhieuChiArray: any;
 
   @Input("isShowDialogPhieuChi") isShowDialogPhieuChi: boolean;
   @Input("isNewCashBook") isNewCashBook: boolean;
@@ -71,53 +72,76 @@ export class FormphieuchibankbookComponent implements OnInit, OnDestroy {
 
   ngOnInit() { }
 
-  checkedATM(event: any) {
-    if (this.theATM) {
-      this.dataPhieuChi.hinhThucChi = "TM,CK";
-    } else {
-      this.dataPhieuChi.hinhThucChi = "TM";
-    }
-  }
+	checkedATM() {
+		if(this.theATM) {
+			this.dataPhieuChi.hinhThucChi = 'CK';
+		}
+		if(!this.theATM) {
+			this.dataPhieuChi.hinhThucChi = '';
+		}
+		if(this.theATM && this.cash) {
+			this.dataPhieuChi.hinhThucChi = 'CK,TM';
+		} 
+		if (!this.theATM && this.cash) {
+			this.dataPhieuChi.hinhThucChi = 'TM';
+		}
+	}
 
-  onSubmit() {
-    if (this.theATM && this.dataPhieuChi.loaiNganHang !== "default") {
-      let ngayLap = new Date().toLocaleDateString();
-      this.dataPhieuChi.maPhieu =
-        "PC" + ngayLap + "/" + this.dataPhieuChi.loaiNganHang;
-    } else {
-      let ngayLap = new Date().toLocaleDateString();
-      this.dataPhieuChi.maPhieu = "PC" + ngayLap;
-    }
-    this.isShowDialogPhieuChi = false;
-    this.emitShowDialogPhieuChi.emit(this.isShowDialogPhieuChi);
-    if (this.isNewCashBook) {
-      this.subscription = this.bankbookService
-        .addBankbook(this.dataPhieuChi)
-        .subscribe(
-          () => {
-            this.emitDataPhieuChi.emit({ ...this.dataPhieuChi });
-          },
-          error => {
-          }
-        );
-    } else {
-      this.subscription = this.bankbookService
-        .updateBankbook(this.idSelectedBankbook, this.dataPhieuChi)
-        .subscribe(
-          () => {
-            this.emitDataPhieuChi.emit({ ...this.dataPhieuChi });
-          },
-          error => {
-          }
-        );
-    }
-    this.dataPhieuChi = {};
-    this.dataPhieuChi.loaiNganHang = "";
-    this.dataPhieuChi.maPhieu = "PC";
-    this.dataPhieuChi.hinhThucChi = "TM";
-    this.dataPhieuChi.dateCreated = new Date().toLocaleDateString();
-    this.theATM = false;
-  }
+	checkedCash() {
+		if(this.cash) {
+			this.dataPhieuChi.hinhThucChi = 'TM';
+		}
+		if(!this.cash) {
+			this.dataPhieuChi.hinhThucChi = '';
+		}
+		if(this.cash && this.theATM) {
+			this.dataPhieuChi.hinhThucChi = 'CK,TM';
+		} 
+		if (!this.cash && this.theATM) {
+			this.dataPhieuChi.hinhThucChi = 'CK';
+		}
+	}
+
+
+	onSubmit() {
+		let ngayLap = new Date().toLocaleDateString();
+		if (this.theATM && this.dataPhieuChi.loaiNganHang !== "default") {
+			this.dataPhieuChi.maPhieu =
+				"PC" + ngayLap + "/" + this.dataPhieuChi.loaiNganHang;
+		} else {
+			this.dataPhieuChi.maPhieu = "PC" + ngayLap;
+		}
+		this.isShowDialogPhieuChi = false;
+		this.emitShowDialogPhieuChi.emit(this.isShowDialogPhieuChi);
+		if (this.isNewCashBook) {
+			this.subscription = this.bankbookService
+				.addBankbook(this.dataPhieuChi)
+				.subscribe(
+					() => {
+						this.emitDataPhieuChi.emit({ ...this.dataPhieuChi });
+					},
+					error => {
+					}
+				);
+		} else {
+			this.subscription = this.bankbookService
+				.updateBankbook(this.idSelectedBankbook, this.dataPhieuChi)
+				.subscribe(
+					() => {
+						this.emitDataPhieuChi.emit({ ...this.dataPhieuChi });
+					},
+					error => {
+					}
+				);
+		}
+		this.dataPhieuChi = {};
+		this.dataPhieuChi.loaiNganHang = "";
+		this.dataPhieuChi.maPhieu = "PC";
+		this.dataPhieuChi.hinhThucChi = "TM";
+		this.dataPhieuChi.soTienChi = 0;
+		this.dataPhieuChi.ngayLap = new Date().toLocaleDateString();
+		this.theATM = false;
+	}
 
   onClose() {
     this.dataPhieuChi = {};

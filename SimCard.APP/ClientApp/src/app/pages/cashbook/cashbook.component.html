@@ -15,7 +15,7 @@
 		<div class="col-lg-3 pr-0">
 			<p>Tới ngày</p>
 			<p-calendar [(ngModel)]="toiNgay" [showIcon]="true"></p-calendar>
-			<span class="pi pi-search ml-40 m-pointer"></span>
+			<span class="pi pi-search ml-40 m-pointer" (click)="onSearch()"></span>
 		</div>
 		<div class="col-lg-3">
 			<p>Xuất dữ liệu</p>
@@ -80,7 +80,7 @@
 					<td>{{rowData.noiDungPhieu}}</td>
 					<td>{{rowData.soTienThu}}</td>
 					<td>{{rowData.soTienChi}}</td>
-					<!-- <td>{{rowData.congDon}}</td> -->
+					<!-- <td>{{rowData.congDon}}</td>  -->
 				</tr>
 			</ng-template>
 		</p-table>
