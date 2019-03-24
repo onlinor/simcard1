@@ -14,6 +14,6 @@ namespace SimCard.APP.Models
 
         public int? ParentId { get; set; }
 
-        public List<Product> Products { get; set; }
+        public List<ImportReceipt> Products { get; set; }
     }
 }

@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 
 using OfficeOpenXml;
 
-using SimCard.APP.Persistence;
 using SimCard.APP.Persistence.Repositories;
 using SimCard.APP.ViewModels;
 
@@ -22,7 +21,7 @@ namespace SimCard.APP.Controllers
         private readonly IProductRepository _productRepository;
         private readonly IMapper _mapper;
 
-        public ProductController(IProductRepository productRepository, IUnitOfWork unitOfWork, IMapper mapper)
+        public ProductController(IProductRepository productRepository, IMapper mapper)
         {
             _productRepository = productRepository;
             _mapper = mapper;
@@ -60,11 +59,11 @@ namespace SimCard.APP.Controllers
                         {
                             dynamic p = new ExpandoObject();
 
-                            p.Ten = worksheet.Cells[row, 1].Value.ToString();
-                            p.Ma = worksheet.Cells[row, 2].Value.ToString();
-                            p.SoLuong = int.Parse(worksheet.Cells[row, 3].Value.ToString());
-                            p.MenhGia = decimal.Parse(worksheet.Cells[row, 4].Value.ToString());
-                            p.ChietKhau = decimal.Parse(worksheet.Cells[row, 5].Value.ToString());
+                            p.ten = worksheet.Cells[row, 1].Value.ToString();
+                            p.ma = worksheet.Cells[row, 2].Value.ToString();
+                            p.soLuong = int.Parse(worksheet.Cells[row, 3].Value.ToString());
+                            p.menhGia = decimal.Parse(worksheet.Cells[row, 4].Value.ToString());
+                            p.chietKhau = decimal.Parse(worksheet.Cells[row, 5].Value.ToString());
                             importProductList.Add(p);
                         }
                         return importProductList;

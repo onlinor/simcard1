@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Dynamic;
 using System.Threading.Tasks;
 
-namespace SimCard.APP.Persistence.Repositories
+namespace SimCard.APP.Persistence.Services
 {
-    public interface IReportRepository
+    public interface IReportService
     {
         Task<List<ExpandoObject>> GetReport(int type, ReportFilterViewModel filter);
 

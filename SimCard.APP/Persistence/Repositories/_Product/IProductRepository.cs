@@ -18,7 +18,7 @@ namespace SimCard.APP.Persistence.Repositories
 
         Task<List<ExpandoObject>> GetAllProductsGroupByType();
 
-        IQueryable<Product> Query(Expression<Func<Product, bool>> predicate);
+        IQueryable<Product> Query(Expression<Func<ImportReceipt, bool>> predicate);
 
         Task<bool> AddProduct(ProductViewModel productViewModel);
 

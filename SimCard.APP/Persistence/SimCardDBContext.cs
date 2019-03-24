@@ -8,7 +8,7 @@ namespace SimCard.APP.Persistence
     {
         public DbSet<Shop> Shops { get; set; }
 
-        public DbSet<Product> Products { get; set; }
+        public DbSet<ImportReceipt> Products { get; set; }
 
         public DbSet<Customer> Customers { get; set; }
 
@@ -31,6 +31,8 @@ namespace SimCard.APP.Persistence
         public DbSet<ExportReceipt> ExportReceipts { get; set; }
 
         public DbSet<ExportReceiptProducts> ExportReceiptProducts { get; set; }
+
+        public DbSet<BankAccount> BankAccounts { get; set; }
 
         public SimCardDBContext(DbContextOptions<SimCardDBContext> options) : base(options)
         {

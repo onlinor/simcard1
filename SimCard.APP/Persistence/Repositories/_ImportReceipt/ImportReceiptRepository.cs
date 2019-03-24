@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace SimCard.APP.Persistence.Repositories
@@ -26,7 +27,7 @@ namespace SimCard.APP.Persistence.Repositories
         {
             if (importReceiptViewModel != null)
             {
-                var importReceipt = Mapper.Map<ImportReceipt>(importReceiptViewModel);
+                ImportReceipt importReceipt = Mapper.Map<ImportReceipt>(importReceiptViewModel);
                 await _context.AddAsync(importReceipt);
                 await _context.SaveChangesAsync();
                 return importReceipt;
@@ -48,13 +49,23 @@ namespace SimCard.APP.Persistence.Repositories
             return ("PN" + currentDate + "." + newSuffix);
         }
 
+        public async Task<List<ImportReceiptViewModel>> GetAllAsync()
+        {
+            return Mapper.Map<List<ImportReceiptViewModel>>(await _context.ImportReceipts.ToListAsync());
+        }
+
+        public async Task<ImportReceiptViewModel> GetByIdAsync(int id)
+        {
+            return Mapper.Map<ImportReceiptViewModel>(await _context.ImportReceipts.FindAsync(id));
+        }
+
         public async Task<List<ExpandoObject>> GetImportSummary(List<ProductViewModel> productViewModels)
         {
             List<ExpandoObject> result = new List<ExpandoObject>();
 
             // Where shop id != null => product of shop
-            List<IGrouping<string, Product>> products = await _context.Products.Where(p => p.ShopId != null).GroupBy(p => p.Ma).ToListAsync();
-            foreach (IGrouping<string, Product> item in products)
+            List<IGrouping<string, ImportReceipt>> products = await _context.Products.Where(p => p.ShopId != null).GroupBy(p => p.Ma).ToListAsync();
+            foreach (IGrouping<string, ImportReceipt> item in products)
             {
                 dynamic keyVal = new ExpandoObject();
                 keyVal.Group = item.Key;
@@ -62,6 +73,11 @@ namespace SimCard.APP.Persistence.Repositories
                 result.Add(keyVal);
             }
             return result;
+        }
+
+        public IQueryable<ImportReceipt> Query(Expression<Func<ImportReceipt, bool>> predicate)
+        {
+            return _context.ImportReceipts.Where(predicate);
         }
     }
 }

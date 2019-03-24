@@ -29,13 +29,13 @@ namespace SimCard.APP.Persistence.Repositories
         {
             if (await IsProductExists(productViewModel.Ma))
             {
-                Product p = await _context.Products.FirstAsync(x => x.Ma.ToLower() == productViewModel.Ma.ToLower());
+                ImportReceipt p = await _context.Products.FirstAsync(x => x.Ma.ToLower() == productViewModel.Ma.ToLower());
                 p.Soluong = p.Soluong + productViewModel.Soluong;
                 _context.Products.Update(p);
             }
             else
             {
-                Product product = Mapper.Map<Product>(productViewModel);
+                ImportReceipt product = Mapper.Map<ImportReceipt>(productViewModel);
                 await _context.Products.AddAsync(product);
             }
             return await _unitOfWork.SaveChangeAsync();
@@ -47,13 +47,13 @@ namespace SimCard.APP.Persistence.Repositories
             {
                 if (await IsProductExists(item.Ma))
                 {
-                    Product p = await _context.Products.FirstAsync(x => x.Ma.ToLower() == item.Ma.ToLower());
+                    ImportReceipt p = await _context.Products.FirstAsync(x => x.Ma.ToLower() == item.Ma.ToLower());
                     p.Soluong = p.Soluong + item.Soluong;
                     _context.Products.Update(p);
                 }
                 else
                 {
-                    Product product = Mapper.Map<Product>(item);
+                    ImportReceipt product = Mapper.Map<ImportReceipt>(item);
                     await _context.Products.AddAsync(product);
                 }
             }
@@ -77,7 +77,7 @@ namespace SimCard.APP.Persistence.Repositories
 
         public async Task<bool> Remove(int id)
         {
-            Product product = await _context.Products.FindAsync(id);
+            ImportReceipt product = await _context.Products.FindAsync(id);
             if (product != null)
             {
                 _context.Products.Remove(product);
@@ -86,14 +86,14 @@ namespace SimCard.APP.Persistence.Repositories
             return false;
         }
 
-        public IQueryable<Product> Query(Expression<Func<Product, bool>> predicate)
+        public IQueryable<ImportReceipt> Query(Expression<Func<ImportReceipt, bool>> predicate)
         {
             return _context.Products.Where(predicate);
         }
 
         public async Task<bool> UpdateProduct(ProductViewModel productViewModel)
         {
-            Product product = await _context.Products.FindAsync(productViewModel.Id);
+            ImportReceipt product = await _context.Products.FindAsync(productViewModel.Id);
             if (product != null)
             {
                 Mapper.Map(productViewModel, product);
@@ -106,8 +106,8 @@ namespace SimCard.APP.Persistence.Repositories
         public async Task<List<ExpandoObject>> GetAllProductsGroupByType()
         {
             List<ExpandoObject> result = new List<ExpandoObject>();
-            List<IGrouping<string, Product>> products = await _context.Products.GroupBy(p => p.ProductType).ToListAsync();
-            foreach (IGrouping<string, Product> item in products)
+            List<IGrouping<string, ImportReceipt>> products = await _context.Products.GroupBy(p => p.ProductType).ToListAsync();
+            foreach (IGrouping<string, ImportReceipt> item in products)
             {
                 dynamic keyVal = new ExpandoObject();
                 keyVal.Group = item.Key;

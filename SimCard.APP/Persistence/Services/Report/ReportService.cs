@@ -1,37 +1,48 @@
 using AutoMapper;
+
 using Microsoft.EntityFrameworkCore;
 
+using SimCard.APP.Models;
+using SimCard.APP.Persistence.Repositories;
 using SimCard.APP.ViewModels;
 
+using System;
 using System.Collections.Generic;
 using System.Dynamic;
+using System.Linq;
 using System.Threading.Tasks;
 
-namespace SimCard.APP.Persistence.Repositories
+namespace SimCard.APP.Persistence.Services
 {
-    public class ReportRepository : IReportRepository
+    public class ReportService : IReportService
     {
         private readonly IProductRepository _productRepository;
         private readonly ICashbookRepository _cashbookRepository;
-        private readonly IBankbookRepository _bankbookRepository;
+        private readonly IBankAccountRepository _bankAccountRepository;
         private readonly ICustomerRepository _customerRepository;
         private readonly IShopRepository _shopRepository;
         private readonly ISupplierRepository _supplierRepository;
+        private readonly IImportReceiptRepository _importReceiptRepository;
+        private readonly IExportReceiptRepository _exportReceiptRepository;
 
-        public ReportRepository(
+        public ReportService(
             IProductRepository productRepository,
             ICashbookRepository cashbookRepository,
-            IBankbookRepository bankbookRepository,
+            IBankAccountRepository bankAccountRepository,
             ICustomerRepository customerRepository,
             IShopRepository shopRepository,
-            ISupplierRepository supplierRepository)
+            ISupplierRepository supplierRepository,
+            IImportReceiptRepository importReceiptRepository,
+            IExportReceiptRepository exportReceiptRepository)
         {
             _productRepository = productRepository;
             _cashbookRepository = cashbookRepository;
-            _bankbookRepository = bankbookRepository;
+            _bankAccountRepository = bankAccountRepository;
             _customerRepository = customerRepository;
             _shopRepository = shopRepository;
             _supplierRepository = supplierRepository;
+            _importReceiptRepository = importReceiptRepository;
+            _exportReceiptRepository = exportReceiptRepository;
         }
 
         public async Task<List<ExpandoObject>> GetReport(int type, ReportFilterViewModel filter)
@@ -229,15 +240,29 @@ namespace SimCard.APP.Persistence.Repositories
 
         private async Task<List<ExpandoObject>> Report_XuatNhapTonTongHop(ReportFilterViewModel filter)
         {
-            dynamic result = new ExpandoObject();
+            List<ExpandoObject> result = new List<ExpandoObject>();
+            IEnumerable<Product> products = await _productRepository.Query(p => p.SupplierId == null).ToListAsync();
+            var importReceipts = await _importReceiptRepository.Query(ir => ir.ShopId == 1).Include(ir => ir.Products).Select(ir => new
+            {
+                ir.Products,
+                ir.DateCreated
+                ir.
+            }).OrderByDescending(ir => ir.DateCreated).ToListAsync();
+            List<ExportReceipt> exportReceipts = await _exportReceiptRepository.Query(ir => true).ToListAsync();
+
+            DateTime fromDate = filter.From ?? DateTime.Now.AddDays(-7);
+            DateTime toDate = filter.To ?? DateTime.Now.AddDays(-7);
+
             if (filter.Shop != 0) // Chi nhánh
             {
 
             }
-            else // Toàn công ty
+
+            if (filter.Product != 0) // Mat hang
             {
 
             }
+
             return result;
         }
 
@@ -264,6 +289,12 @@ namespace SimCard.APP.Persistence.Repositories
             dynamic result = new ExpandoObject();
             List<ShopViewModel> shops = Mapper.Map<List<ShopViewModel>>(await _shopRepository.GetShops());
             List<ProductViewModel> products = Mapper.Map<List<ProductViewModel>>(await _productRepository.Query(p => p.ShopId != null).ToListAsync());
+            products.Add(new ProductViewModel
+            {
+                Id = 0,
+                Ma = "ALL",
+                Ten = "Tất cả mặt hàng"
+            });
             result.shops = shops;
             result.products = products;
             return result;
@@ -299,15 +330,25 @@ namespace SimCard.APP.Persistence.Repositories
         {
             dynamic result = new ExpandoObject();
             List<ShopViewModel> shops = Mapper.Map<List<ShopViewModel>>(await _shopRepository.GetShops());
-            result.products = shops;
+            result.shops = shops;
             return result;
         }
 
         private async Task<ExpandoObject> GetFilterData_TongHopChiPhiHoatDongKinhDoanh()
         {
             dynamic result = new ExpandoObject();
-            List<BankbookViewModel> bankAccounts = Mapper.Map<List<BankbookViewModel>>(await _bankbookRepository.GetAllBankbook());
+            List<BankAccountViewModel> bankAccounts = Mapper.Map<List<BankAccountViewModel>>(await _bankAccountRepository.GetAll());
+            bankAccounts.Add(new BankAccountViewModel
+            {
+                Id = 0,
+                Name = "Tất cả tài khoản"
+            });
             List<SupplierViewModel> suppliers = Mapper.Map<List<SupplierViewModel>>(await _supplierRepository.GetSuppliers());
+            suppliers.Add(new SupplierViewModel
+            {
+                Id = 0,
+                Name = "Tất cả nhà cung cấp"
+            });
             result.bankAccounts = bankAccounts;
             result.suppliers = suppliers;
             return result;
@@ -324,8 +365,18 @@ namespace SimCard.APP.Persistence.Repositories
         private async Task<ExpandoObject> GetFilterData_TongHopGiaoDichVaSoDuTKNHToanCongTy()
         {
             dynamic result = new ExpandoObject();
-            List<BankbookViewModel> bankAccounts = Mapper.Map<List<BankbookViewModel>>(await _bankbookRepository.GetAllBankbook());
+            List<BankAccountViewModel> bankAccounts = Mapper.Map<List<BankAccountViewModel>>(await _bankAccountRepository.GetAll());
+            bankAccounts.Add(new BankAccountViewModel
+            {
+                Id = 0,
+                Name = "Tất cả tài khoản"
+            });
             List<SupplierViewModel> suppliers = Mapper.Map<List<SupplierViewModel>>(await _supplierRepository.GetSuppliers());
+            suppliers.Add(new SupplierViewModel
+            {
+                Id = 0,
+                Name = "Tất cả nhà cung cấp"
+            });
             result.bankAccounts = bankAccounts;
             result.suppliers = suppliers;
             return result;
@@ -352,8 +403,14 @@ namespace SimCard.APP.Persistence.Repositories
         private async Task<ExpandoObject> GetFilterData_TongHopXuatHangVaLoiNhuanTheoMatHang()
         {
             dynamic result = new ExpandoObject();
-            List<Models.Product> products = await _productRepository.Query(p => true).ToListAsync();
-            List<Models.Shop> shops = await _shopRepository.Query(s => true).ToListAsync();
+            List<ProductViewModel> products = Mapper.Map<List<ProductViewModel>>(await _productRepository.GetProducts());
+            products.Add(new ProductViewModel
+            {
+                Id = 0,
+                Ma = "ALL",
+                Ten = "Tất cả mặt hàng"
+            });
+            List<ShopViewModel> shops = Mapper.Map<List<ShopViewModel>>(await _shopRepository.GetShops());
             result.products = products;
             result.shops = shops;
             return result;
@@ -362,8 +419,14 @@ namespace SimCard.APP.Persistence.Repositories
         private async Task<ExpandoObject> GetFilterData_XuatNhapTonTongHop()
         {
             dynamic result = new ExpandoObject();
-            List<Models.Product> products = await _productRepository.Query(p => true).ToListAsync();
-            List<Models.Shop> shops = await _shopRepository.Query(s => true).ToListAsync();
+            List<ProductViewModel> products = Mapper.Map<List<ProductViewModel>>(await _productRepository.GetProducts());
+            products.Add(new ProductViewModel
+            {
+                Id = 0,
+                Ma = "ALL",
+                Ten = "Tất cả mặt hàng"
+            });
+            List<ShopViewModel> shops = Mapper.Map<List<ShopViewModel>>(await _shopRepository.GetShops());
             result.products = products;
             result.shops = shops;
             return result;

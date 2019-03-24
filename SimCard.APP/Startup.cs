@@ -7,10 +7,11 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json.Serialization;
+
 using SimCard.APP.Mapping;
 using SimCard.APP.Persistence;
 using SimCard.APP.Persistence.Repositories;
+using SimCard.APP.Persistence.Services;
 using SimCard.APP.Workers;
 
 namespace SimCard.APP
@@ -42,14 +43,15 @@ namespace SimCard.APP
             services.AddScoped<IEventRepository, EventRepository>();
             services.AddScoped<IEmailRepository, EmailRepository>();
             services.AddScoped<ISupplierRepository, SupplierRepository>();
-            services.AddScoped<ICashbookRepository, CashbookRepository>();
             services.AddScoped<IBankbookRepository, BankbookRepository>();
-            services.AddScoped<IReportRepository, ReportRepository>();
             services.AddScoped<INetworkRepository, NetworkRepository>();
             services.AddScoped<IImportReceiptRepository, ImportReceiptRepository>();
             services.AddScoped<IExportReceiptRepository, ExportReceiptRepository>();
+            services.AddScoped<IBankAccountRepository, BankAccountRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddCors();        
+
+            services.AddScoped<IReportService, ReportService>();
+            services.AddCors();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1).AddJsonOptions(options => options.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver()); ;
 
             // In production, the Angular files will be served from this directory

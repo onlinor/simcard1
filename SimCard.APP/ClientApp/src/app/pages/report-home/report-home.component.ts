@@ -9,6 +9,7 @@ import {
   BankbookService
 } from '../../core/services';
 import { ReportConstant, ExportConstant } from '../../core';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-report-home',
@@ -27,9 +28,8 @@ export class ReportHomeComponent implements OnInit {
   customers = [];
   bankAccounts = [];
 
-  // Filter configs
-  selectedReport = 1;
-  selectedFilter = {
+  // Supported filter list
+  selectedFilterValue = {
     shop: 0,
     from: null,
     to: null,
@@ -38,22 +38,15 @@ export class ReportHomeComponent implements OnInit {
     customer: 0,
     bankAccount: 0
   };
-  supportedFilter = {
-    shop: true,
-    from: true,
-    to: true,
-    product: true,
-    warehouse: true,
-    customer: true,
-    bankAccount: true
-  };
+  supportedFilterList = ReportConstant.supportedFilterList;
 
   // Supported Export Methods
   selectedExportMethod = 'xlsx';
   supportedExportMethods = ExportConstant.SupportedExportMethod;
 
-  // Report types
-  reports = ReportConstant.SupportedReports;
+  // Supported report types
+  selectedReport = 1;
+  supportedReportTypes = ReportConstant.SupportedReports;
 
   constructor(
     private reportService: ReportService,
@@ -63,31 +56,52 @@ export class ReportHomeComponent implements OnInit {
     private supplierService: SupplierService,
     private customerService: CustomerService,
     private bankService: BankbookService
-  ) {}
+  ) { }
 
   ngOnInit() {
-    this.getShops();
-    this.getProducts();
     this.getReport();
   }
 
+  // This function will get all data, included report data, columns and filter
   getReport() {
-    this.reportService
-      .getReport(this.selectedReport, this.selectedFilter)
-      .subscribe(
-        result => {
-          this.reportData = result.data;
-          this.reportColumns = result.columns;
-          this.supportedFilter = result.supportedFilter;
+    this.get().subscribe(
+      result => {
+        // Set report table data
+        this.reportData = result.data;
+        this.reportColumns = this.getColsFromData(this.reportData[0]);
 
-          this.bankAccounts = result.filterData.bankAccounts;
-          this.products = result.filterData.products;
-          this.shops = result.filterData.shops;
-          this.warehouses = result.filterData.warehouses;
-          this.customers = result.filterData.customers;
-        },
-        error => console.log('Error getting data from API')
-      );
+        // Set filter data
+        this.supportedFilterList = this.getSupportedFilterList(result.filterData);
+        this.bankAccounts = result.filterData.bankAccounts !== null ? result.filterData.products : [];
+        this.products = result.filterData.products !== null ? result.filterData.products : [];
+        this.shops = result.filterData.shops !== null ? result.filterData.shops : [];
+        this.warehouses = result.filterData.warehouses !== null ? result.filterData.warehouses : [];
+        this.customers = result.filterData.customers !== null ? result.filterData.customers : [];
+      },
+      error => console.log('Error getting data from API')
+    );
+  }
+
+  // This function will only change report data, filters, columns ... wont be affected
+  filter() {
+    this.get().subscribe(
+      result => {
+        this.reportData = result.data;
+      },
+      error => console.log('Error getting data from API')
+    );
+  }
+
+  clearFilter() {
+    this.selectedFilterValue = {
+      shop: 0,
+      from: null,
+      to: null,
+      product: 0,
+      warehouse: 0,
+      customer: 0,
+      bankAccount: 0
+    };
   }
 
   export() {
@@ -101,61 +115,33 @@ export class ReportHomeComponent implements OnInit {
     }
   }
 
-  private clearFilter() {
-    this.selectedFilter = {
-      shop: 0,
-      from: null,
-      to: null,
-      product: 0,
-      warehouse: 0,
-      customer: 0,
-      bankAccount: 0
-    };
-  }
-
-  private getShops() {
-    this.shopService.getAll().subscribe(
-      result => {
-        this.shops = result;
-      },
-      error => console.log('Error getting data from API')
+  private get(): Observable<any> {
+    return this.reportService.getReport(
+      this.selectedReport,
+      this.selectedFilterValue
     );
   }
 
-  private getProducts() {
-    this.productService.getAll().subscribe(
-      result => {
-        this.products = result;
-      },
-      error => console.log('Error getting data from API')
-    );
+  private getSupportedFilterList(filterData: any) {
+    const filter = this.supportedFilterList;
+    const result = {};
+    for (const item in filterData) {
+      if (filterData.hasOwnProperty(item)) {
+        result[item] = true;
+      }
+    }
+    Object.assign(filter, result);
+    return filter;
   }
 
-  private getWarehouses() {
-    this.supplierService.getAll().subscribe(
-      result => {
-        this.warehouses = result;
-      },
-      error => console.log('Error getting data from API')
-    );
-  }
-
-  private getCustomers() {
-    this.customerService.getAllCustomer().subscribe(
-      result => {
-        this.customers = result;
-      },
-      error => console.log('Error getting data from API')
-    );
-  }
-
-  private getBankAccounts() {
-    this.bankService.getAllBankbook().subscribe(
-      result => {
-        this.bankAccounts = result;
-      },
-      error => console.log('Error getting data from API')
-    );
+  private getColsFromData(data: any) {
+    const result = [];
+    for (const item in data) {
+      if (data.hasOwnProperty(item)) {
+        result.push(item);
+      }
+    }
+    return result;
   }
 
   private exportToExcel() {

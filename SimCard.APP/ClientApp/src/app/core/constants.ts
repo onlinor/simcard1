@@ -40,6 +40,16 @@ export class ExportConstant {
 }
 
 export class ReportConstant {
+  static supportedFilterList = {
+    shop: false,
+    from: false,
+    to: false,
+    product: false,
+    warehouse: false,
+    customer: false,
+    bankAccount: false
+  };
+
   static SupportedReports = [
     {
       label: 'BÁO CÁO XUẤT NHẬP TỒN',

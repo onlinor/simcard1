@@ -6,6 +6,6 @@ namespace SimCard.APP.Models
     {
         public string Name { get; set; }
 
-        public List<Product> Products { get; set; }
+        public List<ImportReceipt> Products { get; set; }
     }
 }

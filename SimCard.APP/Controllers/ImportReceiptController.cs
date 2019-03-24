@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using SimCard.APP.Persistence;
 using SimCard.APP.Persistence.Repositories;
 using SimCard.APP.ViewModels;
-using System.Collections.Generic;
+
 using System.Threading.Tasks;
 
 namespace SimCard.APP.Controllers
@@ -17,9 +17,9 @@ namespace SimCard.APP.Controllers
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public ImportReceiptController(IImportReceiptRepository ImportReceiptRepository, IUnitOfWork unitOfWork, IMapper mapper)
+        public ImportReceiptController(IImportReceiptRepository importReceiptRepository, IUnitOfWork unitOfWork, IMapper mapper)
         {
-            _importReceiptRepository = ImportReceiptRepository;
+            _importReceiptRepository = importReceiptRepository;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
@@ -31,11 +31,6 @@ namespace SimCard.APP.Controllers
             {
                 Ma = await _importReceiptRepository.GenerateID()
             };
-        }
-        
-        public async Task<IActionResult> GetImportSummary(List<ProductViewModel> productViewModels)
-        {
-            return Ok();
         }
 
         [HttpPost("/api/phieunhap/add")]

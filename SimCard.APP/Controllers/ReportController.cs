@@ -3,7 +3,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
 using SimCard.APP.Persistence;
-using SimCard.APP.Persistence.Repositories;
+using SimCard.APP.Persistence.Services;
 using SimCard.APP.ViewModels;
 
 using System.Collections.Generic;
@@ -16,13 +16,13 @@ namespace SimCard.APP.Controllers
     [ApiController]
     public class ReportController : ControllerBase
     {
-        private readonly IReportRepository _reportRepository;
+        private readonly IReportService _reportService;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public ReportController(IReportRepository reportRepository, IUnitOfWork unitOfWork, IMapper mapper)
+        public ReportController(IReportService reportService, IUnitOfWork unitOfWork, IMapper mapper)
         {
-            _reportRepository = reportRepository;
+            _reportService = reportService;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
@@ -34,30 +34,18 @@ namespace SimCard.APP.Controllers
             {
                 Data = await GetReport(type, filter)
             };
-            result.Columns = GetKeysFromObject(result.Data[0]);
             result.FilterData = await GetFilterData(type);
-            result.SupportedFilters = GetKeysFromObject(result.FilterData);
             return result;
         }
 
         private async Task<List<ExpandoObject>> GetReport(int type, ReportFilterViewModel filter)
         {
-            return await _reportRepository.GetReport(type, filter);
+            return await _reportService.GetReport(type, filter);
         }
 
         private async Task<ExpandoObject> GetFilterData(int type)
         {
-            return await _reportRepository.GetFilterData(type);
-        }
-
-        private List<string> GetKeysFromObject(ExpandoObject data)
-        {
-            List<string> result = new List<string>();
-            foreach (KeyValuePair<string, object> property in data)
-            {
-                result.Add(property.Key);
-            }
-            return result;
+            return await _reportService.GetFilterData(type);
         }
     }
 }

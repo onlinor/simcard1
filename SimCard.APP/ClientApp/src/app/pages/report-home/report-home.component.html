@@ -7,7 +7,7 @@
             <p></p>
             <span class="float-left">
               <label style="margin-right: 10px;">Chọn báo cáo</label>
-              <p-dropdown [options]="reports" (onChange)="getReport()" [(ngModel)]="selectedReport" [group]="true"></p-dropdown>
+              <p-dropdown [options]="supportedReportTypes" (onChange)="getReport()" [(ngModel)]="selectedReport" [group]="true"></p-dropdown>
             </span>
             <span class="float-right">
               <label style="margin-right: 10px;">Xuất file</label>
@@ -18,32 +18,32 @@
         </div>
         <hr>
         <div class="row">
-          <div class="col-3" *ngIf="supportedFilter.from == true">
-            <p-calendar [(ngModel)]="selectedFilter.from" placeholder="Từ ngày"></p-calendar>
+          <div class="col-3" *ngIf="supportedFilterList.from == true">
+            <p-calendar [(ngModel)]="supportedFilterList.from" placeholder="Từ ngày"></p-calendar>
           </div>
-          <div class="col-3" *ngIf="supportedFilter.to == true">
-            <p-calendar [(ngModel)]="selectedFilter.to" placeholder="Đến ngày"></p-calendar>
+          <div class="col-3" *ngIf="supportedFilterList.to == true">
+            <p-calendar [(ngModel)]="supportedFilterList.to" placeholder="Đến ngày"></p-calendar>
           </div>
-          <div class="col-3" *ngIf="supportedFilter.shop == true">
-            <p-dropdown [options]="shops" [(ngModel)]="selectedFilter.shop" placeholder="Chi nhánh"></p-dropdown>
+          <div class="col-3" *ngIf="supportedFilterList.shop == true">
+            <p-dropdown [options]="shops" [(ngModel)]="supportedFilterList.shop" placeholder="Chi nhánh"></p-dropdown>
           </div>
-          <div class="col-3" *ngIf="supportedFilter.product == true">
-            <p-dropdown [options]="products" [(ngModel)]="selectedFilter.product" placeholder="Sản phẩm"></p-dropdown>
+          <div class="col-3" *ngIf="supportedFilterList.product == true">
+            <p-dropdown [options]="products" [(ngModel)]="supportedFilterList.product" placeholder="Sản phẩm"></p-dropdown>
           </div>
         </div>
         <p></p>
         <div class="row">
-          <div class="col-3" *ngIf="supportedFilter.warehouse == true">
-            <p-dropdown [options]="warehouses" [(ngModel)]="selectedFilter.warehouse" placeholder="Kho"></p-dropdown>
+          <div class="col-3" *ngIf="supportedFilterList.warehouse == true">
+            <p-dropdown [options]="warehouses" [(ngModel)]="supportedFilterList.warehouse" placeholder="Kho"></p-dropdown>
           </div>
-          <div class="col-3" *ngIf="supportedFilter.customer == true">
-            <p-dropdown [options]="customers" [(ngModel)]="selectedFilter.customer" placeholder="Khách hàng"></p-dropdown>
+          <div class="col-3" *ngIf="supportedFilterList.customer == true">
+            <p-dropdown [options]="customers" [(ngModel)]="supportedFilterList.customer" placeholder="Khách hàng"></p-dropdown>
           </div>
-          <div class="col-3" *ngIf="supportedFilter.bankAccount == true">
-            <p-dropdown [options]="bankAccounts" [(ngModel)]="selectedFilter.bankAccount" placeholder="Tài khoản NH"></p-dropdown>
+          <div class="col-3" *ngIf="supportedFilterList.bankAccount == true">
+            <p-dropdown [options]="bankAccounts" [(ngModel)]="supportedFilterList.bankAccount" placeholder="Tài khoản NH"></p-dropdown>
           </div>
           <div class="col-3">
-            <button class="ui-button-info mr-2" pButton type="button" label="Lọc" (click)="getReport()" icon="pi pi-check" iconPos="left"></button>
+            <button class="ui-button-info mr-2" pButton type="button" label="Lọc" (click)="filter()" icon="pi pi-check" iconPos="left"></button>
             <button class="ui-button-danger" pButton type="button" label="Xoá bộ lọc" (click)="clearFilter()" icon="pi pi-times" iconPos="left"></button>
           </div>
         </div>
