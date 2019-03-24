@@ -35,7 +35,7 @@ namespace SimCard.APP.Persistence.Repositories
             return null;
         }
 
-        public async Task<string> GenerateID()
+        public async Task<string> GenerateProductCode()
         {
             string currentDate = DateTime.UtcNow.Date.ToString("yyyy-MM-dd").Replace("-", "");
             // No data for new day
@@ -64,7 +64,7 @@ namespace SimCard.APP.Persistence.Repositories
             List<ExpandoObject> result = new List<ExpandoObject>();
 
             // Where shop id != null => product of shop
-            List<IGrouping<string, ImportReceipt>> products = await _context.Products.Where(p => p.ShopId != null).GroupBy(p => p.Ma).ToListAsync();
+            List<IGrouping<string, Product>> products = await _context.Products.Where(p => p.ShopId != null).GroupBy(p => p.Ma).ToListAsync();
             foreach (IGrouping<string, ImportReceipt> item in products)
             {
                 dynamic keyVal = new ExpandoObject();

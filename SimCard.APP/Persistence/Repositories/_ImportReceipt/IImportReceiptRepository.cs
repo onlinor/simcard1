@@ -11,7 +11,7 @@ namespace SimCard.APP.Persistence.Repositories
 {
     public interface IImportReceiptRepository
     {
-        Task<string> GenerateID();
+        Task<string> GenerateProductCode();
 
         Task<ImportReceipt> AddImportReceipt(ImportReceiptViewModel importReceipt);
 

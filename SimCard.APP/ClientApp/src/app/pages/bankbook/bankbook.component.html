@@ -23,7 +23,7 @@
 		<div class="col-lg-3 pr-0">
 			<p>Tới ngày</p>
 			<p-calendar [(ngModel)]="toiNgay" [showIcon]="true"></p-calendar>
-			<span class="pi pi-search ml-40 m-pointer"></span>
+			<span class="pi pi-search ml-40 m-pointer" (click)="onSearch()"></span>
 		</div>
 		<div class="col-lg-3">
 			<p>Xuất dữ liệu</p>
@@ -42,11 +42,11 @@
         </div>
         <div class="col-lg-3">
             <p>Thu</p>
-            <input type="text" name="soTienThu" class="form-control" [(ngModel)]="soTienThu" />
+            <input type="text" name="soTienThu" class="form-control" [(ngModel)]="searchSoTienThu" />
         </div>
         <div class="col-lg-3">
             <p>Chi</p>
-            <input type="text" name="soTienChi" class="form-control" [(ngModel)]="soTienChi" />
+            <input type="text" name="soTienChi" class="form-control" [(ngModel)]="searchSoTienChi" />
         </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 place-button">

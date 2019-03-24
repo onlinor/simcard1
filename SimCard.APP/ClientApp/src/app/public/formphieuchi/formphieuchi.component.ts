@@ -21,35 +21,33 @@ export class FormphieuchiComponent implements OnInit, OnDestroy {
     { label: 'AChauBank', value: 'ACB' }
   ];
 
-  LoaiPhanBo = [
-    { label: 'Chi Phí', value: 'CP' },
-    { label: 'Thu Chi Khác', value: 'TC' },
-    { label: 'Không', value: 'NO' }
-  ];
+	dataPhieuChi: any = {
+		loaiNganHang: '',
+		loaiPhanBo: '',
+		tenKhachHang: '', 
+		donViNhan: '',
+		donViNop: '',
+		maKhachHang: '', 
+		ghiChu: '',
+		hinhThucChi: '',
+		hinhThucNop: '',
+		maPhieu: 'PC', 
+		nguoiChi: '',
+		nguoiThu: '',
+		ngayLap: new Date().toLocaleDateString(),
+		noiDungPhieu: '', 
+		soTienChi: 0,
+		soTienThu: 0,
+		congDon: 0
+	};
 
-  dataPhieuChi: any = {
-    loaiNganHang: '',
-    loaiPhanBo: '',
-    tenKhachHang: '',
-    donViNhan: '',
-    donViNop: '',
-    maKhachHang: '',
-    ghiChu: '',
-    hinhThucChi: 'TM',
-    hinhThucNop: '',
-    maPhieu: 'PC',
-    nguoiChi: '',
-    nguoiThu: '',
-    dateCreated: new Date().toLocaleDateString(),
-    noiDungPhieu: '',
-    soTienChi: 0,
-    soTienThu: 0,
-    congDon: 0
-  };
-  theATM: boolean = false;
-  dsKhachHang: any;
-  subscription: Subscription;
-  dataPhieuChiArray: any;
+	theATM: boolean = false;
+	cash: boolean = false;
+	dsKhachHang: any;
+	subscription: Subscription;
+	dataPhieuChiArray: any;
+	countPhieuChiArray = [];
+	countPhieuChi = 0;
 
   @Input("isShowDialogPhieuChi") isShowDialogPhieuChi: boolean;
   @Input("isNewCashBook") isNewCashBook: boolean;
@@ -60,70 +58,97 @@ export class FormphieuchiComponent implements OnInit, OnDestroy {
   constructor(private cashbookService: CashbookService) {
   }
 
-  ngOnInit() {
-  }
+	ngOnInit() {
+	}
+	
+	checkedATM() {
+		if(this.theATM) {
+			this.dataPhieuChi.hinhThucChi = 'CK';
+		}
+		if(!this.theATM) {
+			this.dataPhieuChi.hinhThucChi = '';
+		}
+		if(this.theATM && this.cash) {
+			this.dataPhieuChi.hinhThucChi = 'CK,TM';
+		} 
+		if (!this.theATM && this.cash) {
+			this.dataPhieuChi.hinhThucChi = 'TM';
+		}
+	}
 
-  checkedATM(event: any) {
-    if (this.theATM) {
-      this.dataPhieuChi.hinhThucChi = 'TM,CK';
-    } else {
-      this.dataPhieuChi.hinhThucChi = 'TM';
-    }
-  }
+	checkedCash() {
+		if(this.cash) {
+			this.dataPhieuChi.hinhThucChi = 'TM';
+		}
+		if(!this.cash) {
+			this.dataPhieuChi.hinhThucChi = '';
+		}
+		if(this.cash && this.theATM) {
+			this.dataPhieuChi.hinhThucChi = 'CK,TM';
+		} 
+		if (!this.cash && this.theATM) {
+			this.dataPhieuChi.hinhThucChi = 'CK';
+		}
+	}
 
-  onSubmit() {
-    if (this.theATM && this.dataPhieuChi.loaiNganHang !== 'default') {
-      let ngayLap = new Date().toLocaleDateString();
-      this.dataPhieuChi.maPhieu = 'PC' + ngayLap + '/' + this.dataPhieuChi.loaiNganHang;
-    } else {
-      let ngayLap = new Date().toLocaleDateString();
-      this.dataPhieuChi.maPhieu = 'PC' + ngayLap;
-    }
-    this.isShowDialogPhieuChi = false;
-    this.emitShowDialogPhieuChi.emit(this.isShowDialogPhieuChi);
-    if (this.isNewCashBook) {
-      this.subscription = this.cashbookService.addCashbook(this.dataPhieuChi)
-        .subscribe(() => {
-          this.emitDataPhieuChi.emit({ ...this.dataPhieuChi });
-        }, error => {
-        }
-        );
-    } else {
-      this.subscription = this.cashbookService.updateCashbook(this.idSelectedCashbook, this.dataPhieuChi)
-        .subscribe(() => {
-          this.emitDataPhieuChi.emit({ ...this.dataPhieuChi });
-        }, error => {
-        }
-        );
-    }
-    this.dataPhieuChi = {};
-    this.dataPhieuChi.loaiNganHang = '';
-    this.dataPhieuChi.maPhieu = 'PC';
-    this.dataPhieuChi.hinhThucChi = 'TM';
-    this.dataPhieuChi.dateCreated = new Date().toLocaleDateString();
-    this.theATM = false;
-  }
+	setMaPhieu() {
+		let ngayLap = new Date().toLocaleDateString();
+		if(this.theATM && this.dataPhieuChi.loaiNganHang !=='default') {
+			this.dataPhieuChi.maPhieu = 'PC' + ngayLap + '.' + this.countPhieuChi + '/' + this.dataPhieuChi.loaiNganHang;
+		} else {
+			this.dataPhieuChi.maPhieu = 'PC' + ngayLap + '.' + this.countPhieuChi;
+		}
+	}
 
+	onSubmit() {
+		this.setMaPhieu();
+		this.isShowDialogPhieuChi = false;
+		this.emitShowDialogPhieuChi.emit(this.isShowDialogPhieuChi);
+		if(this.isNewCashBook)	{
+			this.subscription = this.cashbookService.addCashbook(this.dataPhieuChi)
+				.subscribe(() => {	
+					this.emitDataPhieuChi.emit({...this.dataPhieuChi});
+					}, error => {
+					}
+				);
+		} else {
+			this.subscription = this.cashbookService.updateCashbook(this.idSelectedCashbook, this.dataPhieuChi)
+				.subscribe(() => {
+						this.emitDataPhieuChi.emit({...this.dataPhieuChi});
+					}, error => {
+					}
+				);
+		}
+		this.dataPhieuChi = {};
+		this.dataPhieuChi.loaiNganHang = '';
+		this.dataPhieuChi.maPhieu = 'PC';
+		this.dataPhieuChi.hinhThucChi = '';
+		this.dataPhieuChi.soTienChi = 0;
+		this.dataPhieuChi.ngayLap = new Date().toLocaleDateString();
+		this.theATM = false;
+		
+	}
+	
+	
+	onClose() {
+		this.dataPhieuChi = {};
+		this.dataPhieuChi.ngayLap = new Date().toLocaleDateString();
+		this.dataPhieuChi.maPhieu = 'PC';
+		this.dataPhieuChi.hinhThucChi = '';
+		this.theATM = false;
+		this.dataPhieuChi.soTienChi = 0;
+		this.isShowDialogPhieuChi = false;
+		this.emitShowDialogPhieuChi.emit(this.isShowDialogPhieuChi);
+	}
 
-  onClose() {
-    this.dataPhieuChi = {};
-    this.dataPhieuChi.dateCreated = new Date().toLocaleDateString();
-    this.dataPhieuChi.maPhieu = 'PC';
-    this.dataPhieuChi.hinhThucChi = 'TM';
-    this.theATM = false;
-    this.dataPhieuChi.soTienChi = 0;
-    this.isShowDialogPhieuChi = false;
-    this.emitShowDialogPhieuChi.emit(this.isShowDialogPhieuChi);
-  }
-
-  onClearForm() {
-    this.dataPhieuChi = {};
-    this.dataPhieuChi.dateCreated = new Date().toLocaleDateString();
-    this.dataPhieuChi.maPhieu = 'PC';
-    this.dataPhieuChi.hinhThucChi = 'TM';
-    this.theATM = false;
-    this.dataPhieuChi.soTienChi = 0;
-  }
+	onClearForm() {
+		this.dataPhieuChi = {};
+		this.dataPhieuChi.ngayLap = new Date().toLocaleDateString();
+		this.dataPhieuChi.maPhieu = 'PC';
+		this.dataPhieuChi.hinhThucChi = '';
+		this.theATM = false;
+		this.dataPhieuChi.soTienChi = 0;
+	}
 
   ngOnDestroy() {
     if (this.subscription) {

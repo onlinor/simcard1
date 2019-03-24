@@ -61,7 +61,6 @@ export class ProductComponent implements OnInit {
 
   constructor(
     private productService: ProductService,
-    private supplierService: SupplierService,
     private fileService: FileService
   ) {}
 

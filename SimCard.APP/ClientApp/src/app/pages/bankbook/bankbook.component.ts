@@ -52,6 +52,7 @@ export class BankbookComponent implements OnInit, OnDestroy {
 	isShowDialogPhieuChi: boolean = false;
 	isShowDialogPhieuThu: boolean = false;
 	bankbook: any = [];
+	initialBankbook: any;
     selectedBankbook: any;
 	dataPhieuChi: any;
 	dataPhieuThu: any;
@@ -72,6 +73,7 @@ export class BankbookComponent implements OnInit, OnDestroy {
 			.subscribe(
 				response => {
 					this.bankbook = response;
+					this.initialBankbook = response;
 				},
 				error => {}
 			)
@@ -135,9 +137,20 @@ export class BankbookComponent implements OnInit, OnDestroy {
 			if(this.bankbookTemp['hinhThucChi']) {
 				checkHTChi = this.bankbookTemp['hinhThucChi'];
 			}
-			if (checkHTChi === 'TM,CK') {
+			if(checkHTChi === 'TM') {
+				this.myFormChiChild.cash = true;
+				this.myFormChiChild.theATM = false;
+			}
+			if (checkHTChi === 'CK,TM') {
 				this.myFormChiChild.theATM = true;
-			} else {
+				this.myFormChiChild.cash = true;
+			} 
+			if(checkHTChi === 'CK') {
+				this.myFormChiChild.cash = false;
+				this.myFormChiChild.theATM = true;
+			} 
+			if(checkHTChi === '' ) {
+				this.myFormChiChild.cash = false;
 				this.myFormChiChild.theATM = false;
 			}
 			this.myFormChiChild.dataPhieuChi = this.bankbookTemp;
@@ -147,10 +160,21 @@ export class BankbookComponent implements OnInit, OnDestroy {
 			if(this.bankbookTemp['hinhThucNop']) {
 				checkHTThu = this.bankbookTemp['hinhThucNop'];
 			}
-			if (checkHTThu === 'TM,CK' ) {
-				this.myFormThuChild.theATM = true;
-			} else {
+			if(checkHTThu === 'TM') {
 				this.myFormThuChild.theATM = false;
+				this.myFormThuChild.cash = true;
+			}
+			if (checkHTThu === 'CK,TM' ) {
+				this.myFormThuChild.theATM = true;
+				this.myFormThuChild.cash = true;
+			} 
+			if(checkHTThu === 'CK') {
+				this.myFormThuChild.theATM = true;
+				this.myFormThuChild.cash = false;
+			}
+			if(checkHTThu === '' ) {
+				this.myFormThuChild.theATM = false;
+				this.myFormThuChild.cash = false;
 			}
 			this.myFormThuChild.dataPhieuThu = this.bankbookTemp;
 		}
@@ -163,6 +187,28 @@ export class BankbookComponent implements OnInit, OnDestroy {
 			bankbookToUpdate[prop] = bankbook[prop];
 		}
 		return bankbookToUpdate;
+	}
+	
+	onSearch() {
+		let arrayResult = [];
+		this.bankbook = this.initialBankbook;
+		this.searchSoTienThu = 0;
+		this.searchSoTienChi = 0;
+		let tuNgay = new Date(this.tuNgay);
+		let toiNgay = new Date(this.toiNgay);
+		if (!tuNgay || !toiNgay) {
+			return this.bankbook;
+		} else {
+			for (const item of this.bankbook) {
+				let ngayLap = new Date(item.ngayLap);
+				if(tuNgay <= ngayLap && ngayLap < toiNgay) {
+					arrayResult.push(item);
+					this.searchSoTienChi = this.searchSoTienChi + item.soTienChi;
+					this.searchSoTienThu = this.searchSoTienThu + item.soTienThu;
+				}
+				this.bankbook = arrayResult;
+			}
+		}
 	}
 
 	ngOnDestroy() {

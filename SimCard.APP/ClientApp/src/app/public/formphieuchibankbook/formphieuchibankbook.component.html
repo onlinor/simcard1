@@ -1,123 +1,133 @@
-<p-dialog [maximizable]="true" [baseZIndex]="10000" header="Thêm Phiếu Chi" [(visible)]="isShowDialogPhieuChi" [modal]="true" 
-			[responsive]="true" showEffect="fade" [width]="500" >
+<p-dialog [maximizable]="true" [baseZIndex]="10000" header="Thêm Phiếu Chi" [(visible)]="isShowDialogPhieuChi" [modal]="true"
+ [responsive]="true" showEffect="fade" [width]="500">
 	<form #f="ngForm" (ngSubmit)="onSubmit()">
-			<div class="ui-g ui-fluid">
-				<div class="ui-g-12">
-					<div class="ui-g-4">
-						<label>Ngày Tạo</label>
-					</div>
-					<div class="ui-g-8">
-                        <p>{{ dataPhieuChi.dateCreated | date: 'dd/MM/yyyy' }}</p>
-					</div>
+		<div class="ui-g ui-fluid">
+			<div class="ui-g-12">
+				<div class="ui-g-4">
+					<label>Ngày Tạo</label>
 				</div>
-				<div class="ui-g-12">
-					<div class="ui-g-4">
-						<label>Số phiếu chi</label>
-					</div>
-					<div class="ui-g-6">
-						<input name="maPhieu" autocomplete="off" pInputText [(ngModel)]="dataPhieuChi.maPhieu" [disabled]="true" />
-					</div>
-					</div>
-				<div class="ui-g-12">
-					<div class="ui-g-4">
-						<label>Phân Bổ</label>
-					</div>
-					<div class="ui-g-6">
-						<p-dropdown placeholder="Chọn dữ liệu" name="phanBo" [options]="LoaiPhanBo" [(ngModel)]="dataPhieuChi.loaiPhanBo">
-						</p-dropdown>
-					</div>
-				</div>
-				<div class="ui-g-12" >
-					<div class="ui-g-4">
-						<label>Người nhận tiền</label>
-					</div>
-					<div class="ui-g-6">
-						<p-dropdown name="dsKhachHang" [options]="dsKhachHang" [(ngModel)]="dataPhieuChi.tenKhachHang" editable="true" placeholder="Chọn dữ liệu"></p-dropdown>
-					</div>
-				</div>
-				<div class="ui-g-12">
-					<div class="ui-g-4">
-						<label>Đơn vị nhận</label>
-					</div>
-					<div class="ui-g-6">
-						<input type="text" name="donviNhan" autocomplete="off" pInputText [(ngModel)]="dataPhieuChi.donViNhan" />							
-					</div>
-				</div>
-				<div class="ui-g-12">
-					<div class="ui-g-4">
-						<label>Mã khách hàng</label>
-					</div>
-					<div class="ui-g-6">
-						<input type="text" name="maKhachHang" autocomplete="off" pInputText [(ngModel)]="dataPhieuChi.maKhachHang" />	
-					</div>
-				</div>
-				<div class="ui-g-12" >
-					<div class="ui-g-4">
-						<label>Lí do chi</label>
-					</div>
-					<div class="ui-g-6">
-						<input type="text" name="noidungPhieu" autocomplete="off" pInputText [(ngModel)]="dataPhieuChi.noiDungPhieu" />
-					</div>
-				</div>
-				<div class="ui-g-12">
-					<div class="ui-g-4">
-						<label>Hình thức chi</label>
-					</div>
-					<div class="ui-g-6">
-						<input type="text" name="hinhThucChi" autocomplete="off" pInputText [(ngModel)]="dataPhieuChi.hinhThucChi" [disabled]="true"/>
-					</div>
-				</div>
-				<div class="ui-g-12">
-					<div class="ui-g-4">
-						<label>Thẻ ATM</label>
-					</div>
-					<div class="ui-g-6">
-						<p-checkbox name="ATM" binary="true" [(ngModel)]="theATM" (onChange)="checkedATM($event)"></p-checkbox>
-					</div>
-				</div>
-				<div class="ui-g-12" *ngIf="theATM">
-					<div class="ui-g-4">
-						<label>Ngân Hàng</label>
-					</div>
-					<div class="ui-g-6">
-						<p-dropdown name="loaiNganHang" [options]="LoaiNganHang" [(ngModel)]="dataPhieuChi.loaiNganHang"></p-dropdown>
-					</div>
-				</div>
-				<div class="ui-g-12">
-					<div class="ui-g-4">
-						<label>Số tiền</label>
-					</div>
-					<div class="ui-g-6">
-						<input type="number" min="0" name="sotienChi" autocomplete="off" pInputText [(ngModel)]="dataPhieuChi.soTienChi"/>
-					</div>
-				</div>
-				<div class="ui-g-12">
-					<div class="ui-g-4">
-						<label>Người chi</label>
-					</div>
-					<div class="ui-g-6">
-						<input type="text" name="nguoiChi" autocomplete="off" pInputText [(ngModel)]="dataPhieuChi.nguoiChi"/>
-					</div>
-				</div>
-				<div class="ui-g-12">
-					<div class="ui-g-4">
-						<label>Ghi chú</label>
-					</div>
-					<div class="ui-g-6">
-						<input type="text" name="ghiChu" autocomplete="off" pInputText [(ngModel)]="dataPhieuChi.ghiChu"/>
-					</div>
+				<div class="ui-g-8">
+					<p>{{ dataPhieuChi.dateCreated | date: 'dd/MM/yyyy' }}</p>
 				</div>
 			</div>
+			<div class="ui-g-12">
+				<div class="ui-g-4">
+					<label>Số phiếu chi</label>
+				</div>
+				<div class="ui-g-6">
+					<input name="maPhieu" autocomplete="off" pInputText [(ngModel)]="dataPhieuChi.maPhieu" [disabled]="true" />
+				</div>
+			</div>
+			<div class="ui-g-12">
+				<div class="ui-g-4">
+					<label>Phân Bổ</label>
+				</div>
+				<div class="ui-g-6">
+					<p-dropdown placeholder="Chọn dữ liệu" name="phanBo" [options]="LoaiPhanBo" [(ngModel)]="dataPhieuChi.loaiPhanBo">
+					</p-dropdown>
+				</div>
+			</div>
+			<div class="ui-g-12">
+				<div class="ui-g-4">
+					<label>Người nhận tiền</label>
+				</div>
+				<div class="ui-g-6">
+					<p-dropdown name="dsKhachHang" [options]="dsKhachHang" [(ngModel)]="dataPhieuChi.tenKhachHang" editable="true"
+					 placeholder="Chọn dữ liệu"></p-dropdown>
+				</div>
+			</div>
+			<div class="ui-g-12">
+				<div class="ui-g-4">
+					<label>Đơn vị nhận</label>
+				</div>
+				<div class="ui-g-6">
+					<input type="text" name="donviNhan" autocomplete="off" pInputText [(ngModel)]="dataPhieuChi.donViNhan" />
+				</div>
+			</div>
+			<div class="ui-g-12">
+				<div class="ui-g-4">
+					<label>Mã khách hàng</label>
+				</div>
+				<div class="ui-g-6">
+					<input type="text" name="maKhachHang" autocomplete="off" pInputText [(ngModel)]="dataPhieuChi.maKhachHang" />
+				</div>
+			</div>
+			<div class="ui-g-12">
+				<div class="ui-g-4">
+					<label>Lí do chi</label>
+				</div>
+				<div class="ui-g-6">
+					<input type="text" name="noidungPhieu" autocomplete="off" pInputText [(ngModel)]="dataPhieuChi.noiDungPhieu" />
+				</div>
+			</div>
+			<div class="ui-g-12">
+				<div class="ui-g-4">
+					<label>Hình thức chi</label>
+				</div>
+				<div class="ui-g-6">
+					<div class="ui-g-6">
+						<div>
+							<label>Ngân Hàng</label>
+						</div>
+						<div>
+							<p-checkbox name="ATM" binary="true" [(ngModel)]="theATM" (onChange)="checkedATM($event)"></p-checkbox>
+						</div>
+					</div>
+					<div class="ui-g-6">
+						<div>
+							<label>Tiền Mặt</label>
+						</div>
+						<div>
+							<p-checkbox name="cash" binary="true" [(ngModel)]="cash" (onChange)="checkedCash($event)"></p-checkbox>
+						</div>
+					</div>
+					<input type="text" name="hinhThucChi" autocomplete="off" pInputText [(ngModel)]="dataPhieuChi.hinhThucChi"
+					 [disabled]="true" />
+				</div>
+			</div>
+			<div class="ui-g-12" *ngIf="theATM">
+				<div class="ui-g-4">
+					<label>Ngân Hàng</label>
+				</div>
+				<div class="ui-g-6">
+					<p-dropdown name="loaiNganHang" [options]="LoaiNganHang" [(ngModel)]="dataPhieuChi.loaiNganHang"></p-dropdown>
+				</div>
+			</div>
+			<div class="ui-g-12">
+				<div class="ui-g-4">
+					<label>Số tiền</label>
+				</div>
+				<div class="ui-g-6">
+					<input type="number" min="0" name="sotienChi" autocomplete="off" pInputText [(ngModel)]="dataPhieuChi.soTienChi" />
+				</div>
+			</div>
+			<div class="ui-g-12">
+				<div class="ui-g-4">
+					<label>Người chi</label>
+				</div>
+				<div class="ui-g-6">
+					<input type="text" name="nguoiChi" autocomplete="off" pInputText [(ngModel)]="dataPhieuChi.nguoiChi" />
+				</div>
+			</div>
+			<div class="ui-g-12">
+				<div class="ui-g-4">
+					<label>Ghi chú</label>
+				</div>
+				<div class="ui-g-6">
+					<input type="text" name="ghiChu" autocomplete="off" pInputText [(ngModel)]="dataPhieuChi.ghiChu" />
+				</div>
+			</div>
+		</div>
 
-			<p-footer>
-				<div class="float-left">
-					<button type="button" pButton icon="pi pi-spinner" (click)="onClearForm()" label="Làm mới" class="ui-button-primary"></button>&nbsp;						
-				</div>
-				<div class="float-right">
-					<button type="button" pButton icon="pi pi-print" label="In phiếu" class="ui-button-secondary"></button>&nbsp;
-					<button type="submit" pButton icon="pi pi-check" label="Lưu" class="ui-button-success"></button>&nbsp;
-					<button type="button" pButton icon="pi pi-times"  (click)="onClose()" label="Đóng" class="ui-button-primary"></button>&nbsp;
-				</div>
-			</p-footer>     
+		<p-footer>
+			<div class="float-left">
+				<button type="button" pButton icon="pi pi-spinner" (click)="onClearForm()" label="Làm mới" class="ui-button-primary"></button>&nbsp;
+			</div>
+			<div class="float-right">
+				<button type="button" pButton icon="pi pi-print" label="In phiếu" class="ui-button-secondary"></button>&nbsp;
+				<button type="submit" pButton icon="pi pi-check" label="Lưu" class="ui-button-success"></button>&nbsp;
+				<button type="button" pButton icon="pi pi-times" (click)="onClose()" label="Đóng" class="ui-button-primary"></button>&nbsp;
+			</div>
+		</p-footer>
 	</form>
 </p-dialog>

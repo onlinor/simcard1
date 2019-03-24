@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SimCard.APP.Models
 {
@@ -16,9 +17,11 @@ namespace SimCard.APP.Models
         [StringLength(255)]
         public string NoiDungPhieu { get; set; }
 
-        public int SoTienThu { get; set; }
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal SoTienThu { get; set; }
 
-        public int SoTienChi { get; set; }
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal SoTienChi { get; set; }
 
         public int CongDon { get; set; }
 

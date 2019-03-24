@@ -11,6 +11,7 @@ namespace SimCard.APP.Models
 
         public string Nhanvienlap { get; set; }
 
+        [Column(TypeName = "decimal(18,2)")]
         public decimal OldDebt { get; set; }
 
         public string RepresentativePerson { get; set; }
@@ -19,8 +20,10 @@ namespace SimCard.APP.Models
 
         public string Note { get; set; }
 
+        [Column(TypeName = "decimal(18,2)")]
         public decimal MoneyPaid { get; set; }
 
+        [Column(TypeName = "decimal(18,2)")]
         public decimal Debt { get; set; }
 
         public List<ExportReceiptProducts> Products { get; set; }

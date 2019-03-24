@@ -13,6 +13,7 @@ namespace SimCard.APP.Models
 
         public string Nhanvienlap { get; set; }
 
+        [Column(TypeName = "decimal(18,2)")]
         public decimal Congnocu { get; set; }
 
         public string Nguoidaidien { get; set; }
@@ -23,8 +24,10 @@ namespace SimCard.APP.Models
 
         public string Ghichu { get; set; }
 
+        [Column(TypeName = "decimal(18,2)")]
         public decimal Tienthanhtoan { get; set; }
 
+        [Column(TypeName = "decimal(18,2)")]
         public decimal Tienconlai { get; set; }
 
         [ForeignKey("ShopId")]

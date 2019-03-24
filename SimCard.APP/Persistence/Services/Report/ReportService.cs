@@ -246,7 +246,6 @@ namespace SimCard.APP.Persistence.Services
             {
                 ir.Products,
                 ir.DateCreated
-                ir.
             }).OrderByDescending(ir => ir.DateCreated).ToListAsync();
             List<ExportReceipt> exportReceipts = await _exportReceiptRepository.Query(ir => true).ToListAsync();
 

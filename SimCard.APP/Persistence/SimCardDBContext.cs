@@ -8,7 +8,7 @@ namespace SimCard.APP.Persistence
     {
         public DbSet<Shop> Shops { get; set; }
 
-        public DbSet<ImportReceipt> Products { get; set; }
+        public DbSet<Product> Products { get; set; }
 
         public DbSet<Customer> Customers { get; set; }
 

@@ -3,6 +3,7 @@ import { FormphieuchiComponent } from '../../public/formphieuchi/formphieuchi.co
 import { FormphieuthuComponent } from '../../public/formphieuthu/formphieuthu.component';
 import { Subscription } from 'rxjs/subscription';
 import { CashbookService } from '../../core/services/cashbook.service';
+import { Customer } from './../../core/models/customer.model';
 
 @Component({
 	selector: 'app-cashbook',
@@ -34,7 +35,7 @@ export class CashbookComponent implements OnInit, OnDestroy {
 		{ field: 'noiDungPhieu', header: 'Nội Dung Phiếu' },
 		{ field: 'soTienThu', header: 'Số Tiền Thu' },
 		{ field: 'soTienChi', header: 'Số Tiền Chi' }
-		//{ field: 'congDon', header: 'Cộng Dồn'}
+		// { field: 'congDon', header: 'Cộng Dồn'}
 	];
 
 	tuNgay: any;
@@ -43,11 +44,12 @@ export class CashbookComponent implements OnInit, OnDestroy {
 	tonCuoiKi: any;
 	soTienThu: any;
 	soTienChi: any;
-	searchSoTienThu: any;
-	searchSoTienChi: any;
+	searchSoTienThu: number = 0;
+	searchSoTienChi: number = 0;
 	isShowDialogPhieuChi: boolean = false;
 	isShowDialogPhieuThu: boolean = false;
 	cashbook: any = [];
+	initialCashbook: any = [];
 	selectedCashbook: any;
 	dataPhieuChi: any;
 	dataPhieuThu: any;
@@ -68,7 +70,7 @@ export class CashbookComponent implements OnInit, OnDestroy {
 		this.subscription = this.cashbookService.getAllCashbook().subscribe(
 			response => {
 				this.cashbook = response;
-				// this.initialCustomer = response;
+				this.initialCashbook = response;
 			},
 			error => {}
 		);
@@ -131,9 +133,20 @@ export class CashbookComponent implements OnInit, OnDestroy {
 			if(this.cashbookTemp['hinhThucChi']) {
 				checkHTChi = this.cashbookTemp['hinhThucChi'];
 			}
-			if (checkHTChi === 'TM,CK') {
+			if(checkHTChi === 'TM') {
+				this.myFormChiChild.cash = true;
+				this.myFormChiChild.theATM = false;
+			}
+			if (checkHTChi === 'CK,TM') {
 				this.myFormChiChild.theATM = true;
-			} else {
+				this.myFormChiChild.cash = true;
+			} 
+			if(checkHTChi === 'CK') {
+				this.myFormChiChild.cash = false;
+				this.myFormChiChild.theATM = true;
+			} 
+			if(checkHTChi === '' ) {
+				this.myFormChiChild.cash = false;
 				this.myFormChiChild.theATM = false;
 			}
 			this.myFormChiChild.dataPhieuChi = this.cashbookTemp;
@@ -143,10 +156,21 @@ export class CashbookComponent implements OnInit, OnDestroy {
 			if(this.cashbookTemp['hinhThucNop']) {
 				checkHTThu = this.cashbookTemp['hinhThucNop'];
 			}
-			if (checkHTThu === 'TM,CK' ) {
-				this.myFormThuChild.theATM = true;
-			} else {
+			if(checkHTThu === 'TM') {
 				this.myFormThuChild.theATM = false;
+				this.myFormThuChild.cash = true;
+			}
+			if (checkHTThu === 'CK,TM' ) {
+				this.myFormThuChild.theATM = true;
+				this.myFormThuChild.cash = true;
+			} 
+			if(checkHTThu === 'CK') {
+				this.myFormThuChild.theATM = true;
+				this.myFormThuChild.cash = false;
+			}
+			if(checkHTThu === '' ) {
+				this.myFormThuChild.theATM = false;
+				this.myFormThuChild.cash = false;
 			}
 			this.myFormThuChild.dataPhieuThu = this.cashbookTemp;
 		}
@@ -161,6 +185,28 @@ export class CashbookComponent implements OnInit, OnDestroy {
 			cashbookToUpdate[prop] = cashbook[prop];
 		}
 		return cashbookToUpdate;
+	}
+
+	onSearch() {
+		let arrayResult = [];
+		this.cashbook = this.initialCashbook;
+		this.searchSoTienThu = 0;
+		this.searchSoTienChi = 0;
+		let tuNgay = new Date(this.tuNgay);
+		let toiNgay = new Date(this.toiNgay);
+		if (!tuNgay || !toiNgay) {
+			return this.cashbook;
+		} else {
+			for (const item of this.cashbook) {
+				let ngayLap = new Date(item.ngayLap);
+				if(tuNgay <= ngayLap && ngayLap < toiNgay) {
+					arrayResult.push(item);
+					this.searchSoTienChi = this.searchSoTienChi + item.soTienChi;
+					this.searchSoTienThu = this.searchSoTienThu + item.soTienThu;
+				}
+				this.cashbook = arrayResult;
+			}
+		}
 	}
 
 	ngOnDestroy() {

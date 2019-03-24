@@ -11,6 +11,7 @@ namespace SimCard.APP.Models
 
         public string Ma { get; set; }
 
+        [Column(TypeName = "decimal(18,2)")]
         public decimal Menhgia { get; set; }
 
         public int Soluong { get; set; }
@@ -18,11 +19,12 @@ namespace SimCard.APP.Models
         public string ProductType { get; set; }
 
         // Shop will have buying price but supplier does not
+        [Column(TypeName = "decimal(18,2)")]
         public decimal? Gianhap { get; set; }
 
         [ForeignKey("ShopId")]
         public Shop Shop { get; set; }
-
+        
         public int? ShopId { get; set; }
 
         [ForeignKey("SupplierId")]
