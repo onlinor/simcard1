@@ -35,10 +35,16 @@ namespace SimCard.APP.Models
 
         public int ShopId { get; set; }
 
-        // Import from a supplier: for parent shop only
-        [ForeignKey("SupplierId")]
-        public Supplier Supplier { get; set; }
+        // Import from a parent shop: for child shop only
+        [ForeignKey("ImportFromShopId")]
+        public Shop ImportFromShop { get; set; }
 
-        public int? SupplierId { get; set; }
+        public int? ImportFromShopId { get; set; }
+
+        // Import from a supplier: for parent shop only
+        [ForeignKey("ImmportFromSupplierId")]
+        public Supplier ImmportFromSupplier { get; set; }
+
+        public int? ImmportFromSupplierId { get; set; }
     }
 }

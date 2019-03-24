@@ -241,27 +241,71 @@ namespace SimCard.APP.Persistence.Services
         private async Task<List<ExpandoObject>> Report_XuatNhapTonTongHop(ReportFilterViewModel filter)
         {
             List<ExpandoObject> result = new List<ExpandoObject>();
-            IEnumerable<Product> products = await _productRepository.Query(p => p.SupplierId == null).ToListAsync();
-            var importReceipts = await _importReceiptRepository.Query(ir => ir.ShopId == 1).Include(ir => ir.Products).Select(ir => new
-            {
-                ir.Products,
-                ir.DateCreated
-            }).OrderByDescending(ir => ir.DateCreated).ToListAsync();
-            List<ExportReceipt> exportReceipts = await _exportReceiptRepository.Query(ir => true).ToListAsync();
 
             DateTime fromDate = filter.From ?? DateTime.Now.AddDays(-7);
             DateTime toDate = filter.To ?? DateTime.Now.AddDays(-7);
 
+            IQueryable<Product> productsQuery = _productRepository.Query(p => p.SupplierId == null);
+            IQueryable<ImportReceipt> importReceiptsQuery = _importReceiptRepository.Query(ir => ir.DateCreated >= fromDate && ir.DateCreated <= toDate);
+            IQueryable<ExportReceipt> exportReceiptsQuery = _exportReceiptRepository.Query(er => er.DateCreated >= fromDate && er.DateCreated <= toDate);
+
             if (filter.Shop != 0) // Chi nhánh
             {
-
+                productsQuery = productsQuery.Where(p => p.ShopId == filter.Shop);
+                importReceiptsQuery = importReceiptsQuery.Where(ir => ir.ShopId == filter.Shop);
+                exportReceiptsQuery = exportReceiptsQuery.Where(er => er.ShopId == filter.Shop);
             }
 
             if (filter.Product != 0) // Mat hang
             {
-
+                productsQuery = productsQuery.Where(p => p.Id == filter.Product);
             }
 
+            List<Product> products = await productsQuery.ToListAsync();
+            IQueryable<ImportReceiptProducts> importProductList = importReceiptsQuery.Include(ir => ir.Products)
+                .OrderByDescending(ir => ir.DateCreated).SelectMany(x => x.Products);
+            IQueryable<ExportReceiptProducts> exportProductList = exportReceiptsQuery
+                .Include(er => er.Products).OrderByDescending(er => er.DateCreated).SelectMany(x => x.Products);
+
+            foreach (Product product in products)
+            {
+                dynamic line = new ExpandoObject();
+
+                // Lần nhập cuối cùng của ngày trước kỳ báo cáo 
+                ImportReceipt lastImport = _importReceiptRepository.Query(ir => ir.DateCreated <= fromDate.AddDays(-1))
+                    .Include(ir => ir.Products).OrderByDescending(ir => ir.DateCreated).First();
+                // Lần xuât cuối cùng của ngày trước kỳ báo cáo 
+                ExportReceipt lastExport = _exportReceiptRepository.Query(ir => ir.DateCreated <= fromDate.AddDays(-1))
+                    .Include(ir => ir.Products).OrderByDescending(ir => ir.DateCreated).First();
+                // Ngày giờ nhập > Ngày giờ xuất => lấy số lượng sau khi nhập 
+                int quantityBeginPeriod = lastImport.DateCreated > lastExport.DateCreated ?
+                    lastImport.Products.Where(p => p.ProductId == product.Id).First().NewWarehouseQuantity :
+                    lastExport.Products.Where(p => p.ProductId == product.Id).First().NewWarehouseQuantity;
+
+                // Lần nhập cuối cùng của ngày cuối kỳ báo cáo 
+                ImportReceipt latestImport = _importReceiptRepository.Query(ir => ir.DateCreated <= toDate)
+                    .Include(ir => ir.Products).OrderByDescending(ir => ir.DateCreated).First();
+                // Lần xuât cuối cùng của ngày cuối kỳ báo cáo 
+                ExportReceipt latestExport = _exportReceiptRepository.Query(ir => ir.DateCreated <= toDate)
+                    .Include(ir => ir.Products).OrderByDescending(ir => ir.DateCreated).First();
+                // Ngày giờ nhập > Ngày giờ xuất => lấy số lượng sau khi nhập 
+                int quantityEndPeriod = latestImport.DateCreated > latestExport.DateCreated ?
+                    latestImport.Products.Where(p => p.ProductId == product.Id).First().NewWarehouseQuantity :
+                    latestExport.Products.Where(p => p.ProductId == product.Id).First().NewWarehouseQuantity;
+
+                line.productCode = product.Ma;
+                line.productName = product.Ten;
+                line.tonDauKy = quantityBeginPeriod;
+                line.thanhTienTonDauKy = quantityBeginPeriod * product.Gianhap;
+                line.nhapTrongKy = importProductList.Where(ip => ip.ProductId == product.Id).Sum(p => p.ImportQuantity);
+                line.thanhTienNhap = importProductList.Where(ip => ip.ProductId == product.Id).Sum(p => p.ImportQuantity * product.Gianhap);
+                line.xuatTrongKy = exportProductList.Where(ip => ip.ProductId == product.Id).Sum(p => p.ExportQuantity);
+                line.thanhTienXuat = exportProductList.Where(ip => ip.ProductId == product.Id).Sum(p => p.ExportQuantity * product.Menhgia);
+                line.tonCuoiKy = quantityEndPeriod;
+                line.thanhTienTonCuoiKy = quantityEndPeriod * product.Gianhap;
+
+                result.Add(line);
+            }
             return result;
         }
 

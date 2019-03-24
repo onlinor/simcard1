@@ -11,7 +11,7 @@ namespace SimCard.APP.Models
 
         public int ImportQuantity { get; set; }
 
-        public int WarehouseQuantity { get; set; }
+        public int NewWarehouseQuantity { get; set; }
 
         [Column(TypeName = "decimal(18,2)")]
         public decimal ChietKhau { get; set; }
