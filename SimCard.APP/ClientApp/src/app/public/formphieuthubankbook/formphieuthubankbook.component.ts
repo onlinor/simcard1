@@ -5,50 +5,50 @@ import {
 	Output,
 	EventEmitter,
 	OnDestroy
-} from "@angular/core";
-import { Subscription } from "rxjs/subscription";
-import { BankbookService } from "../../core/services/bankbook.service";
+} from '@angular/core';
+import { Subscription } from 'rxjs/subscription';
+import { BankbookService } from '../../core/services/bankbook.service';
 
 @Component({
-	selector: "app-formphieuthubankbook",
-	templateUrl: "./formphieuthubankbook.component.html",
-	styleUrls: ["./formphieuthubankbook.component.css"]
+	selector: 'app-formphieuthubankbook',
+	templateUrl: './formphieuthubankbook.component.html',
+	styleUrls: ['./formphieuthubankbook.component.css']
 })
 export class FormphieuthubankbookComponent implements OnInit, OnDestroy {
 	LoaiNganHang = [
-		{ label: "Chọn", value: "default" },
-		{ label: "Agribank", value: "AGB" },
-		{ label: "Vietcombank", value: "VCB" },
-		{ label: "Viettinbank", value: "VTB" },
-		{ label: "VPbank", value: "VPB" },
-		{ label: "Techcombank", value: "TCB" },
-		{ label: "Shinhanbank", value: "SHB" },
-		{ label: "Sacombank", value: "SCB" },
-		{ label: "DongABank", value: "DAB" },
-		{ label: "AChauBank", value: "ACB" }
+		{ label: 'Chọn', value: 'default' },
+		{ label: 'Agribank', value: 'AGB' },
+		{ label: 'Vietcombank', value: 'VCB' },
+		{ label: 'Viettinbank', value: 'VTB' },
+		{ label: 'VPbank', value: 'VPB' },
+		{ label: 'Techcombank', value: 'TCB' },
+		{ label: 'Shinhanbank', value: 'SHB' },
+		{ label: 'Sacombank', value: 'SCB' },
+		{ label: 'DongABank', value: 'DAB' },
+		{ label: 'AChauBank', value: 'ACB' }
 	];
 
 	LoaiPhanBo = [
-		{ label: "Chi Phí", value: "CP" },
-		{ label: "Thu Chi Khác", value: "TC" },
-		{ label: "Không", value: "NO" }
+		{ label: 'Chi Phí', value: 'CP' },
+		{ label: 'Thu Chi Khác', value: 'TC' },
+		{ label: 'Không', value: 'NO' }
 	];
 
 	dataPhieuThu: any = {
-		loaiNganHang: "",
-		loaiPhanBo: "",
-		tenKhachHang: "",
-		donViNhan: "",
-		donViNop: "",
-		maKhachHang: "",
-		ghiChu: "",
-		hinhThucChi: "",
-		hinhThucNop: "TM",
-		maPhieu: "PT",
-		nguoiChi: "",
-		nguoiThu: "",
+		loaiNganHang: '',
+		loaiPhanBo: '',
+		tenKhachHang: '',
+		donViNhan: '',
+		donViNop: '',
+		maKhachHang: '',
+		ghiChu: '',
+		hinhThucChi: '',
+		hinhThucNop: 'TM',
+		maPhieu: 'PT',
+		nguoiChi: '',
+		nguoiThu: '',
 		ngayLap: new Date().toLocaleDateString(),
-		noiDungPhieu: "",
+		noiDungPhieu: '',
 		soTienChi: 0,
 		soTienThu: 0,
 		congDon: 0
@@ -59,13 +59,13 @@ export class FormphieuthubankbookComponent implements OnInit, OnDestroy {
 	subscription: Subscription;
 	dataPhieuThuArray: any;
 
-	@Input("isShowDialogPhieuThu") isShowDialogPhieuThu: boolean;
-	@Input("isNewCashBook") isNewCashBook: boolean;
-	@Input("idSelectedBankbook") idSelectedBankbook;
-	@Output("outIsShowDialogPhieuThu") emitShowDialogPhieuThu = new EventEmitter<
+	@Input('isShowDialogPhieuThu') isShowDialogPhieuThu: boolean;
+	@Input('isNewCashBook') isNewCashBook: boolean;
+	@Input('idSelectedBankbook') idSelectedBankbook;
+	@Output('outIsShowDialogPhieuThu') emitShowDialogPhieuThu = new EventEmitter<
 		any
 	>();
-	@Output("outDataPhieuThu") emitDataPhieuThu = new EventEmitter<any>();
+	@Output('outDataPhieuThu') emitDataPhieuThu = new EventEmitter<any>();
 
 	constructor(private bankbookService: BankbookService) { }
 
@@ -73,31 +73,31 @@ export class FormphieuthubankbookComponent implements OnInit, OnDestroy {
 
 	checkedATM() {
 		if (this.theATM) {
-			this.dataPhieuThu.hinhThucNop = "CK";
+			this.dataPhieuThu.hinhThucNop = 'CK';
 		}
 		if (!this.theATM) {
-			this.dataPhieuThu.hinhThucNop = "";
+			this.dataPhieuThu.hinhThucNop = '';
 		}
 		if (this.theATM && this.cash) {
-			this.dataPhieuThu.hinhThucNop = "CK,TM";
+			this.dataPhieuThu.hinhThucNop = 'CK,TM';
 		}
 		if (!this.theATM && this.cash) {
-			this.dataPhieuThu.hinhThucNop = "TM";
+			this.dataPhieuThu.hinhThucNop = 'TM';
 		}
 	}
 
 	checkedCash() {
 		if (this.cash) {
-			this.dataPhieuThu.hinhThucNop = "TM";
+			this.dataPhieuThu.hinhThucNop = 'TM';
 		}
 		if (!this.cash) {
-			this.dataPhieuThu.hinhThucNop = "";
+			this.dataPhieuThu.hinhThucNop = '';
 		}
 		if (this.cash && this.theATM) {
-			this.dataPhieuThu.hinhThucNop = "CK,TM";
+			this.dataPhieuThu.hinhThucNop = 'CK,TM';
 		}
 		if (!this.cash && this.theATM) {
-			this.dataPhieuThu.hinhThucNop = "CK";
+			this.dataPhieuThu.hinhThucNop = 'CK';
 		}
 	}
 
@@ -138,8 +138,8 @@ export class FormphieuthubankbookComponent implements OnInit, OnDestroy {
 	onClose() {
 		this.dataPhieuThu = {};
 		this.dataPhieuThu.dateCreated = new Date().toLocaleDateString();
-		this.dataPhieuThu.maPhieu = "PT";
-		this.dataPhieuThu.hinhThucNop = "TM";
+		this.dataPhieuThu.maPhieu = 'PT';
+		this.dataPhieuThu.hinhThucNop = 'TM';
 		this.theATM = false;
 		this.dataPhieuThu.soTienThu = 0;
 		this.isShowDialogPhieuThu = false;
@@ -149,8 +149,8 @@ export class FormphieuthubankbookComponent implements OnInit, OnDestroy {
 	onClearForm() {
 		this.dataPhieuThu = {};
 		this.dataPhieuThu.dateCreated = new Date().toLocaleDateString();
-		this.dataPhieuThu.maPhieu = "PT";
-		this.dataPhieuThu.hinhThucNop = "TM";
+		this.dataPhieuThu.maPhieu = 'PT';
+		this.dataPhieuThu.hinhThucNop = 'TM';
 		this.theATM = false;
 		this.dataPhieuThu.soTienThu = 0;
 	}

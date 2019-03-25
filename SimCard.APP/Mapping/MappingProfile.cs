@@ -10,7 +10,7 @@ namespace SimCard.APP.Mapping
         public MappingProfile()
         {
             CreateMap<Shop, ShopViewModel>().ReverseMap();
-            CreateMap<ImportReceipt, ProductViewModel>().ReverseMap();
+            CreateMap<Product, ProductViewModel>().ReverseMap();
             CreateMap<Customer, CustomerViewModel>().ReverseMap();
             CreateMap<Configuration, ConfigurationViewModel>().ReverseMap();
             CreateMap<Event, EventViewModel>().ReverseMap();

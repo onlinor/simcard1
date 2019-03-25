@@ -10,14 +10,14 @@ using SimCard.APP.Persistence;
 namespace SimCard.APP.Migrations
 {
     [DbContext(typeof(SimCardDBContext))]
-    [Migration("20190325092401_InitDb")]
-    partial class InitDb
+    [Migration("20190325143154_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.8-servicing-32085")
+                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
