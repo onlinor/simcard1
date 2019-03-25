@@ -15,7 +15,7 @@
         <div class="ui-g">
             <div class="ui-g-4">
                 <p>Nhân Viên Lập</p>
-                <input [(ngModel)]="phieunhap.nhanvienlap" type="text" pInputText />
+                <input [(ngModel)]="importReceipt.nhanVienLap" type="text" pInputText />
             </div>
             <div class="ui-g-4">
                 <p>Nhập Bằng File Excel</p>
@@ -27,11 +27,11 @@
         <div class="ui-g">
             <div class="ui-g-4">
                 <p>Số Phiếu</p>
-                <input type="text" [disabled]="true" pInputText [(ngModel)]="idphieunhap" />
+                <input type="text" [disabled]="true" pInputText [(ngModel)]="importReceipt.ma" />
             </div>
             <div class="ui-g-4">
                 <p>Ngày Lập</p>
-                <p-inputMask [(ngModel)]="phieunhap.dateCreated" mask="99/99/9999" placeholder="30/10/1996" slotChar="mm/dd/yyyy"></p-inputMask>
+                <p-inputMask [(ngModel)]="importReceipt.createdOn" mask="99/99/9999" placeholder="30/10/1996" slotChar="mm/dd/yyyy"></p-inputMask>
             </div>
         </div>
         <div class="ui-g">
@@ -41,17 +41,17 @@
             </div>
             <div class="ui-g-4">
                 <p>Công Nợ Cũ</p>
-                <input type="number" [(ngModel)]="phieunhap.congnocu" pInputText pKeyFilter="money" />
+                <input type="number" [(ngModel)]="importReceipt.congNoCu" pInputText pKeyFilter="money" />
             </div>
         </div>
         <div class="ui-g">
             <div class="ui-g-4">
                 <p>Người Đại Diện</p>
-                <input type="text" [(ngModel)]="phieunhap.nguoidaidien" pInputText [(ngModel)]="tempProName" />
+                <input type="text" [(ngModel)]="importReceipt.nguoiDaiDien" pInputText [(ngModel)]="tempProName" />
             </div>
             <div class="ui-g-4">
                 <p>Số Điện Thoại</p>
-                <input type="text" [(ngModel)]="phieunhap.sodienthoai" pInputText pKeyFilter="num" />
+                <input type="text" [(ngModel)]="importReceipt.soDienThoai" pInputText pKeyFilter="num" />
             </div>
         </div>
         <div class="ui-g">
@@ -96,7 +96,7 @@
         </div>
         <div class="ui-g-12">
             <span class="ui-float-label">
-                <input id="float-input" [(ngModel)]="phieunhap.ghichu" type="text" style="width:100%" pInputText />
+                <input id="float-input" [(ngModel)]="importReceipt.ghiChu" type="text" style="width:100%" pInputText />
                 <label for="float-input">Ghi Chú</label>
             </span>
         </div>
@@ -123,13 +123,13 @@
                 <tr>
                     <td>Thanh Toán NCC:</td>
                     <td>
-                        <input type="number" pInputText pKeyFilter="pnum" [(ngModel)]="thanhtoan" />
+                        <input type="number" pInputText pKeyFilter="pnum" [(ngModel)]="thanhToan" />
                     </td>
                 </tr>
                 <tr>
                     <td>Còn Lại:</td>
                     <td>
-                        <input type="number" pInputText pKeyFilter="pnum" [(ngModel)]="total - thanhtoan" />
+                        <input type="number" pInputText pKeyFilter="pnum" [(ngModel)]="total - thanhToan" />
                     </td>
                 </tr>
             </table>

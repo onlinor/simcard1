@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 namespace SimCard.APP.Models
 {
@@ -6,6 +8,9 @@ namespace SimCard.APP.Models
     {
         public string Name { get; set; }
 
+        // Fix self referencing loop detected for property 'supplier' with type 'SimCard.APP.Models.Supplier'
+        [JsonIgnore] 
+        [IgnoreDataMember]
         public List<Product> Products { get; set; }
     }
 }

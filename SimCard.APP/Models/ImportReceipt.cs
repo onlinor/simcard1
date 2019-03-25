@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SimCard.APP.Models
@@ -17,6 +18,9 @@ namespace SimCard.APP.Models
         public decimal Congnocu { get; set; }
 
         public string Nguoidaidien { get; set; }
+
+        // for importreceipt which wants to choose custom time = > don't use property from base entity
+        public DateTime CreatedOn { get; set; }
 
         public int Sodienthoai { get; set; }
 

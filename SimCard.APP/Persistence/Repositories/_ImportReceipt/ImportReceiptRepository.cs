@@ -27,7 +27,24 @@ namespace SimCard.APP.Persistence.Repositories
         {
             if (importReceiptViewModel != null)
             {
-                ImportReceipt importReceipt = Mapper.Map<ImportReceipt>(importReceiptViewModel);
+                // ImportReceipt importReceipt = Mapper.Map<ImportReceipt>(importReceiptViewModel);
+                ImportReceipt importReceipt = new ImportReceipt
+                {
+                    DateCreated = DateTime.Now,
+                    Ma = importReceiptViewModel.Ma,
+                    Prefix = importReceiptViewModel.Prefix,
+                    Suffix = importReceiptViewModel.Suffix,
+                    Nhanvienlap = importReceiptViewModel.NhanVienLap,
+                    Congnocu = importReceiptViewModel.CongNoCu,
+                    Nguoidaidien = importReceiptViewModel.NguoiDaiDien,
+                    CreatedOn = importReceiptViewModel.CreatedOn,
+                    Sodienthoai = importReceiptViewModel.SoDienThoai,
+                    Ghichu = importReceiptViewModel.GhiChu,
+                    Tienthanhtoan = importReceiptViewModel.TienThanhToan,
+                    Tienconlai = importReceiptViewModel.TienConLai,
+                    ShopId = importReceiptViewModel.ShopId,
+                    ImmportFromSupplierId = importReceiptViewModel.SupplierId
+                };
                 await _context.AddAsync(importReceipt);
                 await _context.SaveChangesAsync();
                 return importReceipt;

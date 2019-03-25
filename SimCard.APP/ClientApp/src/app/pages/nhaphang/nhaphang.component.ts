@@ -32,13 +32,10 @@ export class NhaphangComponent implements OnInit {
 
   total = 0;
 
-  thanhtoan = 0;
-
-  conlai = 0;
+  thanhToan = 0;
 
   // phieu nhap
-  phieunhap: ImportReceipt = new ImportReceipt();
-  idphieunhap: string;
+  importReceipt: ImportReceipt = new ImportReceipt();
 
   constructor(
     private fileService: FileService,
@@ -54,7 +51,7 @@ export class NhaphangComponent implements OnInit {
 
   save() {
     this.productService.save(this.tableProducts).subscribe(() => {
-      this.getAllProducts();
+      // this.getAllProducts();
       this.savePhieunhap();
 
       this.tableProducts = [];
@@ -78,7 +75,6 @@ export class NhaphangComponent implements OnInit {
           element.shopId = 1;
           element.supplierId = this.selectedSupplier.id;
         });
-
         this.updateTotalMoney();
       });
     }
@@ -133,7 +129,7 @@ export class NhaphangComponent implements OnInit {
 
   generateProductCode() {
     this.phieuhangService.getProductCode().subscribe(resp => {
-      this.idphieunhap = resp.ma;
+      this.importReceipt.ma = resp.ma;
     });
   }
 
@@ -144,12 +140,12 @@ export class NhaphangComponent implements OnInit {
   }
 
   savePhieunhap() {
-    this.phieunhap.prefix = this.idphieunhap.substring(0, 10);
-    this.phieunhap.suffix = this.idphieunhap.substr(11);
-    this.phieunhap.products = this.tableProducts;
-    this.phieunhap.tennhacungcap = this.selectedSupplier.name;
-    this.phieunhap.tienthanhtoan = this.thanhtoan;
-    this.phieunhap.tienconlai = this.total - this.thanhtoan;
-    this.phieuhangService.addPhieunhap(this.phieunhap).subscribe(() => { });
+    this.importReceipt.prefix = this.importReceipt.ma.substring(0, 10);
+    this.importReceipt.suffix = Number(this.importReceipt.ma.substr(11));
+    this.importReceipt.products = this.tableProducts;
+    this.importReceipt.supplierId = this.selectedSupplier.id;
+    this.importReceipt.tienThanhToan = this.thanhToan;
+    this.importReceipt.tienConLai = this.total - this.thanhToan;
+    this.phieuhangService.addPhieunhap(this.importReceipt).subscribe(() => { });
   }
 }

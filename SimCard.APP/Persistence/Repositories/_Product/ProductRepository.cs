@@ -53,9 +53,18 @@ namespace SimCard.APP.Persistence.Repositories
                     _context.Products.Update(p);
                 }
                 else
-                {
-                    Product product = Mapper.Map<Product>(item);
-                    product.DateCreated = DateTime.Now;
+                {   
+                    Product product = new Product
+                    {
+                        DateCreated = DateTime.Now,
+                        Ten = item.Ten,
+                        Ma = item.Ma,
+                        Menhgia = item.Menhgia,
+                        Soluong = item.Soluong,
+                        DonGia = item.DonGia,
+                        ShopId = item.ShopId,
+                        SupplierId = item.SupplierId
+                    };
                     await _context.Products.AddAsync(product);
                 }
             }

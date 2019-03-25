@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace SimCard.APP.ViewModels
@@ -12,23 +13,26 @@ namespace SimCard.APP.ViewModels
 
         public int Suffix { get; set; }
 
-        public string Nhanvienlap { get; set; }
+        public string NhanVienLap { get; set; }
 
-        public decimal Congnocu { get; set; }
+        public decimal CongNoCu { get; set; }
 
-        public string Nguoidaidien { get; set; }
+        public string NguoiDaiDien { get; set; }
 
-        public int Sodienthoai { get; set; }
 
-        public List<int> ProductIds { get; set; }
+        public DateTime  CreatedOn { get; set; }
 
-        public string Ghichu { get; set; }
+        public int SoDienThoai { get; set; }
+
+        public List<ProductViewModel> Products { get; set; }
+
+        public string GhiChu { get; set; }
 
         public decimal TongTien { get; set; }
 
-        public decimal Tienthanhtoan { get; set; }
+        public decimal TienThanhToan { get; set; }
 
-        public decimal Tienconlai { get; set; }
+        public decimal TienConLai { get; set; }
 
         public int ShopId { get; set;  }
 

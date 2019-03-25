@@ -33,8 +33,8 @@ namespace SimCard.APP.Controllers
             };
         }
 
-        [HttpPost("/api/phieunhap/Add")]
-        public async Task<IActionResult> AddPhieunhap(ImportReceiptViewModel importReceipt)
+        [HttpPost("/api/importreceipt/Add")]
+        public async Task<IActionResult> AddImportReceipt(ImportReceiptViewModel importReceipt)
         {
             if (importReceipt == null)
             {
