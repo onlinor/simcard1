@@ -5,7 +5,7 @@ namespace SimCard.APP.Models
     public class ImportReceiptProducts : BaseEntity
     {
         [ForeignKey("ProductId")]
-        public ImportReceipt Product { get; set; }
+        public Product Product { get; set; }
 
         public int ProductId { get; set; }
 

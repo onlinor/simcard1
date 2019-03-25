@@ -404,8 +404,6 @@ namespace SimCard.APP.Migrations
 
                     b.Property<int>("Suffix");
 
-                    b.Property<int?>("SupplierId");
-
                     b.Property<decimal>("Tienconlai")
                         .HasColumnType("decimal(18,2)");
 
@@ -415,8 +413,6 @@ namespace SimCard.APP.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ShopId");
-
-                    b.HasIndex("SupplierId");
 
                     b.ToTable("ImportReceipts");
                 });
@@ -436,11 +432,15 @@ namespace SimCard.APP.Migrations
 
                     b.Property<int>("ImportQuantity");
 
+                    b.Property<int?>("ImportReceiptId");
+
                     b.Property<int>("NewWarehouseQuantity");
 
                     b.Property<int>("ProductId");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ImportReceiptId");
 
                     b.HasIndex("ProductId");
 
@@ -576,7 +576,7 @@ namespace SimCard.APP.Migrations
             modelBuilder.Entity("SimCard.APP.Models.ExportReceipt", b =>
                 {
                     b.HasOne("SimCard.APP.Models.Shop", "Shop")
-                        .WithMany()
+                        .WithMany("ExportReceipts")
                         .HasForeignKey("ShopId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
@@ -587,7 +587,7 @@ namespace SimCard.APP.Migrations
                         .WithMany("Products")
                         .HasForeignKey("ExportReceiptId");
 
-                    b.HasOne("SimCard.APP.Models.ImportReceipt", "Product")
+                    b.HasOne("SimCard.APP.Models.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -596,19 +596,19 @@ namespace SimCard.APP.Migrations
             modelBuilder.Entity("SimCard.APP.Models.ImportReceipt", b =>
                 {
                     b.HasOne("SimCard.APP.Models.Shop", "Shop")
-                        .WithMany("Products")
+                        .WithMany("ImportReceipts")
                         .HasForeignKey("ShopId")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("SimCard.APP.Models.Supplier")
-                        .WithMany("Products")
-                        .HasForeignKey("SupplierId");
                 });
 
             modelBuilder.Entity("SimCard.APP.Models.ImportReceiptProducts", b =>
                 {
-                    b.HasOne("SimCard.APP.Models.ImportReceipt", "Product")
+                    b.HasOne("SimCard.APP.Models.ImportReceipt")
                         .WithMany("Products")
+                        .HasForeignKey("ImportReceiptId");
+
+                    b.HasOne("SimCard.APP.Models.Product", "Product")
+                        .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
@@ -616,11 +616,11 @@ namespace SimCard.APP.Migrations
             modelBuilder.Entity("SimCard.APP.Models.Product", b =>
                 {
                     b.HasOne("SimCard.APP.Models.Shop", "Shop")
-                        .WithMany()
+                        .WithMany("Products")
                         .HasForeignKey("ShopId");
 
                     b.HasOne("SimCard.APP.Models.Supplier", "Supplier")
-                        .WithMany()
+                        .WithMany("Products")
                         .HasForeignKey("SupplierId");
                 });
 

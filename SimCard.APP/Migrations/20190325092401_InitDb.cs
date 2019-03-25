@@ -280,8 +280,7 @@ namespace SimCard.APP.Migrations
                     Tienconlai = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     ShopId = table.Column<int>(nullable: false),
                     ImportFromShopId = table.Column<int>(nullable: true),
-                    ImmportFromSupplierId = table.Column<int>(nullable: true),
-                    SupplierId = table.Column<int>(nullable: true)
+                    ImmportFromSupplierId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -292,12 +291,6 @@ namespace SimCard.APP.Migrations
                         principalTable: "Shops",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ImportReceipts_Suppliers_SupplierId",
-                        column: x => x.SupplierId,
-                        principalTable: "Suppliers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -357,9 +350,9 @@ namespace SimCard.APP.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_ExportReceiptProducts_ImportReceipts_ProductId",
+                        name: "FK_ExportReceiptProducts_Products_ProductId",
                         column: x => x.ProductId,
-                        principalTable: "ImportReceipts",
+                        principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -375,15 +368,22 @@ namespace SimCard.APP.Migrations
                     ProductId = table.Column<int>(nullable: false),
                     ImportQuantity = table.Column<int>(nullable: false),
                     NewWarehouseQuantity = table.Column<int>(nullable: false),
-                    ChietKhau = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    ChietKhau = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    ImportReceiptId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ImportReceiptProducts", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ImportReceiptProducts_ImportReceipts_ProductId",
-                        column: x => x.ProductId,
+                        name: "FK_ImportReceiptProducts_ImportReceipts_ImportReceiptId",
+                        column: x => x.ImportReceiptId,
                         principalTable: "ImportReceipts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ImportReceiptProducts_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -409,6 +409,11 @@ namespace SimCard.APP.Migrations
                 column: "ShopId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ImportReceiptProducts_ImportReceiptId",
+                table: "ImportReceiptProducts",
+                column: "ImportReceiptId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ImportReceiptProducts_ProductId",
                 table: "ImportReceiptProducts",
                 column: "ProductId");
@@ -417,11 +422,6 @@ namespace SimCard.APP.Migrations
                 name: "IX_ImportReceipts_ShopId",
                 table: "ImportReceipts",
                 column: "ShopId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ImportReceipts_SupplierId",
-                table: "ImportReceipts",
-                column: "SupplierId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_ShopId",
@@ -469,13 +469,13 @@ namespace SimCard.APP.Migrations
                 name: "Networks");
 
             migrationBuilder.DropTable(
-                name: "Products");
-
-            migrationBuilder.DropTable(
                 name: "ExportReceipts");
 
             migrationBuilder.DropTable(
                 name: "ImportReceipts");
+
+            migrationBuilder.DropTable(
+                name: "Products");
 
             migrationBuilder.DropTable(
                 name: "Shops");

@@ -176,20 +176,21 @@ namespace SimCard.APP.Persistence.Services
         private async Task<List<ExpandoObject>> Report_HangTonKho(ReportFilterViewModel filter)
         {
             List<ExpandoObject> result = new List<ExpandoObject>();
-            //IEnumerable<Models.Product> products = await _productRepository.GetProducts();
-            //foreach (Models.Product product in products)
-            //{
-            //    dynamic line = new List<ExpandoObject>();
-            //    line.MatHang = product.Name;
-            //    line.MaHang = product.Id;
-            //    line.SoLuongToanCongTy = 0;
-            //    var shops = await _shopRepository.Query(s => true).Include(s => s.).ToListAsync();
-            //    foreach (var shop in shops)
-            //    {
-            //        line[shop.Name] = shop.Products.FirstOrDefault(p => p.Id == product.Id).Quantity;
-            //    }
-            //    result.Add(line);
-            //}
+            List<Product> products = await _productRepository.Query(p => p.ShopId == 1).Distinct().ToListAsync();
+            foreach (Product product in products)
+            {
+                dynamic line = new List<ExpandoObject>();
+                line.matHang = product.Ten;
+                line.maHang = product.Ma;
+                line.toanCongTy = product.Soluong;
+                List<Shop> shops = await _shopRepository.Query(s => true).Include(s => s.Products).ToListAsync();
+                foreach (Shop shop in shops)
+                {
+                    line[shop.Name] = shop.Products.FirstOrDefault(p => p.Id == product.Id).Soluong;
+                    line.toanCongTy += (decimal)line[shop.Name];
+                }
+                result.Add(line);
+            }
             return result;
         }
 
@@ -200,7 +201,8 @@ namespace SimCard.APP.Persistence.Services
 
         private async Task<List<ExpandoObject>> Report_NhapHangTheoMatHang(ReportFilterViewModel filter)
         {
-            throw new System.NotImplementedException();
+            List<ExpandoObject> result = new List<ExpandoObject>();
+            return result;
         }
 
         private async Task<List<ExpandoObject>> Report_NhapHangTheoNhaCungCap(ReportFilterViewModel filter)
