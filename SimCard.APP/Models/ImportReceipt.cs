@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SimCard.APP.Models
@@ -30,21 +31,15 @@ namespace SimCard.APP.Models
         [Column(TypeName = "decimal(18,2)")]
         public decimal Tienconlai { get; set; }
 
+        public int ShopId { get; set; }
+
         [ForeignKey("ShopId")]
         public Shop Shop { get; set; }
 
-        public int ShopId { get; set; }
-
         // Import from a parent shop: for child shop only
-        [ForeignKey("ImportFromShopId")]
-        public Shop ImportFromShop { get; set; }
-
         public int? ImportFromShopId { get; set; }
 
         // Import from a supplier: for parent shop only
-        [ForeignKey("ImmportFromSupplierId")]
-        public Supplier ImmportFromSupplier { get; set; }
-
         public int? ImmportFromSupplierId { get; set; }
     }
 }
