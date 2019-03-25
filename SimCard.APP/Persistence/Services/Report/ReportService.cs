@@ -1,6 +1,7 @@
 using AutoMapper;
 
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 
 using SimCard.APP.Models;
 using SimCard.APP.Persistence.Repositories;
@@ -202,6 +203,42 @@ namespace SimCard.APP.Persistence.Services
         private async Task<List<ExpandoObject>> Report_NhapHangTheoMatHang(ReportFilterViewModel filter)
         {
             List<ExpandoObject> result = new List<ExpandoObject>();
+            DateTime fromDate = filter.From ?? DateTime.Now.AddDays(-7);
+            DateTime toDate = filter.To ?? DateTime.Now.AddDays(-7);
+
+            IIncludableQueryable<ImportReceipt, List<ImportReceiptProducts>> importReceiptProductsQuery = 
+                _importReceiptRepository.Query(ir => ir.DateCreated >= fromDate && ir.DateCreated <= toDate).Include(ir => ir.Products);
+            if (filter.Shop != 0)
+            {
+                var products = await importReceiptProductsQuery.Where(ir => ir.ShopId == filter.Shop).SelectMany(ir => ir.Products).Include(p => p.Product)
+                    .Select(p => new { p.ImportQuantity, p.Product.Ma, p.Product.Ten, p.ChietKhau, p.Product.DonGia }).GroupBy(p => p.Ma).ToListAsync();
+                foreach (var group in products)
+                {
+                    dynamic line = new ExpandoObject();
+                    line.maHang = group.Key;
+                    line.tenHang = group.First().Ten;
+                    line.chietKhau = group.Average(p => p.ChietKhau);
+                    line.giaNhap = group.Average(p => p.DonGia);
+                    line.soLuong = group.Sum(p => p.ImportQuantity);
+                    result.Add(line);
+                }
+            }
+            else
+            {
+                var products = await importReceiptProductsQuery.SelectMany(ir => ir.Products).Include(p => p.Product)
+                    .Select(p => new { p.ImportQuantity, p.Product.Ma, p.Product.Ten, p.ChietKhau, p.Product.DonGia }).GroupBy(p => p.Ma).ToListAsync();
+                foreach (var group in products)
+                {
+                    dynamic line = new ExpandoObject();
+                    line.maHang = group.Key;
+                    line.tenHang = group.First().Ten;
+                    line.chietKhau = group.Average(p => p.ChietKhau);
+                    line.giaNhap = group.Average(p => p.DonGia);
+                    line.soLuong = group.Sum(p => p.ImportQuantity);
+                    result.Add(line);
+                }
+            }
+                
             return result;
         }
 

@@ -30,8 +30,8 @@ namespace SimCard.APP.ViewModels
 
         public decimal Tienconlai { get; set; }
 
-        public int ShopId { get; } = 1; // Import is only for parent shop, supposed parent shop id is 1
+        public int ShopId { get; set;  }
 
-        public int SupplierId { get; set; } // Must import from supplier
+        public int? SupplierId { get; set; } // Must import from supplier
     }
 }
