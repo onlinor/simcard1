@@ -16,12 +16,11 @@ namespace SimCard.APP.Models
 
         public int Soluong { get; set; }
 
-        public string ProductType { get; set; }
+        [Column(TypeName = "decimal(18,2)")]
+       // Gianhap of main shop
+        public decimal? DonGia { get; set; }
 
         // Shop will have buying price but supplier does not
-        [Column(TypeName = "decimal(18,2)")]
-        public decimal? Gianhap { get; set; }
-
         [ForeignKey("ShopId")]
         public Shop Shop { get; set; }
         

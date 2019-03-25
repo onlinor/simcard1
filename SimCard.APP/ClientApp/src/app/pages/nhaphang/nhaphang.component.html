@@ -87,8 +87,8 @@
                                     </ng-template>
                                 </p-cellEditor>
                             </td>
-                            <td>{{ product.menhGia - (product.menhGia * product.chietKhau) / 100 }}</td>
-                            <td>{{ product.soLuong * (product.menhGia - (product.menhGia * product.chietKhau) / 100) }}</td>
+                            <td>{{ product.donGia }}</td>
+                            <td>{{ product.thanhTien }}</td>
                         </tr>
                     </ng-template>
                 </p-table>
@@ -151,7 +151,7 @@
             </div>
         </div>
     </div>
-    <div class="ui-g-4">
+    <!-- <div class="ui-g-4">
         <p-tabView>
             <p-tabPanel *ngFor="let group of products" header="group.group">
                 <p-table #dt [value]="group.items" selectionMode="single" [paginator]="true" [rows]="10">
@@ -181,5 +181,5 @@
                 </p-table>
             </p-tabPanel>
         </p-tabView>
-    </div>
+    </div> -->
 </div>

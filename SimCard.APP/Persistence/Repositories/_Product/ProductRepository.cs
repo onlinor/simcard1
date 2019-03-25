@@ -49,11 +49,13 @@ namespace SimCard.APP.Persistence.Repositories
                 {
                     Product p = await _context.Products.FirstAsync(x => x.Ma.ToLower() == item.Ma.ToLower());
                     p.Soluong = p.Soluong + item.Soluong;
+                    p.DateModified = DateTime.Now;
                     _context.Products.Update(p);
                 }
                 else
                 {
                     Product product = Mapper.Map<Product>(item);
+                    product.DateCreated = DateTime.Now;
                     await _context.Products.AddAsync(product);
                 }
             }

@@ -2,51 +2,26 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SimCard.APP.Persistence;
 
 namespace SimCard.APP.Migrations
 {
     [DbContext(typeof(SimCardDBContext))]
-    partial class SimCardDBContextModelSnapshot : ModelSnapshot
+    [Migration("20190324172829_initialCreate")]
+    partial class initialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.8-servicing-32085")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("SimCard.APP.Models.BankAccount", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("DateCreated");
-
-                    b.Property<DateTime?>("DateModified");
-
-                    b.Property<string>("Name");
-
-                    b.Property<string>("Number");
-
-                    b.Property<int>("ShopId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ShopId");
-
-                    b.ToTable("BankAccounts");
-                });
+                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024");
 
             modelBuilder.Entity("SimCard.APP.Models.Bankbook", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<int>("CongDon");
 
@@ -86,11 +61,9 @@ namespace SimCard.APP.Migrations
                     b.Property<string>("NoiDungPhieu")
                         .HasMaxLength(255);
 
-                    b.Property<decimal>("SoTienChi")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<int>("SoTienChi");
 
-                    b.Property<decimal>("SoTienThu")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<int>("SoTienThu");
 
                     b.Property<string>("TenKhachHang")
                         .HasMaxLength(255);
@@ -103,8 +76,7 @@ namespace SimCard.APP.Migrations
             modelBuilder.Entity("SimCard.APP.Models.Cashbook", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<int>("CongDon");
 
@@ -144,11 +116,9 @@ namespace SimCard.APP.Migrations
                     b.Property<string>("NoiDungPhieu")
                         .HasMaxLength(255);
 
-                    b.Property<decimal>("SoTienChi")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<int>("SoTienChi");
 
-                    b.Property<decimal>("SoTienThu")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<int>("SoTienThu");
 
                     b.Property<string>("TenKhachHang")
                         .HasMaxLength(255);
@@ -161,8 +131,7 @@ namespace SimCard.APP.Migrations
             modelBuilder.Entity("SimCard.APP.Models.Configuration", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("DateCreated");
 
@@ -193,8 +162,7 @@ namespace SimCard.APP.Migrations
             modelBuilder.Entity("SimCard.APP.Models.Customer", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("DateCreated");
 
@@ -260,8 +228,7 @@ namespace SimCard.APP.Migrations
             modelBuilder.Entity("SimCard.APP.Models.Event", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("DateCreated");
 
@@ -300,29 +267,25 @@ namespace SimCard.APP.Migrations
             modelBuilder.Entity("SimCard.APP.Models.ExportReceipt", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("DateCreated");
 
                     b.Property<DateTime?>("DateModified");
 
-                    b.Property<decimal>("Debt")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<decimal>("Debt");
 
                     b.Property<int?>("ExportToCustomerId");
 
                     b.Property<int?>("ExportToShopId");
 
-                    b.Property<decimal>("MoneyPaid")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<decimal>("MoneyPaid");
 
                     b.Property<string>("Nhanvienlap");
 
                     b.Property<string>("Note");
 
-                    b.Property<decimal>("OldDebt")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<decimal>("OldDebt");
 
                     b.Property<int>("PhoneNumber");
 
@@ -348,23 +311,19 @@ namespace SimCard.APP.Migrations
             modelBuilder.Entity("SimCard.APP.Models.ExportReceiptProducts", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
-                    b.Property<decimal>("ChietKhau")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<decimal>("ChietKhau");
 
                     b.Property<DateTime>("DateCreated");
 
                     b.Property<DateTime?>("DateModified");
 
-                    b.Property<int>("ExportQuantity");
-
                     b.Property<int?>("ExportReceiptId");
 
                     b.Property<int>("ProductId");
 
-                    b.Property<int>("WarehouseQuantity");
+                    b.Property<int>("Quantity");
 
                     b.HasKey("Id");
 
@@ -378,11 +337,9 @@ namespace SimCard.APP.Migrations
             modelBuilder.Entity("SimCard.APP.Models.ImportReceipt", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
-                    b.Property<decimal>("Congnocu")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<decimal>("Congnocu");
 
                     b.Property<DateTime>("DateCreated");
 
@@ -406,11 +363,9 @@ namespace SimCard.APP.Migrations
 
                     b.Property<int?>("SupplierId");
 
-                    b.Property<decimal>("Tienconlai")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<decimal>("Tienconlai");
 
-                    b.Property<decimal>("Tienthanhtoan")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<decimal>("Tienthanhtoan");
 
                     b.HasKey("Id");
 
@@ -424,23 +379,23 @@ namespace SimCard.APP.Migrations
             modelBuilder.Entity("SimCard.APP.Models.ImportReceiptProducts", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
-                    b.Property<decimal>("ChietKhau")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<decimal>("ChietKhau");
 
                     b.Property<DateTime>("DateCreated");
 
                     b.Property<DateTime?>("DateModified");
 
-                    b.Property<int>("ImportQuantity");
+                    b.Property<int?>("ImportReceiptId");
 
                     b.Property<int>("ProductId");
 
-                    b.Property<int>("WarehouseQuantity");
+                    b.Property<int>("Quantity");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ImportReceiptId");
 
                     b.HasIndex("ProductId");
 
@@ -450,8 +405,7 @@ namespace SimCard.APP.Migrations
             modelBuilder.Entity("SimCard.APP.Models.Network", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<float>("Buocnhay");
 
@@ -491,24 +445,17 @@ namespace SimCard.APP.Migrations
             modelBuilder.Entity("SimCard.APP.Models.Product", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("DateCreated");
 
                     b.Property<DateTime?>("DateModified");
 
-<<<<<<< Updated upstream
-                    b.Property<decimal?>("Gianhap")
-                        .HasColumnType("decimal(18,2)");
-=======
                     b.Property<decimal?>("DonGia");
->>>>>>> Stashed changes
 
                     b.Property<string>("Ma");
 
-                    b.Property<decimal>("Menhgia")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<decimal>("Menhgia");
 
                     b.Property<string>("ProductType");
 
@@ -534,8 +481,7 @@ namespace SimCard.APP.Migrations
             modelBuilder.Entity("SimCard.APP.Models.Shop", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("DateCreated");
 
@@ -557,8 +503,7 @@ namespace SimCard.APP.Migrations
             modelBuilder.Entity("SimCard.APP.Models.Supplier", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("DateCreated");
 
@@ -569,14 +514,6 @@ namespace SimCard.APP.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Suppliers");
-                });
-
-            modelBuilder.Entity("SimCard.APP.Models.BankAccount", b =>
-                {
-                    b.HasOne("SimCard.APP.Models.Shop", "Shop")
-                        .WithMany()
-                        .HasForeignKey("ShopId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("SimCard.APP.Models.ExportReceipt", b =>
@@ -601,7 +538,7 @@ namespace SimCard.APP.Migrations
                         .WithMany("Products")
                         .HasForeignKey("ExportReceiptId");
 
-                    b.HasOne("SimCard.APP.Models.ImportReceipt", "Product")
+                    b.HasOne("SimCard.APP.Models.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -610,19 +547,23 @@ namespace SimCard.APP.Migrations
             modelBuilder.Entity("SimCard.APP.Models.ImportReceipt", b =>
                 {
                     b.HasOne("SimCard.APP.Models.Shop", "Shop")
-                        .WithMany("Products")
+                        .WithMany()
                         .HasForeignKey("ShopId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("SimCard.APP.Models.Supplier", "Supplier")
-                        .WithMany("Products")
+                        .WithMany()
                         .HasForeignKey("SupplierId");
                 });
 
             modelBuilder.Entity("SimCard.APP.Models.ImportReceiptProducts", b =>
                 {
-                    b.HasOne("SimCard.APP.Models.ImportReceipt", "Product")
+                    b.HasOne("SimCard.APP.Models.ImportReceipt")
                         .WithMany("Products")
+                        .HasForeignKey("ImportReceiptId");
+
+                    b.HasOne("SimCard.APP.Models.Product", "Product")
+                        .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
@@ -630,11 +571,11 @@ namespace SimCard.APP.Migrations
             modelBuilder.Entity("SimCard.APP.Models.Product", b =>
                 {
                     b.HasOne("SimCard.APP.Models.Shop", "Shop")
-                        .WithMany()
+                        .WithMany("Products")
                         .HasForeignKey("ShopId");
 
                     b.HasOne("SimCard.APP.Models.Supplier", "Supplier")
-                        .WithMany()
+                        .WithMany("Products")
                         .HasForeignKey("SupplierId");
                 });
 

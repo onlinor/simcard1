@@ -8,6 +8,8 @@ export class Product {
   chietKhau: number;
   donGia: number;
   thanhTien: number;
+  shopId?: number;
+  supplierId?: number;
   soluongnhap?: number;
   soluongxuat?: number;
 }
