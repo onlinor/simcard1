@@ -296,13 +296,13 @@ namespace SimCard.APP.Persistence.Services
                 line.productCode = product.Ma;
                 line.productName = product.Ten;
                 line.tonDauKy = quantityBeginPeriod;
-                line.thanhTienTonDauKy = quantityBeginPeriod * product.Gianhap;
+                line.thanhTienTonDauKy = quantityBeginPeriod * product.DonGia;
                 line.nhapTrongKy = importProductList.Where(ip => ip.ProductId == product.Id).Sum(p => p.ImportQuantity);
-                line.thanhTienNhap = importProductList.Where(ip => ip.ProductId == product.Id).Sum(p => p.ImportQuantity * product.Gianhap);
+                line.thanhTienNhap = importProductList.Where(ip => ip.ProductId == product.Id).Sum(p => p.ImportQuantity * product.DonGia);
                 line.xuatTrongKy = exportProductList.Where(ip => ip.ProductId == product.Id).Sum(p => p.ExportQuantity);
                 line.thanhTienXuat = exportProductList.Where(ip => ip.ProductId == product.Id).Sum(p => p.ExportQuantity * product.Menhgia);
                 line.tonCuoiKy = quantityEndPeriod;
-                line.thanhTienTonCuoiKy = quantityEndPeriod * product.Gianhap;
+                line.thanhTienTonCuoiKy = quantityEndPeriod * product.DonGia;
 
                 result.Add(line);
             }

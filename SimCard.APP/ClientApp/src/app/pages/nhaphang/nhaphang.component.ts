@@ -69,10 +69,16 @@ export class NhaphangComponent implements OnInit {
       formData.append(file.name, file);
 
       this.fileService.uploadProductList(formData).subscribe((response: Array<Product>) => {
-        console.log(typeof response);
-        console.log(response);
-        console.log(this.tableProducts);
         this.tableProducts = Object.assign(this.tableProducts, response);
+
+    // Update donGia and thanhTien, shopID is belong-ed to for each product(Save time, may put it somewhere else without any function,..)
+    this.tableProducts.forEach(element => {
+          element.donGia = (element.menhGia / 100) * (100 - element.chietKhau);
+          element.thanhTien = element.soLuong * (element.menhGia - (element.menhGia * element.chietKhau) / 100);
+          element.shopId = 1;
+          element.supplierId = this.selectedSupplier.id;
+        });
+
         this.updateTotalMoney();
       });
     }
@@ -85,6 +91,12 @@ export class NhaphangComponent implements OnInit {
   }
 
   onProductTableEditCompleted(event: any) {
+    // Update donGia and thanhTien for each product(Save time, may put it somewhere else without any function,..)
+    const selectedProduct = this.tableProducts.find(
+      x => x.ma === event.data.ma);
+    selectedProduct.donGia = (selectedProduct.menhGia / 100) * (100 - selectedProduct.chietKhau);
+    selectedProduct.thanhTien = selectedProduct.soLuong
+     * (selectedProduct.menhGia - (selectedProduct.menhGia * selectedProduct.chietKhau) / 100);
     this.updateTotalMoney();
   }
 

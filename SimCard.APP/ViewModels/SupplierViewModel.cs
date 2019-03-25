@@ -1,4 +1,4 @@
-﻿namespace SimCard.APP.ViewModels
+namespace SimCard.APP.ViewModels
 {
     public class SupplierViewModel
     {

@@ -14,7 +14,7 @@ namespace SimCard.APP.ViewModels
 
         public decimal Menhgia { get; set; }
 
-        public decimal? Gianhap { get; set; }
+        public decimal? DonGia { get; set; }
 
         // public ProductType ProductType { get; set; }
 
