@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+
 import {
   FileService,
   ProductService,
@@ -23,8 +24,6 @@ export class NhaphangComponent implements OnInit {
 
   suppliers: Array<Supplier> = [];
 
-  selectedSupplier: Supplier;
-
   // phieu section
   totalMoney = 0;
 
@@ -41,7 +40,7 @@ export class NhaphangComponent implements OnInit {
     private fileService: FileService,
     private productService: ProductService,
     private phieuhangService: PhieunhapService,
-    private supplierService: SupplierService
+    private supplierService: SupplierService,
   ) { }
 
   ngOnInit() {
@@ -73,7 +72,6 @@ export class NhaphangComponent implements OnInit {
           element.donGia = (element.menhGia / 100) * (100 - element.chietKhau);
           element.thanhTien = element.soLuong * (element.menhGia - (element.menhGia * element.chietKhau) / 100);
           element.shopId = 1;
-          element.supplierId = this.selectedSupplier.id;
         });
         this.updateTotalMoney();
       });
@@ -94,6 +92,13 @@ export class NhaphangComponent implements OnInit {
     selectedProduct.thanhTien = selectedProduct.soLuong
      * (selectedProduct.menhGia - (selectedProduct.menhGia * selectedProduct.chietKhau) / 100);
     this.updateTotalMoney();
+  }
+
+  onDropdownValueChange(event: any) {
+    this.tableProducts.forEach(element => {
+      element.supplierId = event.value.id;
+    });
+    this.importReceipt.supplierId = event.value.id;
   }
 
   rowEditCompleted(event: any) {
@@ -142,10 +147,10 @@ export class NhaphangComponent implements OnInit {
   savePhieunhap() {
     this.importReceipt.prefix = this.importReceipt.ma.substring(0, 10);
     this.importReceipt.suffix = Number(this.importReceipt.ma.substr(11));
-    this.importReceipt.products = this.tableProducts;
-    this.importReceipt.supplierId = this.selectedSupplier.id;
     this.importReceipt.tienThanhToan = this.thanhToan;
     this.importReceipt.tienConLai = this.total - this.thanhToan;
+    this.importReceipt.products = this.tableProducts;
+    this.importReceipt.shopId = 1;
     this.phieuhangService.addPhieunhap(this.importReceipt).subscribe(() => { });
   }
 }

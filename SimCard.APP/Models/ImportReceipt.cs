@@ -16,14 +16,11 @@ namespace SimCard.APP.Models
 
         [Column(TypeName = "decimal(18,2)")]
         public decimal Congnocu { get; set; }
-
+        
         public string Nguoidaidien { get; set; }
 
-        // for importreceipt which wants to choose custom time = > don't use property from base entity
-        public DateTime CreatedOn { get; set; }
-
         public int Sodienthoai { get; set; }
-
+        
         public List<ImportReceiptProducts> Products { get; set; }
 
         public string Ghichu { get; set; }

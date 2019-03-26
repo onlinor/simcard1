@@ -5,8 +5,6 @@ namespace SimCard.APP.ViewModels
 {
     public class ImportReceiptViewModel
     {
-        public int Id { get; set; }
-
         public string Ma { get; set; }
 
         public string Prefix { get; set; }
@@ -19,13 +17,10 @@ namespace SimCard.APP.ViewModels
 
         public string NguoiDaiDien { get; set; }
 
-
-        public DateTime  CreatedOn { get; set; }
-
         public int SoDienThoai { get; set; }
 
         public List<ProductViewModel> Products { get; set; }
-
+        
         public string GhiChu { get; set; }
 
         public decimal TongTien { get; set; }
@@ -34,8 +29,8 @@ namespace SimCard.APP.ViewModels
 
         public decimal TienConLai { get; set; }
 
-        public int ShopId { get; set;  }
+        public int SupplierId { get; set; } // Must import from supplier
 
-        public int? SupplierId { get; set; } // Must import from supplier
+        public int ShopId { get; set;  }
     }
 }

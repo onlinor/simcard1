@@ -27,6 +27,19 @@ namespace SimCard.APP.Persistence.Repositories
         {
             if (importReceiptViewModel != null)
             {
+                var listImportReceiptProduct = new List<ImportReceiptProducts>();
+
+                foreach (ProductViewModel item in importReceiptViewModel.Products)
+                {
+                    ImportReceiptProducts p = new ImportReceiptProducts();
+                    p.ChietKhau =  (item.Menhgia - item.DonGia.Value) * 100 / item.Menhgia;
+                    p.DateCreated = DateTime.Now;
+                    p.ProductId = _context.Products.First(x => x.Ma == item.Ma).Id;
+                    p.ImportQuantity = item.Soluong;
+                    p.NewWarehouseQuantity = _context.Products.First(x => x.Ma == item.Ma).Soluong;
+                    listImportReceiptProduct.Add(p);
+                }
+
                 // ImportReceipt importReceipt = Mapper.Map<ImportReceipt>(importReceiptViewModel);
                 ImportReceipt importReceipt = new ImportReceipt
                 {
@@ -37,7 +50,7 @@ namespace SimCard.APP.Persistence.Repositories
                     Nhanvienlap = importReceiptViewModel.NhanVienLap,
                     Congnocu = importReceiptViewModel.CongNoCu,
                     Nguoidaidien = importReceiptViewModel.NguoiDaiDien,
-                    CreatedOn = importReceiptViewModel.CreatedOn,
+                    Products = listImportReceiptProduct,
                     Sodienthoai = importReceiptViewModel.SoDienThoai,
                     Ghichu = importReceiptViewModel.GhiChu,
                     Tienthanhtoan = importReceiptViewModel.TienThanhToan,

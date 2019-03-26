@@ -31,13 +31,13 @@
             </div>
             <div class="ui-g-4">
                 <p>Ngày Lập</p>
-                <p-inputMask [(ngModel)]="importReceipt.createdOn" mask="99/99/9999" placeholder="30/10/1996" slotChar="mm/dd/yyyy"></p-inputMask>
+                <p-inputMask mask="99/99/9999" placeholder="30/10/1996" slotChar="mm/dd/yyyy"></p-inputMask>
             </div>
         </div>
         <div class="ui-g">
             <div class="ui-g-4">
                 <p>Tên Nhà CC</p>
-                <p-dropdown [options]="suppliers" [(ngModel)]="selectedSupplier" placeholder="Chọn Nhà CC" optionLabel="name" [showClear]="true"></p-dropdown>
+                <p-dropdown [options]="suppliers" placeholder="Chọn Nhà CC" optionLabel="name" [showClear]="true" (onChange)="onDropdownValueChange($event)"></p-dropdown>
             </div>
             <div class="ui-g-4">
                 <p>Công Nợ Cũ</p>
@@ -117,7 +117,7 @@
                 <tr>
                     <td>Tổng Cộng:</td>
                     <td>
-                        <input [disabled]="true" type="number" pInputText value="{{ total }}" />
+                        <input [disabled]="true" type="number" pInputText [(ngModel)]="importReceipt.tongTien" value="{{ total }}" />
                     </td>
                 </tr>
                 <tr>
@@ -151,7 +151,7 @@
             </div>
         </div>
     </div>
-    <!-- <div class="ui-g-4">
+		<!-- <div class="ui-g-4">
         <p-tabView>
             <p-tabPanel *ngFor="let group of products" header="group.group">
                 <p-table #dt [value]="group.items" selectionMode="single" [paginator]="true" [rows]="10">
