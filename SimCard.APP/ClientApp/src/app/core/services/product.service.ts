@@ -10,7 +10,7 @@ export class ProductService extends BaseService {
         this.BASE_URI = '/product';
     }
 
-    getAll (): Observable<any> {
+    getAll(): Observable<any> {
         return this.apiService.get(this.BASE_URI);
     }
 

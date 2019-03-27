@@ -78,7 +78,7 @@ namespace SimCard.APP.Persistence.Repositories
 
         public async Task<IEnumerable<ProductViewModel>> GetProducts()
         {
-            return Mapper.Map<List<ProductViewModel>>(await _context.Products.ToListAsync());
+            return Mapper.Map<List<ProductViewModel>>(await _context.Products.Where(x => x.ShopId == 1).ToListAsync());
         }
 
         public async Task<bool> IsProductExists(string code)

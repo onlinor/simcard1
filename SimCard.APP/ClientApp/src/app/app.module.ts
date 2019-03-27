@@ -31,7 +31,7 @@ import { TableConfigurationComponent } from '././pages/customer/table-configurat
 import { SearchBoxComponent } from '././pages/customer/search-box/search-box.component';
 import { ConfigurationComponent } from './pages/configColumn/configuration.component';
 import { EventsComponent } from './pages/events/events.component';
-import { ProductComponent } from './pages/product/product.component';
+import { ExportProductComponent } from './pages/exportproduct/exportproduct.component';
 import { SupplierComponent } from './pages/supplier/supplier.component';
 import { CashbookComponent } from './pages/cashbook/cashbook.component';
 import { BankbookComponent } from './pages/bankbook/bankbook.component';
@@ -41,7 +41,7 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { FormphieuchibankbookComponent } from './public/formphieuchibankbook/formphieuchibankbook.component';
 import { FormphieuthubankbookComponent } from './public/formphieuthubankbook/formphieuthubankbook.component';
-import { NhaphangComponent } from './pages/nhaphang/nhaphang.component';
+import { ImportProductComponent } from './pages/importproduct/importproduct.component';
 import { NetworkComponent } from './pages/network/network.component';
 
 // Service
@@ -60,7 +60,7 @@ import { ReportHomeComponent } from './pages/report-home/report-home.component';
     SearchBoxComponent,
     ConfigurationComponent,
     EventsComponent,
-    ProductComponent,
+    ExportProductComponent,
     SupplierComponent,
     CashbookComponent,
     BankbookComponent,
@@ -71,7 +71,7 @@ import { ReportHomeComponent } from './pages/report-home/report-home.component';
     FormphieuchibankbookComponent,
     FormphieuthubankbookComponent,
     ReportHomeComponent,
-    NhaphangComponent,
+    ImportProductComponent,
     NetworkComponent
   ],
   imports: [
@@ -102,11 +102,11 @@ import { ReportHomeComponent } from './pages/report-home/report-home.component';
       { path: 'customer', component: CustomerComponent },
       { path: 'event', component: EventsComponent },
       { path: 'config', component: ConfigurationComponent },
-      { path: 'product', component: ProductComponent },
+      { path: 'exportproduct', component: ExportProductComponent },
       { path: 'supplier', component: SupplierComponent },
       { path: 'cashbook', component: CashbookComponent },
       { path: 'bankbook', component: BankbookComponent },
-      { path: 'nhaphang', component: NhaphangComponent },
+      { path: 'importproduct', component: ImportProductComponent },
       { path: 'network', component: NetworkComponent },
       { path: 'report-home', component: ReportHomeComponent }
     ])

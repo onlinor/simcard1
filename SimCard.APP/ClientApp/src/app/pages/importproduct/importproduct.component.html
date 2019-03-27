@@ -151,10 +151,10 @@
             </div>
         </div>
     </div>
-		<!-- <div class="ui-g-4">
+	<div class="ui-g-4">
         <p-tabView>
-            <p-tabPanel *ngFor="let group of products" header="group.group">
-                <p-table #dt [value]="group.items" selectionMode="single" [paginator]="true" [rows]="10">
+            <p-tabPanel header="Sim Số">
+                <p-table #dt [value]="tabviewProducts" selectionMode="single" [paginator]="true" [rows]="10" (onEditComplete)="rowEditCompleted($event)">
                     <ng-template pTemplate="header" let-columns>
                         <tr>
                             <th>Tên</th>
@@ -164,15 +164,15 @@
                     </ng-template>
                     <ng-template pTemplate="body" let-product>
                         <tr>
-                            <td>{{ product.ten }}</td>
-                            <td>{{ product.soLuong }}</td>
+                            <td>{{product.ten}}</td>
+                            <td>{{product.soluong}}</td>
                             <td pEditableColumn [pEditableColumn]="product" [pEditableColumnField]="'soluongnhap'">
                                 <p-cellEditor>
                                     <ng-template pTemplate="input">
-                                        <input type="number" min="0" oninput="validity.valid||(value='');" [(ngModel)]="product.soluongnhap" />
+                                        <input type="number" min=0 oninput="validity.valid||(value='');" [(ngModel)]="product.soluongnhap">
                                     </ng-template>
                                     <ng-template pTemplate="output">
-                                        {{ product.soluongnhap }}
+                                        {{product.soluongnhap}}
                                     </ng-template>
                                 </p-cellEditor>
                             </td>
@@ -180,6 +180,6 @@
                     </ng-template>
                 </p-table>
             </p-tabPanel>
-        </p-tabView>
-    </div> -->
+        </p-tabView>  
+    </div>
 </div>

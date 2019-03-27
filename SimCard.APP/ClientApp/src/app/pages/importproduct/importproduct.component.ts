@@ -13,14 +13,15 @@ import {
 } from '../../core/models';
 
 @Component({
-  selector: 'app-nhaphang',
-  templateUrl: './nhaphang.component.html',
-  styleUrls: ['./nhaphang.component.css']
+  selector: 'app-importproduct',
+  templateUrl: './importproduct.component.html',
+  styleUrls: ['./importproduct.component.css']
 })
-export class NhaphangComponent implements OnInit {
+export class ImportProductComponent implements OnInit {
+
   tableProducts: Array<Product> = [];
 
-  products: [];
+  tabviewProducts: Array<Product> = [];
 
   suppliers: Array<Supplier> = [];
 
@@ -50,7 +51,7 @@ export class NhaphangComponent implements OnInit {
 
   save() {
     this.productService.save(this.tableProducts).subscribe(() => {
-      // this.getAllProducts();
+      this.getAllProducts();
       this.savePhieunhap();
 
       this.tableProducts = [];
@@ -79,8 +80,8 @@ export class NhaphangComponent implements OnInit {
   }
 
   getAllProducts() {
-    this.productService.getAllGroupByType().subscribe(response => {
-      this.products = response;
+    this.productService.getAll().subscribe(response => {
+      this.tabviewProducts = response;
     });
   }
 
