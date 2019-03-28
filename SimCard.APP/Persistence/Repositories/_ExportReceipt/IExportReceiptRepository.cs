@@ -11,6 +11,7 @@ namespace SimCard.APP.Persistence.Repositories
 {
     public interface IExportReceiptRepository
     {
+        Task<string> GenerateProductCode();
         Task<List<ExportReceiptViewModel>> GetAllAsync();
 
         Task<ExportReceiptViewModel> GetById(int id);

@@ -34,5 +34,19 @@ namespace SimCard.APP.Persistence.Repositories
         {
             return _context.ExportReceipts.Where(predicate);
         }
+
+        public async Task<string> GenerateProductCode()
+        {
+        string currentDate = DateTime.UtcNow.Date.ToString("yyyy-MM-dd").Replace("-", "");
+        // No data for new day
+        List<ExportReceipt> existingPNs = await _context.ExportReceipts.Where(x => x.Prefix.Replace("PN", "") == currentDate).ToListAsync();
+        if (existingPNs.Count() == 0)
+        {
+            return ("PN" + currentDate + ".1");
+        }
+        // Already Data in DB, genereated new suffix
+        int newSuffix = existingPNs.Max(x => x.Suffix) + 1;
+        return ("PN" + currentDate + "." + newSuffix);
+        }
     }
 }

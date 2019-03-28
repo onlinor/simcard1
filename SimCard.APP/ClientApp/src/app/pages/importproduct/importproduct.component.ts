@@ -25,7 +25,6 @@ export class ImportProductComponent implements OnInit {
 
   suppliers: Array<Supplier> = [];
 
-  // phieu section
   totalMoney = 0;
 
   vatMoney = 0;
@@ -34,7 +33,6 @@ export class ImportProductComponent implements OnInit {
 
   thanhToan = 0;
 
-  // phieu nhap
   importReceipt: ImportReceipt = new ImportReceipt();
 
   constructor(

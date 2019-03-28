@@ -11,5 +11,5 @@ export class Product {
   shopId?: number;
   supplierId?: number;
   soluongnhap?: number;
-  soluongxuat?: number;
+  exportnumber?: number;
 }

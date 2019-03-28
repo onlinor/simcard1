@@ -2,6 +2,7 @@
 {
     public class ExportReceiptViewModel
     {
+        public string Ma { get; set; }
         public string Prefix { get; set; }
 
         public int Suffix { get; set; }

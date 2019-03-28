@@ -19,6 +19,7 @@ export * from './shop.service';
 export * from './customer.service';
 export * from './bankbook.service';
 export * from './phieunhap.service';
+export * from './phieuxuat.service';
 export * from './supplier.service';
 
 

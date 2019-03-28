@@ -1,10 +1,10 @@
  
 <div class="ui-g">
-<!-- <div class="ui-g-8">
+    <div class="ui-g-8">
         <h3 class="text-center text-primary">Xuất Kho</h3>
         <div class="ui-g">
             <div class="ui-g-4">
-                <button pButton type="button" label="Phiếu Mới" icon="fa fa-plus"></button>
+                <button pButton type="button" label="Phiếu Mới" icon="fa fa-plus" (click)="generateProductCode()"></button>
             </div>
             <div class="ui-g-4">
                 <button pButton type="button" label="Sửa Phiếu" icon="fa fa-edit"></button>
@@ -54,8 +54,8 @@
                     <tr>
                         <th>Tên mặt hàng</th>
                         <th>Mã hàng</th>
-                        <th>SL/ ĐV</th>
                         <th>Mệnh giá</th>
+                        <th>SL/ ĐV</th>
                         <th>CKMH(%)</th>
                         <th>Đơn giá</th>
                         <th>Thành tiền</th>
@@ -65,8 +65,8 @@
                     <tr>
                         <td>{{ product.ten }}</td>
                         <td>{{ product.ma }}</td>
-                        <td>{{ product.soLuong | number }}</td>
                         <td>{{ product.menhGia | number }}</td>
+                        <td>{{ product.soLuong | number }}</td>
                         <td pEditableColumn [pEditableColumn]="product" [pEditableColumnField]="'chietKhau'">
                             <p-cellEditor>
                                 <ng-template pTemplate="input">
@@ -82,7 +82,46 @@
                     </tr>
                 </ng-template>
             </p-table>
-        <br>
+        <div class="ui-g-12">
+            <span class="ui-float-label">
+                <input id="float-input" [(ngModel)]="exportReceipt.ghiChu" type="text" style="width:100%" pInputText />
+                <label for="float-input">Ghi Chú</label>
+            </span>
+        </div>
+        <div class="ui-g-8 float-right">
+            <table class="float-right table-total">
+                <tr>
+                    <td>Cộng Tiền Hàng:</td>
+                    <td>
+                        <input [disabled]="true" type="number" pInputText value="{{ totalMoney }}" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>VAT:</td>
+                    <td>
+                        <input [disabled]="true" type="number" pInputText value="{{ vatMoney }}" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>Tổng Cộng:</td>
+                    <td>
+                        <input [disabled]="true" type="number" pInputText [(ngModel)]="exportReceipt.tongTien" value="{{ total }}" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>Thanh Toán NCC:</td>
+                    <td>
+                        <input type="number" pInputText pKeyFilter="pnum" [(ngModel)]="thanhToan" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>Còn Lại:</td>
+                    <td>
+                        <input type="number" pInputText pKeyFilter="pnum" [(ngModel)]="total - thanhToan" />
+                    </td>
+                </tr>
+            </table>
+        </div>
         <div class="ui-g-12">
             <div class="ui-g-4">
                 <button pButton type="button" label="Lưu" icon="fa fa-save"></button>
@@ -183,7 +222,7 @@
                 <button pButton type="button" label="Bỏ Qua"></button>
             </div>
         </div>
-    </div> -->
+    </div>
     <div class="ui-g-4">
         <p-tabView>
             <p-tabPanel header="Sim Số">
@@ -192,20 +231,20 @@
                         <tr>
                             <th>Tên</th>
                             <th>Tồn Kho</th>
-                            <th>Số Lượng</th>
+                            <th>Số Lượng Xuất</th>
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-product>
                         <tr>
                             <td>{{product.ten}}</td>
                             <td>{{product.soluong}}</td>
-                            <td pEditableColumn [pEditableColumn]="product" [pEditableColumnField]="'soluongnhap'">
+                            <td pEditableColumn [pEditableColumn]="product" [pEditableColumnField]="'exportnumber'">
                                 <p-cellEditor>
                                     <ng-template pTemplate="input">
-                                        <input type="number" min=0 oninput="validity.valid||(value='');" [(ngModel)]="product.soluongnhap">
+                                        <input type="number" min=0 oninput="validity.valid||(value='');" [(ngModel)]="product.exportnumber">
                                     </ng-template>
                                     <ng-template pTemplate="output">
-                                        {{product.soluongnhap}}
+                                        {{product.exportnumber}}
                                     </ng-template>
                                 </p-cellEditor>
                             </td>
