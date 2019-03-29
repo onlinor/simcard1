@@ -11,25 +11,30 @@ import { ServiceLocator } from '../core/service-locator';
 import { ToastrModule } from 'ngx-toastr';
 
 // Services
-import { ApiService } from './services/api.service';
-import { BaseService } from './services/base.service';
-import { LocalStorageService } from './services/local-storage.service';
-import { SupplierService } from './services/supplier.service';
-import { ProductService } from './services/product.service';
-import { FileService } from './services/file.service';
-import { ConfigurationService } from './services/configuration.service';
-import { CustomerService } from './services/customer.service';
-import { EventsService } from './services/events.service';
-import { MessageService } from './services/message.service';
-import { SubscribeService } from './services/subscribe.service';
-import { PermissionService } from './services/permission.service';
-import { CrudService } from './services/crud.service';
-import { CommonService } from './services/common.service';
-import { CashbookService } from './services/cashbook.service';
-import { BankbookService } from './services/bankbook.service';
-import { ReportService, ShopService, DocExportingService } from './services';
-import { NetworkService } from './services/network.service';
-import { PhieunhapService } from './services/phieunhap.service';
+import {
+  ApiService,
+  BaseService,
+  LocalStorageService,
+  SupplierService,
+  CommonService,
+  ProductService,
+  ReportService,
+  ShopService,
+  CashbookService,
+  FileService,
+  CustomerService,
+  BankbookService,
+  EventsService,
+  MessageService,
+  SubscribeService,
+  PermissionService,
+  ConfigurationService,
+  CrudService,
+  DocExportingService,
+  AuthService,
+  NetworkService,
+  PhieunhapService
+} from './services';
 
 @NgModule({
   imports: [
@@ -61,11 +66,12 @@ import { PhieunhapService } from './services/phieunhap.service';
     DocExportingService,
     ShopService,
     NetworkService,
-    PhieunhapService
+    PhieunhapService,
+    AuthService
   ]
 })
 export class CoreModule {
   constructor(private injector: Injector) {
-    ServiceLocator.injecttor = this.injector;
+    ServiceLocator.injector = this.injector;
   }
 }

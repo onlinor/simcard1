@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TableModule } from 'primeng/table';
@@ -49,6 +49,9 @@ import { MessageService } from 'primeng/api';
 import { LogService } from './shared/logging-services/log.service';
 import { LogPublishersService } from './shared/logging-services/log-publishers.service';
 import { ReportHomeComponent } from './pages/report-home/report-home.component';
+import { LoginComponent } from './pages/login/login.component';
+import { JwtInterceptor, ErrorInterceptor } from './core/interceptors';
+import { AuthGuard } from './core/guards/auth.guard';
 
 @NgModule({
   declarations: [
@@ -72,7 +75,8 @@ import { ReportHomeComponent } from './pages/report-home/report-home.component';
     FormphieuthubankbookComponent,
     ReportHomeComponent,
     ImportProductComponent,
-    NetworkComponent
+    NetworkComponent,
+    LoginComponent
   ],
   imports: [
     CoreModule,
@@ -99,19 +103,26 @@ import { ReportHomeComponent } from './pages/report-home/report-home.component';
     AngularFontAwesomeModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'customer', component: CustomerComponent },
-      { path: 'event', component: EventsComponent },
-      { path: 'config', component: ConfigurationComponent },
-      { path: 'exportproduct', component: ExportProductComponent },
-      { path: 'supplier', component: SupplierComponent },
-      { path: 'cashbook', component: CashbookComponent },
-      { path: 'bankbook', component: BankbookComponent },
-      { path: 'importproduct', component: ImportProductComponent },
-      { path: 'network', component: NetworkComponent },
-      { path: 'report-home', component: ReportHomeComponent }
+      { path: 'customer', component: CustomerComponent, canActivate: [AuthGuard] },
+      { path: 'event', component: EventsComponent, canActivate: [AuthGuard] },
+      { path: 'config', component: ConfigurationComponent, canActivate: [AuthGuard] },
+      { path: 'exportproduct', component: ExportProductComponent, canActivate: [AuthGuard] },
+      { path: 'supplier', component: SupplierComponent, canActivate: [AuthGuard] },
+      { path: 'cashbook', component: CashbookComponent, canActivate: [AuthGuard] },
+      { path: 'bankbook', component: BankbookComponent, canActivate: [AuthGuard] },
+      { path: 'importproduct', component: ImportProductComponent, canActivate: [AuthGuard] },
+      { path: 'network', component: NetworkComponent, canActivate: [AuthGuard] },
+      { path: 'report-home', component: ReportHomeComponent, canActivate: [AuthGuard] },
+      { path: 'login', component: LoginComponent }
     ])
   ],
-  providers: [MessageService, LogService, LogPublishersService],
+  providers: [
+    MessageService,
+    LogService,
+    LogPublishersService,
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

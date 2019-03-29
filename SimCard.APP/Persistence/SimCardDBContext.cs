@@ -34,9 +34,35 @@ namespace SimCard.APP.Persistence
 
         public DbSet<BankAccount> BankAccounts { get; set; }
 
+        public DbSet<User> Users { get; set; }
+
         public SimCardDBContext(DbContextOptions<SimCardDBContext> options) : base(options)
         {
 
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<User>().HasData(
+                new User {
+                    Id = 1,
+                    FirstName = "Galvin",
+                    LastName = "Nguyen",
+                    Username = "company",
+                    Password = PasswordHelper.Encrypt("!@#$%"),
+                    Role = Role.Company
+                },
+                new User
+                {
+                    Id = 2,
+                    FirstName = "Galvin",
+                    LastName = "Nguyen",
+                    Username = "branch",
+                    Password = PasswordHelper.Encrypt("!@#$%"),
+                    Role = Role.Branch
+                }
+            );
         }
     }
 }

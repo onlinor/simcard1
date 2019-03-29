@@ -31,5 +31,4 @@ export class CashbookService extends BaseService {
   getLastIDCashbookRecord(): Observable<any> {
     return this.apiService.get(`${this.BASE_URI}/last`);
   }
-
 }

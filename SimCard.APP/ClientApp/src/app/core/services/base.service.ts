@@ -12,8 +12,8 @@ export class BaseService {
     protected commonService: CommonService;
 
 constructor() {
-    this.apiService = ServiceLocator.injecttor.get(ApiService);
-    this.commonService = ServiceLocator.injecttor.get(CommonService);
+    this.apiService = ServiceLocator.injector.get(ApiService);
+    this.commonService = ServiceLocator.injector.get(CommonService);
 }
 
 }
