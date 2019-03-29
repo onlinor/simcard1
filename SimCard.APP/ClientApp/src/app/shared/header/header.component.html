@@ -10,7 +10,6 @@
         </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 btn-header-section">
-        <button pButton type="button" icon="pi pi-sign-in" iconPos="right" class="ui-button-raised ui-button-primary" label="Login"></button>&nbsp;&nbsp;
-        <button pButton type="button" icon="pi pi-user" iconPos="right" class="ui-button-raised ui-button-success" label="Register"></button> 
+        <a routerLink="login" *ngIf="!isLoggedIn" class="btn btn-sm btn-primary">Login</a>
     </div>
  </header>
