@@ -10,6 +10,7 @@
         </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 btn-header-section">
-        <a routerLink="login" *ngIf="!isLoggedIn" class="btn btn-sm btn-primary">Login</a>
+        <a routerLink="login" *ngIf="isLoggedIn === false" class="btn btn-sm btn-primary">Login</a>
+        <a href="javascript:void(0)" (click)="logout()" *ngIf="isLoggedIn === true" class="btn btn-sm btn-danger">Logout</a>
     </div>
  </header>
