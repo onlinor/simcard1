@@ -39,9 +39,9 @@ export class FormphieuchibankbookComponent implements OnInit, OnDestroy {
 		loaiNganHang: "",
 		loaiPhanBo: "",
 		tenKhachHang: "",
-		donViNhan: "",
+		donViNhan: "Cong Ty",
 		donViNop: "",
-		maKhachHang: "",
+		maKhachHang: "KH0",
 		ghiChu: "",
 		hinhThucChi: "",
 		hinhThucNop: "",
@@ -50,7 +50,7 @@ export class FormphieuchibankbookComponent implements OnInit, OnDestroy {
 		nguoiThu: "",
 		ngayLap: new Date().toLocaleDateString(),
 		dateCreated: null,
-		noiDungPhieu: "",
+		noiDungPhieu: "Nhập hàng từ nhà cung cấp",
 		soTienChi: 0,
 		soTienThu: 0,
 		congDon: 0
@@ -137,37 +137,36 @@ export class FormphieuchibankbookComponent implements OnInit, OnDestroy {
 					}
 				);
 		}
-		this.dataPhieuChi = {};
-		this.dataPhieuChi.loaiNganHang = "";
-		this.dataPhieuChi.maPhieu = "PC";
-		this.dataPhieuChi.hinhThucChi = "";
-		this.dataPhieuChi.soTienChi = 0;
-		this.dataPhieuChi.ngayLap = new Date().toLocaleDateString();
+		this.resetForm();
 		this.theATM = false;
 		this.cash = false;
+	}
+
+	resetForm() {
+		this.dataPhieuChi = {};
+		this.dataPhieuChi.loaiNganHang = '';
+		this.dataPhieuChi.maPhieu = 'PC';
+		this.dataPhieuChi.donViNhan = 'Công Ty',
+		this.dataPhieuChi.maKhachHang =  'KH0',
+		this.dataPhieuChi.noiDungPhieu =  'Nhập hàng từ nhà cung cấp',
+		this.dataPhieuChi.hinhThucChi = '';
+		this.dataPhieuChi.soTienChi = 0;
 		this.dataPhieuChi.dateCreated = null;
+		this.dataPhieuChi.ngayLap = new Date().toLocaleDateString();
 	}
 
 	onClose() {
-		this.dataPhieuChi = {};
-		this.dataPhieuChi.ngayLap = new Date().toLocaleDateString();
-		this.dataPhieuChi.maPhieu = "PC";
-		this.dataPhieuChi.hinhThucChi = "";
+		this.resetForm();
 		this.theATM = false;
 		this.cash = false;
-		this.dataPhieuChi.soTienChi = 0;
 		this.isShowDialogPhieuChi = false;
 		this.emitShowDialogPhieuChi.emit(this.isShowDialogPhieuChi);
 	}
 
 	onClearForm() {
-		this.dataPhieuChi = {};
-		this.dataPhieuChi.ngayLap = new Date().toLocaleDateString();
-		this.dataPhieuChi.maPhieu = "PC";
-		this.dataPhieuChi.hinhThucChi = "";
+		this.resetForm();
 		this.theATM = false;
 		this.cash = false;
-		this.dataPhieuChi.soTienChi = 0;
 	}
 
 	fillDropdownCustomer() {

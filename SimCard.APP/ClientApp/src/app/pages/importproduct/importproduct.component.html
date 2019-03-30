@@ -1,4 +1,8 @@
 <div class="ui-g-12">
+    <app-formphieuchi
+            [isShowDialogPhieuChi]="isShowDialogPhieuChi"
+            (outIsShowDialogPhieuChi)="onGetIsShowDialogPhieuChi($event)">
+    </app-formphieuchi>
     <div class="ui-g-8">
         <h3 class="text-center text-primary">Nhập Kho</h3>
         <div class="ui-g">
@@ -121,9 +125,23 @@
                     </td>
                 </tr>
                 <tr>
+                    <td>Hình Thức:</td>
+                    <td>
+                        <p-checkbox name="bank" binary="true" [(ngModel)]="isPaybankChecked"  (onChange)="onChangeIsPaybankChecked($event)"></p-checkbox>&nbsp;
+                        <span>Ngân Hàng</span>
+                        <br/>
+                        <div class="mt-2"><p-dropdown class="mt-2" *ngIf="isPaybankChecked" name="loaiNganHang" [options]="LoaiNganHang" [(ngModel)]="loaiNganHang"></p-dropdown></div>
+                        <input class="mt-2" *ngIf="isPaybankChecked" type="number" min="0" name="payBank" autocomplete="off" pInputText [(ngModel)]="payBank" (change)="onChangePaybank($event)" />
+                        <br/>
+                        <p-checkbox name="cash" binary="true" [(ngModel)]="isPaycashChecked" (onChange)="onChangeIsPaycashChecked($event)"></p-checkbox>&nbsp;
+                        <span>Tiền Mặt</span><br/>
+                        <input class="mt-2" *ngIf="isPaycashChecked" type="number" min="0" name="payCash" autocomplete="off" pInputText [(ngModel)]="payCash"  (change)="onChangePaycash($event)" />
+                    </td>
+                </tr>
+                <tr>
                     <td>Thanh Toán NCC:</td>
                     <td>
-                        <input type="number" pInputText pKeyFilter="pnum" [(ngModel)]="thanhToan" />
+                        <input [disabled]="true" type="number" pInputText pKeyFilter="pnum" [(ngModel)]="thanhToan" />
                     </td>
                 </tr>
                 <tr>

@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SimCard.APP.Migrations
@@ -12,15 +13,15 @@ namespace SimCard.APP.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     DateCreated = table.Column<DateTime>(nullable: false),
                     DateModified = table.Column<DateTime>(nullable: true),
                     TenKhachHang = table.Column<string>(maxLength: 255, nullable: true),
                     MaKhachHang = table.Column<string>(maxLength: 255, nullable: true),
                     MaPhieu = table.Column<string>(maxLength: 255, nullable: true),
                     NoiDungPhieu = table.Column<string>(maxLength: 255, nullable: true),
-                    SoTienThu = table.Column<int>(nullable: false),
-                    SoTienChi = table.Column<int>(nullable: false),
+                    SoTienThu = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    SoTienChi = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     CongDon = table.Column<int>(nullable: false),
                     DonViNop = table.Column<string>(maxLength: 255, nullable: true),
                     DonViNhan = table.Column<string>(maxLength: 255, nullable: true),
@@ -41,15 +42,15 @@ namespace SimCard.APP.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     DateCreated = table.Column<DateTime>(nullable: false),
                     DateModified = table.Column<DateTime>(nullable: true),
                     TenKhachHang = table.Column<string>(maxLength: 255, nullable: true),
                     MaKhachHang = table.Column<string>(maxLength: 255, nullable: true),
                     MaPhieu = table.Column<string>(maxLength: 255, nullable: true),
                     NoiDungPhieu = table.Column<string>(maxLength: 255, nullable: true),
-                    SoTienThu = table.Column<int>(nullable: false),
-                    SoTienChi = table.Column<int>(nullable: false),
+                    SoTienThu = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    SoTienChi = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     CongDon = table.Column<int>(nullable: false),
                     DonViNop = table.Column<string>(maxLength: 255, nullable: true),
                     DonViNhan = table.Column<string>(maxLength: 255, nullable: true),
@@ -70,7 +71,7 @@ namespace SimCard.APP.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     DateCreated = table.Column<DateTime>(nullable: false),
                     DateModified = table.Column<DateTime>(nullable: true),
                     MaCH = table.Column<string>(maxLength: 255, nullable: true),
@@ -89,7 +90,7 @@ namespace SimCard.APP.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     DateCreated = table.Column<DateTime>(nullable: false),
                     DateModified = table.Column<DateTime>(nullable: true),
                     TenCH = table.Column<string>(maxLength: 255, nullable: true),
@@ -121,7 +122,7 @@ namespace SimCard.APP.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     DateCreated = table.Column<DateTime>(nullable: false),
                     DateModified = table.Column<DateTime>(nullable: true),
                     LoaiSK = table.Column<string>(maxLength: 255, nullable: true),
@@ -145,7 +146,7 @@ namespace SimCard.APP.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     DateCreated = table.Column<DateTime>(nullable: false),
                     DateModified = table.Column<DateTime>(nullable: true),
                     Ten = table.Column<string>(maxLength: 255, nullable: false),
@@ -171,7 +172,7 @@ namespace SimCard.APP.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     DateCreated = table.Column<DateTime>(nullable: false),
                     DateModified = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(nullable: true),
@@ -194,7 +195,7 @@ namespace SimCard.APP.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     DateCreated = table.Column<DateTime>(nullable: false),
                     DateModified = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(nullable: true)
@@ -205,22 +206,45 @@ namespace SimCard.APP.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "BankAccounts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    DateCreated = table.Column<DateTime>(nullable: false),
+                    DateModified = table.Column<DateTime>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    Number = table.Column<string>(nullable: true),
+                    ShopId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BankAccounts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_BankAccounts_Shops_ShopId",
+                        column: x => x.ShopId,
+                        principalTable: "Shops",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ExportReceipts",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     DateCreated = table.Column<DateTime>(nullable: false),
                     DateModified = table.Column<DateTime>(nullable: true),
                     Prefix = table.Column<string>(nullable: true),
                     Suffix = table.Column<int>(nullable: false),
                     Nhanvienlap = table.Column<string>(nullable: true),
-                    OldDebt = table.Column<decimal>(nullable: false),
+                    OldDebt = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     RepresentativePerson = table.Column<string>(nullable: true),
                     PhoneNumber = table.Column<int>(nullable: false),
                     Note = table.Column<string>(nullable: true),
-                    MoneyPaid = table.Column<decimal>(nullable: false),
-                    Debt = table.Column<decimal>(nullable: false),
+                    MoneyPaid = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Debt = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     ShopId = table.Column<int>(nullable: false),
                     ExportToShopId = table.Column<int>(nullable: true),
                     ExportToCustomerId = table.Column<int>(nullable: true)
@@ -228,18 +252,6 @@ namespace SimCard.APP.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ExportReceipts", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ExportReceipts_Customers_ExportToCustomerId",
-                        column: x => x.ExportToCustomerId,
-                        principalTable: "Customers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_ExportReceipts_Customers_ExportToShopId",
-                        column: x => x.ExportToShopId,
-                        principalTable: "Customers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_ExportReceipts_Shops_ShopId",
                         column: x => x.ShopId,
@@ -253,21 +265,22 @@ namespace SimCard.APP.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     DateCreated = table.Column<DateTime>(nullable: false),
                     DateModified = table.Column<DateTime>(nullable: true),
                     Ma = table.Column<string>(nullable: true),
                     Prefix = table.Column<string>(nullable: true),
                     Suffix = table.Column<int>(nullable: false),
                     Nhanvienlap = table.Column<string>(nullable: true),
-                    Congnocu = table.Column<decimal>(nullable: false),
+                    Congnocu = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Nguoidaidien = table.Column<string>(nullable: true),
                     Sodienthoai = table.Column<int>(nullable: false),
                     Ghichu = table.Column<string>(nullable: true),
-                    Tienthanhtoan = table.Column<decimal>(nullable: false),
-                    Tienconlai = table.Column<decimal>(nullable: false),
+                    Tienthanhtoan = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Tienconlai = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     ShopId = table.Column<int>(nullable: false),
-                    SupplierId = table.Column<int>(nullable: true)
+                    ImportFromShopId = table.Column<int>(nullable: true),
+                    ImmportFromSupplierId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -278,10 +291,30 @@ namespace SimCard.APP.Migrations
                         principalTable: "Shops",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    DateCreated = table.Column<DateTime>(nullable: false),
+                    DateModified = table.Column<DateTime>(nullable: true),
+                    FirstName = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true),
+                    Username = table.Column<string>(nullable: true),
+                    Password = table.Column<string>(nullable: true),
+                    Role = table.Column<string>(nullable: true),
+                    ShopId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ImportReceipts_Suppliers_SupplierId",
-                        column: x => x.SupplierId,
-                        principalTable: "Suppliers",
+                        name: "FK_Users_Shops_ShopId",
+                        column: x => x.ShopId,
+                        principalTable: "Shops",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -291,15 +324,14 @@ namespace SimCard.APP.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     DateCreated = table.Column<DateTime>(nullable: false),
                     DateModified = table.Column<DateTime>(nullable: true),
                     Ten = table.Column<string>(maxLength: 255, nullable: false),
                     Ma = table.Column<string>(nullable: true),
-                    Menhgia = table.Column<decimal>(nullable: false),
+                    Menhgia = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Soluong = table.Column<int>(nullable: false),
-                    ProductType = table.Column<string>(nullable: true),
-                    Gianhap = table.Column<decimal>(nullable: true),
+                    DonGia = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     ShopId = table.Column<int>(nullable: true),
                     SupplierId = table.Column<int>(nullable: true)
                 },
@@ -325,12 +357,13 @@ namespace SimCard.APP.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     DateCreated = table.Column<DateTime>(nullable: false),
                     DateModified = table.Column<DateTime>(nullable: true),
                     ProductId = table.Column<int>(nullable: false),
-                    Quantity = table.Column<int>(nullable: false),
-                    ChietKhau = table.Column<decimal>(nullable: false),
+                    ExportQuantity = table.Column<int>(nullable: false),
+                    NewWarehouseQuantity = table.Column<int>(nullable: false),
+                    ChietKhau = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     ExportReceiptId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -355,12 +388,13 @@ namespace SimCard.APP.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     DateCreated = table.Column<DateTime>(nullable: false),
                     DateModified = table.Column<DateTime>(nullable: true),
                     ProductId = table.Column<int>(nullable: false),
-                    Quantity = table.Column<int>(nullable: false),
-                    ChietKhau = table.Column<decimal>(nullable: false),
+                    ImportQuantity = table.Column<int>(nullable: false),
+                    NewWarehouseQuantity = table.Column<int>(nullable: false),
+                    ChietKhau = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     ImportReceiptId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -380,6 +414,21 @@ namespace SimCard.APP.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "Id", "DateCreated", "DateModified", "FirstName", "LastName", "Password", "Role", "ShopId", "Username" },
+                values: new object[] { 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Galvin", "Nguyen", "AuMNtzTEh1bl/yJH5iO+ww==", "Company", null, "company" });
+
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "Id", "DateCreated", "DateModified", "FirstName", "LastName", "Password", "Role", "ShopId", "Username" },
+                values: new object[] { 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Galvin", "Nguyen", "AuMNtzTEh1bl/yJH5iO+ww==", "Branch", null, "branch" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BankAccounts_ShopId",
+                table: "BankAccounts",
+                column: "ShopId");
+
             migrationBuilder.CreateIndex(
                 name: "IX_ExportReceiptProducts_ExportReceiptId",
                 table: "ExportReceiptProducts",
@@ -389,16 +438,6 @@ namespace SimCard.APP.Migrations
                 name: "IX_ExportReceiptProducts_ProductId",
                 table: "ExportReceiptProducts",
                 column: "ProductId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ExportReceipts_ExportToCustomerId",
-                table: "ExportReceipts",
-                column: "ExportToCustomerId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ExportReceipts_ExportToShopId",
-                table: "ExportReceipts",
-                column: "ExportToShopId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ExportReceipts_ShopId",
@@ -421,11 +460,6 @@ namespace SimCard.APP.Migrations
                 column: "ShopId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ImportReceipts_SupplierId",
-                table: "ImportReceipts",
-                column: "SupplierId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Products_ShopId",
                 table: "Products",
                 column: "ShopId");
@@ -439,10 +473,18 @@ namespace SimCard.APP.Migrations
                 name: "IX_Shops_ShopId",
                 table: "Shops",
                 column: "ShopId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_ShopId",
+                table: "Users",
+                column: "ShopId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "BankAccounts");
+
             migrationBuilder.DropTable(
                 name: "Bankbook");
 
@@ -451,6 +493,9 @@ namespace SimCard.APP.Migrations
 
             migrationBuilder.DropTable(
                 name: "Configurations");
+
+            migrationBuilder.DropTable(
+                name: "Customers");
 
             migrationBuilder.DropTable(
                 name: "Events");
@@ -465,6 +510,9 @@ namespace SimCard.APP.Migrations
                 name: "Networks");
 
             migrationBuilder.DropTable(
+                name: "Users");
+
+            migrationBuilder.DropTable(
                 name: "ExportReceipts");
 
             migrationBuilder.DropTable(
@@ -472,9 +520,6 @@ namespace SimCard.APP.Migrations
 
             migrationBuilder.DropTable(
                 name: "Products");
-
-            migrationBuilder.DropTable(
-                name: "Customers");
 
             migrationBuilder.DropTable(
                 name: "Shops");

@@ -1,11 +1,11 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from "@angular/core";
-import { Subscription } from "rxjs/subscription";
-import { CashbookService } from "../../core/services/cashbook.service";
+import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs/subscription';
+import { CashbookService } from '../../core/services/cashbook.service';
 
 @Component({
-	selector: "app-formphieuchi",
-	templateUrl: "./formphieuchi.component.html",
-	styleUrls: ["./formphieuchi.component.css"]
+	selector: 'app-formphieuchi',
+	templateUrl: './formphieuchi.component.html',
+	styleUrls: ['./formphieuchi.component.css']
 })
 export class FormphieuchiComponent implements OnInit, OnDestroy {
 	LoaiNganHang = [
@@ -22,18 +22,18 @@ export class FormphieuchiComponent implements OnInit, OnDestroy {
 	];
 
 	LoaiPhanBo = [
-		{ label: "Chi Phí", value: "CP" },
-		{ label: "Thu Chi Khác", value: "TC" },
-		{ label: "Không", value: "NO" }
+		{ label: 'Chi Phí', value: 'CP' },
+		{ label: 'Thu Chi Khác', value: 'TC' },
+		{ label: 'Không', value: 'NO' }
 	];
 
 	dataPhieuChi: any = {
 		loaiNganHang: '',
 		loaiPhanBo: '',
 		tenKhachHang: '',
-		donViNhan: '',
+		donViNhan: 'Công Ty',
 		donViNop: '',
-		maKhachHang: '',
+		maKhachHang: 'KH0',
 		ghiChu: '',
 		hinhThucChi: '',
 		hinhThucNop: '',
@@ -42,7 +42,7 @@ export class FormphieuchiComponent implements OnInit, OnDestroy {
 		nguoiThu: '',
 		ngayLap: new Date().toLocaleDateString(),
 		dateCreated: null,
-		noiDungPhieu: '',
+		noiDungPhieu: 'Nhập hàng từ nhà cung cấp',
 		soTienChi: 0,
 		soTienThu: 0,
 		congDon: 0
@@ -57,11 +57,12 @@ export class FormphieuchiComponent implements OnInit, OnDestroy {
 	customerList: any;
 
 
-	@Input("isShowDialogPhieuChi") isShowDialogPhieuChi: boolean;
-	@Input("isNewCashBook") isNewCashBook: boolean;
-	@Input("idSelectedCashbook") idSelectedCashbook;
-	@Output("outIsShowDialogPhieuChi") emitShowDialogPhieuChi = new EventEmitter<any>();
-	@Output("outDataPhieuChi") emitDataPhieuChi = new EventEmitter<any>();
+	@Input('isShowDialogPhieuChi') isShowDialogPhieuChi: boolean;
+	@Input('bindingData') dataProductBingding: any;
+	@Input('isNewCashBook') isNewCashBook: boolean;
+	@Input('idSelectedCashbook') idSelectedCashbook;
+	@Output('outIsShowDialogPhieuChi') emitShowDialogPhieuChi = new EventEmitter<any>();
+	@Output('outDataPhieuChi') emitDataPhieuChi = new EventEmitter<any>();
 
 	constructor(
 		private cashbookService: CashbookService) {
@@ -114,6 +115,7 @@ export class FormphieuchiComponent implements OnInit, OnDestroy {
 		this.isShowDialogPhieuChi = false;
 		this.dataPhieuChi.dateCreated = new Date();
 		this.emitShowDialogPhieuChi.emit(this.isShowDialogPhieuChi);
+		console.log('sm', this.dataPhieuChi);
 		if (this.isNewCashBook) {
 			this.subscription = this.cashbookService.addCashbook(this.dataPhieuChi)
 				.subscribe(() => {
@@ -129,13 +131,34 @@ export class FormphieuchiComponent implements OnInit, OnDestroy {
 				}
 				);
 		}
+		this.resetForm();
+		this.theATM = false;
+		this.cash = false;
+	}
+	
+	resetForm() {
 		this.dataPhieuChi = {};
 		this.dataPhieuChi.loaiNganHang = '';
 		this.dataPhieuChi.maPhieu = 'PC';
+		this.dataPhieuChi.donViNhan = 'Công Ty',
+		this.dataPhieuChi.maKhachHang =  'KH0',
+		this.dataPhieuChi.noiDungPhieu =  'Nhập hàng từ nhà cung cấp',
 		this.dataPhieuChi.hinhThucChi = '';
 		this.dataPhieuChi.soTienChi = 0;
 		this.dataPhieuChi.dateCreated = null;
 		this.dataPhieuChi.ngayLap = new Date().toLocaleDateString();
+	}
+
+	onClose() {
+		this.resetForm();
+		this.theATM = false;
+		this.cash = false;
+		this.isShowDialogPhieuChi = false;
+		this.emitShowDialogPhieuChi.emit(this.isShowDialogPhieuChi);
+	}
+
+	onClearForm() {
+		this.resetForm();
 		this.theATM = false;
 		this.cash = false;
 	}
@@ -148,29 +171,6 @@ export class FormphieuchiComponent implements OnInit, OnDestroy {
 			}
 			this.dsKhachHang.push(obj);
 		});
-	}
-
-
-	onClose() {
-		this.dataPhieuChi = {};
-		this.dataPhieuChi.ngayLap = new Date().toLocaleDateString();
-		this.dataPhieuChi.maPhieu = 'PC';
-		this.dataPhieuChi.hinhThucChi = '';
-		this.theATM = false;
-		this.cash = false;
-		this.dataPhieuChi.soTienChi = 0;
-		this.isShowDialogPhieuChi = false;
-		this.emitShowDialogPhieuChi.emit(this.isShowDialogPhieuChi);
-	}
-
-	onClearForm() {
-		this.dataPhieuChi = {};
-		this.dataPhieuChi.ngayLap = new Date().toLocaleDateString();
-		this.dataPhieuChi.maPhieu = 'PC';
-		this.dataPhieuChi.hinhThucChi = '';
-		this.theATM = false;
-		this.cash = false;
-		this.dataPhieuChi.soTienChi = 0;
 	}
 
 	ngOnDestroy() {

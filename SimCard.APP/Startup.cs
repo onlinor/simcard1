@@ -64,7 +64,7 @@ namespace SimCard.APP
             });
 
             services.AddAutoMapper();
-            services.AddDbContext<SimCardDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<SimCardDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SimCardDBContext")));
             services.AddDefaultIdentity<User>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IShopRepository, ShopRepository>();
@@ -74,6 +74,7 @@ namespace SimCard.APP
             services.AddScoped<IEmailRepository, EmailRepository>();
             services.AddScoped<ISupplierRepository, SupplierRepository>();
             services.AddScoped<IBankbookRepository, BankbookRepository>();
+            services.AddScoped<ICashbookRepository, CashbookRepository>();
             services.AddScoped<INetworkRepository, NetworkRepository>();
             services.AddScoped<IImportReceiptRepository, ImportReceiptRepository>();
             services.AddScoped<IExportReceiptRepository, ExportReceiptRepository>();

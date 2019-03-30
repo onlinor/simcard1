@@ -13,3 +13,8 @@ label {
     float: right;
     clear: both;
 }
+
+.table-total td {
+  padding: 5px;
+  padding-right: 0px;
+}
