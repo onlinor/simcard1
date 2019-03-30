@@ -3,11 +3,12 @@ import { FormphieuchibankbookComponent } from '../../public/formphieuchibankbook
 import { FormphieuthubankbookComponent } from '../../public/formphieuthubankbook/formphieuthubankbook.component';
 import { Subscription } from 'rxjs/subscription';
 import { BankbookService } from '../../core/services/bankbook.service';
+import { CustomerService } from '../../core/services/customer.service';
 
 @Component({
-  selector: 'app-bankbook',
-  templateUrl: './bankbook.component.html',
-  styleUrls: ['./bankbook.component.css']
+	selector: 'app-bankbook',
+	templateUrl: './bankbook.component.html',
+	styleUrls: ['./bankbook.component.css']
 })
 export class BankbookComponent implements OnInit, OnDestroy {
 	@ViewChild(FormphieuchibankbookComponent)
@@ -28,24 +29,24 @@ export class BankbookComponent implements OnInit, OnDestroy {
 		{ label: 'Techcombank', value: 'TCB' }
 	];
 	selectedLoaiDuLieu: String = '';
-    LoaiDuLieu = [
-        { label: 'PDF', value: 'PDF' },
-        { label: 'Image', value: 'IMG' }
+	LoaiDuLieu = [
+		{ label: 'PDF', value: 'PDF' },
+		{ label: 'Image', value: 'IMG' }
 	];
 	cols: any = [
-        { fleld: 'dateCreated', header: 'Ngày Lập'},
-        { field: 'tenKhachHang', header: 'Tên Khách Hàng'},
-        { field: 'maPhieu', header: 'Mã Phiếu'},
-        { field: 'noiDungPhieu', header: 'Nội Dung Phiếu'},
-        { field: 'soTienThu', header: 'Số Tiền Thu'},
-        { field: 'soTienChi', header: 'Số Tiền Chi'}
-        // { field: 'congDon', header: 'Cộng Dồn'}
-    ];
+		{ fleld: 'dateCreated', header: 'Ngày Lập' },
+		{ field: 'tenKhachHang', header: 'Tên Khách Hàng' },
+		{ field: 'maPhieu', header: 'Mã Phiếu' },
+		{ field: 'noiDungPhieu', header: 'Nội Dung Phiếu' },
+		{ field: 'soTienThu', header: 'Số Tiền Thu' },
+		{ field: 'soTienChi', header: 'Số Tiền Chi' }
+		// { field: 'congDon', header: 'Cộng Dồn'}
+	];
 	tuNgay: any;
 	toiNgay: any;
 	tonDauKi: any;
-    tonCuoiKi: any;
-    soTienThu: any;
+	tonCuoiKi: any;
+	soTienThu: any;
 	soTienChi: any;
 	searchSoTienThu: any;
 	searchSoTienChi: any;
@@ -53,7 +54,7 @@ export class BankbookComponent implements OnInit, OnDestroy {
 	isShowDialogPhieuThu: boolean = false;
 	bankbook: any = [];
 	initialBankbook: any;
-    selectedBankbook: any;
+	selectedBankbook: any;
 	dataPhieuChi: any;
 	dataPhieuThu: any;
 	isNewCashBook: boolean;
@@ -61,11 +62,20 @@ export class BankbookComponent implements OnInit, OnDestroy {
 	bankbookTemp: any;
 	recieveBankbook: any;
 	subscription: Subscription;
+	customerList: any;
 
-	constructor(private bankbookService: BankbookService) {}
+	constructor(private bankbookService: BankbookService,
+		private customerService: CustomerService) { }
 
 	ngOnInit() {
 		this.getAllBankbook();
+		this.subscription = this.customerService.getAllCustomer()
+		.subscribe(
+			response => {
+				this.customerList = response;
+			},
+			error => {}
+		);
 	}
 
 	getAllBankbook() {
@@ -75,13 +85,15 @@ export class BankbookComponent implements OnInit, OnDestroy {
 					this.bankbook = response;
 					this.initialBankbook = response;
 				},
-				error => {}
+				error => { }
 			)
 	}
-	
+
 	onShowDialogPhieuChi() {
 		this.isShowDialogPhieuChi = true;
 		this.isNewCashBook = true;
+		this.myFormChiChild.customerList = this.customerList;
+		this.myFormChiChild.fillDropdownCustomer();
 	}
 
 	onGetIsShowDialogPhieuChi(data: any) {
@@ -92,7 +104,7 @@ export class BankbookComponent implements OnInit, OnDestroy {
 		this.getAllBankbook();
 		let bankbook = [...this.bankbook];
 		this.dataPhieuChi = data;
-		if(this.isNewCashBook) {
+		if (this.isNewCashBook) {
 			bankbook.push(this.dataPhieuChi);
 		} else {
 			bankbook[this.bankbook.indexOf(this.selectedBankbook)] = this.dataPhieuChi;
@@ -117,6 +129,8 @@ export class BankbookComponent implements OnInit, OnDestroy {
 	onShowDialogPhieuThu() {
 		this.isShowDialogPhieuThu = true;
 		this.isNewCashBook = true;
+		this.myFormThuChild.customerList = this.customerList;
+		this.myFormThuChild.fillDropdownCustomer();
 	}
 
 	onGetIsShowDialogPhieuThu(data: any) {
@@ -134,22 +148,22 @@ export class BankbookComponent implements OnInit, OnDestroy {
 		if (isPC) {
 			this.isShowDialogPhieuChi = true;
 			let checkHTChi = '';
-			if(this.bankbookTemp['hinhThucChi']) {
+			if (this.bankbookTemp['hinhThucChi']) {
 				checkHTChi = this.bankbookTemp['hinhThucChi'];
 			}
-			if(checkHTChi === 'TM') {
+			if (checkHTChi === 'TM') {
 				this.myFormChiChild.cash = true;
 				this.myFormChiChild.theATM = false;
 			}
 			if (checkHTChi === 'CK,TM') {
 				this.myFormChiChild.theATM = true;
 				this.myFormChiChild.cash = true;
-			} 
-			if(checkHTChi === 'CK') {
+			}
+			if (checkHTChi === 'CK') {
 				this.myFormChiChild.cash = false;
 				this.myFormChiChild.theATM = true;
-			} 
-			if(checkHTChi === '' ) {
+			}
+			if (checkHTChi === '') {
 				this.myFormChiChild.cash = false;
 				this.myFormChiChild.theATM = false;
 			}
@@ -157,22 +171,22 @@ export class BankbookComponent implements OnInit, OnDestroy {
 		} else {
 			this.isShowDialogPhieuThu = true;
 			let checkHTThu = '';
-			if(this.bankbookTemp['hinhThucNop']) {
+			if (this.bankbookTemp['hinhThucNop']) {
 				checkHTThu = this.bankbookTemp['hinhThucNop'];
 			}
-			if(checkHTThu === 'TM') {
+			if (checkHTThu === 'TM') {
 				this.myFormThuChild.theATM = false;
 				this.myFormThuChild.cash = true;
 			}
-			if (checkHTThu === 'CK,TM' ) {
+			if (checkHTThu === 'CK,TM') {
 				this.myFormThuChild.theATM = true;
 				this.myFormThuChild.cash = true;
-			} 
-			if(checkHTThu === 'CK') {
+			}
+			if (checkHTThu === 'CK') {
 				this.myFormThuChild.theATM = true;
 				this.myFormThuChild.cash = false;
 			}
-			if(checkHTThu === '' ) {
+			if (checkHTThu === '') {
 				this.myFormThuChild.theATM = false;
 				this.myFormThuChild.cash = false;
 			}
@@ -188,7 +202,7 @@ export class BankbookComponent implements OnInit, OnDestroy {
 		}
 		return bankbookToUpdate;
 	}
-	
+
 	onSearch() {
 		let arrayResult = [];
 		this.bankbook = this.initialBankbook;
@@ -201,7 +215,7 @@ export class BankbookComponent implements OnInit, OnDestroy {
 		} else {
 			for (const item of this.bankbook) {
 				let ngayLap = new Date(item.ngayLap);
-				if(tuNgay <= ngayLap && ngayLap < toiNgay) {
+				if (tuNgay <= ngayLap && ngayLap < toiNgay) {
 					arrayResult.push(item);
 					this.searchSoTienChi = this.searchSoTienChi + item.soTienChi;
 					this.searchSoTienThu = this.searchSoTienThu + item.soTienThu;

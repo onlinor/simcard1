@@ -26,6 +26,7 @@ export class CustomerComponent implements OnInit, OnDestroy {
     day: string;
     month: string;
     lastIDRecord: any;
+    dsNguoiGioiThieu: any = [];
     customerInfo: any = {
         tenCH: null,
         diachiCH: null,
@@ -131,6 +132,13 @@ export class CustomerComponent implements OnInit, OnDestroy {
             response => {
                 this.customers = response;
                 this.initialCustomer = response;
+                this.customers.map((item) => {
+                    let obj = {
+                        label: item.hoTen, 
+                        value: item.hoTen
+                    }
+                    this.dsNguoiGioiThieu.push(obj);
+                });
             },
             error => {}
         );

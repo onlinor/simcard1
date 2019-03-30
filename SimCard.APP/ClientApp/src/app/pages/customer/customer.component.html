@@ -186,10 +186,12 @@
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                             <label>Người giới thiệu</label>
-                            <select id="select-control" class="form-control" name="ngGioiThieu" [(ngModel)]="customerInfo.ngGioiThieu">
+                            <br/>
+                            <!-- <select id="select-control" class="form-control" name="ngGioiThieu" [(ngModel)]="customerInfo.ngGioiThieu">
                                 <option *ngFor="let customer of customers" [value]="customer.hoTen">
                                     {{ customer.hoTen }}</option>
-                            </select>
+                            </select> -->
+                            <p-dropdown name="dsNguoiGioiThieu" [options]="dsNguoiGioiThieu" [(ngModel)]="customerInfo.ngGioiThieu" editable="true" placeholder="Chọn dữ liệu"></p-dropdown>
                         </div>
                     </div>
                 </div>

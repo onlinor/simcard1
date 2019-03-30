@@ -1,14 +1,10 @@
 <p-dialog [maximizable]="true" [baseZIndex]="10000" header="Thêm Phiếu Thu" [(visible)]="isShowDialogPhieuThu" [modal]="true"
  [responsive]="true" showEffect="fade" [width]="500">
 	<form #f="ngForm" (ngSubmit)="onSubmit()">
-			<div class="ui-g ui-fluid">
-				<div class="ui-g-12">
-					<div class="ui-g-4">
-						<label>Ngày Tạo</label>
-					</div>
-					<div class="ui-g-8">
-                        <p>{{ dataPhieuThu.dateCreated | date: 'dd/MM/yyyy' }}</p>
-					</div>
+		<div class="ui-g ui-fluid">
+			<div class="ui-g-12">
+				<div class="ui-g-4">
+					<label>Ngày Tạo</label>
 				</div>
 				<div class="ui-g-8">
 					<p>{{ dataPhieuThu.ngayLap | date: 'dd/MM/yyyy' }}</p>
@@ -132,5 +128,6 @@
 				<button type="button" pButton icon="pi pi-times" (click)="onClose()" label="Đóng" class="ui-button-primary"></button>&nbsp;
 			</div>
 		</p-footer>
+		</div>
 	</form>
 </p-dialog>

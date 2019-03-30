@@ -3,7 +3,7 @@ import { FormphieuchiComponent } from '../../public/formphieuchi/formphieuchi.co
 import { FormphieuthuComponent } from '../../public/formphieuthu/formphieuthu.component';
 import { Subscription } from 'rxjs/subscription';
 import { CashbookService } from '../../core/services/cashbook.service';
-import { Customer } from './../../core/models/customer.model';
+import { CustomerService } from '../../core/services/customer.service';
 
 @Component({
 	selector: 'app-cashbook',
@@ -58,11 +58,20 @@ export class CashbookComponent implements OnInit, OnDestroy {
 	cashbookTemp: any;
 	recieveCashbook: any;
 	subscription: Subscription;
+	customerList: any;
 
-	constructor(private cashbookService: CashbookService) { }
+	constructor(private cashbookService: CashbookService,
+		private customerService: CustomerService) { }
 
 	ngOnInit() { 
 		this.getAllCashbook();
+		this.subscription = this.customerService.getAllCustomer()
+		.subscribe(
+			response => {
+				this.customerList = response;
+			},
+			error => {}
+		);
 	}
 
 	// get all customers from db
@@ -79,6 +88,8 @@ export class CashbookComponent implements OnInit, OnDestroy {
 	onShowDialogPhieuChi() {
 		this.isShowDialogPhieuChi = true;
 		this.isNewCashBook = true;
+		this.myFormChiChild.customerList = this.customerList;
+		this.myFormChiChild.fillDropdownCustomer();
 	}
 
 	onGetIsShowDialogPhieuChi(data: any) {
@@ -114,6 +125,8 @@ export class CashbookComponent implements OnInit, OnDestroy {
 	onShowDialogPhieuThu() {
 		this.isShowDialogPhieuThu = true;
 		this.isNewCashBook = true;
+		this.myFormThuChild.customerList = this.customerList;
+		this.myFormThuChild.fillDropdownCustomer();
 	}
 
 	onGetIsShowDialogPhieuThu(data: any) {

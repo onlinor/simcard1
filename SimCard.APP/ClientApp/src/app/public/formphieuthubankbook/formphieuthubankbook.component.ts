@@ -35,29 +35,31 @@ export class FormphieuthubankbookComponent implements OnInit, OnDestroy {
 	];
 
 	dataPhieuThu: any = {
-		loaiNganHang: '',
-		loaiPhanBo: '',
-		tenKhachHang: '',
-		donViNhan: '',
-		donViNop: '',
-		maKhachHang: '',
-		ghiChu: '',
-		hinhThucChi: '',
-		hinhThucNop: 'TM',
-		maPhieu: 'PT',
-		nguoiChi: '',
-		nguoiThu: '',
+		loaiNganHang: "",
+		loaiPhanBo: "",
+		tenKhachHang: "",
+		donViNhan: "",
+		donViNop: "",
+		maKhachHang: "",
+		ghiChu: "",
+		hinhThucChi: "",
+		hinhThucNop: "",
+		maPhieu: "PT",
+		nguoiChi: "",
+		nguoiThu: "",
 		ngayLap: new Date().toLocaleDateString(),
-		noiDungPhieu: '',
+		dateCreated: null,
+		noiDungPhieu: "",
 		soTienChi: 0,
 		soTienThu: 0,
 		congDon: 0
 	};
 	theATM: boolean = false;
 	cash: boolean = false;
-	dsKhachHang: any;
+	dsKhachHang: any = [];
 	subscription: Subscription;
 	dataPhieuThuArray: any;
+	customerList: any;
 
 	@Input('isShowDialogPhieuThu') isShowDialogPhieuThu: boolean;
 	@Input('isNewCashBook') isNewCashBook: boolean;
@@ -109,6 +111,7 @@ export class FormphieuthubankbookComponent implements OnInit, OnDestroy {
 			this.dataPhieuThu.maPhieu = 'PT' + ngayLap;
 		}
 		this.isShowDialogPhieuThu = false;
+		this.dataPhieuThu.dateCreated = new Date();
 		this.emitShowDialogPhieuThu.emit(this.isShowDialogPhieuThu);
 		if (this.isNewCashBook) {
 			this.subscription = this.bankbookService.addBankbook(this.dataPhieuThu)
@@ -132,15 +135,18 @@ export class FormphieuthubankbookComponent implements OnInit, OnDestroy {
 		this.dataPhieuThu.soTienThu = 0;
 		this.dataPhieuThu.ngayLap = new Date().toLocaleDateString();
 		this.theATM = false;
+		this.cash = false;
+		this.dataPhieuThu.dateCreated = null;
 	}
 
 
 	onClose() {
 		this.dataPhieuThu = {};
 		this.dataPhieuThu.dateCreated = new Date().toLocaleDateString();
-		this.dataPhieuThu.maPhieu = 'PT';
-		this.dataPhieuThu.hinhThucNop = 'TM';
+		this.dataPhieuThu.maPhieu = "PT";
+		this.dataPhieuThu.hinhThucNop = "";
 		this.theATM = false;
+		this.cash = false;
 		this.dataPhieuThu.soTienThu = 0;
 		this.isShowDialogPhieuThu = false;
 		this.emitShowDialogPhieuThu.emit(this.isShowDialogPhieuThu);
@@ -149,10 +155,21 @@ export class FormphieuthubankbookComponent implements OnInit, OnDestroy {
 	onClearForm() {
 		this.dataPhieuThu = {};
 		this.dataPhieuThu.dateCreated = new Date().toLocaleDateString();
-		this.dataPhieuThu.maPhieu = 'PT';
-		this.dataPhieuThu.hinhThucNop = 'TM';
+		this.dataPhieuThu.maPhieu = "PT";
+		this.dataPhieuThu.hinhThucNop = "";
 		this.theATM = false;
+		this.cash = false;
 		this.dataPhieuThu.soTienThu = 0;
+	}
+
+	fillDropdownCustomer() {
+		this.customerList.map((item) => {
+			let obj = {
+				label: item.hoTen, 
+				value: item.hoTen
+			}
+			this.dsKhachHang.push(obj);
+		});
 	}
 
 	ngOnDestroy() {
