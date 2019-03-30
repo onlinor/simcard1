@@ -68,8 +68,8 @@ import {
     ShopService,
     NetworkService,
     PhieunhapService,
-    PhieuxuatService,
-    AuthService
+    AuthService,
+    PhieuxuatService
   ]
 })
 export class CoreModule {

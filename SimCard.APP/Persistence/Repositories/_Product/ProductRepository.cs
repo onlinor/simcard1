@@ -25,9 +25,9 @@ namespace SimCard.APP.Persistence.Repositories
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<bool> AddProduct(ProductViewModel productViewModel)
+ /*        public async Task<bool> AddProduct(ProductViewModel productViewModel)
         {
-            if (await IsProductExists(productViewModel.Ma))
+            if (await IsProductExists(productViewModel.Ma, productViewModel))
             {
                 Product p = await _context.Products.FirstAsync(x => x.Ma.ToLower() == productViewModel.Ma.ToLower());
                 p.Soluong = p.Soluong + productViewModel.Soluong;
@@ -39,15 +39,15 @@ namespace SimCard.APP.Persistence.Repositories
                 await _context.Products.AddAsync(product);
             }
             return await _unitOfWork.SaveChangeAsync();
-        }
+        } */
 
         public async Task<bool> AddProducts(List<ProductViewModel> productViewModels)
         {
             foreach (ProductViewModel item in productViewModels)
             {
-                if (await IsProductExists(item.Ma))
+                if (await IsProductExists(item.Ma, item.ShopId.Value))
                 {
-                    Product p = await _context.Products.FirstAsync(x => x.Ma.ToLower() == item.Ma.ToLower());
+                    Product p = await _context.Products.FirstAsync(x => (x.Ma.ToLower() == item.Ma.ToLower()) && (x.ShopId.Value == item.ShopId.Value));
                     p.Soluong = p.Soluong + item.Soluong;
                     p.DateModified = DateTime.Now;
                     _context.Products.Update(p);
@@ -81,9 +81,9 @@ namespace SimCard.APP.Persistence.Repositories
             return Mapper.Map<List<ProductViewModel>>(await _context.Products.Where(x => x.ShopId == 1).ToListAsync());
         }
 
-        public async Task<bool> IsProductExists(string code)
+        public async Task<bool> IsProductExists(string code, int idshop)
         {
-            return await _context.Products.AnyAsync(x => x.Ma.ToLower() == code.ToLower());
+            return await _context.Products.AnyAsync(x => (x.Ma.ToLower() == code.ToLower()) && (x.ShopId.Value == idshop));
         }
 
         public async Task<bool> Remove(int id)

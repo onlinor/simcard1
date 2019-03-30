@@ -2,14 +2,15 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { FormphieuthuComponent } from '../../public/formphieuthu/formphieuthu.component';
 import {
-	Product,
-	Supplier,
-	ProductExport,
-	ExportType,
-	Bank,
-	ExportReceipt
+  Product,
+  Supplier,
+  ProductExport,
+  ExportType,
+  Bank,
+  ExportReceipt,
+  Customer
 } from '../../core/models';
-import { PhieuxuatService, ProductService } from '../../core/services';
+import { PhieuxuatService, ProductService, CustomerService } from '../../core/services';
 
 @Component({
 	selector: 'app-exportproduct',

@@ -112,7 +112,7 @@ export class CustomerComponent implements OnInit, OnDestroy {
     subscription: Subscription;
     constructor(
         private customerService: CustomerService,
-        private messageService: MessageService
+        private messageService: MessageService,
     ) { }
 
     toastSuccess() {
