@@ -1,4 +1,4 @@
-<div class="ui-g-12">
+<div class="ui-g pb-60">
     <app-formphieuchi
             [isShowDialogPhieuChi]="isShowDialogPhieuChi"
             (outIsShowDialogPhieuChi)="onGetIsShowDialogPhieuChi($event)">
@@ -157,14 +157,14 @@
             <div class="ui-g-2">
                 <button pButton type="button" (click)="save()" label="Lưu" icon="fa fa-save"></button>
             </div>
-            <div class="ui-g-2">
+            <div class="ui-g-3">
                 <button pButton type="button" label="In Phiếu" icon="fa fa-print"></button>
             </div>
-            <div class="ui-g-6">
+            <div class="ui-g-5">
                 <label for="xuatdulieu">Xuất Dữ Liệu:</label>
                 <p-dropdown id="xuatdulieu" placeholder="Chọn Định Dạng" optionLabel="name" [showClear]="true"></p-dropdown>
             </div>
-            <div class="ui-g-2">
+            <div class="ui-g-1">
                 <button pButton type="button" icon="fa fa-save"></button>
             </div>
         </div>

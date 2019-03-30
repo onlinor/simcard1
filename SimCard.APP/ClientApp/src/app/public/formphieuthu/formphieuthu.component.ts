@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from "@angular/core";
 import { Subscription } from "rxjs/subscription";
 import { CashbookService } from "../../core/services/cashbook.service";
+import { BankbookService } from "../../core/services/bankbook.service";
 
 @Component({
 	selector: "app-formphieuthu",
@@ -60,7 +61,8 @@ export class FormphieuthuComponent implements OnInit, OnDestroy {
 	@Output("outIsShowDialogPhieuThu") emitShowDialogPhieuThu = new EventEmitter<any>();
 	@Output("outDataPhieuThu") emitDataPhieuThu = new EventEmitter<any>();
 
-	constructor(private cashbookService: CashbookService) {
+	constructor(private cashbookService: CashbookService,
+					private bankbookService: BankbookService) {
 
 	}
 
@@ -107,6 +109,14 @@ export class FormphieuthuComponent implements OnInit, OnDestroy {
 		this.dataPhieuThu.dateCreated = new Date();
 		this.emitShowDialogPhieuThu.emit(this.isShowDialogPhieuThu);
 		if (this.isNewCashBook) {
+			if(this.theATM) {
+				this.subscription = this.bankbookService.addBankbook(this.dataPhieuThu)
+					.subscribe(() => {
+						console.log('success');
+					}, error => {
+						
+					})
+			}
 			this.subscription = this.cashbookService.addCashbook(this.dataPhieuThu)
 				.subscribe(() => {
 					this.emitDataPhieuThu.emit({ ...this.dataPhieuThu });
