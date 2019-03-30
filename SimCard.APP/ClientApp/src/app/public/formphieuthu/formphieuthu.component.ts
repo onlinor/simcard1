@@ -117,12 +117,14 @@ export class FormphieuthuComponent implements OnInit, OnDestroy {
 						
 					})
 			}
-			this.subscription = this.cashbookService.addCashbook(this.dataPhieuThu)
-				.subscribe(() => {
-					this.emitDataPhieuThu.emit({ ...this.dataPhieuThu });
-				}, error => {
-				}
-				);
+			if(this.cash) {
+				this.subscription = this.cashbookService.addCashbook(this.dataPhieuThu)
+					.subscribe(() => {
+						this.emitDataPhieuThu.emit({ ...this.dataPhieuThu });
+					}, error => {
+						}
+					);
+			}
 		} else {
 			this.subscription = this.cashbookService.updateCashbook(this.idSelectedCashbook, this.dataPhieuThu)
 				.subscribe(() => {
