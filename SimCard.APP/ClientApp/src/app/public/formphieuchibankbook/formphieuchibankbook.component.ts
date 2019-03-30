@@ -140,7 +140,7 @@ export class FormphieuchibankbookComponent implements OnInit, OnDestroy {
 		this.dataPhieuChi = {};
 		this.dataPhieuChi.loaiNganHang = "";
 		this.dataPhieuChi.maPhieu = "PC";
-		this.dataPhieuChi.hinhThucChi = "TM";
+		this.dataPhieuChi.hinhThucChi = "";
 		this.dataPhieuChi.soTienChi = 0;
 		this.dataPhieuChi.ngayLap = new Date().toLocaleDateString();
 		this.theATM = false;
@@ -150,9 +150,9 @@ export class FormphieuchibankbookComponent implements OnInit, OnDestroy {
 
 	onClose() {
 		this.dataPhieuChi = {};
-		this.dataPhieuChi.dateCreated = new Date().toLocaleDateString();
+		this.dataPhieuChi.ngayLap = new Date().toLocaleDateString();
 		this.dataPhieuChi.maPhieu = "PC";
-		this.dataPhieuChi.hinhThucChi = "TM";
+		this.dataPhieuChi.hinhThucChi = "";
 		this.theATM = false;
 		this.cash = false;
 		this.dataPhieuChi.soTienChi = 0;
@@ -162,9 +162,9 @@ export class FormphieuchibankbookComponent implements OnInit, OnDestroy {
 
 	onClearForm() {
 		this.dataPhieuChi = {};
-		this.dataPhieuChi.dateCreated = new Date().toLocaleDateString();
+		this.dataPhieuChi.ngayLap = new Date().toLocaleDateString();
 		this.dataPhieuChi.maPhieu = "PC";
-		this.dataPhieuChi.hinhThucChi = "TM";
+		this.dataPhieuChi.hinhThucChi = "";
 		this.theATM = false;
 		this.cash = false;
 		this.dataPhieuChi.soTienChi = 0;

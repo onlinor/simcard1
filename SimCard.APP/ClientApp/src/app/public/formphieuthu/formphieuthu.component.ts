@@ -135,7 +135,7 @@ export class FormphieuthuComponent implements OnInit, OnDestroy {
 
 	onClose() {
 		this.dataPhieuThu = {};
-		this.dataPhieuThu.dateCreated = new Date().toLocaleDateString();
+		this.dataPhieuThu.ngayLap = new Date().toLocaleDateString();
 		this.dataPhieuThu.maPhieu = 'PT';
 		this.dataPhieuThu.hinhThucNop = '';
 		this.theATM = false;
@@ -147,7 +147,7 @@ export class FormphieuthuComponent implements OnInit, OnDestroy {
 
 	onClearForm() {
 		this.dataPhieuThu = {};
-		this.dataPhieuThu.dateCreated = new Date().toLocaleDateString();
+		this.dataPhieuThu.ngayLap = new Date().toLocaleDateString();
 		this.dataPhieuThu.maPhieu = 'PT';
 		this.dataPhieuThu.hinhThucNop = '';
 		this.theATM = false;

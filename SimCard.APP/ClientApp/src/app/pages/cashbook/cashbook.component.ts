@@ -29,7 +29,7 @@ export class CashbookComponent implements OnInit, OnDestroy {
 	];
 
 	cols: any = [
-		{ fleld: 'dateCreated', header: 'Ngày Lập' },
+		{ fleld: 'ngayLap', header: 'Ngày Lập' },
 		{ field: 'tenKhachHang', header: 'Tên Khách Hàng' },
 		{ field: 'maPhieu', header: 'Mã Phiếu' },
 		{ field: 'noiDungPhieu', header: 'Nội Dung Phiếu' },

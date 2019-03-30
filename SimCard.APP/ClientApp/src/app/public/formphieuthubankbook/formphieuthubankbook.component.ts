@@ -165,7 +165,7 @@ export class FormphieuthubankbookComponent implements OnInit, OnDestroy {
 	fillDropdownCustomer() {
 		this.customerList.map((item) => {
 			let obj = {
-				label: item.hoTen, 
+				label: item.hoTen,
 				value: item.hoTen
 			}
 			this.dsKhachHang.push(obj);
