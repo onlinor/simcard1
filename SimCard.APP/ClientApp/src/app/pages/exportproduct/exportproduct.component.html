@@ -17,31 +17,27 @@
         <div class="ui-g">
             <div class="ui-g-4">
                 <p>Nhân Viên Lập</p>
-                <input type="text" pInputText/>    
+                <input [(ngModel)]="exportReceipt.nhanVienLap" type="text" pInputText />
             </div>
             <div class="ui-g-4">
                 <p>Tên Khách Hàng</p>
-                <p-dropdown [options]="suppliers" placeholder="Chọn KH" optionLabel="name" [showClear]="true"></p-dropdown>
+                <p-dropdown [options]="customerList" placeholder="Chọn" optionLabel="tenCH" [showClear]="true" (onChange)="onDropdownValueChange($event)"></p-dropdown>
             </div> 
         </div>
         <div class="ui-g">
             <div class="ui-g-4">
                 <p>Số Phiếu</p>
-                <input type="text" pInputText [(ngModel)]="tempProId" />
+                <input type="text" [disabled]="true" pInputText [(ngModel)]="exportReceipt.ma" />
             </div>
             <div class="ui-g-4">
-                <p>Công Nợ Cũ</p>
-                <input type="text" pInputText pKeyFilter="money" />
+                <p>Người Đại Diện</p>
+                <input type="text" [(ngModel)]="exportReceipt.nguoiDaiDien" pInputText/>
             </div>
         </div>
         <div class="ui-g">
             <div class="ui-g-4">
-                <p>Người Đại Diện</p>
-                <input type="text" pInputText [(ngModel)]="tempProName" />
-            </div>
-            <div class="ui-g-4">
                 <p>Số Điện Thoại</p>
-                <input type="text" pInputText pKeyFilter="num">
+                <input type="text" [(ngModel)]="exportReceipt.soDienThoai" pInputText pKeyFilter="num" />
             </div>
         </div>
         <br>
@@ -124,7 +120,7 @@
         </div>
         <div class="ui-g-12">
             <div class="ui-g-4">
-                <button pButton type="button" label="Lưu" icon="fa fa-save"></button>
+                <button pButton type="button" (click)="save()" label="Lưu" icon="fa fa-save"></button>
             </div>
             <div class="ui-g-4">
                 <button pButton type="button" label="In Phiếu" icon="fa fa-print"></button>

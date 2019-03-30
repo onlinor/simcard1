@@ -1,5 +1,5 @@
 using SimCard.APP.Models;
-
+using SimCard.APP.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +10,7 @@ namespace SimCard.APP.Persistence.Repositories
 {
     public interface IShopRepository
     {
+        Task<ShopViewModel> AddShop(ShopViewModel shop);
         Task<IEnumerable<Shop>> GetShops();
 
         IQueryable<Shop> Query(Expression<Func<Shop, bool>> predicate);

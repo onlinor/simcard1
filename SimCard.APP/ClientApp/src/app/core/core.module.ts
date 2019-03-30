@@ -33,7 +33,8 @@ import {
   DocExportingService,
   AuthService,
   NetworkService,
-  PhieunhapService
+  PhieunhapService,
+  PhieuxuatService
 } from './services';
 
 @NgModule({
@@ -67,7 +68,8 @@ import {
     ShopService,
     NetworkService,
     PhieunhapService,
-    AuthService
+    AuthService,
+    PhieuxuatService
   ]
 })
 export class CoreModule {

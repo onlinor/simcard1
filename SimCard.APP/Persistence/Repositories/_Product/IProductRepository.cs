@@ -20,14 +20,12 @@ namespace SimCard.APP.Persistence.Repositories
 
         IQueryable<Product> Query(Expression<Func<Product, bool>> predicate);
 
-        Task<bool> AddProduct(ProductViewModel productViewModel);
-
         Task<bool> AddProducts(List<ProductViewModel> productViewModels);
 
         Task<bool> UpdateProduct(ProductViewModel productViewModel);
 
         Task<bool> Remove(int id);
 
-        Task<bool> IsProductExists(string code);
+        Task<bool> IsProductExists(string code, int shopid);
     }
 }

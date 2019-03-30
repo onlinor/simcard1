@@ -5,9 +5,10 @@ import {
   ProductExport,
   ExportType,
   Bank,
-  ExportReceipt
+  ExportReceipt,
+  Customer
 } from '../../core/models';
-import { PhieuxuatService, ProductService } from '../../core/services';
+import { PhieuxuatService, ProductService, CustomerService } from '../../core/services';
 
 @Component({
   selector: 'app-exportproduct',
@@ -22,6 +23,8 @@ export class ExportProductComponent implements OnInit {
 
   exportReceipt: ExportReceipt = new ExportReceipt();
 
+  customerList: Array<Customer> = [];
+
   totalMoney = 0;
 
   vatMoney = 0;
@@ -32,11 +35,13 @@ export class ExportProductComponent implements OnInit {
 
   constructor(
     private productService: ProductService,
-    private phieuxuatSerivce: PhieuxuatService
+    private phieuxuatSerivce: PhieuxuatService,
+    private customerService: CustomerService
   ) {}
 
   ngOnInit() {
     this.getAllProducts();
+    this.getAllCustomers();
   }
 
   getAllProducts() {
@@ -64,10 +69,12 @@ export class ExportProductComponent implements OnInit {
           thanhTien: event.data.exportnumber * event.data.donGia
         };
         this.tableProducts.push(newProduct);
+      } else {
+        selectedProduct.soLuong += event.data.exportnumber;
+        selectedProduct.thanhTien = selectedProduct.donGia * selectedProduct.soLuong;
       }
-      selectedProduct.soLuong += event.data.exportnumber;
-      selectedProduct.thanhTien = selectedProduct.donGia * selectedProduct.soLuong;
     }
+    this.updateTotalMoney();
   }
 
   onProductTableEditCompleted(event: any) {
@@ -75,11 +82,54 @@ export class ExportProductComponent implements OnInit {
       x => x.ma === event.data.ma);
       selectedProduct.donGia = (selectedProduct.menhGia / 100) * (100 - selectedProduct.chietKhau);
       selectedProduct.thanhTien = selectedProduct.donGia * selectedProduct.soLuong;
+      this.updateTotalMoney();
+  }
+
+  updateTotalMoney() {
+    this.totalMoney = 0;
+    this.tableProducts.forEach(line => {
+      this.totalMoney += line.soLuong * (line.menhGia - line.menhGia * line.chietKhau / 100);
+    });
+    this.vatMoney = (this.totalMoney * 10) / 100;
+    this.total = this.totalMoney + this.vatMoney;
   }
 
   generateProductCode() {
     this.phieuxuatSerivce.getProductCode().subscribe(resp => {
       this.exportReceipt.ma = resp.ma;
     });
+  }
+
+  // get all customers from db
+  getAllCustomers() {
+    this.customerService.getAllCustomer().subscribe(
+      response => {
+        this.customerList = response;
+        console.log(this.customerList);
+      }
+    );
+  }
+
+  onDropdownValueChange(event: any) {
+    this.exportReceipt.shopId = event.value.id;
+  }
+
+  save() {
+    this.tableProducts.forEach(p => {
+      p.shopId = this.exportReceipt.shopId;
+      p.supplierId = 1;
+    });
+    this.productService.save(this.tableProducts).subscribe(() => {
+      this.savePhieuxuat();
+    });
+  }
+
+  savePhieuxuat() {
+    this.exportReceipt.prefix = this.exportReceipt.ma.substring(0, 10);
+    this.exportReceipt.suffix = Number(this.exportReceipt.ma.substr(11));
+    this.exportReceipt.tienThanhToan = this.thanhToan;
+    this.exportReceipt.tienConLai = this.total - this.thanhToan;
+    this.exportReceipt.products = this.tableProducts;
+    // this.exportReceipt.addPhieuxuat(this.exportReceipt).subscribe(() => { });
   }
 }

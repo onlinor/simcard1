@@ -51,7 +51,6 @@ export class ImportProductComponent implements OnInit {
     this.productService.save(this.tableProducts).subscribe(() => {
       this.getAllProducts();
       this.savePhieunhap();
-
       this.tableProducts = [];
     });
   }
@@ -64,7 +63,16 @@ export class ImportProductComponent implements OnInit {
       formData.append(file.name, file);
 
       this.fileService.uploadProductList(formData).subscribe((response: Array<Product>) => {
+        const currentProducts: Array<Product> = Object.assign(this.tableProducts);
         this.tableProducts = Object.assign(this.tableProducts, response);
+        currentProducts.forEach(element => {
+          if (this.tableProducts.find(x => x.ma === element.ma)) {
+            const pd = this.tableProducts.find(x => x.ma === element.ma);
+            pd.soLuong = pd.soLuong + element.soLuong;
+            pd.chietKhau = element.chietKhau;
+            this.updateTotalMoney();
+          }
+        });
 
     // Update donGia and thanhTien, shopID is belong-ed to for each product(Save time, may put it somewhere else without any function,..)
     this.tableProducts.forEach(element => {
@@ -104,13 +112,21 @@ export class ImportProductComponent implements OnInit {
     if (event.data.soluongnhap === 0 || event.data.soluongnhap === null) {
       // I will do something later :)
     } else {
-      const selectedProduct = this.tableProducts.find(
-        x => x.ma === event.data.ma
-      );
-      selectedProduct.donGia =
-        (selectedProduct.menhGia * (100 - selectedProduct.chietKhau)) / 100;
-      selectedProduct.thanhTien =
-        selectedProduct.soluongnhap * selectedProduct.donGia;
+      if (this.tableProducts.find(x => x.ma === event.data.ma)) {
+        const selectedProduct = this.tableProducts.find(
+          x => x.ma === event.data.ma);
+          selectedProduct.soLuong += event.data.soluongnhap;
+      } else {
+        const p = new Product();
+        p.ma = event.data.ma;
+        p.id = event.data.id;
+        p.soLuong = event.data.soluongnhap;
+        p.ten = event.data.ten;
+        p.chietKhau = 0;
+        p.donGia = event.data.donGia;
+        p.menhGia = event.data.menhgia;
+        this.tableProducts.push(p);
+      }
       this.updateTotalMoney();
     }
   }
@@ -118,6 +134,7 @@ export class ImportProductComponent implements OnInit {
   updateTotalMoney() {
     this.totalMoney = 0;
     this.tableProducts.forEach(line => {
+      line.thanhTien = line.donGia * line.soLuong;
       this.totalMoney += line.soLuong * (line.menhGia - line.menhGia * line.chietKhau / 100);
     });
     this.vatMoney = (this.totalMoney * 10) / 100;

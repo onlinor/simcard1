@@ -12,17 +12,34 @@ using System.Threading.Tasks;
 
 namespace SimCard.APP.Controllers
 {
+    [ApiController]
     public class ShopController : Controller
     {
         private readonly IMapper _mapper;
         private readonly IShopRepository _shopRepository;
+                private readonly ICustomerRepository _customerRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public ShopController(IShopRepository shopRepository, IUnitOfWork unitOfWork, IMapper mapper)
+        public ShopController(IShopRepository shopRepository, ICustomerRepository customerRepository, IUnitOfWork unitOfWork, IMapper mapper)
         {
             _shopRepository = shopRepository;
+            _customerRepository = customerRepository;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+        }
+
+        [HttpPost("/api/shop/Add")]
+        public async Task<IActionResult> Addshop(ShopViewModel shop)
+        {
+            if (shop == null)
+            {
+                return BadRequest();
+            }
+            int CustomerID = await _customerRepository.GetLastIDCustomerRecord();
+            shop.Id = CustomerID;
+            await _shopRepository.AddShop(shop);
+            await _unitOfWork.SaveChangeAsync();
+            return StatusCode(201);
         }
 
         [HttpGet("/api/shops")]

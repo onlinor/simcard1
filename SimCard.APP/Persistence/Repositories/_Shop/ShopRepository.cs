@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 
 using SimCard.APP.Models;
-
+using SimCard.APP.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +19,22 @@ namespace SimCard.APP.Persistence.Repositories
             _context = context;
         }
 
+        public async Task<ShopViewModel> AddShop(ShopViewModel shop)
+        {
+            if (shop != null)
+            {
+                Shop s = new Shop
+                {
+                    DateCreated = DateTime.Now,
+                    Id = shop.Id,
+                    Name = shop.Name
+                };
+                await _context.AddAsync(s);
+                await _context.SaveChangesAsync();
+                return shop;
+            }
+            return null;
+        }
         public async Task<Shop> GetShop(int id, bool includeRelated = true)
         {
             if (!includeRelated)
