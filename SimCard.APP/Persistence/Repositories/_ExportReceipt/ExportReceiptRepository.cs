@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 
 using Microsoft.EntityFrameworkCore;
+
 using SimCard.APP.Models;
 using SimCard.APP.ViewModels;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +29,7 @@ namespace SimCard.APP.Persistence.Repositories
 
         public async Task<ExportReceiptViewModel> GetById(int id)
         {
-            return Mapper.Map<ExportReceiptViewModel>(_context.ExportReceipts.FindAsync(id));
+            return Mapper.Map<ExportReceiptViewModel>(await _context.ExportReceipts.FindAsync(id));
         }
 
         public IQueryable<ExportReceipt> Query(Expression<Func<ExportReceipt, bool>> predicate)
@@ -37,16 +39,16 @@ namespace SimCard.APP.Persistence.Repositories
 
         public async Task<string> GenerateProductCode()
         {
-        string currentDate = DateTime.UtcNow.Date.ToString("yyyy-MM-dd").Replace("-", "");
-        // No data for new day
-        List<ExportReceipt> existingPNs = await _context.ExportReceipts.Where(x => x.Prefix.Replace("PX", "") == currentDate).ToListAsync();
-        if (existingPNs.Count() == 0)
-        {
-            return ("PX" + currentDate + ".1");
-        }
-        // Already Data in DB, genereated new suffix
-        int newSuffix = existingPNs.Max(x => x.Suffix) + 1;
-        return ("PX" + currentDate + "." + newSuffix);
+            string currentDate = DateTime.UtcNow.Date.ToString("yyyy-MM-dd").Replace("-", "");
+            // No data for new day
+            List<ExportReceipt> existingPNs = await _context.ExportReceipts.Where(x => x.Prefix.Replace("PX", "") == currentDate).ToListAsync();
+            if (existingPNs.Count() == 0)
+            {
+                return ("PX" + currentDate + ".1");
+            }
+            // Already Data in DB, genereated new suffix
+            int newSuffix = existingPNs.Max(x => x.Suffix) + 1;
+            return ("PX" + currentDate + "." + newSuffix);
         }
     }
 }

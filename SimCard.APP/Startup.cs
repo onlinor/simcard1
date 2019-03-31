@@ -66,6 +66,7 @@ namespace SimCard.APP
             services.AddAutoMapper();
             services.AddDbContext<SimCardDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SimCardDBContext")));
             services.AddDefaultIdentity<User>();
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IShopRepository, ShopRepository>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();
@@ -84,6 +85,7 @@ namespace SimCard.APP
 
             services.AddScoped<IReportService, ReportService>();
             services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IProductService, ProductService>();
             services.AddCors();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1).AddJsonOptions(options => options.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver()); ;

@@ -1,10 +1,9 @@
-using AutoMapper;
 
 using Microsoft.AspNetCore.Mvc;
 
 using OfficeOpenXml;
 
-using SimCard.APP.Persistence.Repositories;
+using SimCard.APP.Persistence.Services;
 using SimCard.APP.ViewModels;
 
 using System;
@@ -18,25 +17,27 @@ namespace SimCard.APP.Controllers
     [ApiController]
     public class ProductController : Controller
     {
-        private readonly IProductRepository _productRepository;
-        private readonly IMapper _mapper;
+        private readonly IProductService _productService;
 
-        public ProductController(IProductRepository productRepository, IMapper mapper)
+        public ProductController(IProductService productService)
         {
-            _productRepository = productRepository;
-            _mapper = mapper;
+            _productService = productService;
         }
 
         [HttpGet("/api/product")]
         public async Task<IEnumerable<ProductViewModel>> GetProducts()
         {
-            return await _productRepository.GetProducts();
+            return await _productService.GetAll();
         }
 
         [HttpPost("/api/product/add")]
-        public async Task<IActionResult> AddProduct(List<ProductViewModel> productResources)
+        public async Task<IActionResult> AddProducts(List<ProductViewModel> productViewModels)
         {
-            await _productRepository.AddProducts(productResources);
+            foreach (var product in productViewModels)
+            {
+                await _productService.Create(product);
+            }
+            
             return Ok();
         }
 

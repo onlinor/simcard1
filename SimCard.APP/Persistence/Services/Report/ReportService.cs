@@ -13,6 +13,7 @@ using System.Dynamic;
 using System.Linq;
 using System.Threading.Tasks;
 
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 namespace SimCard.APP.Persistence.Services
 {
     public class ReportService : IReportService
@@ -152,6 +153,7 @@ namespace SimCard.APP.Persistence.Services
             }
         }
 
+
         // Function to get report
 
         private async Task<List<ExpandoObject>> Report_ChiTietChiPhiHoatDongKinhDoanh(ReportFilterViewModel filter)
@@ -206,7 +208,7 @@ namespace SimCard.APP.Persistence.Services
             DateTime fromDate = filter.From ?? DateTime.Now.AddDays(-7);
             DateTime toDate = filter.To ?? DateTime.Now.AddDays(-7);
 
-            IIncludableQueryable<ImportReceipt, List<ImportReceiptProducts>> importReceiptProductsQuery = 
+            IIncludableQueryable<ImportReceipt, List<ImportReceiptProducts>> importReceiptProductsQuery =
                 _importReceiptRepository.Query(ir => ir.DateCreated >= fromDate && ir.DateCreated <= toDate).Include(ir => ir.Products);
             if (filter.Shop != 0)
             {
@@ -238,7 +240,7 @@ namespace SimCard.APP.Persistence.Services
                     result.Add(line);
                 }
             }
-                
+
             return result;
         }
 
@@ -515,3 +517,4 @@ namespace SimCard.APP.Persistence.Services
         }
     }
 }
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously

@@ -1,4 +1,4 @@
-using SimCard.APP.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace SimCard.APP.ViewModels
 {
@@ -6,12 +6,16 @@ namespace SimCard.APP.ViewModels
     {
         public int Id { get; set; }
 
+        [Required]
         public string Ma { get; set; }
 
+        [Required]
         public string Ten { get; set; }
 
+        [Required]
         public int Soluong { get; set; }
 
+        [Required]
         public decimal Menhgia { get; set; }
 
         public decimal? DonGia { get; set; }
