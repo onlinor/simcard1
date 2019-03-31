@@ -15,17 +15,15 @@ namespace SimCard.APP.Controllers
     [ApiController]
     public class ShopController : Controller
     {
-        private readonly IMapper _mapper;
         private readonly IShopRepository _shopRepository;
-                private readonly ICustomerRepository _customerRepository;
+        private readonly ICustomerRepository _customerRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public ShopController(IShopRepository shopRepository, ICustomerRepository customerRepository, IUnitOfWork unitOfWork, IMapper mapper)
+        public ShopController(IShopRepository shopRepository, ICustomerRepository customerRepository, IUnitOfWork unitOfWork)
         {
             _shopRepository = shopRepository;
             _customerRepository = customerRepository;
             _unitOfWork = unitOfWork;
-            _mapper = mapper;
         }
 
         [HttpPost("/api/shop/Add")]
@@ -46,7 +44,7 @@ namespace SimCard.APP.Controllers
         public async Task<IEnumerable<ShopViewModel>> GetShops()
         {
             IEnumerable<Shop> shops = await _shopRepository.GetShops();
-            return _mapper.Map<IEnumerable<Shop>, IEnumerable<ShopViewModel>>(shops);
+            return Mapper.Map<IEnumerable<Shop>, IEnumerable<ShopViewModel>>(shops);
         }
 
         [HttpDelete("{id}")]

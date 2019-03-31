@@ -16,15 +16,13 @@ namespace SimCard.APP.Controllers
     [ApiController]
     public class ConfigurationController : ControllerBase
     {
-        private readonly IMapper _mapper;
         private readonly IConfigurationRepository _configurationRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public ConfigurationController(IConfigurationRepository configurationRepository, IUnitOfWork unitOfWork, IMapper mapper)
+        public ConfigurationController(IConfigurationRepository configurationRepository, IUnitOfWork unitOfWork)
         {
             _configurationRepository = configurationRepository;
             _unitOfWork = unitOfWork;
-            _mapper = mapper;
         }
 
         // api/configuration
@@ -32,7 +30,7 @@ namespace SimCard.APP.Controllers
         public async Task<IEnumerable<ConfigurationViewModel>> GetAllConfiguration()
         {
             IEnumerable<Configuration> configuration = await _configurationRepository.GetAllConfiguration();
-            return _mapper.Map<IEnumerable<Configuration>, IEnumerable<ConfigurationViewModel>>(configuration);
+            return Mapper.Map<IEnumerable<Configuration>, IEnumerable<ConfigurationViewModel>>(configuration);
         }
 
         // api/configuration/id
@@ -40,7 +38,7 @@ namespace SimCard.APP.Controllers
         public async Task<ConfigurationViewModel> GetConfiguration(int id)
         {
             Configuration configuration = await _configurationRepository.GetConfiguration(id);
-            return _mapper.Map<Configuration, ConfigurationViewModel>(configuration);
+            return Mapper.Map<Configuration, ConfigurationViewModel>(configuration);
         }
 
         // api/customer 

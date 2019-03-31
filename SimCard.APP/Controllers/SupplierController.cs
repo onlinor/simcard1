@@ -1,4 +1,3 @@
-using AutoMapper;
 
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,26 +15,24 @@ namespace SimCard.APP.Controllers
     {
         private readonly ISupplierRepository _supplierRepository;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
 
-        public SupplierController(ISupplierRepository SupplierRepository, IUnitOfWork unitOfWork, IMapper mapper)
+        public SupplierController(ISupplierRepository SupplierRepository, IUnitOfWork unitOfWork)
         {
             _supplierRepository = SupplierRepository;
             _unitOfWork = unitOfWork;
-            _mapper = mapper;
         }
 
         [HttpGet("/api/Supplier")]
         public async Task<IEnumerable<Supplier>> GetSuppliers()
         {
-            var suppliers = await _supplierRepository.GetSuppliers();
+            IEnumerable<Supplier> suppliers = await _supplierRepository.GetSuppliers();
             return suppliers;
         }
 
         [HttpGet("/api/Supplier/{id}")]
         public async Task<Supplier> GetSupplier(int id)
         {
-            var supplier = await _supplierRepository.GetSupplier(id);
+            Supplier supplier = await _supplierRepository.GetSupplier(id);
             return supplier;
         }
 
@@ -79,7 +76,7 @@ namespace SimCard.APP.Controllers
         [HttpDelete("/api/Supplier/remove/{id}")]
         public async Task<IActionResult> RemoveSupplier(int id)
         {
-            var supplier = await _supplierRepository.GetSupplier(id);
+            Supplier supplier = await _supplierRepository.GetSupplier(id);
 
             if (supplier == null)
             {

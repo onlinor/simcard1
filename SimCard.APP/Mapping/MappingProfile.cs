@@ -18,6 +18,8 @@ namespace SimCard.APP.Mapping
             CreateMap<Bankbook, BankbookViewModel>().ReverseMap();
             CreateMap<ImportReceipt, ImportReceiptViewModel>().ReverseMap();
             CreateMap<ExportReceipt, ExportReceiptViewModel>().ReverseMap();
+            CreateMap<Supplier, SupplierViewModel>().ReverseMap();
+            CreateMap<User, UserViewModel>().ReverseMap();
         }
     }
 }

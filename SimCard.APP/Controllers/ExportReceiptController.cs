@@ -1,4 +1,3 @@
-using AutoMapper;
 
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,13 +14,11 @@ namespace SimCard.APP.Controllers
     {
         private readonly IExportReceiptRepository _exportReceiptRepository;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
 
-        public ExportReceiptController(IExportReceiptRepository exportReceiptRepository, IUnitOfWork unitOfWork, IMapper mapper)
+        public ExportReceiptController(IExportReceiptRepository exportReceiptRepository, IUnitOfWork unitOfWork)
         {
             _exportReceiptRepository = exportReceiptRepository;
             _unitOfWork = unitOfWork;
-            _mapper = mapper;
         }
 
         [HttpGet("/api/exportreceipt/GetProductCode")]

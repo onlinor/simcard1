@@ -1,4 +1,3 @@
-using AutoMapper;
 
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,13 +13,11 @@ namespace SimCard.APP.Controllers
     [ApiController]
     public class EmailController : ControllerBase
     {
-        private readonly IMapper _mapper;
         private readonly IEmailRepository _emailRepository;
 
-        public EmailController(IEmailRepository emailRepository, IMapper mapper)
+        public EmailController(IEmailRepository emailRepository)
         {
             _emailRepository = emailRepository;
-            _mapper = mapper;
         }
 
         // api/email

@@ -16,14 +16,12 @@ namespace SimCard.APP.Controllers
     [ApiController]
     public class EventController : ControllerBase
     {
-        private readonly IMapper _mapper;
         private readonly IEventRepository _eventRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public EventController(IEventRepository eventRepository, IMapper mapper, IUnitOfWork unitOfWork)
+        public EventController(IEventRepository eventRepository, IUnitOfWork unitOfWork)
         {
             _eventRepository = eventRepository;
-            _mapper = mapper;
             _unitOfWork = unitOfWork;
         }
         // api/event
@@ -31,7 +29,7 @@ namespace SimCard.APP.Controllers
         public async Task<IEnumerable<EventViewModel>> GetAllEvents()
         {
             IEnumerable<Event> events = await _eventRepository.GetAllEvents();
-            return _mapper.Map<IEnumerable<Event>, IEnumerable<EventViewModel>>(events);
+            return Mapper.Map<IEnumerable<Event>, IEnumerable<EventViewModel>>(events);
         }
 
         // api/event/id
@@ -39,7 +37,7 @@ namespace SimCard.APP.Controllers
         public async Task<EventViewModel> GetEvent(int id)
         {
             Event eventParams = await _eventRepository.GetEvent(id);
-            return _mapper.Map<Event, EventViewModel>(eventParams);
+            return Mapper.Map<Event, EventViewModel>(eventParams);
         }
 
         // api/event/last

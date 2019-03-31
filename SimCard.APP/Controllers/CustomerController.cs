@@ -20,15 +20,13 @@ namespace SimCard.APP.Controllers
     [ApiController]
     public class CustomerController : ControllerBase
     {
-        private readonly IMapper _mapper;
         private readonly ICustomerRepository _customerRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public CustomerController(ICustomerRepository customerRepository, IUnitOfWork unitOfWork, IMapper mapper)
+        public CustomerController(ICustomerRepository customerRepository, IUnitOfWork unitOfWork)
         {
             _customerRepository = customerRepository;
             _unitOfWork = unitOfWork;
-            _mapper = mapper;
         }
 
         //api/customer
@@ -36,7 +34,7 @@ namespace SimCard.APP.Controllers
         public async Task<IEnumerable<CustomerViewModel>> GetAllCustomers()
         {
             IEnumerable<Customer> customers = await _customerRepository.GetAllCustomers();
-            return _mapper.Map<IEnumerable<Customer>, IEnumerable<CustomerViewModel>>(customers);
+            return Mapper.Map<IEnumerable<Customer>, IEnumerable<CustomerViewModel>>(customers);
         }
 
         //api/customer/id
@@ -44,7 +42,7 @@ namespace SimCard.APP.Controllers
         public async Task<CustomerViewModel> GetCustomer(int id)
         {
             Customer customer = await _customerRepository.GetCustomer(id);
-            return _mapper.Map<Customer, CustomerViewModel>(customer);
+            return Mapper.Map<Customer, CustomerViewModel>(customer);
         }
 
         [HttpGet("last")]

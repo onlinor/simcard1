@@ -16,14 +16,12 @@ namespace SimCard.APP.Controllers
     [ApiController]
     public class CashbookController : ControllerBase
     {
-        private readonly IMapper _mapper;
         private readonly ICashbookRepository _cashbookRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public CashbookController(ICashbookRepository cashbookRepository, IMapper mapper, IUnitOfWork unitOfWork)
+        public CashbookController(ICashbookRepository cashbookRepository, IUnitOfWork unitOfWork)
         {
             _cashbookRepository = cashbookRepository;
-            _mapper = mapper;
             _unitOfWork = unitOfWork;
         }
 
@@ -32,7 +30,7 @@ namespace SimCard.APP.Controllers
         public async Task<IEnumerable<CashbookViewModel>> GetAllCashbook()
         {
             IEnumerable<Cashbook> cashbook = await _cashbookRepository.GetAllCashbook();
-            return _mapper.Map<IEnumerable<Cashbook>, IEnumerable<CashbookViewModel>>(cashbook);
+            return Mapper.Map<IEnumerable<Cashbook>, IEnumerable<CashbookViewModel>>(cashbook);
         }
 
         //api/cashbook/id
@@ -40,7 +38,7 @@ namespace SimCard.APP.Controllers
         public async Task<CashbookViewModel> GetCashbook(int id)
         {
             Cashbook cashbook = await _cashbookRepository.GetCashbook(id);
-            return _mapper.Map<Cashbook, CashbookViewModel>(cashbook);
+            return Mapper.Map<Cashbook, CashbookViewModel>(cashbook);
         }
 
         //api/cashbook/id

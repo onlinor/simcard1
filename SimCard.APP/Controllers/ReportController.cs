@@ -1,4 +1,3 @@
-using AutoMapper;
 
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,13 +17,11 @@ namespace SimCard.APP.Controllers
     {
         private readonly IReportService _reportService;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
 
-        public ReportController(IReportService reportService, IUnitOfWork unitOfWork, IMapper mapper)
+        public ReportController(IReportService reportService, IUnitOfWork unitOfWork)
         {
             _reportService = reportService;
             _unitOfWork = unitOfWork;
-            _mapper = mapper;
         }
 
         [HttpPost("/api/Report/GetReport")]
