@@ -13,6 +13,8 @@ namespace SimCard.APP.Models
 
         public string Password { get; set; }
 
+        public string PasswordSalt { get; set; }
+
         public string Role { get; set; }
 
         public int? ShopId { get; set; }

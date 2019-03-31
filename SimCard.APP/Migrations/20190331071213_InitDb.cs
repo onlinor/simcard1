@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SimCard.APP.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class InitDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -305,6 +305,7 @@ namespace SimCard.APP.Migrations
                     LastName = table.Column<string>(nullable: true),
                     Username = table.Column<string>(nullable: true),
                     Password = table.Column<string>(nullable: true),
+                    PasswordSalt = table.Column<string>(nullable: true),
                     Role = table.Column<string>(nullable: true),
                     ShopId = table.Column<int>(nullable: true)
                 },
@@ -416,13 +417,13 @@ namespace SimCard.APP.Migrations
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "Id", "DateCreated", "DateModified", "FirstName", "LastName", "Password", "Role", "ShopId", "Username" },
-                values: new object[] { 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Galvin", "Nguyen", "AuMNtzTEh1bl/yJH5iO+ww==", "Company", null, "company" });
+                columns: new[] { "Id", "DateCreated", "DateModified", "FirstName", "LastName", "Password", "PasswordSalt", "Role", "ShopId", "Username" },
+                values: new object[] { 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Galvin", "Nguyen", "9E866lWM4XeduceZD6B6bfbAayLiswOw7TeBEATZr8I=", "lRirjoEGNaszdoyX6EXUjw==", "Company", null, "company" });
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "Id", "DateCreated", "DateModified", "FirstName", "LastName", "Password", "Role", "ShopId", "Username" },
-                values: new object[] { 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Galvin", "Nguyen", "AuMNtzTEh1bl/yJH5iO+ww==", "Branch", null, "branch" });
+                columns: new[] { "Id", "DateCreated", "DateModified", "FirstName", "LastName", "Password", "PasswordSalt", "Role", "ShopId", "Username" },
+                values: new object[] { 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Galvin", "Nguyen", "9E866lWM4XeduceZD6B6bfbAayLiswOw7TeBEATZr8I=", "lRirjoEGNaszdoyX6EXUjw==", "Branch", null, "branch" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_BankAccounts_ShopId",

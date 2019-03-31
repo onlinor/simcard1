@@ -10,8 +10,8 @@ using SimCard.APP.Persistence;
 namespace SimCard.APP.Migrations
 {
     [DbContext(typeof(SimCardDBContext))]
-    [Migration("20190330054848_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20190331071213_InitDb")]
+    partial class InitDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -583,6 +583,8 @@ namespace SimCard.APP.Migrations
 
                     b.Property<string>("Password");
 
+                    b.Property<string>("PasswordSalt");
+
                     b.Property<string>("Role");
 
                     b.Property<int?>("ShopId");
@@ -602,7 +604,8 @@ namespace SimCard.APP.Migrations
                             DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Galvin",
                             LastName = "Nguyen",
-                            Password = "AuMNtzTEh1bl/yJH5iO+ww==",
+                            Password = "9E866lWM4XeduceZD6B6bfbAayLiswOw7TeBEATZr8I=",
+                            PasswordSalt = "lRirjoEGNaszdoyX6EXUjw==",
                             Role = "Company",
                             Username = "company"
                         },
@@ -612,7 +615,8 @@ namespace SimCard.APP.Migrations
                             DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Galvin",
                             LastName = "Nguyen",
-                            Password = "AuMNtzTEh1bl/yJH5iO+ww==",
+                            Password = "9E866lWM4XeduceZD6B6bfbAayLiswOw7TeBEATZr8I=",
+                            PasswordSalt = "lRirjoEGNaszdoyX6EXUjw==",
                             Role = "Branch",
                             Username = "branch"
                         });

@@ -28,7 +28,6 @@ namespace SimCard.APP.Persistence.Services
 
         public async Task<UserViewModel> Authenticate(LoginViewModel loginViewModel)
         {
-            var password = PasswordHelper.Encrypt(loginViewModel.Password);
             User user = await _userRepository.Query(x => x.Username == loginViewModel.Username).FirstOrDefaultAsync();
 
             // return null if user not found
@@ -36,8 +35,9 @@ namespace SimCard.APP.Persistence.Services
             {
                 return null;
             }
+            var isValidPassword = PasswordHelper.ValidatePassword(loginViewModel.Password, user.Password, user.PasswordSalt);
 
-            if (user.Password != password)
+            if (!isValidPassword)
             {
                 return null;
             }

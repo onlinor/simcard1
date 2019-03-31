@@ -44,13 +44,16 @@ namespace SimCard.APP.Persistence
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            var salt = PasswordHelper.GetSalt();
             modelBuilder.Entity<User>().HasData(
                 new User {
                     Id = 1,
                     FirstName = "Galvin",
                     LastName = "Nguyen",
                     Username = "company",
-                    Password = PasswordHelper.Encrypt("!@#$%"),
+                    PasswordSalt = salt,
+                    Password = PasswordHelper.HashPassword("!@#$%", salt),
                     Role = Role.Company
                 },
                 new User
@@ -59,7 +62,8 @@ namespace SimCard.APP.Persistence
                     FirstName = "Galvin",
                     LastName = "Nguyen",
                     Username = "branch",
-                    Password = PasswordHelper.Encrypt("!@#$%"),
+                    PasswordSalt = salt,
+                    Password = PasswordHelper.HashPassword("!@#$%", salt),
                     Role = Role.Branch
                 }
             );
