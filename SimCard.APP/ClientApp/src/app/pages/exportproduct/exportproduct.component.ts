@@ -3,14 +3,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormphieuthuComponent } from '../../public/formphieuthu/formphieuthu.component';
 import {
   Product,
-  Supplier,
-  ProductExport,
-  ExportType,
-  Bank,
   ExportReceipt,
-  Customer
+  Customer,
+  Shop
 } from '../../core/models';
-import { PhieuxuatService, ProductService, CustomerService } from '../../core/services';
+import { PhieuxuatService, ProductService, ShopService } from '../../core/services';
 
 @Component({
 	selector: 'app-exportproduct',
@@ -32,6 +29,9 @@ export class ExportProductComponent implements OnInit {
 		{ label: 'DongABank', value: 'DAB' },
 		{ label: 'AChauBank', value: 'ACB' }
 	];
+
+	shopList: Array<Shop> = [];
+
 	loaiNganHang: String = '';
 
 	tabviewProducts: Array<Product> = [];
@@ -58,11 +58,14 @@ export class ExportProductComponent implements OnInit {
 
 	constructor(
 		private productService: ProductService,
-		private phieuxuatSerivce: PhieuxuatService
+		private phieuxuatSerivce: PhieuxuatService,
+		private shopService: ShopService
+
 	) { }
 
 	ngOnInit() {
 		this.getAllProducts();
+		this.getAllShops();
 	}
 
 	onChangePaybank() {
@@ -81,6 +84,10 @@ export class ExportProductComponent implements OnInit {
 		this.productService.getAll().subscribe(response => {
 			this.tabviewProducts = response;
 		});
+	}
+
+	onDropdownValueChange(event: any) {
+		this.exportReceipt.shopId = event.value.id;
 	}
 
 	rowEditCompleted(event: any) {
@@ -102,10 +109,21 @@ export class ExportProductComponent implements OnInit {
 					thanhTien: event.data.exportnumber * event.data.donGia
 				};
 				this.tableProducts.push(newProduct);
+			} else {
+				selectedProduct.soLuong += event.data.exportnumber;
+				selectedProduct.thanhTien = selectedProduct.donGia * selectedProduct.soLuong;
 			}
-			selectedProduct.soLuong += event.data.exportnumber;
-			selectedProduct.thanhTien = selectedProduct.donGia * selectedProduct.soLuong;
 		}
+		this.updateTotalMoney();
+	}
+
+	updateTotalMoney() {
+		this.totalMoney = 0;
+		this.tableProducts.forEach(line => {
+			this.totalMoney += line.soLuong * (line.menhGia - line.menhGia * line.chietKhau / 100);
+		});
+		this.vatMoney = (this.totalMoney * 10) / 100;
+		this.total = this.totalMoney + this.vatMoney;
 	}
 
 	onProductTableEditCompleted(event: any) {
@@ -113,6 +131,7 @@ export class ExportProductComponent implements OnInit {
 			x => x.ma === event.data.ma);
 		selectedProduct.donGia = (selectedProduct.menhGia / 100) * (100 - selectedProduct.chietKhau);
 		selectedProduct.thanhTien = selectedProduct.donGia * selectedProduct.soLuong;
+		this.updateTotalMoney();
 	}
 
 	generateProductCode() {
@@ -123,14 +142,44 @@ export class ExportProductComponent implements OnInit {
 
 	dataExportProductBinding() {
 		this.myFormThuChild.dataPhieuThu.loaiNganHang = this.loaiNganHang;
-		//this.myFormThuChild.dataPhieuThu.nguoiThu = this.importReceipt.nhanVienLap,
-		//this.myFormThuChild.dataPhieuThu.tenKhachHang = this.importReceipt.nguoiDaiDien,
-		this.myFormThuChild.dataPhieuThu.soTienThu = this.thanhToan,
-		this.myFormThuChild.theATM = this.isPaybankChecked,
-		this.myFormThuChild.cash = this.isPaycashChecked
+		this.myFormThuChild.dataPhieuThu.nguoiThu = this.exportReceipt.nhanVienLap;
+		this.myFormThuChild.dataPhieuThu.tenKhachHang = this.exportReceipt.nguoiDaiDien;
+		this.myFormThuChild.dataPhieuThu.soTienThu = this.thanhToan;
+		this.myFormThuChild.theATM = this.isPaybankChecked;
+		this.myFormThuChild.cash = this.isPaycashChecked;
 		this.myFormThuChild.checkedATM();
 		this.myFormThuChild.checkedCash();
 		this.myFormThuChild.isNewCashBook = true;
 		this.isShowDialogPhieuThu = true;
 	}
+
+	// get all customers from db
+	getAllShops() {
+	this.shopService.getAll().subscribe(
+		response => {
+		this.shopList = response;
+		console.log(response);
+		}
+	);
+	}
+
+	save() {
+		this.tableProducts.forEach(p => {
+		  p.shopId = 2;
+		  p.supplierId = 1;
+		});
+		this.productService.save(this.tableProducts).subscribe(() => {
+		 /*  this.savePhieuxuat();
+		  this.dataExportProductBinding(); */
+		});
+	  }
+	
+	  savePhieuxuat() {
+		this.exportReceipt.prefix = this.exportReceipt.ma.substring(0, 10);
+		this.exportReceipt.suffix = Number(this.exportReceipt.ma.substr(11));
+		this.exportReceipt.tienThanhToan = this.thanhToan;
+		this.exportReceipt.tienConLai = this.total - this.thanhToan;
+		this.exportReceipt.products = this.tableProducts;
+		// this.exportReceipt.addPhieuxuat(this.exportReceipt).subscribe(() => { });
+	  }
 }

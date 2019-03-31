@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using SimCard.APP.Models;
 using SimCard.APP.Persistence.Repositories;
 using SimCard.APP.ViewModels;
-
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -22,7 +22,18 @@ namespace SimCard.APP.Persistence.Services
 
         public async Task<bool> Create(ProductViewModel productViewModel)
         {
-            Product product = Mapper.Map<Product>(productViewModel);
+            Product product = new Product
+            {
+                DateCreated = DateTime.Now,
+                Ten = productViewModel.Ten,
+                Ma = productViewModel.Ma,
+                Menhgia = productViewModel.Menhgia,
+                Soluong = productViewModel.Soluong,
+                DonGia = productViewModel.DonGia,
+                ShopId = productViewModel.ShopId,
+                SupplierId = productViewModel.SupplierId
+            };       
+                 
             return await _repository.Create(product);
         }
 

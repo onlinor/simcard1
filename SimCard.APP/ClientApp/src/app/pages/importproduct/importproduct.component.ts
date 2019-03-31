@@ -203,7 +203,7 @@ export class ImportProductComponent implements OnInit {
 		this.myFormChiChild.dataPhieuChi.tenKhachHang = this.importReceipt.nguoiDaiDien,
 		this.myFormChiChild.dataPhieuChi.soTienChi = this.thanhToan,
 		this.myFormChiChild.theATM = this.isPaybankChecked,
-		this.myFormChiChild.cash = this.isPaycashChecked
+		this.myFormChiChild.cash = this.isPaycashChecked;
 		this.myFormChiChild.checkedATM();
 		this.myFormChiChild.checkedCash();
 		this.myFormChiChild.isNewCashBook = true;
@@ -220,4 +220,25 @@ export class ImportProductComponent implements OnInit {
 	// 	this.phieuhangService.addPhieunhap(this.importReceipt).subscribe(() => { });
 		this.dataImportProductBinding();
 	}
+
+	destroyTickiet() {
+    this.tableProducts.length = 0;
+    this.importReceipt.ma = '';
+    this.importReceipt.ghiChu = '';
+    this.importReceipt.prefix = '';
+    this.importReceipt.products = null;
+    this.importReceipt.suffix = null;
+    this.importReceipt.supplierId = null;
+    this.importReceipt.tongTien = 0;
+    this.importReceipt.nguoiDaiDien = '';
+    this.importReceipt.nhanVienLap = '';
+    this.importReceipt.soDienThoai = null;
+    this.importReceipt.tongTien = 0;
+    this.importReceipt.tienThanhToan = 0;
+    this.importReceipt.congNoCu = 0;
+    this.totalMoney = 0;
+    this.vatMoney = 0;
+    this.total = 0;
+    this.thanhToan = 0;
+  }
 }

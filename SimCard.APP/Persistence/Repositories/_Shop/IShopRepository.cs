@@ -10,7 +10,7 @@ namespace SimCard.APP.Persistence.Repositories
 {
     public interface IShopRepository
     {
-        Task<ShopViewModel> AddShop(ShopViewModel shop);
+        Task<ShopViewModel> AddShop(ShopViewModel ShopViewModel);
         Task<IEnumerable<Shop>> GetShops();
 
         IQueryable<Shop> Query(Expression<Func<Shop, bool>> predicate);

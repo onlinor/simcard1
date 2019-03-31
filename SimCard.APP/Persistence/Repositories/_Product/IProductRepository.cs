@@ -26,6 +26,6 @@ namespace SimCard.APP.Persistence.Repositories
 
         Task<bool> Remove(int id);
 
-        Task<bool> IsProductExists(string code, int shopid);
+        Task<bool> IsProductExists(string code);
     }
 }

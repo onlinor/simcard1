@@ -25,7 +25,7 @@
             </div>
             <div class="ui-g-4">
                 <p>Tên Khách Hàng</p>
-                <p-dropdown [options]="customerList" placeholder="Chọn" optionLabel="tenCH" [showClear]="true" (onChange)="onDropdownValueChange($event)"></p-dropdown>
+                <p-dropdown [options]="shopList" placeholder="Chọn" optionLabel="name" [showClear]="true" (onChange)="onDropdownValueChange($event)"></p-dropdown>
             </div> 
         </div>
         <div class="ui-g">
@@ -145,7 +145,7 @@
                 <button pButton type="button" label="In Phiếu" icon="fa fa-print"></button>
             </div>
         </div>
-        <div class="ui-g-12">
+<!--         <div class="ui-g-12">
             <p-table>
                 <ng-template pTemplate="header">
                     <tr>
@@ -236,7 +236,7 @@
             <div class="ui-g-2">
                 <button pButton type="button" label="Bỏ Qua"></button>
             </div>
-        </div>
+        </div> -->
     </div>
     <div class="ui-g-4">
         <p-tabView>
