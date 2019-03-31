@@ -7,6 +7,6 @@ namespace SimCard.APP.Persistence.Services
 {
     public interface IAuthService
     {
-        Task<UserViewModel> Authenticate(LoginViewModel loginViewModel);
+        Task<AuthResultViewModel> Authenticate(LoginViewModel loginViewModel);
     }
 }

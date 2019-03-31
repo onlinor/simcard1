@@ -26,7 +26,7 @@ namespace SimCard.APP.Persistence.Services
             _userRepository = userRepository;
         }
 
-        public async Task<UserViewModel> Authenticate(LoginViewModel loginViewModel)
+        public async Task<AuthResultViewModel> Authenticate(LoginViewModel loginViewModel)
         {
             User user = await _userRepository.Query(x => x.Username == loginViewModel.Username).FirstOrDefaultAsync();
 
@@ -57,7 +57,7 @@ namespace SimCard.APP.Persistence.Services
             };
 
             SecurityToken token = tokenHandler.CreateToken(tokenDescriptor);
-            UserViewModel result = new UserViewModel
+            AuthResultViewModel result = new AuthResultViewModel
             {
                 Username = user.Username,
                 Token = tokenHandler.WriteToken(token)

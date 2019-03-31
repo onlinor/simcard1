@@ -24,7 +24,7 @@ namespace SimCard.APP.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Authenticate([FromBody]LoginViewModel loginViewModel)
         {
-            UserViewModel user = await _authService.Authenticate(loginViewModel);
+            AuthResultViewModel user = await _authService.Authenticate(loginViewModel);
 
             if (user == null)
             {

@@ -14,6 +14,8 @@ namespace SimCard.APP.Persistence.Repositories
 
         Task<User> GetUser(int id);
 
+        Task<bool> Create(User user);
+
         IQueryable<User> Query(Expression<Func<User, bool>> predicate);
 
     }

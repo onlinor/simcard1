@@ -13,25 +13,17 @@ namespace SimCard.APP.Persistence.Repositories
     public class UserRepository : IUserRepository
     {
         private readonly SimCardDBContext _context;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public UserRepository(SimCardDBContext simCardDBContext)
+        public UserRepository(SimCardDBContext simCardDBContext, IUnitOfWork unitOfWork)
         {
             _context = simCardDBContext;
+            _unitOfWork = unitOfWork;
         }
 
         public IQueryable<User> Query(Expression<Func<User, bool>> predicate)
         {
             return _context.Users.Where(predicate);
-        }
-
-        public async Task<User> Authenticate(LoginViewModel loginViewModel)
-        {
-            var user = await _context.Users.Where(u => u.Username == loginViewModel.Username && u.Password == loginViewModel.Password).FirstOrDefaultAsync();
-            if (user != null)
-            {
-                return user;
-            }
-            return null;
         }
 
         public async Task<User> GetUser(int id)
@@ -42,6 +34,12 @@ namespace SimCard.APP.Persistence.Repositories
         public async Task<IEnumerable<User>> GetUsers()
         {
             return await _context.Users.ToListAsync();
+        }
+
+        public async Task<bool> Create(User user)
+        {
+            await _context.Users.AddAsync(user);
+            return await _unitOfWork.SaveChangeAsync();
         }
     }
 }
