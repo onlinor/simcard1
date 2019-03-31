@@ -19,19 +19,18 @@ namespace SimCard.APP.Persistence.Repositories
             _context = context;
         }
 
-        public async Task<ShopViewModel> AddShop(ShopViewModel shop)
+        public async Task<ShopViewModel> AddShop(ShopViewModel ShopViewModel)
         {
-            if (shop != null)
+            if (ShopViewModel != null)
             {
                 Shop s = new Shop
                 {
                     DateCreated = DateTime.Now,
-                    Id = shop.Id,
-                    Name = shop.Name
+                    Name = ShopViewModel.Name,
                 };
                 await _context.AddAsync(s);
                 await _context.SaveChangesAsync();
-                return shop;
+                return ShopViewModel;
             }
             return null;
         }
@@ -49,7 +48,7 @@ namespace SimCard.APP.Persistence.Repositories
 
         public async Task<IEnumerable<Shop>> GetShops()
         {
-            return await _context.Shops.Include(s => s.Childrens).Include(s => s.Products).ToListAsync();  //temp  
+            return await _context.Shops.Where(s => s.Id != 1).ToListAsync();  
         }
 
         public void Remove(Shop shop)

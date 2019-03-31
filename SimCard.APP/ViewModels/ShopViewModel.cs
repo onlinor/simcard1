@@ -3,9 +3,8 @@ using System.Collections.Generic;
 namespace SimCard.APP.ViewModels
 {
     public class ShopViewModel
-    {
-        public int Id { get; set; }
-
+    {   
+        public int Id;
         public string Name { get; set; }
 
         public List<ProductViewModel> Products { get; set; }

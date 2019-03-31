@@ -45,7 +45,7 @@ namespace SimCard.APP.Persistence.Repositories
         {
             foreach (ProductViewModel item in productViewModels)
             {
-                if (await IsProductExists(item.Ma, item.ShopId.Value))
+                if (await IsProductExists(item.Ma))
                 {
                     Product p = await _context.Products.FirstAsync(x => (x.Ma.ToLower() == item.Ma.ToLower()) && (x.ShopId.Value == item.ShopId.Value));
                     p.Soluong = p.Soluong + item.Soluong;
@@ -81,9 +81,9 @@ namespace SimCard.APP.Persistence.Repositories
             return Mapper.Map<List<ProductViewModel>>(await _context.Products.Where(x => x.ShopId == 1).ToListAsync());
         }
 
-        public async Task<bool> IsProductExists(string code, int idshop)
+        public async Task<bool> IsProductExists(string code)
         {
-            return await _context.Products.AnyAsync(x => (x.Ma.ToLower() == code.ToLower()) && (x.ShopId.Value == idshop));
+            return await _context.Products.AnyAsync(x => (x.Ma.ToLower() == code.ToLower()));
         }
 
         public async Task<bool> Remove(int id)

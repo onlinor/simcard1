@@ -35,7 +35,14 @@ namespace SimCard.APP.Controllers
         {
             foreach (var product in productViewModels)
             {
-                await _productService.Create(product);
+                if (await _productService.IsExisted(product.Ma, product.ShopId.Value))
+                {
+                    await _productService.Update(product);
+                }
+                else
+                {
+                    await _productService.Create(product);
+                }
             }
             
             return Ok();

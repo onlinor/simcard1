@@ -1,8 +1,10 @@
-import { Component, OnInit, ViewChild, OnDestroy} from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { CustomerService } from '../../core/services/customer.service';
+import { ShopService } from '../../core/services/shop.service';
 import { MessageService } from 'primeng/api';
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs/subscription';
+import { Shop } from '../../core/models';
 
 @Component({
     selector: 'app-customer',
@@ -113,6 +115,7 @@ export class CustomerComponent implements OnInit, OnDestroy {
     constructor(
         private customerService: CustomerService,
         private messageService: MessageService,
+        private shopService: ShopService
     ) { }
 
     toastSuccess() {
@@ -133,10 +136,10 @@ export class CustomerComponent implements OnInit, OnDestroy {
                 this.customers = response;
                 this.initialCustomer = response;
                 this.customers.map((item) => {
-                    let obj = {
-                        label: item.hoTen, 
+                    const obj = {
+                        label: item.hoTen,
                         value: item.hoTen
-                    }
+                    };
                     this.dsNguoiGioiThieu.push(obj);
                 });
             },
@@ -296,6 +299,8 @@ export class CustomerComponent implements OnInit, OnDestroy {
                 .subscribe(() => {
                         this.toastSuccess();
                         this.getAllCustomers();
+                        const shop: Shop = {name: this.customerInfo.tenCH, id: 1996};
+                        this.shopService.addShop(shop).subscribe(() => {});
                     },
                     error => {}
             );
@@ -381,9 +386,9 @@ export class CustomerComponent implements OnInit, OnDestroy {
                             this.tempArr.gioiTinh = tempResponse[i].gioiTinh;
 
                             tempCustomer.push(this.tempArr);
-                            this.customerService.addCustomer(this.tempArr)
-                                .subscribe(() => {},
-                                    error => {}
+                            this.customerService.addCustomer(this.tempArr).subscribe(() => {
+                             },
+                                error => {}
                                 );
                             this.customers = tempCustomer;
                             this.tempArr = {};

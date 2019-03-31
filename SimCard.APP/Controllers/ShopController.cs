@@ -26,21 +26,20 @@ namespace SimCard.APP.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        [HttpPost("/api/shop/Add")]
-        public async Task<IActionResult> Addshop(ShopViewModel shop)
+        [HttpPost("/api/shop/add")]
+        public async Task<IActionResult> Addshop(ShopViewModel ShopViewModel)
         {
-            if (shop == null)
+            if (ShopViewModel == null)
             {
                 return BadRequest();
             }
-            int CustomerID = await _customerRepository.GetLastIDCustomerRecord();
-            shop.Id = CustomerID;
-            await _shopRepository.AddShop(shop);
+
+            await _shopRepository.AddShop(ShopViewModel);
             await _unitOfWork.SaveChangeAsync();
             return StatusCode(201);
         }
 
-        [HttpGet("/api/shops")]
+        [HttpGet("/api/shop")]
         public async Task<IEnumerable<ShopViewModel>> GetShops()
         {
             IEnumerable<Shop> shops = await _shopRepository.GetShops();
