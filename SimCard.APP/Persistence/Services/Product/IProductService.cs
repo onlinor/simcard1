@@ -18,6 +18,6 @@ namespace SimCard.APP.Persistence.Services
 
         Task<bool> Remove(int id);
 
-        Task<bool> IsExisted(string code, int shopId);
+        Task<bool> IsExisted(string code, int? shopId);
     }
 }

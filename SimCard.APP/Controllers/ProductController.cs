@@ -31,11 +31,12 @@ namespace SimCard.APP.Controllers
         }
 
         [HttpPost("/api/product/add")]
-        public async Task<IActionResult> AddProducts(List<ProductViewModel> productViewModels)
+        public async Task<IActionResult> AddProducts([FromBody] List<ProductViewModel> productViewModels)
         {
             foreach (var product in productViewModels)
             {
-                if (await _productService.IsExisted(product.Ma, product.ShopId.Value))
+                var existed = await _productService.IsExisted(product.Ma, product.ShopId);
+                if (existed)
                 {
                     await _productService.Update(product);
                 }

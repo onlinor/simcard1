@@ -4,12 +4,13 @@ export class Product {
   ten: string;
   soLuong: number;
   menhGia: number;
-  // productType: string;
   chietKhau: number;
   donGia: number;
   thanhTien: number;
   shopId?: number;
   supplierId?: number;
-  soluongnhap?: number;
-  exportnumber?: number;
+  soLuongNhap?: number;
+  soLuongXuat?: number;
+  shopName?: string;
+  supplierName?: string;
 }

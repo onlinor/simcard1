@@ -9,5 +9,10 @@ namespace SimCard.APP.Models
         public DateTime DateCreated { get; set; }
 
         public DateTime? DateModified { get; set; }
+
+        public BaseEntity()
+        {
+            DateCreated = DateTime.Now;
+        }
     }
 }

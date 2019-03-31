@@ -6,21 +6,15 @@ namespace SimCard.APP.ViewModels
     {
         public int Id { get; set; }
 
-        [Required]
         public string Ma { get; set; }
 
-        [Required]
         public string Ten { get; set; }
 
-        [Required]
         public int Soluong { get; set; }
 
-        [Required]
         public decimal Menhgia { get; set; }
 
         public decimal? DonGia { get; set; }
-
-        // public ProductType ProductType { get; set; }
 
         public int? ShopId { get; set; }
 
@@ -29,5 +23,9 @@ namespace SimCard.APP.ViewModels
         public string ShopName { get; set; }
 
         public string SupplierName { get; set; }
+
+        public int SoLuongNhap { get; set; }
+
+        public int SoLuongXuat { get; set; }
     }
 }

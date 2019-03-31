@@ -164,7 +164,7 @@ export class ImportProductComponent implements OnInit {
 			selectedProduct.donGia =
 				(selectedProduct.menhGia * (100 - selectedProduct.chietKhau)) / 100;
 			selectedProduct.thanhTien =
-				selectedProduct.soluongnhap * selectedProduct.donGia;
+				selectedProduct.soLuongNhap * selectedProduct.donGia;
 			this.updateTotalMoney();
 		}
 	}
