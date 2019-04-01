@@ -314,6 +314,8 @@ namespace SimCard.APP.Migrations
 
                     b.Property<int?>("ExportToShopId");
 
+                    b.Property<string>("Ma");
+
                     b.Property<decimal>("MoneyPaid")
                         .HasColumnType("decimal(18,2)");
 
@@ -324,7 +326,7 @@ namespace SimCard.APP.Migrations
                     b.Property<decimal>("OldDebt")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("PhoneNumber");
+                    b.Property<string>("PhoneNumber");
 
                     b.Property<string>("Prefix");
 
@@ -599,22 +601,22 @@ namespace SimCard.APP.Migrations
                         new
                         {
                             Id = 1,
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateCreated = new DateTime(2019, 4, 1, 11, 53, 24, 317, DateTimeKind.Local).AddTicks(8453),
                             FirstName = "Galvin",
                             LastName = "Nguyen",
-                            Password = "9E866lWM4XeduceZD6B6bfbAayLiswOw7TeBEATZr8I=",
-                            PasswordSalt = "lRirjoEGNaszdoyX6EXUjw==",
+                            Password = "uZVYGsKDOr1mWx4KTAd0BA3p78GWtweIjcaaC/RJuuI=",
+                            PasswordSalt = "rAbFqTfLYZ03aVoemJdHCg==",
                             Role = "Company",
                             Username = "company"
                         },
                         new
                         {
                             Id = 2,
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateCreated = new DateTime(2019, 4, 1, 11, 53, 24, 330, DateTimeKind.Local).AddTicks(8608),
                             FirstName = "Galvin",
                             LastName = "Nguyen",
-                            Password = "9E866lWM4XeduceZD6B6bfbAayLiswOw7TeBEATZr8I=",
-                            PasswordSalt = "lRirjoEGNaszdoyX6EXUjw==",
+                            Password = "uZVYGsKDOr1mWx4KTAd0BA3p78GWtweIjcaaC/RJuuI=",
+                            PasswordSalt = "rAbFqTfLYZ03aVoemJdHCg==",
                             Role = "Branch",
                             Username = "branch"
                         });

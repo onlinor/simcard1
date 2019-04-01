@@ -11,9 +11,6 @@
                 <button pButton type="button" label="Phiếu Mới" icon="fa fa-plus" (click)="generateProductCode()"></button>
             </div>
             <div class="ui-g-4">
-                <button pButton type="button" label="Sửa Phiếu" icon="fa fa-edit"></button>
-            </div>
-            <div class="ui-g-4">
                 <button pButton type="button" label="Hủy Phiếu" icon="fa fa-ban"></button>
             </div>
         </div>
@@ -240,7 +237,7 @@
     </div>
     <div class="ui-g-4">
         <p-tabView>
-            <p-tabPanel header="Sim Số">
+            <p-tabPanel header="Kho Sim">
                 <p-table #dt [value]="tabviewProducts" selectionMode="single" [paginator]="true" [rows]="10" (onEditComplete)="rowEditCompleted($event)">
                     <ng-template pTemplate="header" let-columns>
                         <tr>

@@ -24,7 +24,33 @@ namespace SimCard.APP.Persistence.Services
 
         public async Task<bool> Create(ProductViewModel productViewModel)
         {
-            await _repository.Create(Mapper.Map<Product>(productViewModel));
+            // Product product = Mapper.Map<Product>(productViewModel); should use one
+            Product product = new Product
+            {
+                Ten = productViewModel.Ten,
+                Ma = productViewModel.Ma,
+                Menhgia = productViewModel.Menhgia,
+                Soluong = productViewModel.Soluong,
+                DonGia = productViewModel.DonGia,
+                ShopId = productViewModel.ShopId,
+                SupplierId = productViewModel.SupplierId
+            };
+
+            if (product.ShopId != 1)
+            {
+                Product MainProduct = await _repository.Query(x => x.Ma.ToLower() == productViewModel.Ma.ToLower() && x.ShopId == 1).FirstOrDefaultAsync();
+                MainProduct.Soluong = MainProduct.Soluong - productViewModel.Soluong;
+                await _repository.Update(MainProduct);
+                if (MainProduct.Soluong == 0)
+                {
+                    await _repository.Remove(MainProduct.Id);
+                }
+                else
+                {
+                    await _repository.Update(MainProduct);
+                }
+            }
+            await _repository.Create(product);
             return await _unitOfWork.SaveChangeAsync();
         }
 
@@ -35,7 +61,7 @@ namespace SimCard.APP.Persistence.Services
 
         public async Task<IEnumerable<ProductViewModel>> GetAll()
         {
-            return Mapper.Map<List<ProductViewModel>>(await _repository.GetAll());
+            return Mapper.Map<List<ProductViewModel>>(await _repository.Query(x => x.ShopId == 1).ToListAsync());
         }
 
         public async Task<bool> IsExisted(string code, int? shopId)
@@ -51,8 +77,23 @@ namespace SimCard.APP.Persistence.Services
 
         public async Task<bool> Update(ProductViewModel productViewModel)
         {
-            Product product = Mapper.Map<Product>(productViewModel);
-            await _repository.Update(product);
+            Product ProductToUpdate = await _repository.Query(x => x.Ma.ToLower() == productViewModel.Ma.ToLower() && x.ShopId == productViewModel.ShopId).FirstOrDefaultAsync();
+            ProductToUpdate.Soluong += productViewModel.Soluong;
+            if (ProductToUpdate.ShopId != 1)
+            {
+                Product MainProduct = await _repository.Query(x => x.Ma.ToLower() == productViewModel.Ma.ToLower() && x.ShopId == 1).FirstOrDefaultAsync();
+                MainProduct.Soluong = MainProduct.Soluong - productViewModel.Soluong;
+                if (MainProduct.Soluong == 0)
+                {
+                    await _repository.Remove(MainProduct.Id);
+                }
+                else
+                {
+                    await _repository.Update(MainProduct);
+                }
+            }
+            await _repository.Update(ProductToUpdate);
+
             return await _unitOfWork.SaveChangeAsync();
         }
     }

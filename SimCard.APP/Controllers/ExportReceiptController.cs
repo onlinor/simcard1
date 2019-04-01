@@ -29,5 +29,17 @@ namespace SimCard.APP.Controllers
                 Ma = await _exportReceiptRepository.GenerateProductCode()
             };
         }
+
+        [HttpPost("/api/exportreceipt/Add")]
+        public async Task<IActionResult> AddExportReceipt(ExportReceiptViewModel exportReceipt)
+        {
+            if (exportReceipt == null)
+            {
+                return BadRequest();
+            }
+            await _exportReceiptRepository.AddExportReceipt(exportReceipt);
+            await _unitOfWork.SaveChangeAsync();
+            return StatusCode(201);
+        }
     }
 }

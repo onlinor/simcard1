@@ -22,6 +22,47 @@ namespace SimCard.APP.Persistence.Repositories
             _context = context;
         }
 
+        public async Task<ExportReceipt> AddExportReceipt(ExportReceiptViewModel exportReceiptViewModel)
+        {
+            if (exportReceiptViewModel != null)
+            {
+                var listExportReceiptProduct = new List<ExportReceiptProducts>();
+
+                foreach (ProductViewModel item in exportReceiptViewModel.Products)
+                {
+                    ExportReceiptProducts p = new ExportReceiptProducts();
+                    p.ChietKhau =  (item.Menhgia - item.DonGia.Value) * 100 / item.Menhgia;
+                    p.DateCreated = DateTime.Now;
+                    p.ProductId = _context.Products.First(x => x.Ma == item.Ma).Id;
+                    p.ExportQuantity = item.Soluong;
+                    p.NewWarehouseQuantity = _context.Products.First(x => x.Ma == item.Ma).Soluong;
+                    listExportReceiptProduct.Add(p);
+                }
+
+                // ImportReceipt importReceipt = Mapper.Map<ImportReceipt>(importReceiptViewModel);
+                ExportReceipt exportReceipt = new ExportReceipt
+                {
+                    DateCreated = DateTime.Now,
+                    Ma = exportReceiptViewModel.Ma,
+                    Prefix = exportReceiptViewModel.Prefix,
+                    Suffix = exportReceiptViewModel.Suffix,
+                    Nhanvienlap = exportReceiptViewModel.NhanVienLap,
+                    RepresentativePerson = exportReceiptViewModel.NguoiDaiDien,
+                    Products = listExportReceiptProduct,
+                    PhoneNumber = exportReceiptViewModel.SoDienThoai,
+                    Note = exportReceiptViewModel.GhiChu,
+                    MoneyPaid = exportReceiptViewModel.TienThanhToan,
+                    Debt = exportReceiptViewModel.TienConLai,
+                    ShopId = exportReceiptViewModel.ShopId,
+                    ExportToShopId = exportReceiptViewModel.ShopId
+                };
+                await _context.AddAsync(exportReceipt);
+                await _context.SaveChangesAsync();
+                return exportReceipt;
+            }
+            return null;
+        }
+
         public async Task<List<ExportReceiptViewModel>> GetAllAsync()
         {
             return Mapper.Map<List<ExportReceiptViewModel>>(await _context.ExportReceipts.ToListAsync());

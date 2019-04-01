@@ -54,7 +54,7 @@ export class ExportProductComponent implements OnInit {
 	payCash = 0;
 	isPaycashChecked = false;
 
-	isShowDialogPhieuThu: boolean = false;
+	isShowDialogPhieuThu: Boolean = false;
 
 	constructor(
 		private productService: ProductService,
@@ -91,9 +91,10 @@ export class ExportProductComponent implements OnInit {
 	}
 
 	rowEditCompleted(event: any) {
-		if (event.data.soluongnhap === 0 || event.data.soluongnhap === null) {
-			// I will do something later :)
-		} else {
+		if (event.data.exportnumber <= 0 || event.data.exportnumber === null
+			 || event.data.exportnumber > event.data.soluong) {
+				console.log('Input is not correct, please try again');
+			} else {
 			const selectedProduct = this.tableProducts.find(
 				x => x.ma === event.data.ma
 			);
@@ -113,8 +114,8 @@ export class ExportProductComponent implements OnInit {
 				selectedProduct.soLuong += event.data.exportnumber;
 				selectedProduct.thanhTien = selectedProduct.donGia * selectedProduct.soLuong;
 			}
+			this.updateTotalMoney();
 		}
-		this.updateTotalMoney();
 	}
 
 	updateTotalMoney() {
@@ -158,19 +159,20 @@ export class ExportProductComponent implements OnInit {
 	this.shopService.getAll().subscribe(
 		response => {
 		this.shopList = response;
-		console.log(response);
 		}
 	);
 	}
 
 	save() {
 		this.tableProducts.forEach(p => {
-		  p.shopId = 2;
+		  p.shopId = this.exportReceipt.shopId;
 		  p.supplierId = 1;
 		});
 		this.productService.save(this.tableProducts).subscribe(() => {
-		 /*  this.savePhieuxuat();
-		  this.dataExportProductBinding(); */
+		 this.savePhieuxuat();
+		  this.dataExportProductBinding();
+		  this.getAllProducts();
+		  this.tableProducts = [];
 		});
 	  }
 	
@@ -180,6 +182,6 @@ export class ExportProductComponent implements OnInit {
 		this.exportReceipt.tienThanhToan = this.thanhToan;
 		this.exportReceipt.tienConLai = this.total - this.thanhToan;
 		this.exportReceipt.products = this.tableProducts;
-		// this.exportReceipt.addPhieuxuat(this.exportReceipt).subscribe(() => { });
+		this.phieuxuatSerivce.addPhieuxuat(this.exportReceipt).subscribe(() => { });
 	  }
 }

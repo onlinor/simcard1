@@ -12,6 +12,9 @@ namespace SimCard.APP.Persistence.Repositories
     public interface IExportReceiptRepository
     {
         Task<string> GenerateProductCode();
+
+        Task<ExportReceipt> AddExportReceipt(ExportReceiptViewModel exportReceipt);
+
         Task<List<ExportReceiptViewModel>> GetAllAsync();
 
         Task<ExportReceiptViewModel> GetById(int id);

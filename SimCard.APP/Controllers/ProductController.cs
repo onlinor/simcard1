@@ -35,7 +35,7 @@ namespace SimCard.APP.Controllers
         {
             foreach (var product in productViewModels)
             {
-                var existed = await _productService.IsExisted(product.Ma, product.ShopId);
+                var existed = await _productService.IsExisted(product.Ma, product.ShopId.Value);
                 if (existed)
                 {
                     await _productService.Update(product);

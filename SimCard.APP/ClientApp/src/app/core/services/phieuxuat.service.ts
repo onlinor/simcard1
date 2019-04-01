@@ -14,7 +14,7 @@ export class PhieuxuatService extends BaseService {
         return this.apiService.get(`${this.BASE_URI}/getproductcode`);
     }
 
-    addPhieunhap(viewModel: any): Observable<any> {
+    addPhieuxuat(viewModel: any): Observable<any> {
         return this.apiService.post(`${this.BASE_URI}/add`, viewModel);
     }
 }

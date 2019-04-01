@@ -1,28 +1,31 @@
-﻿namespace SimCard.APP.ViewModels
+﻿using System.Collections.Generic;
+
+namespace SimCard.APP.ViewModels
 {
+
     public class ExportReceiptViewModel
     {
         public string Ma { get; set; }
+
         public string Prefix { get; set; }
 
         public int Suffix { get; set; }
 
-        public string Nhanvienlap { get; set; }
+        public string NhanVienLap { get; set; }
 
-        public decimal OldDebt { get; set; }
+        public string NguoiDaiDien { get; set; }
 
-        public string RepresentativePerson { get; set; }
+        public string SoDienThoai { get; set; }
 
-        public int PhoneNumber { get; set; }
+        public List<ProductViewModel> Products { get; set; }
 
-        public string Note { get; set; }
+        public string GhiChu { get; set; }
 
-        public decimal MoneyPaid { get; set; }
+        public decimal TienThanhToan { get; set; }
 
-        public decimal Debt { get; set; }
+        public decimal TienConLai { get; set; }
 
         public int ShopId { get; set; }
-
         public int? ExportToShopId { get; set; }
 
         public int? ExportToCustomerId { get; set; }

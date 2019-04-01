@@ -57,7 +57,7 @@ export class ImportProductComponent implements OnInit {
 	payCash = 0;
 	isPaycashChecked = false;
 	
-	isShowDialogPhieuChi: boolean = false;
+	isShowDialogPhieuChi: Boolean = false;
 
 	importReceipt: ImportReceipt = new ImportReceipt();
 
@@ -93,7 +93,7 @@ export class ImportProductComponent implements OnInit {
 		this.thanhToan = this.payBank + this.payCash;
 	}
 
-	onChangePaycash() {	
+	onChangePaycash() {
 		this.thanhToan = this.payBank + this.payCash;
 	}
 
@@ -156,15 +156,15 @@ export class ImportProductComponent implements OnInit {
 
 	rowEditCompleted(event: any) {
 		if (event.data.soluongnhap === 0 || event.data.soluongnhap === null) {
-			// I will do something later :)
+			console.log('Input is not correct, please try again');
 		} else {
-			const selectedProduct = this.tableProducts.find(
-				x => x.ma === event.data.ma
-			);
-			selectedProduct.donGia =
+			const selectedProduct = this.tableProducts.find(x => x.ma === event.data.ma);
+			if (selectedProduct) {
+				selectedProduct.donGia =
 				(selectedProduct.menhGia * (100 - selectedProduct.chietKhau)) / 100;
-			selectedProduct.thanhTien =
+					selectedProduct.thanhTien =
 				selectedProduct.soLuongNhap * selectedProduct.donGia;
+			}
 			this.updateTotalMoney();
 		}
 	}
@@ -211,13 +211,13 @@ export class ImportProductComponent implements OnInit {
 	}
 
 	 savePhieunhap() {
-	// 	this.importReceipt.prefix = this.importReceipt.ma.substring(0, 10);
-	// 	this.importReceipt.suffix = Number(this.importReceipt.ma.substr(11));
-	// 	this.importReceipt.tienThanhToan = this.thanhToan;
-	// 	this.importReceipt.tienConLai = this.total - this.thanhToan;
-	// 	this.importReceipt.products = this.tableProducts;
-	// 	this.importReceipt.shopId = 1;
-	// 	this.phieuhangService.addPhieunhap(this.importReceipt).subscribe(() => { });
+		this.importReceipt.prefix = this.importReceipt.ma.substring(0, 10);
+		this.importReceipt.suffix = Number(this.importReceipt.ma.substr(11));
+		this.importReceipt.tienThanhToan = this.thanhToan;
+		this.importReceipt.tienConLai = this.total - this.thanhToan;
+		this.importReceipt.products = this.tableProducts;
+		this.importReceipt.shopId = 1;
+		this.phieuhangService.addPhieunhap(this.importReceipt).subscribe(() => { });
 		this.dataImportProductBinding();
 	}
 

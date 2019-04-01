@@ -5,18 +5,17 @@ namespace SimCard.APP.Models
 {
     public class ExportReceipt : BaseEntity
     {
+        public string Ma { get; set; }
+
         public string Prefix { get; set; }
 
         public int Suffix { get; set; }
 
         public string Nhanvienlap { get; set; }
 
-        [Column(TypeName = "decimal(18,2)")]
-        public decimal OldDebt { get; set; }
-
         public string RepresentativePerson { get; set; }
 
-        public int PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; }
 
         public string Note { get; set; }
 

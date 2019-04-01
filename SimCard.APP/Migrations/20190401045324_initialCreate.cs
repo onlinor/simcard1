@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SimCard.APP.Migrations
 {
-    public partial class InitDb : Migration
+    public partial class initialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -236,12 +236,13 @@ namespace SimCard.APP.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     DateCreated = table.Column<DateTime>(nullable: false),
                     DateModified = table.Column<DateTime>(nullable: true),
+                    Ma = table.Column<string>(nullable: true),
                     Prefix = table.Column<string>(nullable: true),
                     Suffix = table.Column<int>(nullable: false),
                     Nhanvienlap = table.Column<string>(nullable: true),
                     OldDebt = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     RepresentativePerson = table.Column<string>(nullable: true),
-                    PhoneNumber = table.Column<int>(nullable: false),
+                    PhoneNumber = table.Column<string>(nullable: true),
                     Note = table.Column<string>(nullable: true),
                     MoneyPaid = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Debt = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
@@ -418,12 +419,12 @@ namespace SimCard.APP.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "DateCreated", "DateModified", "FirstName", "LastName", "Password", "PasswordSalt", "Role", "ShopId", "Username" },
-                values: new object[] { 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Galvin", "Nguyen", "9E866lWM4XeduceZD6B6bfbAayLiswOw7TeBEATZr8I=", "lRirjoEGNaszdoyX6EXUjw==", "Company", null, "company" });
+                values: new object[] { 1, new DateTime(2019, 4, 1, 11, 53, 24, 317, DateTimeKind.Local).AddTicks(8453), null, "Galvin", "Nguyen", "uZVYGsKDOr1mWx4KTAd0BA3p78GWtweIjcaaC/RJuuI=", "rAbFqTfLYZ03aVoemJdHCg==", "Company", null, "company" });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "DateCreated", "DateModified", "FirstName", "LastName", "Password", "PasswordSalt", "Role", "ShopId", "Username" },
-                values: new object[] { 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Galvin", "Nguyen", "9E866lWM4XeduceZD6B6bfbAayLiswOw7TeBEATZr8I=", "lRirjoEGNaszdoyX6EXUjw==", "Branch", null, "branch" });
+                values: new object[] { 2, new DateTime(2019, 4, 1, 11, 53, 24, 330, DateTimeKind.Local).AddTicks(8608), null, "Galvin", "Nguyen", "uZVYGsKDOr1mWx4KTAd0BA3p78GWtweIjcaaC/RJuuI=", "rAbFqTfLYZ03aVoemJdHCg==", "Branch", null, "branch" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_BankAccounts_ShopId",
