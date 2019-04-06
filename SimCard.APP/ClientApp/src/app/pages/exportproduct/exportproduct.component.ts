@@ -146,8 +146,8 @@ export class ExportProductComponent implements OnInit {
 		this.myFormThuChild.dataPhieuThu.nguoiThu = this.exportReceipt.nhanVienLap;
 		this.myFormThuChild.dataPhieuThu.tenKhachHang = this.exportReceipt.nguoiDaiDien;
 		this.myFormThuChild.dataPhieuThu.soTienThu = this.thanhToan;
-		this.myFormThuChild.theATM = this.isPaybankChecked;
-		this.myFormThuChild.cash = this.isPaycashChecked;
+		this.myFormThuChild.isATM = this.isPaybankChecked;
+		this.myFormThuChild.isCash = this.isPaycashChecked;
 		this.myFormThuChild.checkedATM();
 		this.myFormThuChild.checkedCash();
 		this.myFormThuChild.isNewCashBook = true;

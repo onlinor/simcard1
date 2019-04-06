@@ -70,7 +70,12 @@
 							<label>Ngân Hàng</label>
 						</div>
 						<div>
-							<p-checkbox name="ATM" binary="true" [(ngModel)]="theATM" (onChange)="checkedATM($event)"></p-checkbox>
+							<p-checkbox name="isATM" binary="true" [(ngModel)]="isATM" (onChange)="checkedATM($event)"></p-checkbox>
+							<div class="mt-2" *ngIf="isATM">
+									<input type="number" min="0" name="paybybank" autocomplete="off" 
+												pInputText [(ngModel)]="payByBank"
+												(change)="onChangePaybank($event)"/>
+							</div>
 						</div>
 					</div>
 					<div class="ui-g-6">
@@ -78,14 +83,19 @@
 							<label>Tiền Mặt</label>
 						</div>
 						<div>
-							<p-checkbox name="cash" binary="true" [(ngModel)]="cash" (onChange)="checkedCash($event)"></p-checkbox>
+							<p-checkbox name="iscash" binary="true" [(ngModel)]="isCash" (onChange)="checkedCash($event)"></p-checkbox>
+							<div class="mt-2" *ngIf="isCash">
+									<input type="number" min="0" name="paybycash" autocomplete="off" 
+												pInputText [(ngModel)]="payByCash"
+												(change)="onChangePayCash($event)"/>
+							</div>
 						</div>
 					</div>
 					<input type="text" name="hinhThucChi" autocomplete="off" pInputText [(ngModel)]="dataPhieuChi.hinhThucChi"
 					 [disabled]="true" />
 				</div>
 			</div>
-			<div class="ui-g-12" *ngIf="theATM">
+			<div class="ui-g-12" *ngIf="isATM">
 				<div class="ui-g-4">
 					<label>Ngân Hàng</label>
 				</div>
@@ -98,7 +108,8 @@
 					<label>Số tiền</label>
 				</div>
 				<div class="ui-g-6">
-					<input type="number" min="0" name="sotienChi" autocomplete="off" pInputText [(ngModel)]="dataPhieuChi.soTienChi" />
+					<input type="number" min="0" name="sotienChi" autocomplete="off"
+								 pInputText [(ngModel)]="dataPhieuChi.soTienChi" [disabled]="true" />
 				</div>
 			</div>
 			<div class="ui-g-12">
@@ -118,7 +129,6 @@
 				</div>
 			</div>
 		</div>
-
 		<p-footer>
 			<div class="float-left">
 				<button type="button" pButton icon="pi pi-spinner" (click)="onClearForm()" label="Làm mới" class="ui-button-primary"></button>&nbsp;

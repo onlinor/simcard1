@@ -54,8 +54,10 @@ export class FormphieuthubankbookComponent implements OnInit, OnDestroy {
 		soTienThu: 0,
 		congDon: 0
 	};
-	theATM: boolean = false;
-	cash: boolean = false;
+	isATM: boolean = false;
+	payByBank: number = 0;
+	isCash: boolean = false;
+	payByCash: number = 0;
 	dsKhachHang: any = [];
 	subscription: Subscription;
 	dataPhieuThuArray: any;
@@ -73,39 +75,52 @@ export class FormphieuthubankbookComponent implements OnInit, OnDestroy {
 
 	ngOnInit() { }
 
+	onChangePaybank() {
+		this.dataPhieuThu.soTienThu = this.payByBank + this.payByCash;
+	}
+
+	onChangePayCash() {
+		this.dataPhieuThu.soTienThu = this.payByBank + this.payByCash;
+	}
+
 	checkedATM() {
-		if (this.theATM) {
+		if (this.isATM) {
 			this.dataPhieuThu.hinhThucNop = 'CK';
 		}
-		if (!this.theATM) {
+		if (!this.isATM) {
 			this.dataPhieuThu.hinhThucNop = '';
+			this.dataPhieuThu.soTienThu = this.dataPhieuThu.soTienThu - this.payByBank;
+			this.payByBank = 0;
+			this.dataPhieuThu.loaiNganHang = '';
 		}
-		if (this.theATM && this.cash) {
+		if (this.isATM && this.isCash) {
 			this.dataPhieuThu.hinhThucNop = 'CK,TM';
 		}
-		if (!this.theATM && this.cash) {
+		if (!this.isATM && this.isCash) {
 			this.dataPhieuThu.hinhThucNop = 'TM';
 		}
 	}
 
 	checkedCash() {
-		if (this.cash) {
+		if (this.isCash) {
 			this.dataPhieuThu.hinhThucNop = 'TM';
 		}
-		if (!this.cash) {
+		if (!this.isCash) {
 			this.dataPhieuThu.hinhThucNop = '';
+			this.dataPhieuThu.soTienThu = this.dataPhieuThu.soTienThu - this.payByCash;
+			this.payByCash = 0;
 		}
-		if (this.cash && this.theATM) {
+		if (this.isCash && this.isATM) {
 			this.dataPhieuThu.hinhThucNop = 'CK,TM';
 		}
-		if (!this.cash && this.theATM) {
+		if (!this.isCash && this.isATM) {
 			this.dataPhieuThu.hinhThucNop = 'CK';
 		}
 	}
 
 	onSubmit() {
 		let ngayLap = new Date().toLocaleDateString();
-		if (this.theATM && this.dataPhieuThu.loaiNganHang !== 'default') {
+		if (this.isATM && this.dataPhieuThu.loaiNganHang !== 'default') {
 			this.dataPhieuThu.maPhieu = 'PT' + ngayLap + '/' + this.dataPhieuThu.loaiNganHang;
 		} else {
 			this.dataPhieuThu.maPhieu = 'PT' + ngayLap;
@@ -134,8 +149,8 @@ export class FormphieuthubankbookComponent implements OnInit, OnDestroy {
 		this.dataPhieuThu.hinhThucNop = '';
 		this.dataPhieuThu.soTienThu = 0;
 		this.dataPhieuThu.ngayLap = new Date().toLocaleDateString();
-		this.theATM = false;
-		this.cash = false;
+		this.isATM = false;
+		this.isCash = false;
 		this.dataPhieuThu.dateCreated = null;
 	}
 
@@ -145,8 +160,8 @@ export class FormphieuthubankbookComponent implements OnInit, OnDestroy {
 		this.dataPhieuThu.dateCreated = new Date().toLocaleDateString();
 		this.dataPhieuThu.maPhieu = "PT";
 		this.dataPhieuThu.hinhThucNop = "";
-		this.theATM = false;
-		this.cash = false;
+		this.isATM = false;
+		this.isCash = false;
 		this.dataPhieuThu.soTienThu = 0;
 		this.isShowDialogPhieuThu = false;
 		this.emitShowDialogPhieuThu.emit(this.isShowDialogPhieuThu);
@@ -157,8 +172,8 @@ export class FormphieuthubankbookComponent implements OnInit, OnDestroy {
 		this.dataPhieuThu.dateCreated = new Date().toLocaleDateString();
 		this.dataPhieuThu.maPhieu = "PT";
 		this.dataPhieuThu.hinhThucNop = "";
-		this.theATM = false;
-		this.cash = false;
+		this.isATM = false;
+		this.isCash = false;
 		this.dataPhieuThu.soTienThu = 0;
 	}
 

@@ -55,8 +55,10 @@ export class FormphieuchibankbookComponent implements OnInit, OnDestroy {
 		soTienThu: 0,
 		congDon: 0
 	};
-	theATM: boolean = false;
-	cash: boolean = false;
+	isATM: boolean = false;
+	payByBank: number = 0;
+	isCash: boolean = false;
+	payByCash: number = 0;
 	dsKhachHang: any = [];
 	subscription: Subscription;
 	dataPhieuChiArray: any;
@@ -74,32 +76,45 @@ export class FormphieuchibankbookComponent implements OnInit, OnDestroy {
 
 	ngOnInit() { }
 
+	onChangePaybank() {
+		this.dataPhieuChi.soTienChi = this.payByBank + this.payByCash;
+	}
+
+	onChangePayCash() {
+		this.dataPhieuChi.soTienChi = this.payByBank + this.payByCash;
+	}
+
 	checkedATM() {
-		if (this.theATM) {
+		if (this.isATM) {
 			this.dataPhieuChi.hinhThucChi = 'CK';
 		}
-		if (!this.theATM) {
+		if (!this.isATM) {
 			this.dataPhieuChi.hinhThucChi = '';
+			this.dataPhieuChi.soTienChi = this.dataPhieuChi.soTienChi - this.payByBank;
+			this.payByBank = 0;
+			this.dataPhieuChi.loaiNganHang = '';
 		}
-		if (this.theATM && this.cash) {
+		if (this.isATM && this.isCash) {
 			this.dataPhieuChi.hinhThucChi = 'CK,TM';
 		}
-		if (!this.theATM && this.cash) {
+		if (!this.isATM && this.isCash) {
 			this.dataPhieuChi.hinhThucChi = 'TM';
 		}
 	}
 
 	checkedCash() {
-		if (this.cash) {
+		if (this.isCash) {
 			this.dataPhieuChi.hinhThucChi = 'TM';
 		}
-		if (!this.cash) {
+		if (!this.isCash) {
 			this.dataPhieuChi.hinhThucChi = '';
+			this.dataPhieuChi.soTienChi = this.dataPhieuChi.soTienChi - this.payByCash;
+			this.payByCash = 0;
 		}
-		if (this.cash && this.theATM) {
+		if (this.isCash && this.isATM) {
 			this.dataPhieuChi.hinhThucChi = 'CK,TM';
 		}
-		if (!this.cash && this.theATM) {
+		if (!this.isCash && this.isATM) {
 			this.dataPhieuChi.hinhThucChi = 'CK';
 		}
 	}
@@ -107,7 +122,7 @@ export class FormphieuchibankbookComponent implements OnInit, OnDestroy {
 
 	onSubmit() {
 		let ngayLap = new Date().toLocaleDateString();
-		if (this.theATM && this.dataPhieuChi.loaiNganHang !== "default") {
+		if (this.isATM && this.dataPhieuChi.loaiNganHang !== "default") {
 			this.dataPhieuChi.maPhieu =
 				"PC" + ngayLap + "/" + this.dataPhieuChi.loaiNganHang;
 		} else {
@@ -138,8 +153,8 @@ export class FormphieuchibankbookComponent implements OnInit, OnDestroy {
 				);
 		}
 		this.resetForm();
-		this.theATM = false;
-		this.cash = false;
+		this.isATM = false;
+		this.isCash = false;
 	}
 
 	resetForm() {
@@ -157,16 +172,16 @@ export class FormphieuchibankbookComponent implements OnInit, OnDestroy {
 
 	onClose() {
 		this.resetForm();
-		this.theATM = false;
-		this.cash = false;
+		this.isATM = false;
+		this.isCash = false;
 		this.isShowDialogPhieuChi = false;
 		this.emitShowDialogPhieuChi.emit(this.isShowDialogPhieuChi);
 	}
 
 	onClearForm() {
 		this.resetForm();
-		this.theATM = false;
-		this.cash = false;
+		this.isATM = false;
+		this.isCash = false;
 	}
 
 	fillDropdownCustomer() {

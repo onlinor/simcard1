@@ -85,7 +85,6 @@ export class ImportProductComponent implements OnInit {
 		if(!this.isPaycashChecked) {
 			this.thanhToan = this.thanhToan - this.payCash;
 			this.payCash = 0;
-			this.loaiNganHang = '';
 		}
 	}
 
@@ -202,8 +201,8 @@ export class ImportProductComponent implements OnInit {
 		this.myFormChiChild.dataPhieuChi.nguoiChi = this.importReceipt.nhanVienLap,
 		this.myFormChiChild.dataPhieuChi.tenKhachHang = this.importReceipt.nguoiDaiDien,
 		this.myFormChiChild.dataPhieuChi.soTienChi = this.thanhToan,
-		this.myFormChiChild.theATM = this.isPaybankChecked,
-		this.myFormChiChild.cash = this.isPaycashChecked;
+		this.myFormChiChild.isATM = this.isPaybankChecked,
+		this.myFormChiChild.isCash = this.isPaycashChecked;
 		this.myFormChiChild.checkedATM();
 		this.myFormChiChild.checkedCash();
 		this.myFormChiChild.isNewCashBook = true;
