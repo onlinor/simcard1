@@ -147,20 +147,20 @@ export class CashbookComponent implements OnInit, OnDestroy {
 				checkHTChi = this.cashbookTemp['hinhThucChi'];
 			}
 			if(checkHTChi === 'TM') {
-				this.myFormChiChild.cash = true;
-				this.myFormChiChild.theATM = false;
+				this.myFormChiChild.isCash = true;
+				this.myFormChiChild.isATM = false;
 			}
 			if (checkHTChi === 'CK,TM') {
-				this.myFormChiChild.theATM = true;
-				this.myFormChiChild.cash = true;
+				this.myFormChiChild.isATM = true;
+				this.myFormChiChild.isCash = true;
 			} 
 			if(checkHTChi === 'CK') {
-				this.myFormChiChild.cash = false;
-				this.myFormChiChild.theATM = true;
+				this.myFormChiChild.isCash = false;
+				this.myFormChiChild.isATM = true;
 			} 
 			if(checkHTChi === '' ) {
-				this.myFormChiChild.cash = false;
-				this.myFormChiChild.theATM = false;
+				this.myFormChiChild.isCash = false;
+				this.myFormChiChild.isATM = false;
 			}
 			this.myFormChiChild.dataPhieuChi = this.cashbookTemp;
 		} else {
@@ -170,20 +170,20 @@ export class CashbookComponent implements OnInit, OnDestroy {
 				checkHTThu = this.cashbookTemp['hinhThucNop'];
 			}
 			if(checkHTThu === 'TM') {
-				this.myFormThuChild.theATM = false;
-				this.myFormThuChild.cash = true;
+				this.myFormThuChild.isATM = false;
+				this.myFormThuChild.isCash = true;
 			}
 			if (checkHTThu === 'CK,TM' ) {
-				this.myFormThuChild.theATM = true;
-				this.myFormThuChild.cash = true;
+				this.myFormThuChild.isATM = true;
+				this.myFormThuChild.isCash = true;
 			} 
 			if(checkHTThu === 'CK') {
-				this.myFormThuChild.theATM = true;
-				this.myFormThuChild.cash = false;
+				this.myFormThuChild.isATM = true;
+				this.myFormThuChild.isCash = false;
 			}
 			if(checkHTThu === '' ) {
-				this.myFormThuChild.theATM = false;
-				this.myFormThuChild.cash = false;
+				this.myFormThuChild.isATM = false;
+				this.myFormThuChild.isCash = false;
 			}
 			this.myFormThuChild.dataPhieuThu = this.cashbookTemp;
 		}
