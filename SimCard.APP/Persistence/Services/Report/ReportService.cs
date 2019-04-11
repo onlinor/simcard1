@@ -1,3 +1,9 @@
+using System;
+using System.Collections.Generic;
+using System.Dynamic;
+using System.Linq;
+using System.Threading.Tasks;
+
 using AutoMapper;
 
 using Microsoft.EntityFrameworkCore;
@@ -6,12 +12,6 @@ using Microsoft.EntityFrameworkCore.Query;
 using SimCard.APP.Models;
 using SimCard.APP.Persistence.Repositories;
 using SimCard.APP.ViewModels;
-
-using System;
-using System.Collections.Generic;
-using System.Dynamic;
-using System.Linq;
-using System.Threading.Tasks;
 
 #pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 namespace SimCard.APP.Persistence.Services
@@ -158,17 +158,102 @@ namespace SimCard.APP.Persistence.Services
 
         private async Task<List<ExpandoObject>> Report_ChiTietChiPhiHoatDongKinhDoanh(ReportFilterViewModel filter)
         {
-            throw new System.NotImplementedException();
+            List<ExpandoObject> result = new List<ExpandoObject>();
+            DateTime fromDate = filter.From ?? DateTime.Now.AddDays(-7);
+            DateTime toDate = filter.To ?? DateTime.Now;
+
+            IQueryable<ExportReceipt> exportReceiptsQuery = _exportReceiptRepository.Query(er => er.DateCreated >= fromDate && er.DateCreated <= toDate);
+            IQueryable<ImportReceipt> importReceiptsQuery = _importReceiptRepository.Query(er => er.DateCreated >= fromDate && er.DateCreated <= toDate);
+            var custopmers = await _customerRepository.GetAllCustomers();
+            foreach (var customer in custopmers)
+            {
+                dynamic line = new ExpandoObject();
+
+                line.tenKhachHang = customer.HoTen;
+                line.maKhachHang = customer.MaKH;
+                line.noKhach = customer.MaKH;
+                line.khachNo = customer.MaKH;
+                line.congDon = customer.MaKH;
+                line.chiTietPhieu = customer.MaKH;
+
+                result.Add(line);
+            }
+            return result;
         }
 
         private async Task<List<ExpandoObject>> Report_ChiTietThuChiKhac(ReportFilterViewModel filter)
         {
-            throw new System.NotImplementedException();
+            List<ExpandoObject> result = new List<ExpandoObject>();
+            DateTime fromDate = filter.From ?? DateTime.Now.AddDays(-7);
+            DateTime toDate = filter.To ?? DateTime.Now;
+
+            IQueryable<ExportReceipt> exportReceiptsQuery = _exportReceiptRepository.Query(er => er.DateCreated >= fromDate && er.DateCreated <= toDate);
+            IQueryable<ImportReceipt> importReceiptsQuery = _importReceiptRepository.Query(er => er.DateCreated >= fromDate && er.DateCreated <= toDate);
+            var custopmers = await _customerRepository.GetAllCustomers();
+            foreach (var customer in custopmers)
+            {
+                dynamic line = new ExpandoObject();
+
+                line.tenKhachHang = customer.HoTen;
+                line.maKhachHang = customer.MaKH;
+                line.noKhach = customer.MaKH;
+                line.khachNo = customer.MaKH;
+                line.congDon = customer.MaKH;
+                line.chiTietPhieu = customer.MaKH;
+
+                result.Add(line);
+            }
+            return result;
         }
 
         private async Task<List<ExpandoObject>> Report_ChiTietXuatHangVaLoiNhuan(ReportFilterViewModel filter)
         {
-            throw new System.NotImplementedException();
+            List<ExpandoObject> result = new List<ExpandoObject>();
+            DateTime fromDate = filter.From ?? DateTime.Now.AddDays(-7);
+            DateTime toDate = filter.To ?? DateTime.Now;
+
+            IQueryable<Product> productsQuery = _productRepository.Query(p => p.SupplierId == null);
+            IQueryable<ExportReceipt> exportReceiptsQuery = _exportReceiptRepository.Query(er => er.DateCreated >= fromDate && er.DateCreated <= toDate);
+
+            if (filter.Shop != 0) // Chi nhánh
+            {
+                productsQuery = productsQuery.Where(p => p.ShopId == filter.Shop);
+                exportReceiptsQuery = exportReceiptsQuery.Where(er => er.ShopId == filter.Shop);
+            }
+
+            if (filter.Product != 0) // Mat hang
+            {
+                productsQuery = productsQuery.Where(p => p.Id == filter.Product);
+            }
+            var erportReceiptProducts = await exportReceiptsQuery.Include(er => er.ExportReceiptProducts).ThenInclude(navigationPropertyPath: e => e.Product).ToListAsync();
+            foreach (var er in erportReceiptProducts)
+            {
+                foreach (var erp in er.ExportReceiptProducts)
+                {
+                    dynamic line = new List<ExpandoObject>();
+                    line.ngayXuat = er.DateCreated;
+                    line.maHang = erp.Product.Ma;
+                    if (er.ExportToCustomerId != null)
+                    {
+                        var customer = await _customerRepository.GetCustomer((int)er.ExportToCustomerId);
+                        line.khacHang = customer.HoTen;
+                    }
+                    else
+                    {
+                        var shop = await _shopRepository.GetShop((int)er.ExportToShopId);
+                        line.khacHang = shop.Name;
+                    }
+                    line.phieuNhap = er.Prefix + er.Suffix;
+                    line.soLuong = erp.ExportQuantity;
+                    line.chietKhauDauVao = erp.ChietKhau;
+                    line.chietKhauDauRa = erp.ChietKhau;
+                    line.giaDauVao = erp.Product.DonGia;
+                    line.giaDauRa = erp.Product.Menhgia * (100 - erp.ChietKhau) / 100;
+
+                    result.Add(line);
+                }
+            }
+            return result;
         }
 
         private async Task<List<ExpandoObject>> Report_CongNoKhachHangToanCongTy(ReportFilterViewModel filter)
@@ -206,10 +291,9 @@ namespace SimCard.APP.Persistence.Services
         {
             List<ExpandoObject> result = new List<ExpandoObject>();
             DateTime fromDate = filter.From ?? DateTime.Now.AddDays(-7);
-            DateTime toDate = filter.To ?? DateTime.Now.AddDays(-7);
+            DateTime toDate = filter.To ?? DateTime.Now;
 
-            IIncludableQueryable<ImportReceipt, List<ImportReceiptProducts>> importReceiptProductsQuery =
-                _importReceiptRepository.Query(ir => ir.DateCreated >= fromDate && ir.DateCreated <= toDate).Include(ir => ir.Products);
+            var importReceiptProductsQuery = _importReceiptRepository.Query(ir => ir.DateCreated >= fromDate && ir.DateCreated <= toDate).Include(ir => ir.Products);
             if (filter.Shop != 0)
             {
                 var products = await importReceiptProductsQuery.Where(ir => ir.ShopId == filter.Shop).SelectMany(ir => ir.Products).Include(p => p.Product)
@@ -246,37 +330,197 @@ namespace SimCard.APP.Persistence.Services
 
         private async Task<List<ExpandoObject>> Report_NhapHangTheoNhaCungCap(ReportFilterViewModel filter)
         {
-            throw new System.NotImplementedException();
+            List<ExpandoObject> result = new List<ExpandoObject>();
+            DateTime fromDate = filter.From ?? DateTime.Now.AddDays(-7);
+            DateTime toDate = filter.To ?? DateTime.Now;
+
+            var products = await _productRepository.Query(p => p.ShopId == 1).Distinct().ToListAsync();
+            IQueryable<ImportReceipt> importReceiptsQuery = _importReceiptRepository.Query(er => er.DateCreated >= fromDate && er.DateCreated <= toDate);
+
+            if (filter.Supplier != 0) // Chi nhánh
+            {
+                //productsQuery = productsQuery.Where(p => p.ShopId == filter.Shop);
+                //exportReceiptsQuery = exportReceiptsQuery.Where(er => er.ShopId == filter.Shop);
+            }
+
+            if (filter.Product != 0) // Mat hang
+            {
+                //productsQuery = productsQuery.Where(p => p.Id == filter.Product);
+            }
+
+            var custopmers = await _customerRepository.GetAllCustomers();
+            foreach (var customer in custopmers)
+            {
+                dynamic line = new ExpandoObject();
+
+                line.tenKhachHang = customer.HoTen;
+                line.maKhachHang = customer.MaKH;
+                line.noKhach = customer.MaKH;
+                line.khachNo = customer.MaKH;
+                line.congDon = customer.MaKH;
+                line.chiTietPhieu = customer.MaKH;
+
+                result.Add(line);
+            }
+            return result;
         }
 
         private async Task<List<ExpandoObject>> Report_TongHopChiPhiHoatDongKinhDoanh(ReportFilterViewModel filter)
         {
-            throw new System.NotImplementedException();
+            List<ExpandoObject> result = new List<ExpandoObject>();
+            DateTime fromDate = filter.From ?? DateTime.Now.AddDays(-7);
+            DateTime toDate = filter.To ?? DateTime.Now;
+
+            var custopmers = await _customerRepository.GetAllCustomers();
+            foreach (var customer in custopmers)
+            {
+                dynamic line = new ExpandoObject();
+
+                line.tenKhachHang = customer.HoTen;
+                line.maKhachHang = customer.MaKH;
+                line.noKhach = customer.MaKH;
+                line.khachNo = customer.MaKH;
+                line.congDon = customer.MaKH;
+                line.chiTietPhieu = customer.MaKH;
+
+                result.Add(line);
+            }
+            return result;
         }
 
         private async Task<List<ExpandoObject>> Report_TongHopCongNoKhachHangToanTungCN(ReportFilterViewModel filter)
         {
-            throw new System.NotImplementedException();
+            List<ExpandoObject> result = new List<ExpandoObject>();
+            DateTime fromDate = filter.From ?? DateTime.Now.AddDays(-7);
+            DateTime toDate = filter.To ?? DateTime.Now;
+
+            var custopmers = await _customerRepository.GetAllCustomers();
+            foreach (var customer in custopmers)
+            {
+                dynamic line = new ExpandoObject();
+
+                line.tenKhachHang = customer.HoTen;
+                line.maKhachHang = customer.MaKH;
+                line.noKhach = customer.MaKH;
+                line.khachNo = customer.MaKH;
+                line.congDon = customer.MaKH;
+                line.chiTietPhieu = customer.MaKH;
+
+                result.Add(line);
+            }
+            return result;
         }
 
         private async Task<List<ExpandoObject>> Report_TongHopGiaoDichVaSoDuTKNHToanCongTy(ReportFilterViewModel filter)
         {
-            throw new System.NotImplementedException();
+            List<ExpandoObject> result = new List<ExpandoObject>();
+            DateTime fromDate = filter.From ?? DateTime.Now.AddDays(-7);
+            DateTime toDate = filter.To ?? DateTime.Now;
+
+            var custopmers = await _customerRepository.GetAllCustomers();
+            foreach (var customer in custopmers)
+            {
+                dynamic line = new ExpandoObject();
+
+                line.tenKhachHang = customer.HoTen;
+                line.maKhachHang = customer.MaKH;
+                line.noKhach = customer.MaKH;
+                line.khachNo = customer.MaKH;
+                line.congDon = customer.MaKH;
+                line.chiTietPhieu = customer.MaKH;
+
+                result.Add(line);
+            }
+            return result;
         }
 
         private async Task<List<ExpandoObject>> Report_TongHopThuChiKhac(ReportFilterViewModel filter)
         {
-            throw new System.NotImplementedException();
+            List<ExpandoObject> result = new List<ExpandoObject>();
+            DateTime fromDate = filter.From ?? DateTime.Now.AddDays(-7);
+            DateTime toDate = filter.To ?? DateTime.Now;
+
+            var custopmers = await _customerRepository.GetAllCustomers();
+            foreach (var customer in custopmers)
+            {
+                dynamic line = new ExpandoObject();
+
+                line.tenKhachHang = customer.HoTen;
+                line.maKhachHang = customer.MaKH;
+                line.noKhach = customer.MaKH;
+                line.khachNo = customer.MaKH;
+                line.congDon = customer.MaKH;
+                line.chiTietPhieu = customer.MaKH;
+
+                result.Add(line);
+            }
+            return result;
         }
 
         private async Task<List<ExpandoObject>> Report_TongHopXuatHangLoiNhuanCongNoTheoKhachHang(ReportFilterViewModel filter)
         {
-            throw new System.NotImplementedException();
+            List<ExpandoObject> result = new List<ExpandoObject>();
+            DateTime fromDate = filter.From ?? DateTime.Now.AddDays(-7);
+            DateTime toDate = filter.To ?? DateTime.Now;
+
+            var custopmers = await _customerRepository.GetAllCustomers();
+            foreach (var customer in custopmers)
+            {
+                dynamic line = new ExpandoObject();
+
+                line.tenKhachHang = customer.HoTen;
+                line.maKhachHang = customer.MaKH;
+                line.noKhach = customer.MaKH;
+                line.khachNo = customer.MaKH;
+                line.congDon = customer.MaKH;
+                line.chiTietPhieu = customer.MaKH;
+
+                result.Add(line);
+            }
+            return result;
         }
 
         private async Task<List<ExpandoObject>> Report_TongHopXuatHangVaLoiNhuanTheoMatHang(ReportFilterViewModel filter)
         {
-            throw new System.NotImplementedException();
+
+            List<ExpandoObject> result = new List<ExpandoObject>();
+
+            DateTime fromDate = filter.From ?? DateTime.Now.AddDays(-7);
+            DateTime toDate = filter.To ?? DateTime.Now;
+            IQueryable<Product> productsQuery = _productRepository.Query(p => p.SupplierId == null);
+            IQueryable<ImportReceipt> importReceiptsQuery = _importReceiptRepository.Query(ir => ir.DateCreated >= fromDate && ir.DateCreated <= toDate);
+            IQueryable<ExportReceipt> exportReceiptsQuery = _exportReceiptRepository.Query(er => er.DateCreated >= fromDate && er.DateCreated <= toDate);
+
+            if (filter.Shop != 0) // Chi nhánh
+            {
+                productsQuery = productsQuery.Where(p => p.ShopId == filter.Shop);
+                exportReceiptsQuery = exportReceiptsQuery.Where(er => er.ShopId == filter.Shop);
+            }
+
+            if (filter.Product != 0) // Mat hang
+            {
+                productsQuery = productsQuery.Where(p => p.Id == filter.Product);
+            }
+            List<Product> products = await productsQuery.ToListAsync();
+            IQueryable<ImportReceiptProducts> importProductList = importReceiptsQuery.Include(ir => ir.Products)
+                .OrderByDescending(ir => ir.DateCreated).SelectMany(x => x.Products);
+            IQueryable<ExportReceiptProducts> exportProductList = exportReceiptsQuery.Include(er => er.ExportReceiptProducts).OrderByDescending(er => er.DateCreated)
+                .SelectMany(x => x.ExportReceiptProducts).Include(l => l.ExportReceipt).Include(l => l.Product);
+
+            foreach (Product product in products)
+            {
+                dynamic line = new ExpandoObject();
+
+                line.productCode = product.Ma;
+                line.productName = product.Ten;
+                line.doanhThuBanHang = exportProductList.Sum(er => er.ExportQuantity * er.Product.DonGia);
+                line.doanhThuNoiBo = exportProductList.Where(er => er.ExportReceipt.ExportToShopId != null).Sum(er => er.ExportQuantity * er.Product.DonGia);
+                line.doanhThuThuc = line.doanhThuBanHang - line.doanhThuNoiBo;
+                line.loiNhuan = line.doanhThuThuc - importProductList.Where(ir => ir.ProductId == product.Id).Sum(ir => ir.ImportQuantity * product.Menhgia);
+
+                result.Add(line);
+            }
+            return result;
         }
 
         private async Task<List<ExpandoObject>> Report_XuatNhapTonTongHop(ReportFilterViewModel filter)
@@ -284,7 +528,7 @@ namespace SimCard.APP.Persistence.Services
             List<ExpandoObject> result = new List<ExpandoObject>();
 
             DateTime fromDate = filter.From ?? DateTime.Now.AddDays(-7);
-            DateTime toDate = filter.To ?? DateTime.Now.AddDays(-7);
+            DateTime toDate = filter.To ?? DateTime.Now;
 
             IQueryable<Product> productsQuery = _productRepository.Query(p => p.SupplierId == null);
             IQueryable<ImportReceipt> importReceiptsQuery = _importReceiptRepository.Query(ir => ir.DateCreated >= fromDate && ir.DateCreated <= toDate);
@@ -306,7 +550,7 @@ namespace SimCard.APP.Persistence.Services
             IQueryable<ImportReceiptProducts> importProductList = importReceiptsQuery.Include(ir => ir.Products)
                 .OrderByDescending(ir => ir.DateCreated).SelectMany(x => x.Products);
             IQueryable<ExportReceiptProducts> exportProductList = exportReceiptsQuery
-                .Include(er => er.Products).OrderByDescending(er => er.DateCreated).SelectMany(x => x.Products);
+                .Include(er => er.ExportReceiptProducts).OrderByDescending(er => er.DateCreated).SelectMany(x => x.ExportReceiptProducts);
 
             foreach (Product product in products)
             {
@@ -317,22 +561,22 @@ namespace SimCard.APP.Persistence.Services
                     .Include(ir => ir.Products).OrderByDescending(ir => ir.DateCreated).First();
                 // Lần xuât cuối cùng của ngày trước kỳ báo cáo 
                 ExportReceipt lastExport = _exportReceiptRepository.Query(ir => ir.DateCreated <= fromDate.AddDays(-1))
-                    .Include(ir => ir.Products).OrderByDescending(ir => ir.DateCreated).First();
+                    .Include(ir => ir.ExportReceiptProducts).OrderByDescending(ir => ir.DateCreated).First();
                 // Ngày giờ nhập > Ngày giờ xuất => lấy số lượng sau khi nhập 
                 int quantityBeginPeriod = lastImport.DateCreated > lastExport.DateCreated ?
                     lastImport.Products.Where(p => p.ProductId == product.Id).First().NewWarehouseQuantity :
-                    lastExport.Products.Where(p => p.ProductId == product.Id).First().NewWarehouseQuantity;
+                    lastExport.ExportReceiptProducts.Where(p => p.ProductId == product.Id).First().NewWarehouseQuantity;
 
                 // Lần nhập cuối cùng của ngày cuối kỳ báo cáo 
                 ImportReceipt latestImport = _importReceiptRepository.Query(ir => ir.DateCreated <= toDate)
                     .Include(ir => ir.Products).OrderByDescending(ir => ir.DateCreated).First();
                 // Lần xuât cuối cùng của ngày cuối kỳ báo cáo 
                 ExportReceipt latestExport = _exportReceiptRepository.Query(ir => ir.DateCreated <= toDate)
-                    .Include(ir => ir.Products).OrderByDescending(ir => ir.DateCreated).First();
+                    .Include(ir => ir.ExportReceiptProducts).OrderByDescending(ir => ir.DateCreated).First();
                 // Ngày giờ nhập > Ngày giờ xuất => lấy số lượng sau khi nhập 
                 int quantityEndPeriod = latestImport.DateCreated > latestExport.DateCreated ?
                     latestImport.Products.Where(p => p.ProductId == product.Id).First().NewWarehouseQuantity :
-                    latestExport.Products.Where(p => p.ProductId == product.Id).First().NewWarehouseQuantity;
+                    latestExport.ExportReceiptProducts.Where(p => p.ProductId == product.Id).First().NewWarehouseQuantity;
 
                 line.productCode = product.Ma;
                 line.productName = product.Ten;

@@ -4,10 +4,15 @@ namespace SimCard.APP.Models
 {
     public class ExportReceiptProducts : BaseEntity
     {
+        public int ProductId { get; set; }
+
         [ForeignKey("ProductId")]
         public Product Product { get; set; }
 
-        public int ProductId { get; set; }
+        public int ExportReceiptId { get; set; }
+
+        [ForeignKey("ExportReceiptId")]
+        public ExportReceipt ExportReceipt { get; set; }
 
         public int ExportQuantity { get; set; }
 

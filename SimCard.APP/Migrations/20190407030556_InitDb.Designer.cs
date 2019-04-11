@@ -10,8 +10,8 @@ using SimCard.APP.Persistence;
 namespace SimCard.APP.Migrations
 {
     [DbContext(typeof(SimCardDBContext))]
-    [Migration("20190401045324_initialCreate")]
-    partial class initialCreate
+    [Migration("20190407030556_InitDb")]
+    partial class InitDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -325,9 +325,6 @@ namespace SimCard.APP.Migrations
 
                     b.Property<string>("Note");
 
-                    b.Property<decimal>("OldDebt")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<string>("PhoneNumber");
 
                     b.Property<string>("Prefix");
@@ -360,7 +357,7 @@ namespace SimCard.APP.Migrations
 
                     b.Property<int>("ExportQuantity");
 
-                    b.Property<int?>("ExportReceiptId");
+                    b.Property<int>("ExportReceiptId");
 
                     b.Property<int>("NewWarehouseQuantity");
 
@@ -603,22 +600,22 @@ namespace SimCard.APP.Migrations
                         new
                         {
                             Id = 1,
-                            DateCreated = new DateTime(2019, 4, 1, 11, 53, 24, 317, DateTimeKind.Local).AddTicks(8453),
+                            DateCreated = new DateTime(2019, 4, 7, 10, 5, 56, 275, DateTimeKind.Local).AddTicks(2937),
                             FirstName = "Galvin",
                             LastName = "Nguyen",
-                            Password = "uZVYGsKDOr1mWx4KTAd0BA3p78GWtweIjcaaC/RJuuI=",
-                            PasswordSalt = "rAbFqTfLYZ03aVoemJdHCg==",
+                            Password = "BrKCW3ab9RkRt10YgroihIW53vC6W+wGKxJe7RZ+tlg=",
+                            PasswordSalt = "58JtxxNMyZf7UssTuwGeFQ==",
                             Role = "Company",
                             Username = "company"
                         },
                         new
                         {
                             Id = 2,
-                            DateCreated = new DateTime(2019, 4, 1, 11, 53, 24, 330, DateTimeKind.Local).AddTicks(8608),
+                            DateCreated = new DateTime(2019, 4, 7, 10, 5, 56, 284, DateTimeKind.Local).AddTicks(2190),
                             FirstName = "Galvin",
                             LastName = "Nguyen",
-                            Password = "uZVYGsKDOr1mWx4KTAd0BA3p78GWtweIjcaaC/RJuuI=",
-                            PasswordSalt = "rAbFqTfLYZ03aVoemJdHCg==",
+                            Password = "BrKCW3ab9RkRt10YgroihIW53vC6W+wGKxJe7RZ+tlg=",
+                            PasswordSalt = "58JtxxNMyZf7UssTuwGeFQ==",
                             Role = "Branch",
                             Username = "branch"
                         });
@@ -642,9 +639,10 @@ namespace SimCard.APP.Migrations
 
             modelBuilder.Entity("SimCard.APP.Models.ExportReceiptProducts", b =>
                 {
-                    b.HasOne("SimCard.APP.Models.ExportReceipt")
+                    b.HasOne("SimCard.APP.Models.ExportReceipt", "ExportReceipt")
                         .WithMany("Products")
-                        .HasForeignKey("ExportReceiptId");
+                        .HasForeignKey("ExportReceiptId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("SimCard.APP.Models.Product", "Product")
                         .WithMany()

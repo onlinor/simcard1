@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 
+using Newtonsoft.Json.Serialization;
+
 using SimCard.APP.Mapping;
 using SimCard.APP.Models;
 using SimCard.APP.Persistence;
@@ -88,7 +90,8 @@ namespace SimCard.APP
             services.AddScoped<IProductService, ProductService>();
             services.AddCors();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1).AddJsonOptions(options => options.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver()); ;
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+                .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver()); ;
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>

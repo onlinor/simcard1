@@ -25,7 +25,7 @@ namespace SimCard.APP.Models
         [Column(TypeName = "decimal(18,2)")]
         public decimal Debt { get; set; }
 
-        public List<ExportReceiptProducts> Products { get; set; }
+        public List<ExportReceiptProducts> ExportReceiptProducts { get; set; }
 
         [ForeignKey("ShopId")]
         public Shop Shop { get; set; }

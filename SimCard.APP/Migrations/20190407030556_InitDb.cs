@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SimCard.APP.Migrations
 {
-    public partial class initialCreate : Migration
+    public partial class InitDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -240,7 +240,6 @@ namespace SimCard.APP.Migrations
                     Prefix = table.Column<string>(nullable: true),
                     Suffix = table.Column<int>(nullable: false),
                     Nhanvienlap = table.Column<string>(nullable: true),
-                    OldDebt = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     RepresentativePerson = table.Column<string>(nullable: true),
                     PhoneNumber = table.Column<string>(nullable: true),
                     Note = table.Column<string>(nullable: true),
@@ -363,10 +362,10 @@ namespace SimCard.APP.Migrations
                     DateCreated = table.Column<DateTime>(nullable: false),
                     DateModified = table.Column<DateTime>(nullable: true),
                     ProductId = table.Column<int>(nullable: false),
+                    ExportReceiptId = table.Column<int>(nullable: false),
                     ExportQuantity = table.Column<int>(nullable: false),
                     NewWarehouseQuantity = table.Column<int>(nullable: false),
-                    ChietKhau = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    ExportReceiptId = table.Column<int>(nullable: true)
+                    ChietKhau = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -376,7 +375,7 @@ namespace SimCard.APP.Migrations
                         column: x => x.ExportReceiptId,
                         principalTable: "ExportReceipts",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_ExportReceiptProducts_Products_ProductId",
                         column: x => x.ProductId,
@@ -419,12 +418,12 @@ namespace SimCard.APP.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "DateCreated", "DateModified", "FirstName", "LastName", "Password", "PasswordSalt", "Role", "ShopId", "Username" },
-                values: new object[] { 1, new DateTime(2019, 4, 1, 11, 53, 24, 317, DateTimeKind.Local).AddTicks(8453), null, "Galvin", "Nguyen", "uZVYGsKDOr1mWx4KTAd0BA3p78GWtweIjcaaC/RJuuI=", "rAbFqTfLYZ03aVoemJdHCg==", "Company", null, "company" });
+                values: new object[] { 1, new DateTime(2019, 4, 7, 10, 5, 56, 275, DateTimeKind.Local).AddTicks(2937), null, "Galvin", "Nguyen", "BrKCW3ab9RkRt10YgroihIW53vC6W+wGKxJe7RZ+tlg=", "58JtxxNMyZf7UssTuwGeFQ==", "Company", null, "company" });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "DateCreated", "DateModified", "FirstName", "LastName", "Password", "PasswordSalt", "Role", "ShopId", "Username" },
-                values: new object[] { 2, new DateTime(2019, 4, 1, 11, 53, 24, 330, DateTimeKind.Local).AddTicks(8608), null, "Galvin", "Nguyen", "uZVYGsKDOr1mWx4KTAd0BA3p78GWtweIjcaaC/RJuuI=", "rAbFqTfLYZ03aVoemJdHCg==", "Branch", null, "branch" });
+                values: new object[] { 2, new DateTime(2019, 4, 7, 10, 5, 56, 284, DateTimeKind.Local).AddTicks(2190), null, "Galvin", "Nguyen", "BrKCW3ab9RkRt10YgroihIW53vC6W+wGKxJe7RZ+tlg=", "58JtxxNMyZf7UssTuwGeFQ==", "Branch", null, "branch" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_BankAccounts_ShopId",

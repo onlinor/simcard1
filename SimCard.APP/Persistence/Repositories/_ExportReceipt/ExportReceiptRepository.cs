@@ -48,7 +48,7 @@ namespace SimCard.APP.Persistence.Repositories
                     Suffix = exportReceiptViewModel.Suffix,
                     Nhanvienlap = exportReceiptViewModel.NhanVienLap,
                     RepresentativePerson = exportReceiptViewModel.NguoiDaiDien,
-                    Products = listExportReceiptProduct,
+                    ExportReceiptProducts = listExportReceiptProduct,
                     PhoneNumber = exportReceiptViewModel.SoDienThoai,
                     Note = exportReceiptViewModel.GhiChu,
                     MoneyPaid = exportReceiptViewModel.TienThanhToan,

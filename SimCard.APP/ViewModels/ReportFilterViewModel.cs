@@ -12,7 +12,7 @@ namespace SimCard.APP.ViewModels
 
         public int Product { get; set; }
 
-        public int Warehouse { get; set; }
+        public int Supplier { get; set; }
 
         public int Customer { get; set; }
 
