@@ -53,22 +53,22 @@ namespace SimCard.APP.Persistence.Services
             switch (type)
             {
                 case 1:
-                    result = await Report_XuatNhapTonTongHop(filter);
+                    result = await Report_XuatNhapTonTongHop(filter); //done
                     return result;
                 case 2:
-                    result = await Report_HangTonKho(filter);
+                    result = await Report_HangTonKho(filter); //done
                     return result;
                 case 3:
-                    result = await Report_NhapHangTheoNhaCungCap(filter);
+                    result = await Report_NhapHangTheoNhaCungCap(filter); //done
                     return result;
                 case 4:
-                    result = await Report_NhapHangTheoMatHang(filter);
+                    result = await Report_NhapHangTheoMatHang(filter); //done
                     return result;
                 case 5:
-                    result = await Report_ChiTietXuatHangVaLoiNhuan(filter);
+                    result = await Report_ChiTietXuatHangVaLoiNhuan(filter); //done
                     return result;
                 case 6:
-                    result = await Report_TongHopXuatHangVaLoiNhuanTheoMatHang(filter);
+                    result = await Report_TongHopXuatHangVaLoiNhuanTheoMatHang(filter); //done
                     return result;
                 case 7:
                     result = await Report_TongHopXuatHangLoiNhuanCongNoTheoKhachHang(filter);
@@ -187,19 +187,28 @@ namespace SimCard.APP.Persistence.Services
             DateTime fromDate = filter.From ?? DateTime.Now.AddDays(-7);
             DateTime toDate = filter.To ?? DateTime.Now;
 
-            IQueryable<ExportReceipt> exportReceiptsQuery = _exportReceiptRepository.Query(er => er.DateCreated >= fromDate && er.DateCreated <= toDate);
-            IQueryable<ImportReceipt> importReceiptsQuery = _importReceiptRepository.Query(er => er.DateCreated >= fromDate && er.DateCreated <= toDate);
-            var custopmers = await _customerRepository.GetAllCustomers();
-            foreach (var customer in custopmers)
+            var exportReceipts = await _exportReceiptRepository.Query(er => er.DateCreated >= fromDate && er.DateCreated <= toDate).ToListAsync();
+            var importReceipts = await _importReceiptRepository.Query(er => er.DateCreated >= fromDate && er.DateCreated <= toDate).ToListAsync();
+
+            foreach (var ir in importReceipts)
             {
                 dynamic line = new ExpandoObject();
 
-                line.tenKhachHang = customer.HoTen;
-                line.maKhachHang = customer.MaKH;
-                line.noKhach = customer.MaKH;
-                line.khachNo = customer.MaKH;
-                line.congDon = customer.MaKH;
-                line.chiTietPhieu = customer.MaKH;
+                line.ngayThang = ir.DateCreated;
+                line.noiDung = ir.Nhanvienlap;
+                line.thuKhac = ir.Tienthanhtoan;
+                line.chiKhac = 0;
+
+                result.Add(line);
+            }
+            foreach (var er in exportReceipts)
+            {
+                dynamic line = new ExpandoObject();
+
+                line.ngayThang = er.DateCreated;
+                line.noiDung = er.Nhanvienlap;
+                line.thuKhac = 0;
+                line.chiKhac = er.MoneyPaid;
 
                 result.Add(line);
             }
@@ -258,7 +267,25 @@ namespace SimCard.APP.Persistence.Services
 
         private async Task<List<ExpandoObject>> Report_CongNoKhachHangToanCongTy(ReportFilterViewModel filter)
         {
-            throw new System.NotImplementedException();
+            List<ExpandoObject> result = new List<ExpandoObject>();
+            DateTime fromDate = filter.From ?? DateTime.Now.AddDays(-7);
+            DateTime toDate = filter.To ?? DateTime.Now;
+
+            var custopmers = await _customerRepository.GetAllCustomers();
+            foreach (var customer in custopmers)
+            {
+                dynamic line = new ExpandoObject();
+
+                line.tenKhachHang = customer.HoTen;
+                line.maKhachHang = customer.MaKH;
+                line.noKhach = customer.MaKH;
+                line.khachNo = customer.MaKH;
+                line.congDon = customer.MaKH;
+                line.chiTietPhieu = customer.MaKH;
+
+                result.Add(line);
+            }
+            return result;
         }
 
         private async Task<List<ExpandoObject>> Report_HangTonKho(ReportFilterViewModel filter)
@@ -284,7 +311,25 @@ namespace SimCard.APP.Persistence.Services
 
         private async Task<List<ExpandoObject>> Report_KetQuaKinhDoanh(ReportFilterViewModel filter)
         {
-            throw new System.NotImplementedException();
+            List<ExpandoObject> result = new List<ExpandoObject>();
+            DateTime fromDate = filter.From ?? DateTime.Now.AddDays(-7);
+            DateTime toDate = filter.To ?? DateTime.Now;
+
+            var custopmers = await _customerRepository.GetAllCustomers();
+            foreach (var customer in custopmers)
+            {
+                dynamic line = new ExpandoObject();
+
+                line.tenKhachHang = customer.HoTen;
+                line.maKhachHang = customer.MaKH;
+                line.noKhach = customer.MaKH;
+                line.khachNo = customer.MaKH;
+                line.congDon = customer.MaKH;
+                line.chiTietPhieu = customer.MaKH;
+
+                result.Add(line);
+            }
+            return result;
         }
 
         private async Task<List<ExpandoObject>> Report_NhapHangTheoMatHang(ReportFilterViewModel filter)
@@ -331,37 +376,45 @@ namespace SimCard.APP.Persistence.Services
         private async Task<List<ExpandoObject>> Report_NhapHangTheoNhaCungCap(ReportFilterViewModel filter)
         {
             List<ExpandoObject> result = new List<ExpandoObject>();
-            DateTime fromDate = filter.From ?? DateTime.Now.AddDays(-7);
-            DateTime toDate = filter.To ?? DateTime.Now;
+            var fromDate = filter.From ?? DateTime.Now.AddDays(-7);
+            var toDate = filter.To ?? DateTime.Now;
 
-            var products = await _productRepository.Query(p => p.ShopId == 1).Distinct().ToListAsync();
-            IQueryable<ImportReceipt> importReceiptsQuery = _importReceiptRepository.Query(er => er.DateCreated >= fromDate && er.DateCreated <= toDate);
+            var importReceiptsQuery = _importReceiptRepository.Query(er => er.DateCreated >= fromDate && er.DateCreated <= toDate);
 
             if (filter.Supplier != 0) // Chi nhánh
             {
-                //productsQuery = productsQuery.Where(p => p.ShopId == filter.Shop);
-                //exportReceiptsQuery = exportReceiptsQuery.Where(er => er.ShopId == filter.Shop);
+                importReceiptsQuery = importReceiptsQuery.Where(er => er.ImmportFromSupplierId == filter.Supplier);
             }
 
-            if (filter.Product != 0) // Mat hang
+            var importRecepts = await importReceiptsQuery.Include(ir => ir.Products).ThenInclude(irp => irp.Product).ToListAsync();
+            var suppliers = await _supplierRepository.GetSuppliers();
+            var lines = from importRecept in importRecepts 
+                    join supplier in suppliers on importRecept.ImmportFromSupplierId equals supplier.Id
+                    select new
+                    {
+                        ngayNhap = importRecept.DateCreated,
+                        nhaCC = supplier.Name,
+                        phieuNhap = importRecept.Prefix + importRecept.Suffix,
+                        matHang = importRecept.Products
+                    };
+            foreach (var line in lines)
             {
-                //productsQuery = productsQuery.Where(p => p.Id == filter.Product);
+                foreach (var product in line.matHang)
+                {
+                    dynamic rline = new ExpandoObject();
+
+                    rline.ngayNhap = line.ngayNhap;
+                    rline.nhaCC = line.nhaCC;
+                    rline.phieuNhap = line.phieuNhap;
+                    rline.matHang = product.ProductId;
+                    rline.chietKhau = product.ChietKhau;
+                    rline.donGiaNhap = product.Product.Menhgia;
+                    rline.soLuong = product.ImportQuantity;
+                    rline.thanhTien = rline.soLuong * rline.donGiaNhap;
+                    result.Add(rline);
+                }
             }
 
-            var custopmers = await _customerRepository.GetAllCustomers();
-            foreach (var customer in custopmers)
-            {
-                dynamic line = new ExpandoObject();
-
-                line.tenKhachHang = customer.HoTen;
-                line.maKhachHang = customer.MaKH;
-                line.noKhach = customer.MaKH;
-                line.khachNo = customer.MaKH;
-                line.congDon = customer.MaKH;
-                line.chiTietPhieu = customer.MaKH;
-
-                result.Add(line);
-            }
             return result;
         }
 
