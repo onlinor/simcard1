@@ -49,7 +49,7 @@ namespace SimCard.APP.Persistence.Services
 
         public async Task<List<ExpandoObject>> GetReport(int type, ReportFilterViewModel filter)
         {
-            List<ExpandoObject> result = new List<ExpandoObject>();
+            List<ExpandoObject> result;
             switch (type)
             {
                 case 1:
@@ -83,7 +83,7 @@ namespace SimCard.APP.Persistence.Services
                     result = await Report_TongHopGiaoDichVaSoDuTKNHToanCongTy(filter);
                     return result;
                 case 11:
-                    result = await Report_ChiTietThuChiKhac(filter);
+                    result = await Report_ChiTietThuChiKhac(filter); //done
                     return result;
                 case 12:
                     result = await Report_TongHopThuChiKhac(filter);
@@ -92,7 +92,10 @@ namespace SimCard.APP.Persistence.Services
                     result = await Report_ChiTietChiPhiHoatDongKinhDoanh(filter);
                     return result;
                 case 14:
-                    result = await Report_TongHopChiPhiHoatDongKinhDoanh(filter);
+                    result = await Report_TongHopChiPhiHoatDongKinhDoanh(filter); //done
+                    return result;
+                case 15:
+                    result = await Report_SoTienMatToanCongTy(filter);
                     return result;
                 default:
                     result = await Report_KetQuaKinhDoanh(filter);
@@ -424,20 +427,25 @@ namespace SimCard.APP.Persistence.Services
             DateTime fromDate = filter.From ?? DateTime.Now.AddDays(-7);
             DateTime toDate = filter.To ?? DateTime.Now;
 
-            var custopmers = await _customerRepository.GetAllCustomers();
-            foreach (var customer in custopmers)
+            var exportReceipts = await _exportReceiptRepository.Query(er => er.DateCreated >= fromDate && er.DateCreated <= toDate).ToListAsync();
+            var importReceipts = await _importReceiptRepository.Query(er => er.DateCreated >= fromDate && er.DateCreated <= toDate).ToListAsync();
+
+            var shops = await _shopRepository.Query(s => true)
+                .Include(s => s.ImportReceipts)
+                .Include(s => s.ExportReceipts).ToListAsync();
+
+            if (filter.Shop != 0)
+            {
+                shops = shops.Where(s => s.Id == filter.Shop).ToList();
+            }
+
+            foreach (var shop in shops)
             {
                 dynamic line = new ExpandoObject();
-
-                line.tenKhachHang = customer.HoTen;
-                line.maKhachHang = customer.MaKH;
-                line.noKhach = customer.MaKH;
-                line.khachNo = customer.MaKH;
-                line.congDon = customer.MaKH;
-                line.chiTietPhieu = customer.MaKH;
-
-                result.Add(line);
+                line.soThu = shop.ImportReceipts.Sum(ir => ir.Tienthanhtoan);
+                line.soChi = shop.ExportReceipts.Sum(er => er.MoneyPaid);
             }
+
             return result;
         }
 
@@ -493,6 +501,36 @@ namespace SimCard.APP.Persistence.Services
             DateTime fromDate = filter.From ?? DateTime.Now.AddDays(-7);
             DateTime toDate = filter.To ?? DateTime.Now;
 
+            var exportReceipts = await _exportReceiptRepository.Query(er => er.DateCreated >= fromDate && er.DateCreated <= toDate).ToListAsync();
+            var importReceipts = await _importReceiptRepository.Query(er => er.DateCreated >= fromDate && er.DateCreated <= toDate).ToListAsync();
+
+            var shops = await _shopRepository.Query(s => true)
+                .Include(s => s.ImportReceipts)
+                .Include(s=>s.ExportReceipts).ToListAsync();
+
+            if (filter.Shop != 0)
+            {
+                shops = shops.Where(s => s.Id == filter.Shop).ToList();
+            }
+
+            foreach (var shop in shops)
+            {
+                dynamic line = new ExpandoObject();
+                line.chiNhanh = shop.Name;
+                line.thuKhac = shop.ImportReceipts.Sum(ir => ir.Tienthanhtoan);
+                line.chiKhac = shop.ExportReceipts.Sum(er => er.MoneyPaid);
+                line.loiNhuanKhac = 0;
+            }
+            
+            return result;
+        }
+
+        private async Task<List<ExpandoObject>> Report_TongHopXuatHangLoiNhuanCongNoTheoKhachHang(ReportFilterViewModel filter)
+        {
+            List<ExpandoObject> result = new List<ExpandoObject>();
+            DateTime fromDate = filter.From ?? DateTime.Now.AddDays(-7);
+            DateTime toDate = filter.To ?? DateTime.Now;
+
             var custopmers = await _customerRepository.GetAllCustomers();
             foreach (var customer in custopmers)
             {
@@ -510,7 +548,7 @@ namespace SimCard.APP.Persistence.Services
             return result;
         }
 
-        private async Task<List<ExpandoObject>> Report_TongHopXuatHangLoiNhuanCongNoTheoKhachHang(ReportFilterViewModel filter)
+        private async Task<List<ExpandoObject>> Report_SoTienMatToanCongTy(ReportFilterViewModel filter)
         {
             List<ExpandoObject> result = new List<ExpandoObject>();
             DateTime fromDate = filter.From ?? DateTime.Now.AddDays(-7);
