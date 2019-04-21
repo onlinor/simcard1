@@ -67,6 +67,50 @@ namespace SimCard.APP.Persistence
                     Role = Role.Branch
                 }
             );
+            modelBuilder.Entity<Shop>().HasData(
+                new Shop
+                {
+                    Id = 1,
+                    Name = "Tổng Công Ty"
+                },
+                new Shop
+                {
+                    Id = 2,
+                    Name = "Sim Toàn Cầu"
+                },
+                new Shop
+                {
+                    Id = 3,
+                    Name = "Alo Sim"
+                },
+                new Shop
+                {
+                    Id = 4,
+                    Name = "Sim Thần Tài"
+                }
+            );
+            modelBuilder.Entity<Supplier>().HasData(
+                new Supplier
+                {
+                    Id = 1,
+                    Name = "Viettel"
+                },
+                new Supplier
+                {
+                    Id = 2,
+                    Name = "Vinaphone"
+                },
+                new Supplier
+                {
+                    Id = 3,
+                    Name = "Mobiphone"
+                },
+                new Supplier
+                {
+                    Id = 4,
+                    Name = "Vietnam Mobile"
+                }
+            );
         }
     }
 }

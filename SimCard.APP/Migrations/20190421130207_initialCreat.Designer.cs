@@ -10,8 +10,8 @@ using SimCard.APP.Persistence;
 namespace SimCard.APP.Migrations
 {
     [DbContext(typeof(SimCardDBContext))]
-    [Migration("20190407030556_InitDb")]
-    partial class InitDb
+    [Migration("20190421130207_initialCreat")]
+    partial class initialCreat
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -547,6 +547,14 @@ namespace SimCard.APP.Migrations
                     b.HasIndex("ShopId");
 
                     b.ToTable("Shops");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            DateCreated = new DateTime(2019, 4, 21, 20, 2, 7, 198, DateTimeKind.Local).AddTicks(881),
+                            Name = "Tổng Công Ty"
+                        });
                 });
 
             modelBuilder.Entity("SimCard.APP.Models.Supplier", b =>
@@ -600,22 +608,22 @@ namespace SimCard.APP.Migrations
                         new
                         {
                             Id = 1,
-                            DateCreated = new DateTime(2019, 4, 7, 10, 5, 56, 275, DateTimeKind.Local).AddTicks(2937),
+                            DateCreated = new DateTime(2019, 4, 21, 20, 2, 7, 175, DateTimeKind.Local).AddTicks(4289),
                             FirstName = "Galvin",
                             LastName = "Nguyen",
-                            Password = "BrKCW3ab9RkRt10YgroihIW53vC6W+wGKxJe7RZ+tlg=",
-                            PasswordSalt = "58JtxxNMyZf7UssTuwGeFQ==",
+                            Password = "Q/23y6SfO19Anh7mlQfJvf7+gFg0xwRcMTD3k/WX2lw=",
+                            PasswordSalt = "4BXpXdgyhZIF8ZVcN2rFOw==",
                             Role = "Company",
                             Username = "company"
                         },
                         new
                         {
                             Id = 2,
-                            DateCreated = new DateTime(2019, 4, 7, 10, 5, 56, 284, DateTimeKind.Local).AddTicks(2190),
+                            DateCreated = new DateTime(2019, 4, 21, 20, 2, 7, 188, DateTimeKind.Local).AddTicks(4356),
                             FirstName = "Galvin",
                             LastName = "Nguyen",
-                            Password = "BrKCW3ab9RkRt10YgroihIW53vC6W+wGKxJe7RZ+tlg=",
-                            PasswordSalt = "58JtxxNMyZf7UssTuwGeFQ==",
+                            Password = "Q/23y6SfO19Anh7mlQfJvf7+gFg0xwRcMTD3k/WX2lw=",
+                            PasswordSalt = "4BXpXdgyhZIF8ZVcN2rFOw==",
                             Role = "Branch",
                             Username = "branch"
                         });
@@ -640,7 +648,7 @@ namespace SimCard.APP.Migrations
             modelBuilder.Entity("SimCard.APP.Models.ExportReceiptProducts", b =>
                 {
                     b.HasOne("SimCard.APP.Models.ExportReceipt", "ExportReceipt")
-                        .WithMany("Products")
+                        .WithMany("ExportReceiptProducts")
                         .HasForeignKey("ExportReceiptId")
                         .OnDelete(DeleteBehavior.Cascade);
 

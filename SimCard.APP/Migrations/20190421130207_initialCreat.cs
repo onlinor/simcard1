@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SimCard.APP.Migrations
 {
-    public partial class InitDb : Migration
+    public partial class initialCreat : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -416,14 +416,19 @@ namespace SimCard.APP.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Users",
-                columns: new[] { "Id", "DateCreated", "DateModified", "FirstName", "LastName", "Password", "PasswordSalt", "Role", "ShopId", "Username" },
-                values: new object[] { 1, new DateTime(2019, 4, 7, 10, 5, 56, 275, DateTimeKind.Local).AddTicks(2937), null, "Galvin", "Nguyen", "BrKCW3ab9RkRt10YgroihIW53vC6W+wGKxJe7RZ+tlg=", "58JtxxNMyZf7UssTuwGeFQ==", "Company", null, "company" });
+                table: "Shops",
+                columns: new[] { "Id", "DateCreated", "DateModified", "Name", "ParentId", "ShopId" },
+                values: new object[] { 1, new DateTime(2019, 4, 21, 20, 2, 7, 198, DateTimeKind.Local).AddTicks(881), null, "Tổng Công Ty", null, null });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "DateCreated", "DateModified", "FirstName", "LastName", "Password", "PasswordSalt", "Role", "ShopId", "Username" },
-                values: new object[] { 2, new DateTime(2019, 4, 7, 10, 5, 56, 284, DateTimeKind.Local).AddTicks(2190), null, "Galvin", "Nguyen", "BrKCW3ab9RkRt10YgroihIW53vC6W+wGKxJe7RZ+tlg=", "58JtxxNMyZf7UssTuwGeFQ==", "Branch", null, "branch" });
+                values: new object[] { 1, new DateTime(2019, 4, 21, 20, 2, 7, 175, DateTimeKind.Local).AddTicks(4289), null, "Galvin", "Nguyen", "Q/23y6SfO19Anh7mlQfJvf7+gFg0xwRcMTD3k/WX2lw=", "4BXpXdgyhZIF8ZVcN2rFOw==", "Company", null, "company" });
+
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "Id", "DateCreated", "DateModified", "FirstName", "LastName", "Password", "PasswordSalt", "Role", "ShopId", "Username" },
+                values: new object[] { 2, new DateTime(2019, 4, 21, 20, 2, 7, 188, DateTimeKind.Local).AddTicks(4356), null, "Galvin", "Nguyen", "Q/23y6SfO19Anh7mlQfJvf7+gFg0xwRcMTD3k/WX2lw=", "4BXpXdgyhZIF8ZVcN2rFOw==", "Branch", null, "branch" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_BankAccounts_ShopId",
