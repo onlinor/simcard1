@@ -5,6 +5,11 @@ namespace SimCard.APP.Models
 {
     public class Cashbook : BaseEntity
     {
+        public int ShopId { get; set; }
+
+        [ForeignKey("ShopId")]
+        public Shop Shop { get; set; }
+
         [StringLength(255)]
         public string TenKhachHang { get; set; }
 
@@ -12,7 +17,7 @@ namespace SimCard.APP.Models
         public string MaKhachHang { get; set; }
 
         [StringLength(255)]
-        public string MaPhieu { get; set; }
+        public string MaPhanBo { get; set; }
 
         [StringLength(255)]
         public string NoiDungPhieu { get; set; }
