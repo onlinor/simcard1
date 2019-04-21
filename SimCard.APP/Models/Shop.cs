@@ -19,5 +19,7 @@ namespace SimCard.APP.Models
         public List<ImportReceipt> ImportReceipts { get; set; }
 
         public List<ExportReceipt> ExportReceipts { get; set; }
+
+        public List<Cashbook> Cashbooks { get; set; }
     }
 }

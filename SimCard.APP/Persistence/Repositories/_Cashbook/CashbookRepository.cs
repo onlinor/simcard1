@@ -68,7 +68,7 @@ namespace SimCard.APP.Persistence.Repositories
                 cashbookToUpdate.DateCreated = cashbookParams.DateCreated;
                 cashbookToUpdate.TenKhachHang = cashbookParams.TenKhachHang;
                 cashbookToUpdate.MaKhachHang = cashbookParams.MaKhachHang;
-                cashbookToUpdate.MaPhieu = cashbookParams.MaPhieu;
+                cashbookToUpdate.MaPhanBo = cashbookParams.MaPhanBo;
                 cashbookToUpdate.NoiDungPhieu = cashbookParams.NoiDungPhieu;
                 cashbookToUpdate.SoTienChi = cashbookParams.SoTienChi;
                 cashbookToUpdate.SoTienThu = cashbookParams.SoTienThu;
