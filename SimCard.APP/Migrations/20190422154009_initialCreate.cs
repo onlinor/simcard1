@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SimCard.APP.Migrations
 {
-    public partial class initialCreat : Migration
+    public partial class initialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -35,35 +35,6 @@ namespace SimCard.APP.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Bankbook", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Cashbook",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    DateCreated = table.Column<DateTime>(nullable: false),
-                    DateModified = table.Column<DateTime>(nullable: true),
-                    TenKhachHang = table.Column<string>(maxLength: 255, nullable: true),
-                    MaKhachHang = table.Column<string>(maxLength: 255, nullable: true),
-                    MaPhieu = table.Column<string>(maxLength: 255, nullable: true),
-                    NoiDungPhieu = table.Column<string>(maxLength: 255, nullable: true),
-                    SoTienThu = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    SoTienChi = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    CongDon = table.Column<int>(nullable: false),
-                    DonViNop = table.Column<string>(maxLength: 255, nullable: true),
-                    DonViNhan = table.Column<string>(maxLength: 255, nullable: true),
-                    HinhThucNop = table.Column<string>(maxLength: 255, nullable: true),
-                    HinhThucChi = table.Column<string>(maxLength: 255, nullable: true),
-                    NguoiChi = table.Column<string>(maxLength: 255, nullable: true),
-                    NguoiThu = table.Column<string>(maxLength: 255, nullable: true),
-                    GhiChu = table.Column<string>(maxLength: 255, nullable: true),
-                    LoaiNganHang = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Cashbook", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -222,6 +193,42 @@ namespace SimCard.APP.Migrations
                     table.PrimaryKey("PK_BankAccounts", x => x.Id);
                     table.ForeignKey(
                         name: "FK_BankAccounts_Shops_ShopId",
+                        column: x => x.ShopId,
+                        principalTable: "Shops",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Cashbook",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    DateCreated = table.Column<DateTime>(nullable: false),
+                    DateModified = table.Column<DateTime>(nullable: true),
+                    ShopId = table.Column<int>(nullable: false),
+                    TenKhachHang = table.Column<string>(maxLength: 255, nullable: true),
+                    MaKhachHang = table.Column<string>(maxLength: 255, nullable: true),
+                    MaPhanBo = table.Column<string>(maxLength: 255, nullable: true),
+                    NoiDungPhieu = table.Column<string>(maxLength: 255, nullable: true),
+                    SoTienThu = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    SoTienChi = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    CongDon = table.Column<int>(nullable: false),
+                    DonViNop = table.Column<string>(maxLength: 255, nullable: true),
+                    DonViNhan = table.Column<string>(maxLength: 255, nullable: true),
+                    HinhThucNop = table.Column<string>(maxLength: 255, nullable: true),
+                    HinhThucChi = table.Column<string>(maxLength: 255, nullable: true),
+                    NguoiChi = table.Column<string>(maxLength: 255, nullable: true),
+                    NguoiThu = table.Column<string>(maxLength: 255, nullable: true),
+                    GhiChu = table.Column<string>(maxLength: 255, nullable: true),
+                    LoaiNganHang = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Cashbook", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Cashbook_Shops_ShopId",
                         column: x => x.ShopId,
                         principalTable: "Shops",
                         principalColumn: "Id",
@@ -418,21 +425,43 @@ namespace SimCard.APP.Migrations
             migrationBuilder.InsertData(
                 table: "Shops",
                 columns: new[] { "Id", "DateCreated", "DateModified", "Name", "ParentId", "ShopId" },
-                values: new object[] { 1, new DateTime(2019, 4, 21, 20, 2, 7, 198, DateTimeKind.Local).AddTicks(881), null, "Tổng Công Ty", null, null });
+                values: new object[,]
+                {
+                    { 1, new DateTime(2019, 4, 22, 22, 40, 9, 307, DateTimeKind.Local).AddTicks(3635), null, "Tổng Công Ty", null, null },
+                    { 2, new DateTime(2019, 4, 22, 22, 40, 9, 307, DateTimeKind.Local).AddTicks(4083), null, "Sim Toàn Cầu", null, null },
+                    { 3, new DateTime(2019, 4, 22, 22, 40, 9, 307, DateTimeKind.Local).AddTicks(4091), null, "Alo Sim", null, null },
+                    { 4, new DateTime(2019, 4, 22, 22, 40, 9, 307, DateTimeKind.Local).AddTicks(4091), null, "Sim Thần Tài", null, null }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Suppliers",
+                columns: new[] { "Id", "DateCreated", "DateModified", "Name" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2019, 4, 22, 22, 40, 9, 307, DateTimeKind.Local).AddTicks(4854), null, "Viettel" },
+                    { 2, new DateTime(2019, 4, 22, 22, 40, 9, 307, DateTimeKind.Local).AddTicks(5178), null, "Vinaphone" },
+                    { 3, new DateTime(2019, 4, 22, 22, 40, 9, 307, DateTimeKind.Local).AddTicks(5182), null, "Mobiphone" },
+                    { 4, new DateTime(2019, 4, 22, 22, 40, 9, 307, DateTimeKind.Local).AddTicks(5186), null, "Vietnam Mobile" }
+                });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "DateCreated", "DateModified", "FirstName", "LastName", "Password", "PasswordSalt", "Role", "ShopId", "Username" },
-                values: new object[] { 1, new DateTime(2019, 4, 21, 20, 2, 7, 175, DateTimeKind.Local).AddTicks(4289), null, "Galvin", "Nguyen", "Q/23y6SfO19Anh7mlQfJvf7+gFg0xwRcMTD3k/WX2lw=", "4BXpXdgyhZIF8ZVcN2rFOw==", "Company", null, "company" });
-
-            migrationBuilder.InsertData(
-                table: "Users",
-                columns: new[] { "Id", "DateCreated", "DateModified", "FirstName", "LastName", "Password", "PasswordSalt", "Role", "ShopId", "Username" },
-                values: new object[] { 2, new DateTime(2019, 4, 21, 20, 2, 7, 188, DateTimeKind.Local).AddTicks(4356), null, "Galvin", "Nguyen", "Q/23y6SfO19Anh7mlQfJvf7+gFg0xwRcMTD3k/WX2lw=", "4BXpXdgyhZIF8ZVcN2rFOw==", "Branch", null, "branch" });
+                values: new object[,]
+                {
+                    { 1, new DateTime(2019, 4, 22, 22, 40, 9, 268, DateTimeKind.Local).AddTicks(4137), null, "", "", "W9PBvXmiaLNtti159BDJnfFS329kRx0lN6+7TZ1U1i0=", "3TOtv6ujRa9PZ6Qkv6gGMg==", "Company", null, "admin" },
+                    { 2, new DateTime(2019, 4, 22, 22, 40, 9, 290, DateTimeKind.Local).AddTicks(6218), null, "Sang", "Tran", "M+qp7QtXdEfrewV6k/DbhETd0GRrWns4qV+k9Gz5C9Q=", "3TOtv6ujRa9PZ6Qkv6gGMg==", "Branch", null, "transang" },
+                    { 3, new DateTime(2019, 4, 22, 22, 40, 9, 298, DateTimeKind.Local).AddTicks(1413), null, "Galvin", "Nguyen", "M+qp7QtXdEfrewV6k/DbhETd0GRrWns4qV+k9Gz5C9Q=", "3TOtv6ujRa9PZ6Qkv6gGMg==", "Branch", null, "branch" }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_BankAccounts_ShopId",
                 table: "BankAccounts",
+                column: "ShopId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Cashbook_ShopId",
+                table: "Cashbook",
                 column: "ShopId");
 
             migrationBuilder.CreateIndex(

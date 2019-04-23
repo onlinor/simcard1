@@ -49,16 +49,25 @@ namespace SimCard.APP.Persistence
             modelBuilder.Entity<User>().HasData(
                 new User {
                     Id = 1,
-                    FirstName = "Galvin",
-                    LastName = "Nguyen",
-                    Username = "company",
+                    FirstName = "",
+                    LastName = "",
+                    Username = "admin",
+                    PasswordSalt = salt,
+                    Password = PasswordHelper.HashPassword("admin", salt),
+                    Role = Role.Company
+                },
+                new User {
+                    Id = 2,
+                    FirstName = "Sang",
+                    LastName = "Tran",
+                    Username = "transang",
                     PasswordSalt = salt,
                     Password = PasswordHelper.HashPassword("!@#$%", salt),
-                    Role = Role.Company
+                    Role = Role.Branch
                 },
                 new User
                 {
-                    Id = 2,
+                    Id = 3,
                     FirstName = "Galvin",
                     LastName = "Nguyen",
                     Username = "branch",

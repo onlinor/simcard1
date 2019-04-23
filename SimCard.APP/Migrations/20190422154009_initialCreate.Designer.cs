@@ -10,8 +10,8 @@ using SimCard.APP.Persistence;
 namespace SimCard.APP.Migrations
 {
     [DbContext(typeof(SimCardDBContext))]
-    [Migration("20190421130207_initialCreat")]
-    partial class initialCreat
+    [Migration("20190422154009_initialCreate")]
+    partial class initialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -134,7 +134,7 @@ namespace SimCard.APP.Migrations
                     b.Property<string>("MaKhachHang")
                         .HasMaxLength(255);
 
-                    b.Property<string>("MaPhieu")
+                    b.Property<string>("MaPhanBo")
                         .HasMaxLength(255);
 
                     b.Property<string>("NguoiChi")
@@ -146,6 +146,8 @@ namespace SimCard.APP.Migrations
                     b.Property<string>("NoiDungPhieu")
                         .HasMaxLength(255);
 
+                    b.Property<int>("ShopId");
+
                     b.Property<decimal>("SoTienChi")
                         .HasColumnType("decimal(18,2)");
 
@@ -156,6 +158,8 @@ namespace SimCard.APP.Migrations
                         .HasMaxLength(255);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ShopId");
 
                     b.ToTable("Cashbook");
                 });
@@ -552,8 +556,26 @@ namespace SimCard.APP.Migrations
                         new
                         {
                             Id = 1,
-                            DateCreated = new DateTime(2019, 4, 21, 20, 2, 7, 198, DateTimeKind.Local).AddTicks(881),
+                            DateCreated = new DateTime(2019, 4, 22, 22, 40, 9, 307, DateTimeKind.Local).AddTicks(3635),
                             Name = "Tổng Công Ty"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            DateCreated = new DateTime(2019, 4, 22, 22, 40, 9, 307, DateTimeKind.Local).AddTicks(4083),
+                            Name = "Sim Toàn Cầu"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            DateCreated = new DateTime(2019, 4, 22, 22, 40, 9, 307, DateTimeKind.Local).AddTicks(4091),
+                            Name = "Alo Sim"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            DateCreated = new DateTime(2019, 4, 22, 22, 40, 9, 307, DateTimeKind.Local).AddTicks(4091),
+                            Name = "Sim Thần Tài"
                         });
                 });
 
@@ -572,6 +594,32 @@ namespace SimCard.APP.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Suppliers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            DateCreated = new DateTime(2019, 4, 22, 22, 40, 9, 307, DateTimeKind.Local).AddTicks(4854),
+                            Name = "Viettel"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            DateCreated = new DateTime(2019, 4, 22, 22, 40, 9, 307, DateTimeKind.Local).AddTicks(5178),
+                            Name = "Vinaphone"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            DateCreated = new DateTime(2019, 4, 22, 22, 40, 9, 307, DateTimeKind.Local).AddTicks(5182),
+                            Name = "Mobiphone"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            DateCreated = new DateTime(2019, 4, 22, 22, 40, 9, 307, DateTimeKind.Local).AddTicks(5186),
+                            Name = "Vietnam Mobile"
+                        });
                 });
 
             modelBuilder.Entity("SimCard.APP.Models.User", b =>
@@ -608,22 +656,33 @@ namespace SimCard.APP.Migrations
                         new
                         {
                             Id = 1,
-                            DateCreated = new DateTime(2019, 4, 21, 20, 2, 7, 175, DateTimeKind.Local).AddTicks(4289),
-                            FirstName = "Galvin",
-                            LastName = "Nguyen",
-                            Password = "Q/23y6SfO19Anh7mlQfJvf7+gFg0xwRcMTD3k/WX2lw=",
-                            PasswordSalt = "4BXpXdgyhZIF8ZVcN2rFOw==",
+                            DateCreated = new DateTime(2019, 4, 22, 22, 40, 9, 268, DateTimeKind.Local).AddTicks(4137),
+                            FirstName = "",
+                            LastName = "",
+                            Password = "W9PBvXmiaLNtti159BDJnfFS329kRx0lN6+7TZ1U1i0=",
+                            PasswordSalt = "3TOtv6ujRa9PZ6Qkv6gGMg==",
                             Role = "Company",
-                            Username = "company"
+                            Username = "admin"
                         },
                         new
                         {
                             Id = 2,
-                            DateCreated = new DateTime(2019, 4, 21, 20, 2, 7, 188, DateTimeKind.Local).AddTicks(4356),
+                            DateCreated = new DateTime(2019, 4, 22, 22, 40, 9, 290, DateTimeKind.Local).AddTicks(6218),
+                            FirstName = "Sang",
+                            LastName = "Tran",
+                            Password = "M+qp7QtXdEfrewV6k/DbhETd0GRrWns4qV+k9Gz5C9Q=",
+                            PasswordSalt = "3TOtv6ujRa9PZ6Qkv6gGMg==",
+                            Role = "Branch",
+                            Username = "transang"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            DateCreated = new DateTime(2019, 4, 22, 22, 40, 9, 298, DateTimeKind.Local).AddTicks(1413),
                             FirstName = "Galvin",
                             LastName = "Nguyen",
-                            Password = "Q/23y6SfO19Anh7mlQfJvf7+gFg0xwRcMTD3k/WX2lw=",
-                            PasswordSalt = "4BXpXdgyhZIF8ZVcN2rFOw==",
+                            Password = "M+qp7QtXdEfrewV6k/DbhETd0GRrWns4qV+k9Gz5C9Q=",
+                            PasswordSalt = "3TOtv6ujRa9PZ6Qkv6gGMg==",
                             Role = "Branch",
                             Username = "branch"
                         });
@@ -633,6 +692,14 @@ namespace SimCard.APP.Migrations
                 {
                     b.HasOne("SimCard.APP.Models.Shop", "Shop")
                         .WithMany()
+                        .HasForeignKey("ShopId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("SimCard.APP.Models.Cashbook", b =>
+                {
+                    b.HasOne("SimCard.APP.Models.Shop", "Shop")
+                        .WithMany("Cashbooks")
                         .HasForeignKey("ShopId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
