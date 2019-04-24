@@ -105,6 +105,7 @@ export class ExportProductComponent implements OnInit {
 					ten: event.data.ten,
 					soLuong: event.data.exportnumber,
 					menhGia: event.data.menhgia,
+					loai: event.data.loai,
 					chietKhau: (event.data.menhgia - event.data.donGia) * 100 / event.data.menhgia,
 					donGia: event.data.donGia,
 					thanhTien: event.data.exportnumber * event.data.donGia

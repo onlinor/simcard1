@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SimCard.APP.Migrations
 {
-    public partial class initialCreate : Migration
+    public partial class initical : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -341,6 +341,7 @@ namespace SimCard.APP.Migrations
                     Soluong = table.Column<int>(nullable: false),
                     DonGia = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     ShopId = table.Column<int>(nullable: true),
+                    Loai = table.Column<string>(nullable: true),
                     SupplierId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -427,10 +428,10 @@ namespace SimCard.APP.Migrations
                 columns: new[] { "Id", "DateCreated", "DateModified", "Name", "ParentId", "ShopId" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2019, 4, 22, 22, 40, 9, 307, DateTimeKind.Local).AddTicks(3635), null, "Tổng Công Ty", null, null },
-                    { 2, new DateTime(2019, 4, 22, 22, 40, 9, 307, DateTimeKind.Local).AddTicks(4083), null, "Sim Toàn Cầu", null, null },
-                    { 3, new DateTime(2019, 4, 22, 22, 40, 9, 307, DateTimeKind.Local).AddTicks(4091), null, "Alo Sim", null, null },
-                    { 4, new DateTime(2019, 4, 22, 22, 40, 9, 307, DateTimeKind.Local).AddTicks(4091), null, "Sim Thần Tài", null, null }
+                    { 1, new DateTime(2019, 4, 24, 7, 25, 33, 877, DateTimeKind.Local).AddTicks(2931), null, "Tổng Công Ty", null, null },
+                    { 2, new DateTime(2019, 4, 24, 7, 25, 33, 877, DateTimeKind.Local).AddTicks(3283), null, "Sim Toàn Cầu", null, null },
+                    { 3, new DateTime(2019, 4, 24, 7, 25, 33, 877, DateTimeKind.Local).AddTicks(3292), null, "Alo Sim", null, null },
+                    { 4, new DateTime(2019, 4, 24, 7, 25, 33, 877, DateTimeKind.Local).AddTicks(3292), null, "Sim Thần Tài", null, null }
                 });
 
             migrationBuilder.InsertData(
@@ -438,10 +439,10 @@ namespace SimCard.APP.Migrations
                 columns: new[] { "Id", "DateCreated", "DateModified", "Name" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2019, 4, 22, 22, 40, 9, 307, DateTimeKind.Local).AddTicks(4854), null, "Viettel" },
-                    { 2, new DateTime(2019, 4, 22, 22, 40, 9, 307, DateTimeKind.Local).AddTicks(5178), null, "Vinaphone" },
-                    { 3, new DateTime(2019, 4, 22, 22, 40, 9, 307, DateTimeKind.Local).AddTicks(5182), null, "Mobiphone" },
-                    { 4, new DateTime(2019, 4, 22, 22, 40, 9, 307, DateTimeKind.Local).AddTicks(5186), null, "Vietnam Mobile" }
+                    { 1, new DateTime(2019, 4, 24, 7, 25, 33, 877, DateTimeKind.Local).AddTicks(3944), null, "Viettel" },
+                    { 2, new DateTime(2019, 4, 24, 7, 25, 33, 877, DateTimeKind.Local).AddTicks(4235), null, "Vinaphone" },
+                    { 3, new DateTime(2019, 4, 24, 7, 25, 33, 877, DateTimeKind.Local).AddTicks(4239), null, "Mobiphone" },
+                    { 4, new DateTime(2019, 4, 24, 7, 25, 33, 877, DateTimeKind.Local).AddTicks(4239), null, "Vietnam Mobile" }
                 });
 
             migrationBuilder.InsertData(
@@ -449,9 +450,9 @@ namespace SimCard.APP.Migrations
                 columns: new[] { "Id", "DateCreated", "DateModified", "FirstName", "LastName", "Password", "PasswordSalt", "Role", "ShopId", "Username" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2019, 4, 22, 22, 40, 9, 268, DateTimeKind.Local).AddTicks(4137), null, "", "", "W9PBvXmiaLNtti159BDJnfFS329kRx0lN6+7TZ1U1i0=", "3TOtv6ujRa9PZ6Qkv6gGMg==", "Company", null, "admin" },
-                    { 2, new DateTime(2019, 4, 22, 22, 40, 9, 290, DateTimeKind.Local).AddTicks(6218), null, "Sang", "Tran", "M+qp7QtXdEfrewV6k/DbhETd0GRrWns4qV+k9Gz5C9Q=", "3TOtv6ujRa9PZ6Qkv6gGMg==", "Branch", null, "transang" },
-                    { 3, new DateTime(2019, 4, 22, 22, 40, 9, 298, DateTimeKind.Local).AddTicks(1413), null, "Galvin", "Nguyen", "M+qp7QtXdEfrewV6k/DbhETd0GRrWns4qV+k9Gz5C9Q=", "3TOtv6ujRa9PZ6Qkv6gGMg==", "Branch", null, "branch" }
+                    { 1, new DateTime(2019, 4, 24, 7, 25, 33, 850, DateTimeKind.Local).AddTicks(3486), null, "", "", "61AOo/Ii6lJf8BwLyvW3JkNupsWKrQ4A67eUBtYnH2Y=", "YE0HP/A+Qh2hV2fEUy++1w==", "Company", null, "admin" },
+                    { 2, new DateTime(2019, 4, 24, 7, 25, 33, 863, DateTimeKind.Local).AddTicks(3136), null, "Sang", "Tran", "u6lawVIORD3YIZY/wjzAtlrIUm43mNpoKLLYbHsM0TU=", "YE0HP/A+Qh2hV2fEUy++1w==", "Branch", null, "transang" },
+                    { 3, new DateTime(2019, 4, 24, 7, 25, 33, 870, DateTimeKind.Local).AddTicks(2153), null, "Galvin", "Nguyen", "u6lawVIORD3YIZY/wjzAtlrIUm43mNpoKLLYbHsM0TU=", "YE0HP/A+Qh2hV2fEUy++1w==", "Branch", null, "branch" }
                 });
 
             migrationBuilder.CreateIndex(

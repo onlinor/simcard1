@@ -33,6 +33,7 @@ namespace SimCard.APP.Persistence.Services
                 Soluong = productViewModel.Soluong,
                 DonGia = productViewModel.DonGia,
                 ShopId = productViewModel.ShopId,
+                Loai = productViewModel.Loai,
                 SupplierId = productViewModel.SupplierId
             };
 

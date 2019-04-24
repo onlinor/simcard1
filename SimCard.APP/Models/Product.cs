@@ -26,17 +26,11 @@ namespace SimCard.APP.Models
         
         public int? ShopId { get; set; }
 
+        public string Loai { get; set; }
+
         [ForeignKey("SupplierId")]
         public Supplier Supplier { get; set; }
 
         public int? SupplierId { get; set; }
-    }
-
-    public class ProductType
-    {
-        public static string SIM = "SIM";
-        public static string CARD = "CARD";
-        public static string PHONE = "PHONE";
-        public static string OTHER = "OTHER";
     }
 }

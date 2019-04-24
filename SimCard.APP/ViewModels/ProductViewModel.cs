@@ -19,8 +19,9 @@ namespace SimCard.APP.ViewModels
         public int? ShopId { get; set; }
 
         public int? SupplierId { get; set; }
-
         public string ShopName { get; set; }
+
+        public string Loai { get; set; }
 
         public string SupplierName { get; set; }
 

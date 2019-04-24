@@ -124,6 +124,15 @@ export class ImportProductComponent implements OnInit {
 					element.donGia = (element.menhGia / 100) * (100 - element.chietKhau);
 					element.thanhTien = element.soLuong * (element.menhGia - (element.menhGia * element.chietKhau) / 100);
 					element.shopId = 1;
+					switch (element.loai.substr(0, 2)) {
+						case 'DT': {
+							element.loai = 'DT';
+							break;
+						}
+						default: {
+							break;
+					  } 
+					}
 				});
 				this.updateTotalMoney();
 			});

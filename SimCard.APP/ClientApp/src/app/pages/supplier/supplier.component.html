@@ -4,14 +4,20 @@
   </ng-template>
   <ng-template pTemplate="header" let-columns>
       <tr>
+          <th>
+              Thứ Tự
+          </th>
           <th *ngFor="let col of columns" [pSortableColumn]="col.field">
               {{col.header}}
               <p-sortIcon [field]="col.field"></p-sortIcon>
           </th>
       </tr>
   </ng-template>
-  <ng-template pTemplate="body" let-rowData let-columns="columns">
+  <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
       <tr [pSelectableRow]="rowData">
+          <td>
+                {{rowIndex + 1}}
+          </td>
           <td *ngFor="let col of columns">
               {{rowData[col.field]}}
           </td>

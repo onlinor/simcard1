@@ -3,6 +3,7 @@ export class Product {
   ma: string;
   ten: string;
   soLuong: number;
+  loai: string;
   menhGia: number;
   chietKhau: number;
   donGia: number;
