@@ -38,7 +38,7 @@ export class ReportHomeComponent implements OnInit {
     customer: 0,
     bankAccount: 0
   };
-  supportedFilterList = ReportConstant.supportedFilterList;
+    supportedFilterList = ReportConstant.SupportedFilterList;
 
   // Supported Export Methods
   selectedExportMethod = 'xlsx';
@@ -70,7 +70,8 @@ export class ReportHomeComponent implements OnInit {
         this.reportData = result.data;
         this.reportColumns = this.getColsFromData(this.reportData[0]);
 
-        // Set filter data
+            // Set filter data
+            debugger
         this.supportedFilterList = this.getSupportedFilterList(result.filterData);
         this.bankAccounts = result.filterData.bankAccounts !== null ? result.filterData.products : [];
         this.products = result.filterData.products !== null ? result.filterData.products : [];

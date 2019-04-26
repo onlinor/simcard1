@@ -683,7 +683,7 @@ namespace SimCard.APP.Persistence.Services
         private async Task<ExpandoObject> GetFilterData_ChiTietChiPhiHoatDongKinhDoanh()
         {
             dynamic result = new ExpandoObject();
-            List<ShopViewModel> shops = Mapper.Map<List<ShopViewModel>>(await _shopRepository.GetShops());
+            var shops = (await _shopRepository.GetShops()).Select(s => new { label = s.Name, value = s.Id });
             result.shops = shops;
             return result;
         }
@@ -691,7 +691,7 @@ namespace SimCard.APP.Persistence.Services
         private async Task<ExpandoObject> GetFilterData_ChiTietThuChiKhac()
         {
             dynamic result = new ExpandoObject();
-            List<ShopViewModel> shops = Mapper.Map<List<ShopViewModel>>(await _shopRepository.GetShops());
+            var shops = (await _shopRepository.GetShops()).Select(s => new { label = s.Name, value = s.Id });
             result.shops = shops;
             return result;
         }
@@ -699,14 +699,8 @@ namespace SimCard.APP.Persistence.Services
         private async Task<ExpandoObject> GetFilterData_ChiTietXuatHangVaLoiNhuan()
         {
             dynamic result = new ExpandoObject();
-            List<ShopViewModel> shops = Mapper.Map<List<ShopViewModel>>(await _shopRepository.GetShops());
-            List<ProductViewModel> products = Mapper.Map<List<ProductViewModel>>(await _productRepository.Query(p => p.ShopId != null).ToListAsync());
-            products.Add(new ProductViewModel
-            {
-                Id = 0,
-                Ma = "ALL",
-                Ten = "Tất cả mặt hàng"
-            });
+            var shops = (await _shopRepository.GetShops()).Select(s => new { label = s.Name, value = s.Id });
+            var products = (await _productRepository.Query(p => p.ShopId != null).ToListAsync()).Select(p => new { label = p.Ten, value = p.Id });
             result.shops = shops;
             result.products = products;
             return result;
@@ -725,7 +719,7 @@ namespace SimCard.APP.Persistence.Services
         private async Task<ExpandoObject> GetFilterData_KetQuaKinhDoanh()
         {
             dynamic result = new ExpandoObject();
-            List<ShopViewModel> shops = Mapper.Map<List<ShopViewModel>>(await _shopRepository.GetShops());
+            var shops = (await _shopRepository.GetShops()).Select(s => new { label = s.Name, value = s.Id });
             result.shops = shops;
             return result;
         }
@@ -733,7 +727,7 @@ namespace SimCard.APP.Persistence.Services
         private async Task<ExpandoObject> GetFilterData_NhapHangTheoMatHang()
         {
             dynamic result = new ExpandoObject();
-            List<ShopViewModel> shops = Mapper.Map<List<ShopViewModel>>(await _shopRepository.GetShops());
+            var shops = (await _shopRepository.GetShops()).Select(s => new { label = s.Name, value = s.Id });
             result.shops = shops;
             return result;
         }
@@ -741,7 +735,7 @@ namespace SimCard.APP.Persistence.Services
         private async Task<ExpandoObject> GetFilterData_NhapHangTheoNhaCungCap()
         {
             dynamic result = new ExpandoObject();
-            List<ShopViewModel> shops = Mapper.Map<List<ShopViewModel>>(await _shopRepository.GetShops());
+            var shops = (await _shopRepository.GetShops()).Select(s => new { label = s.Name, value = s.Id });
             result.shops = shops;
             return result;
         }
@@ -749,18 +743,8 @@ namespace SimCard.APP.Persistence.Services
         private async Task<ExpandoObject> GetFilterData_TongHopChiPhiHoatDongKinhDoanh()
         {
             dynamic result = new ExpandoObject();
-            List<BankAccountViewModel> bankAccounts = Mapper.Map<List<BankAccountViewModel>>(await _bankAccountRepository.GetAll());
-            bankAccounts.Add(new BankAccountViewModel
-            {
-                Id = 0,
-                Name = "Tất cả tài khoản"
-            });
-            List<SupplierViewModel> suppliers = Mapper.Map<List<SupplierViewModel>>(await _supplierRepository.GetSuppliers());
-            suppliers.Add(new SupplierViewModel
-            {
-                Id = 0,
-                Name = "Tất cả nhà cung cấp"
-            });
+            var bankAccounts = (await _bankAccountRepository.GetAll()).Select(s => new { label = s.Name, value = s.Id });
+            var suppliers = (await _supplierRepository.GetSuppliers()).Select(s => new { label = s.Name, value = s.Id });
             result.bankAccounts = bankAccounts;
             result.suppliers = suppliers;
             return result;
@@ -769,7 +753,7 @@ namespace SimCard.APP.Persistence.Services
         private async Task<ExpandoObject> GetFilterData_TongHopCongNoKhachHangTungCN()
         {
             dynamic result = new ExpandoObject();
-            List<ShopViewModel> shops = Mapper.Map<List<ShopViewModel>>(await _shopRepository.GetShops());
+            var shops =(await _shopRepository.GetShops()).Select(s => new { label = s.Name, value = s.Id });
             result.shops = shops;
             return result;
         }
@@ -777,18 +761,9 @@ namespace SimCard.APP.Persistence.Services
         private async Task<ExpandoObject> GetFilterData_TongHopGiaoDichVaSoDuTKNHToanCongTy()
         {
             dynamic result = new ExpandoObject();
-            List<BankAccountViewModel> bankAccounts = Mapper.Map<List<BankAccountViewModel>>(await _bankAccountRepository.GetAll());
-            bankAccounts.Add(new BankAccountViewModel
-            {
-                Id = 0,
-                Name = "Tất cả tài khoản"
-            });
-            List<SupplierViewModel> suppliers = Mapper.Map<List<SupplierViewModel>>(await _supplierRepository.GetSuppliers());
-            suppliers.Add(new SupplierViewModel
-            {
-                Id = 0,
-                Name = "Tất cả nhà cung cấp"
-            });
+            var bankAccounts = (await _bankAccountRepository.GetAll()).Select(s => new { label = s.Name, value = s.Id });
+            var suppliers =(await _supplierRepository.GetSuppliers()).Select(s => new { label = s.Name, value = s.Id });
+
             result.bankAccounts = bankAccounts;
             result.suppliers = suppliers;
             return result;
@@ -797,7 +772,7 @@ namespace SimCard.APP.Persistence.Services
         private async Task<ExpandoObject> GetFilterData_TongHopThuChiKhac()
         {
             dynamic result = new ExpandoObject();
-            List<ShopViewModel> shops = Mapper.Map<List<ShopViewModel>>(await _shopRepository.GetShops());
+            var shops =(await _shopRepository.GetShops()).Select(s => new { label = s.Name, value = s.Id });
             result.shops = shops;
             return result;
         }
@@ -805,8 +780,8 @@ namespace SimCard.APP.Persistence.Services
         private async Task<ExpandoObject> GetFilterData_TongHopXuatHangLoiNhuanCongNoTheoKhachHang()
         {
             dynamic result = new ExpandoObject();
-            List<ShopViewModel> shops = Mapper.Map<List<ShopViewModel>>(await _shopRepository.GetShops());
-            List<CustomerViewModel> customers = Mapper.Map<List<CustomerViewModel>>(await _customerRepository.GetAllCustomers());
+            var shops = (await _shopRepository.GetShops()).Select(s => new { label = s.Name, value = s.Id });
+            var customers = (await _customerRepository.GetAllCustomers()).Select(s => new { label = s.HoTen, value = s.Id });
             result.shops = shops;
             result.customers = customers;
             return result;
@@ -815,14 +790,8 @@ namespace SimCard.APP.Persistence.Services
         private async Task<ExpandoObject> GetFilterData_TongHopXuatHangVaLoiNhuanTheoMatHang()
         {
             dynamic result = new ExpandoObject();
-            List<ProductViewModel> products = Mapper.Map<List<ProductViewModel>>(await _productRepository.GetProducts());
-            products.Add(new ProductViewModel
-            {
-                Id = 0,
-                Ma = "ALL",
-                Ten = "Tất cả mặt hàng"
-            });
-            List<ShopViewModel> shops = Mapper.Map<List<ShopViewModel>>(await _shopRepository.GetShops());
+            var products = (await _productRepository.GetProducts()).Select(s => new { label = s.Ten, value = s.Id });
+            var shops = (await _shopRepository.GetShops()).Select(s => new { label = s.Name, value = s.Id });
             result.products = products;
             result.shops = shops;
             return result;
@@ -831,14 +800,8 @@ namespace SimCard.APP.Persistence.Services
         private async Task<ExpandoObject> GetFilterData_XuatNhapTonTongHop()
         {
             dynamic result = new ExpandoObject();
-            List<ProductViewModel> products = Mapper.Map<List<ProductViewModel>>(await _productRepository.GetProducts());
-            products.Add(new ProductViewModel
-            {
-                Id = 0,
-                Ma = "ALL",
-                Ten = "Tất cả mặt hàng"
-            });
-            List<ShopViewModel> shops = Mapper.Map<List<ShopViewModel>>(await _shopRepository.GetShops());
+            var products = (await _productRepository.GetProducts()).Select(s => new { label = s.Ten, value = s.Id });
+            var shops = (await _shopRepository.GetShops()).Select(s => new { label = s.Name, value = s.Id });
             result.products = products;
             result.shops = shops;
             return result;

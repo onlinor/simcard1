@@ -40,7 +40,7 @@ export class ExportConstant {
 }
 
 export class ReportConstant {
-  static supportedFilterList = {
+  static SupportedFilterList = {
     shop: false,
     from: false,
     to: false,

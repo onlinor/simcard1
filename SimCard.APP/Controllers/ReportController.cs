@@ -1,7 +1,5 @@
-
 using Microsoft.AspNetCore.Mvc;
 
-using SimCard.APP.Persistence;
 using SimCard.APP.Persistence.Services;
 using SimCard.APP.ViewModels;
 
@@ -16,15 +14,13 @@ namespace SimCard.APP.Controllers
     public class ReportController : ControllerBase
     {
         private readonly IReportService _reportService;
-        private readonly IUnitOfWork _unitOfWork;
 
-        public ReportController(IReportService reportService, IUnitOfWork unitOfWork)
+        public ReportController(IReportService reportService)
         {
             _reportService = reportService;
-            _unitOfWork = unitOfWork;
         }
 
-        [HttpPost("/api/Report/GetReport")]
+        [HttpPost("getReport")]
         public async Task<ReportDataViewModel> GetReport([FromBody] ReportFilterViewModel filter, int type)
         {
             ReportDataViewModel result = new ReportDataViewModel
