@@ -125,15 +125,16 @@ export class ImportProductComponent implements OnInit {
               element.soLuong *
               (element.menhGia - (element.menhGia * element.chietKhau) / 100);
             element.shopId = 1;
-            switch (element.loai.substr(0, 2)) {
-              case 'DT': {
-                element.loai = 'DT';
+             switch (element.ma.substr(0, 2)) {
+               case 'DT': {
+                 element.loai = 'DT';
+                 break;
+                 }
+                default: {
+                element.loai = 'SIM';
                 break;
-              }
-              default: {
-                break;
-              }
-            }
+                }
+             }
           });
           this.updateTotalMoney();
         });
