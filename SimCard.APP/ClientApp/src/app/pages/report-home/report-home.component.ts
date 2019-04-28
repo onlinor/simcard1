@@ -1,15 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  ReportService,
-  DocExportingService,
-  ProductService,
-  ShopService,
-  SupplierService,
-  CustomerService,
-  BankbookService
-} from '../../core/services';
-import { ReportConstant, ExportConstant } from '../../core';
 import { Observable } from 'rxjs';
+import { ExportConstant, ReportConstant } from '../../core';
+import { DocExportingService, ReportService } from '../../core/services';
 
 @Component({
   selector: 'app-report-home',
@@ -38,7 +30,7 @@ export class ReportHomeComponent implements OnInit {
     customer: 0,
     bankAccount: 0
   };
-    supportedFilterList = ReportConstant.SupportedFilterList;
+  supportedFilterList = ReportConstant.SupportedFilterList;
 
   // Supported Export Methods
   selectedExportMethod = 'xlsx';
@@ -50,13 +42,8 @@ export class ReportHomeComponent implements OnInit {
 
   constructor(
     private reportService: ReportService,
-    private docExportingService: DocExportingService,
-    private shopService: ShopService,
-    private productService: ProductService,
-    private supplierService: SupplierService,
-    private customerService: CustomerService,
-    private bankService: BankbookService
-  ) { }
+    private docExportingService: DocExportingService
+  ) {}
 
   ngOnInit() {
     this.getReport();
@@ -70,14 +57,26 @@ export class ReportHomeComponent implements OnInit {
         this.reportData = result.data;
         this.reportColumns = this.getColsFromData(this.reportData[0]);
 
-            // Set filter data
-            debugger
-        this.supportedFilterList = this.getSupportedFilterList(result.filterData);
-        this.bankAccounts = result.filterData.bankAccounts !== null ? result.filterData.products : [];
-        this.products = result.filterData.products !== null ? result.filterData.products : [];
-        this.shops = result.filterData.shops !== null ? result.filterData.shops : [];
-        this.warehouses = result.filterData.warehouses !== null ? result.filterData.warehouses : [];
-        this.customers = result.filterData.customers !== null ? result.filterData.customers : [];
+        // Set filter data
+        this.supportedFilterList = this.getSupportedFilterList(
+          result.filterData
+        );
+        this.bankAccounts =
+          result.filterData.bankAccounts !== null
+            ? result.filterData.products
+            : [];
+        this.products =
+          result.filterData.products !== null ? result.filterData.products : [];
+        this.shops =
+          result.filterData.shops !== null ? result.filterData.shops : [];
+        this.warehouses =
+          result.filterData.warehouses !== null
+            ? result.filterData.warehouses
+            : [];
+        this.customers =
+          result.filterData.customers !== null
+            ? result.filterData.customers
+            : [];
       },
       error => console.log('Error getting data from API')
     );

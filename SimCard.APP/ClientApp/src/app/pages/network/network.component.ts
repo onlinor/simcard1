@@ -8,7 +8,6 @@ import { NetworkService } from '../../core/services/network.service';
   styleUrls: ['./network.component.css']
 })
 export class NetworkComponent implements OnInit {
-
   displayDialog: boolean;
 
   network: Network = new Network();
@@ -21,12 +20,12 @@ export class NetworkComponent implements OnInit {
 
   cols: any[];
 
-  constructor(private networkService: NetworkService) { }
+  constructor(private networkService: NetworkService) {}
 
   ngOnInit() {
-    this.networkService.getAll().subscribe(
-      networks => this.networks = networks
-    );
+    this.networkService
+      .getAll()
+      .subscribe(networks => (this.networks = networks));
 
     this.cols = [
       { field: 'ten', header: 'Tên' },
@@ -46,45 +45,44 @@ export class NetworkComponent implements OnInit {
   }
 
   showDialogToAdd() {
-      this.newNetwork = true;
-      this.network = new Network();
-      this.displayDialog = true;
+    this.newNetwork = true;
+    this.network = new Network();
+    this.displayDialog = true;
   }
 
   save() {
-      // tslint:disable-next-line:prefer-const
-      let networks = [...this.networks];
-      if (this.newNetwork) {
-        networks.push(this.network);
-      } else {
-        networks[this.networks.indexOf(this.selectedNetwork)] = this.network;
-      }
-      this.networks = networks;
-      this.network = new Network();
-      this.displayDialog = false;
+    // tslint:disable-next-line:prefer-const
+    let networks = [...this.networks];
+    if (this.newNetwork) {
+      networks.push(this.network);
+    } else {
+      networks[this.networks.indexOf(this.selectedNetwork)] = this.network;
+    }
+    this.networks = networks;
+    this.network = new Network();
+    this.displayDialog = false;
   }
 
   delete() {
-      const index = this.networks.indexOf(this.selectedNetwork);
-      this.networks = this.networks.filter((val, i) => i !== index);
-      this.network = null;
-      this.displayDialog = false;
+    const index = this.networks.indexOf(this.selectedNetwork);
+    this.networks = this.networks.filter((val, i) => i !== index);
+    this.network = null;
+    this.displayDialog = false;
   }
 
   onRowSelect(event) {
-      this.newNetwork = false;
-      this.network = this.cloneNetwork(event.data);
-      this.displayDialog = true;
+    this.newNetwork = false;
+    this.network = this.cloneNetwork(event.data);
+    this.displayDialog = true;
   }
 
   cloneNetwork(n: Network): Network {
-      // tslint:disable-next-line:prefer-const
-      let network = new Network();
-      // tslint:disable-next-line:forin
-      for (const prop in n) {
-        network[prop] = n[prop];
-      }
-      return network;
+    // tslint:disable-next-line:prefer-const
+    let network = new Network();
+    // tslint:disable-next-line:forin
+    for (const prop in n) {
+      network[prop] = n[prop];
+    }
+    return network;
   }
-
 }

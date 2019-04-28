@@ -1,15 +1,14 @@
-import {Injectable} from '@angular/core';
-import {isFunction} from 'util';
-import {ToastrService} from 'ngx-toastr';
+import { Injectable } from '@angular/core';
+import { isFunction } from 'util';
+import { ToastrService } from 'ngx-toastr';
 
-import {MessageConfigModel} from '../models';
+import { MessageConfigModel } from '../models';
 
 declare var swal: any;
 
 @Injectable()
 export class MessageService {
-  constructor(private toastr: ToastrService) {
-  }
+  constructor(private toastr: ToastrService) {}
 
   showErrorAlert(config: MessageConfigModel) {
     return swal(config.title, config.message, 'error');
@@ -58,12 +57,12 @@ export class MessageService {
     Object.assign(defaultConfig, config);
     swal(
       defaultConfig,
-      function (checkBoxValue) {
+      function(checkBoxValue) {
         if (isFunction(config.confirmCallback)) {
           config.confirmCallback(context, checkBoxValue);
         }
       },
-      function (dismiss) {
+      function(dismiss) {
         // dismiss can be 'overlay', 'cancel', 'close', 'esc', 'timer'
         if (isFunction(config.cancelCallback)) {
           config.cancelCallback();

@@ -10,14 +10,20 @@ import { Router } from '@angular/router';
 export class HeaderComponent implements OnInit {
   isLoggedIn = false;
 
-  constructor(private authService: AuthService, private subscribeService: SubscribeService, private router: Router) {
-    this.subscribeService.$subscribe('UserLoggedIn').subscribe(result => {
-      this.isLoggedIn = result;
-    }, error => this.isLoggedIn = false);
+  constructor(
+    private authService: AuthService,
+    private subscribeService: SubscribeService,
+    private router: Router
+  ) {
+    this.subscribeService.$subscribe('UserLoggedIn').subscribe(
+      result => {
+        this.isLoggedIn = result;
+      },
+      error => (this.isLoggedIn = false)
+    );
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   logout() {
     this.subscribeService.publish('UserLoggedOn', false);

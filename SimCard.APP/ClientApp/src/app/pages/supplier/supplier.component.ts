@@ -8,7 +8,6 @@ import { SupplierService } from '../../core/services/supplier.service';
   styleUrls: ['./supplier.component.css']
 })
 export class SupplierComponent implements OnInit {
-
   displayDialog: boolean;
 
   supplier: Supplier = new Supplier();
@@ -21,15 +20,12 @@ export class SupplierComponent implements OnInit {
 
   cols: any[];
 
-  constructor(private supplierService: SupplierService) { }
-
+  constructor(private supplierService: SupplierService) {}
 
   ngOnInit() {
     this.showSuppliersResponse();
 
-    this.cols = [
-      { field: 'name', header: 'Tên' }
-    ];
+    this.cols = [{ field: 'name', header: 'Tên' }];
   }
 
   showDialogToAdd() {
@@ -40,7 +36,7 @@ export class SupplierComponent implements OnInit {
 
   save() {
     this.supplierService.save(this.supplier).subscribe(() => {
-    this.showSuppliersResponse();
+      this.showSuppliersResponse();
     });
 
     this.supplier = new Supplier();
@@ -48,8 +44,8 @@ export class SupplierComponent implements OnInit {
   }
 
   showSuppliersResponse() {
-    this.supplierService.getAll().subscribe( resp => {
-    this.suppliers = resp;
+    this.supplierService.getAll().subscribe(resp => {
+      this.suppliers = resp;
     });
   }
   delete() {

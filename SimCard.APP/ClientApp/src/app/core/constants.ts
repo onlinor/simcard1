@@ -41,13 +41,13 @@ export class ExportConstant {
 
 export class ReportConstant {
   static SupportedFilterList = {
-    shop: false,
+    shops: false,
     from: false,
     to: false,
-    product: false,
-    warehouse: false,
-    customer: false,
-    bankAccount: false
+    products: false,
+    warehouses: false,
+    customers: false,
+    bankAccounts: false
   };
 
   static SupportedReports = [

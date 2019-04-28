@@ -40,7 +40,9 @@ export class LoginComponent implements OnInit {
   }
 
   // convenience getter for easy access to form fields
-  get f() { return this.loginForm.controls; }
+  get f() {
+    return this.loginForm.controls;
+  }
 
   onSubmit() {
     this.submitted = true;
@@ -51,18 +53,25 @@ export class LoginComponent implements OnInit {
     }
 
     this.loading = true;
-    this.authService.login({ username: this.f.username.value, password: this.f.password.value }).subscribe(result => {
-      if (result && result.token) {
-        localStorage.setItem('currentUser', JSON.stringify(result));
-        this.authService.currentUserSubject.next(result);
-        this.subscribeService.publish('UserLoggedOn', true);
-        this.router.navigate([this.returnUrl]);
-      }
-    },
-    error => {
-        this.error = error;
-        this.subscribeService.publish('UserLoggedOn', false);
-        this.loading = false;
-    });
+    this.authService
+      .login({
+        username: this.f.username.value,
+        password: this.f.password.value
+      })
+      .subscribe(
+        result => {
+          if (result && result.token) {
+            localStorage.setItem('currentUser', JSON.stringify(result));
+            this.authService.currentUserSubject.next(result);
+            this.subscribeService.publish('UserLoggedOn', true);
+            this.router.navigate([this.returnUrl]);
+          }
+        },
+        error => {
+          this.error = error;
+          this.subscribeService.publish('UserLoggedOn', false);
+          this.loading = false;
+        }
+      );
   }
 }

@@ -36,8 +36,6 @@ export class CustomerService extends BaseService {
   uploadFile(file: File) {
     const formData = new FormData();
     formData.append(file.name, file);
-    return this.apiService
-      .post(`${this.BASE_URI}/import`, formData)
-      .pipe();
+    return this.apiService.post(`${this.BASE_URI}/import`, formData).pipe();
   }
 }

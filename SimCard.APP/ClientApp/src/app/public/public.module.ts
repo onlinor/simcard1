@@ -4,9 +4,7 @@ import { CommonModule } from '@angular/common';
 import { PublicComponent } from './public.component';
 
 @NgModule({
-  imports: [
-    CommonModule
-  ],
+  imports: [CommonModule],
   declarations: [PublicComponent]
 })
-export class PublicModule { }
+export class PublicModule {}

@@ -6,14 +6,13 @@ import { CommonService } from './common.service';
 
 @Injectable()
 export class BaseService {
-    protected BASE_URI: string;
+  protected BASE_URI: string;
 
-    protected apiService: ApiService;
-    protected commonService: CommonService;
+  protected apiService: ApiService;
+  protected commonService: CommonService;
 
-constructor() {
+  constructor() {
     this.apiService = ServiceLocator.injector.get(ApiService);
     this.commonService = ServiceLocator.injector.get(CommonService);
-}
-
+  }
 }

@@ -10,7 +10,11 @@ import { AuthService, SubscribeService } from '../services';
 
 @Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate {
-  constructor(private router: Router, private authService: AuthService, private subscribeService: SubscribeService) {}
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private subscribeService: SubscribeService
+  ) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const currentUser = this.authService.currentUserValue;

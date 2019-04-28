@@ -4,17 +4,16 @@ import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class PhieunhapService extends BaseService {
+  constructor() {
+    super();
+    this.BASE_URI = '/importreceipt';
+  }
 
-    constructor() {
-        super();
-        this.BASE_URI = '/importreceipt';
-    }
+  getProductCode(): Observable<any> {
+    return this.apiService.get(`${this.BASE_URI}/getproductcode`);
+  }
 
-    getProductCode (): Observable<any> {
-        return this.apiService.get(`${this.BASE_URI}/getproductcode`);
-    }
-
-    addPhieunhap(viewModel: any): Observable<any> {
-        return this.apiService.post(`${this.BASE_URI}/add`, viewModel);
-    }
+  addPhieunhap(viewModel: any): Observable<any> {
+    return this.apiService.post(`${this.BASE_URI}/add`, viewModel);
+  }
 }

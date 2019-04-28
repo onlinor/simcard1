@@ -1,9 +1,8 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 
 @Injectable()
 export class PermissionService {
-  constructor() {
-  }
+  constructor() {}
 
   hasPermission(permissionNames: string[]) {
     return true;

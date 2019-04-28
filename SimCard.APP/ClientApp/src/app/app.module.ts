@@ -103,16 +103,52 @@ import { AuthGuard } from './core/guards/auth.guard';
     AngularFontAwesomeModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'customer', component: CustomerComponent, canActivate: [AuthGuard] },
+      {
+        path: 'customer',
+        component: CustomerComponent,
+        canActivate: [AuthGuard]
+      },
       { path: 'event', component: EventsComponent, canActivate: [AuthGuard] },
-      { path: 'config', component: ConfigurationComponent, canActivate: [AuthGuard] },
-      { path: 'exportproduct', component: ExportProductComponent, canActivate: [AuthGuard] },
-      { path: 'supplier', component: SupplierComponent, canActivate: [AuthGuard] },
-      { path: 'cashbook', component: CashbookComponent, canActivate: [AuthGuard] },
-      { path: 'bankbook', component: BankbookComponent, canActivate: [AuthGuard] },
-      { path: 'importproduct', component: ImportProductComponent, canActivate: [AuthGuard] },
-      { path: 'network', component: NetworkComponent, canActivate: [AuthGuard] },
-      { path: 'report-home', component: ReportHomeComponent, canActivate: [AuthGuard] },
+      {
+        path: 'config',
+        component: ConfigurationComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'exportproduct',
+        component: ExportProductComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'supplier',
+        component: SupplierComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'cashbook',
+        component: CashbookComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'bankbook',
+        component: BankbookComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'importproduct',
+        component: ImportProductComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'network',
+        component: NetworkComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'report-home',
+        component: ReportHomeComponent,
+        canActivate: [AuthGuard]
+      },
       { path: 'login', component: LoginComponent }
     ])
   ],
@@ -125,4 +161,4 @@ import { AuthGuard } from './core/guards/auth.guard';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
