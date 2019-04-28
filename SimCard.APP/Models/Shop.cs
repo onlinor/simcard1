@@ -7,6 +7,10 @@ namespace SimCard.APP.Models
     {
         public string Name { get; set; }
 
+        public string Address { get; set; }
+
+        public string Director { get; set; }
+
         public List<Shop> Childrens { get; set; }
 
         [ForeignKey("ShopId")]

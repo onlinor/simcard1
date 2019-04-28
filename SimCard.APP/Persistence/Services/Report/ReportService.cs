@@ -4,8 +4,6 @@ using System.Dynamic;
 using System.Linq;
 using System.Threading.Tasks;
 
-using AutoMapper;
-
 using Microsoft.EntityFrameworkCore;
 
 using SimCard.APP.Models;
@@ -85,19 +83,19 @@ namespace SimCard.APP.Persistence.Services
                     result = await Report_ChiTietThuChiKhac(filter); //done
                     return result;
                 case 12:
-                    result = await Report_TongHopThuChiKhac(filter);
+                    result = await Report_TongHopThuChiKhac(filter); //done
                     return result;
                 case 13:
-                    result = await Report_ChiTietChiPhiHoatDongKinhDoanh(filter);
+                    result = await Report_ChiTietChiPhiHoatDongKinhDoanh(filter); //done
                     return result;
                 case 14:
                     result = await Report_TongHopChiPhiHoatDongKinhDoanh(filter); //done
                     return result;
                 case 15:
-                    result = await Report_SoTienMatToanCongTy(filter);
+                    result = await Report_SoTienMatToanCongTy(filter); //done
                     return result;
                 default:
-                    result = await Report_KetQuaKinhDoanh(filter);
+                    result = await Report_KetQuaKinhDoanh(filter); //done, TODO: calculate line.chiPhiKhac
                     return result;
             }
         }
@@ -164,19 +162,22 @@ namespace SimCard.APP.Persistence.Services
             DateTime fromDate = filter.From ?? DateTime.Now.AddDays(-7);
             DateTime toDate = filter.To ?? DateTime.Now;
 
-            IQueryable<ExportReceipt> exportReceiptsQuery = _exportReceiptRepository.Query(er => er.DateCreated >= fromDate && er.DateCreated <= toDate);
-            IQueryable<ImportReceipt> importReceiptsQuery = _importReceiptRepository.Query(er => er.DateCreated >= fromDate && er.DateCreated <= toDate);
-            var custopmers = await _customerRepository.GetAllCustomers();
-            foreach (var customer in custopmers)
+            var cashBooks = _cashbookRepository.Query(er => true);
+            if (filter.Shop != 0)
+            {
+                cashBooks = cashBooks.Include(c => c.Shop).Where(s => s.ShopId == filter.Shop).Where(c => c.DateCreated >= fromDate && c.DateCreated <= toDate);
+            }
+            var listCashbook = await cashBooks.ToListAsync();
+            foreach (var cashbook in listCashbook)
             {
                 dynamic line = new ExpandoObject();
 
-                line.tenKhachHang = customer.HoTen;
-                line.maKhachHang = customer.MaKH;
-                line.noKhach = customer.MaKH;
-                line.khachNo = customer.MaKH;
-                line.congDon = customer.MaKH;
-                line.chiTietPhieu = customer.MaKH;
+                line.chiNhanh = cashbook.Shop.Name;
+                line.ngayThang = cashbook.DateCreated;
+                line.phieuThuChi = cashbook.SoTienChi > 0 ? "Thu" : "Chi";
+                line.noiDung = cashbook.NoiDungPhieu;
+                line.soThu = cashbook.SoTienThu;
+                line.soChi = cashbook.SoTienChi;
 
                 result.Add(line);
             }
@@ -317,17 +318,28 @@ namespace SimCard.APP.Persistence.Services
             DateTime fromDate = filter.From ?? DateTime.Now.AddDays(-7);
             DateTime toDate = filter.To ?? DateTime.Now;
 
-            var custopmers = await _customerRepository.GetAllCustomers();
-            foreach (var customer in custopmers)
+            var shops = _shopRepository.Query(s => true);
+
+            if (filter.Shop > 0)
+            {
+                shops = shops.Where(s => s.Id == filter.Shop).Include(s => s.ImportReceipts).Include(s => s.ExportReceipts).Include(s => s.Cashbooks);
+            }
+            var listShops = await shops.ToListAsync();
+
+            foreach (var shop in listShops)
             {
                 dynamic line = new ExpandoObject();
 
-                line.tenKhachHang = customer.HoTen;
-                line.maKhachHang = customer.MaKH;
-                line.noKhach = customer.MaKH;
-                line.khachNo = customer.MaKH;
-                line.congDon = customer.MaKH;
-                line.chiTietPhieu = customer.MaKH;
+                line.chiNhanh = shop.Name;
+                line.loiNhuanBanHang =
+                    shop.ExportReceipts.Where(er => er.DateCreated >= fromDate && er.DateCreated <= toDate).Sum(er => er.MoneyPaid) -
+                    shop.ImportReceipts.Where(er => er.DateCreated >= fromDate && er.DateCreated <= toDate).Sum(er => er.Tienthanhtoan);
+                line.loiNhuanKhac =
+                    shop.Cashbooks.Where(c => c.DateCreated >= fromDate && c.DateCreated <= toDate).Sum(c => c.SoTienThu) -
+                    shop.Cashbooks.Where(c => c.DateCreated >= fromDate && c.DateCreated <= toDate).Sum(c => c.SoTienChi);
+                line.tongLoiNhuan = line.loiNhuanBanHang + line.loiNhuanKhac;
+                line.chiPhiBanHang = 0;
+                line.loiNhuanThuc = line.tongLoiNhuan - line.chiPhiBanHang;
 
                 result.Add(line);
             }
@@ -337,8 +349,8 @@ namespace SimCard.APP.Persistence.Services
         private async Task<List<ExpandoObject>> Report_NhapHangTheoMatHang(ReportFilterViewModel filter)
         {
             List<ExpandoObject> result = new List<ExpandoObject>();
-            DateTime fromDate = filter.From ?? DateTime.Now.AddDays(-7);
-            DateTime toDate = filter.To ?? DateTime.Now;
+            var fromDate = filter.From ?? DateTime.Now.AddDays(-7);
+            var toDate = filter.To ?? DateTime.Now;
 
             var importReceiptProductsQuery = _importReceiptRepository.Query(ir => ir.DateCreated >= fromDate && ir.DateCreated <= toDate).Include(ir => ir.Products);
             if (filter.Shop != 0)
@@ -503,7 +515,7 @@ namespace SimCard.APP.Persistence.Services
 
             if (filter.Shop != 0)
             {
-                shops = shops.Where(s => s.Id == filter.Shop).ToList();
+                shops = shops.Where(s => s.Id == filter.Shop && s.DateCreated >= fromDate && s.DateCreated <= toDate).ToList();
             }
 
             foreach (var shop in shops)
@@ -512,7 +524,7 @@ namespace SimCard.APP.Persistence.Services
                 line.chiNhanh = shop.Name;
                 line.thuKhac = shop.Cashbooks.Where(c => c.MaPhanBo == "TCK").Sum(c => c.SoTienThu);
                 line.chiKhac = shop.Cashbooks.Where(c => c.MaPhanBo == "TCK").Sum(c => c.SoTienChi);
-                line.loiNhuanKhac = 0;
+                line.loiNhuanKhac = line.thuKhac - line.chiKhac;
             }
 
             return result;
@@ -547,17 +559,22 @@ namespace SimCard.APP.Persistence.Services
             DateTime fromDate = filter.From ?? DateTime.Now.AddDays(-7);
             DateTime toDate = filter.To ?? DateTime.Now;
 
-            var custopmers = await _customerRepository.GetAllCustomers();
-            foreach (var customer in custopmers)
+            var shops = _shopRepository.Query(s => true);
+            if (filter.Shop > 0)
+            {
+                shops = shops.Where(s => s.Id == filter.Shop).Include(s => s.Cashbooks);
+            }
+            var listShop = await shops.ToListAsync();
+            foreach (var shop in listShop)
             {
                 dynamic line = new ExpandoObject();
 
-                line.tenKhachHang = customer.HoTen;
-                line.maKhachHang = customer.MaKH;
-                line.noKhach = customer.MaKH;
-                line.khachNo = customer.MaKH;
-                line.congDon = customer.MaKH;
-                line.chiTietPhieu = customer.MaKH;
+                line.cuaHang = shop.Name;
+                line.diaChi = shop.Address;
+                line.giamDoc = shop.Director;
+                line.tienThu = shop.Cashbooks.Where(c => c.MaPhanBo == "TCK" && c.SoTienThu > 0).Sum(c => c.SoTienThu);
+                line.tienChi = shop.Cashbooks.Where(c => c.MaPhanBo == "TCK" && c.SoTienChi > 0).Sum(c => c.SoTienChi);
+                line.congDon = line.tienThu - line.tienChi;
 
                 result.Add(line);
             }
@@ -683,6 +700,7 @@ namespace SimCard.APP.Persistence.Services
         private async Task<ExpandoObject> GetFilterData_ChiTietChiPhiHoatDongKinhDoanh()
         {
             dynamic result = new ExpandoObject();
+            dynamic all = new { label = "", value = 0 };
             var shops = (await _shopRepository.GetShops()).Select(s => new { label = s.Name, value = s.Id });
             result.shops = shops;
             return result;
@@ -691,6 +709,7 @@ namespace SimCard.APP.Persistence.Services
         private async Task<ExpandoObject> GetFilterData_ChiTietThuChiKhac()
         {
             dynamic result = new ExpandoObject();
+            dynamic all = new { label = "", value = 0 };
             var shops = (await _shopRepository.GetShops()).Select(s => new { label = s.Name, value = s.Id });
             result.shops = shops;
             return result;
@@ -699,6 +718,7 @@ namespace SimCard.APP.Persistence.Services
         private async Task<ExpandoObject> GetFilterData_ChiTietXuatHangVaLoiNhuan()
         {
             dynamic result = new ExpandoObject();
+            dynamic all = new { label = "", value = 0 };
             var shops = (await _shopRepository.GetShops()).Select(s => new { label = s.Name, value = s.Id });
             var products = (await _productRepository.Query(p => p.ShopId != null).ToListAsync()).Select(p => new { label = p.Ten, value = p.Id });
             result.shops = shops;
@@ -719,7 +739,8 @@ namespace SimCard.APP.Persistence.Services
         private async Task<ExpandoObject> GetFilterData_KetQuaKinhDoanh()
         {
             dynamic result = new ExpandoObject();
-            var shops = (await _shopRepository.GetShops()).Select(s => new { label = s.Name, value = s.Id });
+            dynamic all = new { label = "", value = 0 };
+            var shops = (await _shopRepository.GetShops()).Select(s => new { label = s.Name, value = s.Id }).ToList().Add(all);
             result.shops = shops;
             return result;
         }
@@ -727,7 +748,8 @@ namespace SimCard.APP.Persistence.Services
         private async Task<ExpandoObject> GetFilterData_NhapHangTheoMatHang()
         {
             dynamic result = new ExpandoObject();
-            var shops = (await _shopRepository.GetShops()).Select(s => new { label = s.Name, value = s.Id });
+            dynamic all = new { label = "", value = 0 };
+            var shops = (await _shopRepository.GetShops()).Select(s => new { label = s.Name, value = s.Id }).ToList().Add(all);
             result.shops = shops;
             return result;
         }
@@ -735,7 +757,8 @@ namespace SimCard.APP.Persistence.Services
         private async Task<ExpandoObject> GetFilterData_NhapHangTheoNhaCungCap()
         {
             dynamic result = new ExpandoObject();
-            var shops = (await _shopRepository.GetShops()).Select(s => new { label = s.Name, value = s.Id });
+            dynamic all = new { label = "", value = 0 };
+            var shops = (await _shopRepository.GetShops()).Select(s => new { label = s.Name, value = s.Id }).ToList().Add(all);
             result.shops = shops;
             return result;
         }
@@ -743,8 +766,9 @@ namespace SimCard.APP.Persistence.Services
         private async Task<ExpandoObject> GetFilterData_TongHopChiPhiHoatDongKinhDoanh()
         {
             dynamic result = new ExpandoObject();
-            var bankAccounts = (await _bankAccountRepository.GetAll()).Select(s => new { label = s.Name, value = s.Id });
-            var suppliers = (await _supplierRepository.GetSuppliers()).Select(s => new { label = s.Name, value = s.Id });
+            dynamic all = new { label = "", value = 0 };
+            var bankAccounts = (await _bankAccountRepository.GetAll()).Select(s => new { label = s.Name, value = s.Id }).ToList().Add(all);
+            var suppliers = (await _supplierRepository.GetSuppliers()).Select(s => new { label = s.Name, value = s.Id }).ToList().Add(all);
             result.bankAccounts = bankAccounts;
             result.suppliers = suppliers;
             return result;
@@ -753,7 +777,8 @@ namespace SimCard.APP.Persistence.Services
         private async Task<ExpandoObject> GetFilterData_TongHopCongNoKhachHangTungCN()
         {
             dynamic result = new ExpandoObject();
-            var shops =(await _shopRepository.GetShops()).Select(s => new { label = s.Name, value = s.Id });
+            dynamic all = new { label = "", value = 0 };
+            var shops = (await _shopRepository.GetShops()).Select(s => new { label = s.Name, value = s.Id }).ToList().Add(all);
             result.shops = shops;
             return result;
         }
@@ -761,8 +786,9 @@ namespace SimCard.APP.Persistence.Services
         private async Task<ExpandoObject> GetFilterData_TongHopGiaoDichVaSoDuTKNHToanCongTy()
         {
             dynamic result = new ExpandoObject();
-            var bankAccounts = (await _bankAccountRepository.GetAll()).Select(s => new { label = s.Name, value = s.Id });
-            var suppliers =(await _supplierRepository.GetSuppliers()).Select(s => new { label = s.Name, value = s.Id });
+            dynamic all = new { label = "", value = 0 };
+            var bankAccounts = (await _bankAccountRepository.GetAll()).Select(s => new { label = s.Name, value = s.Id }).ToList().Add(all);
+            var suppliers = (await _supplierRepository.GetSuppliers()).Select(s => new { label = s.Name, value = s.Id }).ToList().Add(all);
 
             result.bankAccounts = bankAccounts;
             result.suppliers = suppliers;
@@ -772,7 +798,8 @@ namespace SimCard.APP.Persistence.Services
         private async Task<ExpandoObject> GetFilterData_TongHopThuChiKhac()
         {
             dynamic result = new ExpandoObject();
-            var shops =(await _shopRepository.GetShops()).Select(s => new { label = s.Name, value = s.Id });
+            dynamic all = new { label = "", value = 0 };
+            var shops = (await _shopRepository.GetShops()).Select(s => new { label = s.Name, value = s.Id }).ToList().Add(all);
             result.shops = shops;
             return result;
         }
@@ -780,8 +807,9 @@ namespace SimCard.APP.Persistence.Services
         private async Task<ExpandoObject> GetFilterData_TongHopXuatHangLoiNhuanCongNoTheoKhachHang()
         {
             dynamic result = new ExpandoObject();
-            var shops = (await _shopRepository.GetShops()).Select(s => new { label = s.Name, value = s.Id });
-            var customers = (await _customerRepository.GetAllCustomers()).Select(s => new { label = s.HoTen, value = s.Id });
+            dynamic all = new { label = "", value = 0 };
+            var shops = (await _shopRepository.GetShops()).Select(s => new { label = s.Name, value = s.Id }).ToList().Add(all);
+            var customers = (await _customerRepository.GetAllCustomers()).Select(s => new { label = s.HoTen, value = s.Id }).ToList().Add(all);
             result.shops = shops;
             result.customers = customers;
             return result;
@@ -790,8 +818,9 @@ namespace SimCard.APP.Persistence.Services
         private async Task<ExpandoObject> GetFilterData_TongHopXuatHangVaLoiNhuanTheoMatHang()
         {
             dynamic result = new ExpandoObject();
-            var products = (await _productRepository.GetProducts()).Select(s => new { label = s.Ten, value = s.Id });
-            var shops = (await _shopRepository.GetShops()).Select(s => new { label = s.Name, value = s.Id });
+            dynamic all = new { label = "", value = 0 };
+            var products = (await _productRepository.GetProducts()).Select(s => new { label = s.Ten, value = s.Id }).ToList().Add(all);
+            var shops = (await _shopRepository.GetShops()).Select(s => new { label = s.Name, value = s.Id }).ToList().Add(all);
             result.products = products;
             result.shops = shops;
             return result;
@@ -800,8 +829,9 @@ namespace SimCard.APP.Persistence.Services
         private async Task<ExpandoObject> GetFilterData_XuatNhapTonTongHop()
         {
             dynamic result = new ExpandoObject();
-            var products = (await _productRepository.GetProducts()).Select(s => new { label = s.Ten, value = s.Id });
-            var shops = (await _shopRepository.GetShops()).Select(s => new { label = s.Name, value = s.Id });
+            dynamic all = new { label = "", value = 0 };
+            var products = (await _productRepository.GetProducts()).Select(s => new { label = s.Ten, value = s.Id }).ToList().Add(all);
+            var shops = (await _shopRepository.GetShops()).Select(s => new { label = s.Name, value = s.Id }).ToList().Add(all);
             result.products = products;
             result.shops = shops;
             return result;
