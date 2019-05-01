@@ -3,11 +3,9 @@
             [isShowDialogPhieuChi]="isShowDialogPhieuChi"
             (outIsShowDialogPhieuChi)="onGetIsShowDialogPhieuChi($event)">
     </app-formphieuchi>
-    <div class="ui-g-12">
-        <h3 class="text-center text-primary">Nhập Kho</h3>
-    </div>
     <div>
         <div class="ui-g-8">
+            <h3 style="text-align: center">Nhập Kho</h3> 
             <div class="ui-g">
                 <div class="ui-g-4">
                     <button pButton type="button" label="Phiếu Mới" icon="fa fa-plus" (click)="generateProductCode()"></button>
@@ -159,7 +157,7 @@
                     <button pButton type="button" (click)="save()" label="Lưu" icon="fa fa-save"></button>
                 </div>
                 <div class="ui-g-3">
-                    <button pButton type="button" label="In Phiếu" icon="fa fa-print"></button>
+                    <button pButton type="button" label="In Phiếu" icon="fa fa-print" (click)="print()"></button>
                 </div>
                 <div class="ui-g-5">
                     <label for="xuatdulieu">Xuất Dữ Liệu:</label>
@@ -189,6 +187,19 @@
                     </p-table>
                 </p-tabPanel>
             </p-tabView>  
+        </div>
+    </div>
+</div>
+
+<div id="print-section" style="display: none;">
+    <div id="header">
+        <h3 style="text-align: center">Phiếu Nhập Hàng</h3>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4"></div>
         </div>
     </div>
 </div>

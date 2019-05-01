@@ -21,6 +21,8 @@ import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { PublicModule } from './public/public.module';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { NgxPrintModule } from 'ngx-print';
+
 
 // Component
 import { AppComponent } from './app.component';
@@ -101,6 +103,7 @@ import { AuthGuard } from './core/guards/auth.guard';
     MultiSelectModule,
     FileUploadModule,
     AngularFontAwesomeModule,
+    NgxPrintModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       {
@@ -149,7 +152,9 @@ import { AuthGuard } from './core/guards/auth.guard';
         component: ReportHomeComponent,
         canActivate: [AuthGuard]
       },
-      { path: 'login', component: LoginComponent }
+      { path: 'login',
+      component: LoginComponent
+      }
     ])
   ],
   providers: [
