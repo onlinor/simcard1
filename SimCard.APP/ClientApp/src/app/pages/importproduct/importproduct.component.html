@@ -34,7 +34,7 @@
                 </div>
                 <div class="ui-g-4">
                     <p>Ngày Lập</p>
-                    <p-inputMask mask="99/99/9999" placeholder="30/10/1996" slotChar="mm/dd/yyyy"></p-inputMask>
+                    <p>{{ todayDate | date:'yyyy-MM-dd'}}</p>
                 </div>
             </div>
             <div class="ui-g">
@@ -197,9 +197,76 @@
     </div>
     <div class="container">
         <div class="row">
-            <div class="col-sm-4"></div>
-            <div class="col-sm-4"></div>
-            <div class="col-sm-4"></div>
+            <div class="col-sm-4">Số Phiếu: {{ importReceipt.ma }}</div>
+            <div class="col-sm-4">Ngày Lập: {{ todayDate | date:'yyyy-MM-dd' }}</div>
+            <div class="col-sm-4">NV Lập: {{ importReceipt.nhanVienLap }}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">Tên NCC: {{ receiptNCC }}</div>
+            <div class="col-sm-8">Công Nợ Cũ: {{ importReceipt.congNoCu }}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">Người Đại Diện: {{ importReceipt.nguoiDaiDien }}</div>
+            <div class="col-sm-8">Số Điện Thoại: {{ importReceipt.soDienThoai }}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <p-table [value]="tableProducts">
+                    <ng-template pTemplate="header" let-columns>
+                        <tr>
+                            <th>Tên mặt hàng</th>
+                            <th>Mã hàng</th>
+                            <th>SL/ ĐV</th>
+                            <th>Mệnh giá</th>
+                            <th>CKMH(%)</th>
+                            <th>Đơn giá</th>
+                            <th>Thành tiền</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-product>
+                        <tr>
+                            <td>{{ product.ten }}</td>
+                            <td>{{ product.ma }}</td>
+                            <td>{{ product.soLuong | number }}</td>
+                            <td>{{ product.menhGia | number }}</td>
+                            <td>{{ product.chietKhau }}</td>
+                            <td>{{ product.donGia }}</td>
+                            <td>{{ product.thanhTien }}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+        <!-- <div class="row">
+            <div class="col-sm-2">Ghi Chú:</div>
+            <div class="col-sm-10">{{ importReceipt.ghiChu }}</div>
+        </div> -->
+        <div class="row">
+            <div class="col-sm-12">Ghi Chú: {{ importReceipt.ghiChu }}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">-</div>
+            <div class="col-sm-8">Cộng Tiền Hàng: </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">-</div>
+            <div class="col-sm-8">VAT: </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">-</div>
+            <div class="col-sm-8">Tổng Cộng: </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">-</div>
+            <div class="col-sm-8">Thanh Toán NCC: </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">-</div>
+            <div class="col-sm-8">Còn Lại: </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-8">-</div>
+            <div class="col-sm-4">Người Nhận</div>
         </div>
     </div>
 </div>

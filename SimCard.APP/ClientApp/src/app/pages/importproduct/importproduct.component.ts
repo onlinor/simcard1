@@ -57,6 +57,9 @@ export class ImportProductComponent implements OnInit {
 
   importReceipt: ImportReceipt = new ImportReceipt();
 
+  todayDate: Date;
+  receiptNCC: string;
+
   constructor(
     private fileService: FileService,
     private productService: ProductService,
@@ -67,6 +70,7 @@ export class ImportProductComponent implements OnInit {
   ngOnInit() {
     this.getAllProducts();
     this.getSuppliers();
+    this.todayDate = new Date();
   }
 
   onChangeIsPaybankChecked() {
@@ -163,6 +167,7 @@ export class ImportProductComponent implements OnInit {
   }
 
   onDropdownValueChange(event: any) {
+    this.receiptNCC = event.value.name;
     this.tableProducts.forEach(element => {
       element.supplierId = event.value.id;
     });
