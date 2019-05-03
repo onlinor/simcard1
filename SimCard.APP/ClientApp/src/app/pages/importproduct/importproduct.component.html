@@ -237,32 +237,28 @@
                 </p-table>
             </div>
         </div>
-        <!-- <div class="row">
-            <div class="col-sm-2">Ghi Chú:</div>
-            <div class="col-sm-10">{{ importReceipt.ghiChu }}</div>
-        </div> -->
         <div class="row">
             <div class="col-sm-12">Ghi Chú: {{ importReceipt.ghiChu }}</div>
         </div>
         <div class="row">
             <div class="col-sm-4">-</div>
-            <div class="col-sm-8">Cộng Tiền Hàng: </div>
+            <div class="col-sm-8">Cộng Tiền Hàng: {{ totalMoney }}</div>
         </div>
         <div class="row">
             <div class="col-sm-4">-</div>
-            <div class="col-sm-8">VAT: </div>
+            <div class="col-sm-8">VAT: {{ vatMoney }}</div>
         </div>
         <div class="row">
             <div class="col-sm-4">-</div>
-            <div class="col-sm-8">Tổng Cộng: </div>
+            <div class="col-sm-8">Tổng Cộng: {{ total }}</div>
         </div>
         <div class="row">
             <div class="col-sm-4">-</div>
-            <div class="col-sm-8">Thanh Toán NCC: </div>
+            <div class="col-sm-8">Thanh Toán NCC: {{ thanhToan }}</div>
         </div>
         <div class="row">
             <div class="col-sm-4">-</div>
-            <div class="col-sm-8">Còn Lại: </div>
+            <div class="col-sm-8">Còn Lại: {{ total - thanhToan }}</div>
         </div>
         <div class="row">
             <div class="col-sm-8">-</div>
