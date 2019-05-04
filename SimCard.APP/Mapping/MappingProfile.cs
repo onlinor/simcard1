@@ -20,6 +20,7 @@ namespace SimCard.APP.Mapping
             CreateMap<ExportReceipt, ExportReceiptViewModel>().ReverseMap();
             CreateMap<Supplier, SupplierViewModel>().ReverseMap();
             CreateMap<User, UserViewModel>().ReverseMap();
+            CreateMap<ProductExchange, ProductExchangeViewModel>().ReverseMap();
         }
     }
 }
