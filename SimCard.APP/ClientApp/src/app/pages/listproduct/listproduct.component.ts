@@ -23,9 +23,14 @@ export class ListproductComponent implements OnInit {
   constructor(private productExchangeService: ProductExchangeService) {}
 
   ngOnInit() {
-    this.showSuppliersResponse();
+    this.showProductExchangesResponse();
 
-    this.cols = [{ field: 'name', header: 'Tên' }];
+    this.cols = [
+      { field: 'ten', header: 'Tên' },
+      { field: 'ma', header: 'Mã' },
+      { field: 'menhgia', header: 'Mệnh Giá' },
+      { field: 'loai', header: 'Loại' }
+    ];
   }
 
   showDialogToAdd() {
@@ -36,14 +41,14 @@ export class ListproductComponent implements OnInit {
 
   save() {
     this.productExchangeService.save(this.productExchange).subscribe(() => {
-      this.showSuppliersResponse();
+      this.showProductExchangesResponse();
     });
 
     this.productExchange = new ProductExchange();
     this.displayDialog = false;
   }
 
-  showSuppliersResponse() {
+  showProductExchangesResponse() {
     this.productExchangeService.getAll().subscribe(resp => {
       this.productExchanges = resp;
     });
@@ -57,17 +62,17 @@ export class ListproductComponent implements OnInit {
 
   onRowSelect(event) {
     this.newProductExchange = false;
-    this.productExchange = this.cloneSupplier(event.data);
+    this.productExchange = this.cloneProductExchange(event.data);
     this.displayDialog = true;
   }
 
-  cloneSupplier(sp: ProductExchange): ProductExchange {
+  cloneProductExchange(sp: ProductExchange): ProductExchange {
     // tslint:disable-next-line:prefer-const
-    let supplier = new ProductExchange();
+    let productExchange = new ProductExchange();
     // tslint:disable-next-line:forin
     for (const prop in sp) {
-      supplier[prop] = sp[prop];
+      productExchange[prop] = sp[prop];
     }
-    return supplier;
+    return productExchange;
   }
 }

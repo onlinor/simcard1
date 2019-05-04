@@ -49,12 +49,13 @@ import { NetworkComponent } from './pages/network/network.component';
 import { MessageService } from 'primeng/api';
 import { LogService } from './shared/logging-services/log.service';
 import { LogPublishersService } from './shared/logging-services/log-publishers.service';
+import { ProductExchangeService } from './core/services';
 import { ReportHomeComponent } from './pages/report-home/report-home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { JwtInterceptor, ErrorInterceptor } from './core/interceptors';
 import { AuthGuard } from './core/guards/auth.guard';
-import { ProductExchange } from './core/models';
 import { ListproductComponent } from './pages/listproduct/listproduct.component';
+
 
 @NgModule({
   declarations: [
@@ -141,7 +142,7 @@ import { ListproductComponent } from './pages/listproduct/listproduct.component'
       },
       {
         path: 'productexchange',
-        component: ProductExchange,
+        component: ListproductComponent,
         canActivate: [AuthGuard]
       },
       {
@@ -167,6 +168,7 @@ import { ListproductComponent } from './pages/listproduct/listproduct.component'
   providers: [
     MessageService,
     LogService,
+    ProductExchangeService,
     LogPublishersService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
