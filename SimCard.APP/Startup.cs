@@ -66,7 +66,7 @@ namespace SimCard.APP
             });
 
             services.AddAutoMapper();
-            services.AddDbContext<SimCardDBContext>(options => options.UseSqlServer("Server=HC-UT40647N\\SQLEXPRESS;Database=SimcardDB;Trusted_Connection=True;MultipleActiveResultSets=true"));
+             services.AddDbContext<SimCardDBContext>(options => options.UseSqlServer("Server=.;Database=SimCard;Integrated Security=True;Trusted_Connection=True;"));
             services.AddDefaultIdentity<User>();
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<IProductRepository, ProductRepository>();
