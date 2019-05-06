@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductExchange } from '../../core/models';
 import { ProductExchangeService } from '../../core/services';
+import { loadInternal } from '@angular/core/src/render3/util';
 
 @Component({
   selector: 'app-listproduct',
@@ -19,6 +20,12 @@ export class ListproductComponent implements OnInit {
   productExchanges: ProductExchange[];
 
   cols: any[];
+
+  productExchangeTypes = [
+    { label: 'Chọn', value: 'default' },
+    { label: 'SIM', value: 'SIM' },
+    { label: 'Điện Thoại', value: 'DT' }
+  ];
 
   constructor(private productExchangeService: ProductExchangeService) {}
 
@@ -53,9 +60,12 @@ export class ListproductComponent implements OnInit {
       this.productExchanges = resp;
     });
   }
+
   delete() {
-    const index = this.productExchanges.indexOf(this.selectedProductExchange);
-    this.productExchanges = this.productExchanges.filter((val, i) => i !== index);
+    const index = this.selectedProductExchange.id;
+    this.productExchangeService.delete(index).subscribe(() => {
+      this.showProductExchangesResponse();
+    });
     this.productExchange = new ProductExchange();
     this.displayDialog = false;
   }
@@ -66,13 +76,16 @@ export class ListproductComponent implements OnInit {
     this.displayDialog = true;
   }
 
-  cloneProductExchange(sp: ProductExchange): ProductExchange {
+  cloneProductExchange(sp: any): ProductExchange {
     // tslint:disable-next-line:prefer-const
-    let productExchange = new ProductExchange();
-    // tslint:disable-next-line:forin
-    for (const prop in sp) {
-      productExchange[prop] = sp[prop];
-    }
+    let productExchange: ProductExchange = {
+      id: sp.id,
+      ten: sp.ten,
+      ma: sp.ma,
+      menhGia: sp.menhgia,
+      loai: sp.loai
+    };
+    // assign
     return productExchange;
   }
 }

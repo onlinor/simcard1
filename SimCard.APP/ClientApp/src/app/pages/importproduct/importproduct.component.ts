@@ -124,8 +124,10 @@ export class ImportProductComponent implements OnInit {
       this.fileService
         .uploadProductList(formData)
         .subscribe((response: Array<Product>) => {
+          let tempProductList: Array<Product> = new Array<Product>();
+          tempProductList = Object.assign(tempProductList, this.tableProducts);
           this.tableProducts = Object.assign(this.tableProducts, response);
-
+          this.tableProducts.push(...tempProductList);
           // Update donGia and thanhTien, shopID is belong-ed to for each product
           // (Save time, may put it somewhere else without any function,..)
           this.tableProducts.forEach(element => {
