@@ -169,6 +169,30 @@
             </div>
         </div>
          <div class="ui-g-4">
+            <h3 style="text-align: center">Nhập Bằng Tay</h3>
+            <p-tabView>
+                <p-tabPanel header="Thẻ Cào">
+                    <p-table [value]="tabviewProductExchanges" [paginator]="true" [rows]="10">
+                        <ng-template pTemplate="header" let-columns>
+                            <tr>
+                                <th>Tên</th>
+                                <th>Mã</th>
+                                <th>Chọn</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData >
+                            <tr>
+                                <td>{{rowData.ten}}</td>
+                                <td>{{rowData.ma}}</td>
+                                <td>
+                                    <button pButton icon="fa fa-plus" (click)="onProductExchangeSelected(rowData)"></button>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </p-tabPanel>
+            </p-tabView>  
+            <h3 style="text-align: center">Thông Tin Kho</h3>
             <p-tabView>
                 <p-tabPanel header="Kho Sim">
                     <p-table #dt [value]="tabviewProducts" selectionMode="single" [paginator]="true" [rows]="10" (onEditComplete)="rowEditCompleted($event)">

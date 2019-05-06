@@ -586,25 +586,25 @@ namespace SimCard.APP.Migrations
                         new
                         {
                             Id = 1,
-                            DateCreated = new DateTime(2019, 5, 4, 20, 50, 43, 175, DateTimeKind.Local).AddTicks(9286),
+                            DateCreated = new DateTime(2019, 5, 6, 10, 57, 57, 463, DateTimeKind.Local).AddTicks(2590),
                             Name = "Tổng Công Ty"
                         },
                         new
                         {
                             Id = 2,
-                            DateCreated = new DateTime(2019, 5, 4, 20, 50, 43, 175, DateTimeKind.Local).AddTicks(9930),
+                            DateCreated = new DateTime(2019, 5, 6, 10, 57, 57, 463, DateTimeKind.Local).AddTicks(3300),
                             Name = "Sim Toàn Cầu"
                         },
                         new
                         {
                             Id = 3,
-                            DateCreated = new DateTime(2019, 5, 4, 20, 50, 43, 175, DateTimeKind.Local).AddTicks(9942),
+                            DateCreated = new DateTime(2019, 5, 6, 10, 57, 57, 463, DateTimeKind.Local).AddTicks(3304),
                             Name = "Alo Sim"
                         },
                         new
                         {
                             Id = 4,
-                            DateCreated = new DateTime(2019, 5, 4, 20, 50, 43, 175, DateTimeKind.Local).AddTicks(9946),
+                            DateCreated = new DateTime(2019, 5, 6, 10, 57, 57, 463, DateTimeKind.Local).AddTicks(3308),
                             Name = "Sim Thần Tài"
                         });
                 });
@@ -629,25 +629,25 @@ namespace SimCard.APP.Migrations
                         new
                         {
                             Id = 1,
-                            DateCreated = new DateTime(2019, 5, 4, 20, 50, 43, 176, DateTimeKind.Local).AddTicks(1649),
+                            DateCreated = new DateTime(2019, 5, 6, 10, 57, 57, 463, DateTimeKind.Local).AddTicks(4051),
                             Name = "Viettel"
                         },
                         new
                         {
                             Id = 2,
-                            DateCreated = new DateTime(2019, 5, 4, 20, 50, 43, 176, DateTimeKind.Local).AddTicks(2170),
+                            DateCreated = new DateTime(2019, 5, 6, 10, 57, 57, 463, DateTimeKind.Local).AddTicks(4395),
                             Name = "Vinaphone"
                         },
                         new
                         {
                             Id = 3,
-                            DateCreated = new DateTime(2019, 5, 4, 20, 50, 43, 176, DateTimeKind.Local).AddTicks(2178),
+                            DateCreated = new DateTime(2019, 5, 6, 10, 57, 57, 463, DateTimeKind.Local).AddTicks(4399),
                             Name = "Mobiphone"
                         },
                         new
                         {
                             Id = 4,
-                            DateCreated = new DateTime(2019, 5, 4, 20, 50, 43, 176, DateTimeKind.Local).AddTicks(2178),
+                            DateCreated = new DateTime(2019, 5, 6, 10, 57, 57, 463, DateTimeKind.Local).AddTicks(4399),
                             Name = "Vietnam Mobile"
                         });
                 });
@@ -686,33 +686,33 @@ namespace SimCard.APP.Migrations
                         new
                         {
                             Id = 1,
-                            DateCreated = new DateTime(2019, 5, 4, 20, 50, 43, 144, DateTimeKind.Local).AddTicks(3680),
+                            DateCreated = new DateTime(2019, 5, 6, 10, 57, 57, 427, DateTimeKind.Local).AddTicks(9187),
                             FirstName = "",
                             LastName = "",
-                            Password = "K7J7ZbMqxBXG709wdCL4DiE6/+FeffPQnsSLDmI8+f4=",
-                            PasswordSalt = "DKKC32nOlcoZfCbRkZNnKw==",
+                            Password = "tJwxDJ3QQBozJA6bpE643RTmqSlH9AOenhzGvAgAHNA=",
+                            PasswordSalt = "bLfVclHRK0Z+nREKH8Xgag==",
                             Role = "Company",
                             Username = "admin"
                         },
                         new
                         {
                             Id = 2,
-                            DateCreated = new DateTime(2019, 5, 4, 20, 50, 43, 159, DateTimeKind.Local).AddTicks(391),
+                            DateCreated = new DateTime(2019, 5, 6, 10, 57, 57, 446, DateTimeKind.Local).AddTicks(7663),
                             FirstName = "Sang",
                             LastName = "Tran",
-                            Password = "uJt97348T2CJlXW9dAFif+0LSC1jLl1MuA53m0fBCk0=",
-                            PasswordSalt = "DKKC32nOlcoZfCbRkZNnKw==",
+                            Password = "rKBNThWsvfMml3FXKxUp8mGtNDd7FEGus4mQXfRS8Ms=",
+                            PasswordSalt = "bLfVclHRK0Z+nREKH8Xgag==",
                             Role = "Branch",
                             Username = "transang"
                         },
                         new
                         {
                             Id = 3,
-                            DateCreated = new DateTime(2019, 5, 4, 20, 50, 43, 166, DateTimeKind.Local).AddTicks(5759),
+                            DateCreated = new DateTime(2019, 5, 6, 10, 57, 57, 455, DateTimeKind.Local).AddTicks(4096),
                             FirstName = "Galvin",
                             LastName = "Nguyen",
-                            Password = "uJt97348T2CJlXW9dAFif+0LSC1jLl1MuA53m0fBCk0=",
-                            PasswordSalt = "DKKC32nOlcoZfCbRkZNnKw==",
+                            Password = "rKBNThWsvfMml3FXKxUp8mGtNDd7FEGus4mQXfRS8Ms=",
+                            PasswordSalt = "bLfVclHRK0Z+nREKH8Xgag==",
                             Role = "Branch",
                             Username = "branch"
                         });

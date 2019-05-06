@@ -5,9 +5,10 @@ import {
   FileService,
   ProductService,
   PhieunhapService,
-  SupplierService
+  SupplierService,
+  ProductExchangeService
 } from '../../core/services';
-import { Product, ImportReceipt, Supplier } from '../../core/models';
+import { Product, ImportReceipt, Supplier, ProductExchange } from '../../core/models';
 
 @Component({
   selector: 'app-importproduct',
@@ -37,6 +38,8 @@ export class ImportProductComponent implements OnInit {
 
   tabviewProducts: Array<Product> = [];
 
+  tabviewProductExchanges: Array<ProductExchange> = [];
+
   suppliers: Array<Supplier> = [];
 
   totalMoney = 0;
@@ -64,11 +67,13 @@ export class ImportProductComponent implements OnInit {
     private fileService: FileService,
     private productService: ProductService,
     private phieuhangService: PhieunhapService,
-    private supplierService: SupplierService
+    private supplierService: SupplierService,
+    private productExchangeService: ProductExchangeService
   ) {}
 
   ngOnInit() {
     this.getAllProducts();
+    this.getAllProductExchanges();
     this.getSuppliers();
     this.todayDate = new Date();
   }
@@ -152,6 +157,12 @@ export class ImportProductComponent implements OnInit {
     });
   }
 
+  getAllProductExchanges() {
+    this.productExchangeService.getAll().subscribe(response => {
+      this.tabviewProductExchanges = response;
+    });
+  }
+
   onProductTableEditCompleted(event: any) {
     // Update donGia and thanhTien for each product(Save time, may put it somewhere else without any function,..)
     const selectedProduct = this.tableProducts.find(
@@ -189,6 +200,29 @@ export class ImportProductComponent implements OnInit {
       }
       this.updateTotalMoney();
     }
+  }
+
+  onProductExchangeSelected(event: any) {
+    const selectedProduct = this.tableProducts.find(
+      x => x.ma === event.data.ma
+    );
+    if (selectedProduct) {
+      // Do nothing
+    } else {
+      const product: Product = {
+        ten: event.ten,
+        ma: event.ma,
+        chietKhau: 0,
+        soLuong: 0,
+        id: null,
+        loai: null,
+        menhGia: event.menhGia,
+        donGia: null,
+        thanhTien: null
+      };
+      this.tableProducts.push(product);
+    }
+    this.updateTotalMoney();
   }
 
   updateTotalMoney() {
