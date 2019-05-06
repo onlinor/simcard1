@@ -216,7 +216,7 @@ export class ImportProductComponent implements OnInit {
         soLuong: 0,
         id: null,
         loai: null,
-        menhGia: event.menhGia,
+        menhGia: event.menhgia,
         donGia: null,
         thanhTien: null
       };

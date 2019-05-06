@@ -78,7 +78,16 @@
                             <tr>
                                 <td>{{ product.ten }}</td>
                                 <td>{{ product.ma }}</td>
-                                <td>{{ product.soLuong | number }}</td>
+                                <td pEditableColumn [pEditableColumn]="product" [pEditableColumnField]="'soLuong'">
+                                        <p-cellEditor>
+                                            <ng-template pTemplate="input">
+                                                <input pInputText type="text" [(ngModel)]="product.soLuong" />
+                                            </ng-template>
+                                            <ng-template pTemplate="output">
+                                                {{ product.soLuong | number }}
+                                            </ng-template>
+                                        </p-cellEditor>
+                                    </td>
                                 <td>{{ product.menhGia | number }}</td>
                                 <td pEditableColumn [pEditableColumn]="product" [pEditableColumnField]="'chietKhau'">
                                     <p-cellEditor>
