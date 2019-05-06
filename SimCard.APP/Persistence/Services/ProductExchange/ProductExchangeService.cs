@@ -60,7 +60,7 @@ namespace SimCard.APP.Persistence.Services
 
         public async Task<bool> Update(ProductExchangeViewModel productExchangeViewModel)
         {
-            ProductExchange ProductExchangeToUpdate = await _repository.Query(x => x.Ma.ToLower() == productExchangeViewModel.Ma.ToLower()).FirstOrDefaultAsync();
+            ProductExchange ProductExchangeToUpdate = await _repository.Query(x => x.Id == productExchangeViewModel.Id).FirstOrDefaultAsync();
             Mapper.Map(productExchangeViewModel, ProductExchangeToUpdate);
             await _repository.Update(ProductExchangeToUpdate);
 

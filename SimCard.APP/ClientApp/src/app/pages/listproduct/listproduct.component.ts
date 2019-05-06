@@ -9,7 +9,8 @@ import { loadInternal } from '@angular/core/src/render3/util';
   styleUrls: ['./listproduct.component.css']
 })
 export class ListproductComponent implements OnInit {
-  displayDialog: boolean;
+  displayEditDialog: boolean;
+  displayAddDialog: boolean;
 
   productExchange: ProductExchange = new ProductExchange();
 
@@ -40,25 +41,19 @@ export class ListproductComponent implements OnInit {
     ];
   }
 
-  showDialogToAdd() {
+  showDialog() {
     this.newProductExchange = true;
     this.productExchange = new ProductExchange();
-    this.displayDialog = true;
+    this.displayAddDialog = true;
   }
 
-  save() {
+  addNew() {
     this.productExchangeService.save(this.productExchange).subscribe(() => {
       this.showProductExchangesResponse();
     });
 
     this.productExchange = new ProductExchange();
-    this.displayDialog = false;
-  }
-
-  showProductExchangesResponse() {
-    this.productExchangeService.getAll().subscribe(resp => {
-      this.productExchanges = resp;
-    });
+    this.displayAddDialog = false;
   }
 
   delete() {
@@ -67,13 +62,32 @@ export class ListproductComponent implements OnInit {
       this.showProductExchangesResponse();
     });
     this.productExchange = new ProductExchange();
-    this.displayDialog = false;
+    this.displayEditDialog = false;
   }
 
+  edit() {
+    if (this.productExchanges.find(x => x.id !== this.selectedProductExchange.id
+       && (x.ten === this.productExchange.ten || x.ma === this.productExchange.ma))) {
+      console.log('Trùng');
+    } else {
+      this.productExchange.id = this.selectedProductExchange.id;
+      this.productExchangeService.update(this.productExchange).subscribe(() => {
+        this.showProductExchangesResponse();
+      });
+    }
+    this.productExchange = new ProductExchange();
+    this.displayEditDialog = false;
+  }
+
+  showProductExchangesResponse() {
+    this.productExchangeService.getAll().subscribe(resp => {
+      this.productExchanges = resp;
+    });
+  }
   onRowSelect(event) {
     this.newProductExchange = false;
     this.productExchange = this.cloneProductExchange(event.data);
-    this.displayDialog = true;
+    this.displayEditDialog = true;
   }
 
   cloneProductExchange(sp: any): ProductExchange {

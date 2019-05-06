@@ -25,12 +25,12 @@
   </ng-template>
   <ng-template pTemplate="summary" let-rowData>
       <div style="text-align:left">
-          <button type="button" pButton icon="fa fa-plus" (click)="showDialogToAdd()" label="Add"></button>
+          <button type="button" pButton icon="fa fa-plus" (click)="showDialog()" label="Add"></button>
       </div>
   </ng-template>    
 </p-table>
 
-<p-dialog header="Chi Tiết" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true"  [style]="{width: '300px'}">
+<p-dialog header="Thêm Sản Phẩm" [(visible)]="displayAddDialog" [responsive]="true" showEffect="fade" [modal]="true"  [style]="{width: '300px'}">
   <div class="ui-g ui-fluid" *ngIf="productExchange">
     <div class="ui-g-12">
         <div class="ui-g-4">
@@ -67,8 +67,50 @@
   </div>
   <p-footer>
       <div class="ui-dialog-buttonpane ui-helper-clearfix">
-          <button type="button" pButton icon="fa fa-close" (click)="delete()" label="Delete"></button>
-          <button type="button" pButton icon="fa fa-check" (click)="save()" label="Save"></button>
+          <button type="button" pButton icon="fa fa-plus" (click)="addNew()" label="Thêm"></button>
       </div>
   </p-footer>
+</p-dialog>
+
+<p-dialog header="Sửa sản phẩm" [(visible)]="displayEditDialog" [responsive]="true" showEffect="fade" [modal]="true"  [style]="{width: '300px'}">
+    <div class="ui-g ui-fluid" *ngIf="productExchange">
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label for="ten">Tên</label>
+            </div>
+            <div class="ui-g-8">
+                <input pInputText id="ten" [(ngModel)]="productExchange.ten" />
+            </div>
+        </div>
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label for="loai">Loại</label>
+            </div>
+            <div class="ui-g-8">
+                <div class="mt-2"><p-dropdown class="mt-2" [options]="productExchangeTypes" [(ngModel)]="productExchange.loai"></p-dropdown></div>
+            </div>
+        </div>
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <label for="ma">Mã</label>
+                </div>
+                <div class="ui-g-8">
+                    <input pInputText id="ma" [(ngModel)]="productExchange.ma" />
+                </div>
+            </div>
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label for="menhgia">Mệnh Giá</label>
+            </div>
+            <div class="ui-g-8">
+                <input pInputText type="number" id="menhgia" [(ngModel)]="productExchange.menhGia" />
+            </div>
+        </div>
+    </div>
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+            <button type="button" pButton icon="fa fa-close" (click)="delete()" label="Xóa"></button>
+            <button type="button" pButton icon="fa fa-check" (click)="edit()" label="Xong"></button>
+        </div>
+    </p-footer>
 </p-dialog>
