@@ -30,7 +30,7 @@
         <div class="ui-g">
             <div class="ui-g-4">
                 <p>Số Phiếu</p>
-                <input type="text" [disabled]="true" pInputText [(ngModel)]="exportReceipt.ma" />
+                <input type="text" readonly pInputText [(ngModel)]="exportReceipt.ma" />
             </div>
             <div class="ui-g-4">
                 <p>Người Đại Diện</p>
@@ -40,7 +40,7 @@
         <div class="ui-g">
             <div class="ui-g-4">
                 <p>Số Điện Thoại</p>
-                <input type="text" [(ngModel)]="exportReceipt.soDienThoai" pInputText pKeyFilter="num" />
+                <input type="number" [(ngModel)]="exportReceipt.soDienThoai" pInputText pKeyFilter="num" />
             </div>
         </div>
         <br>
@@ -92,19 +92,19 @@
                 <tr>
                     <td>Cộng Tiền Hàng:</td>
                     <td>
-                        <input [disabled]="true" type="number" pInputText value="{{ totalMoney }}" />
+                        <input readonly type="number" pInputText value="{{ totalMoney }}" />
                     </td>
                 </tr>
                 <tr>
                     <td>VAT:</td>
                     <td>
-                        <input [disabled]="true" type="number" pInputText value="{{ vatMoney }}" />
+                        <input readonly type="number" pInputText value="{{ vatMoney }}" />
                     </td>
                 </tr>
                 <tr>
                     <td>Tổng Cộng:</td>
                     <td>
-                        <input [disabled]="true" type="number" pInputText [(ngModel)]="exportReceipt.tongTien" value="{{ total }}" />
+                        <input readonly type="number" pInputText [(ngModel)]="exportReceipt.tongTien" value="{{ total }}" />
                     </td>
                 </tr>
                 <tr>

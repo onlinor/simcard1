@@ -1,5 +1,5 @@
 export class Product {
-  id: number;
+  id?: number;
   ma: string;
   ten: string;
   soLuong: number;

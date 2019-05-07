@@ -137,16 +137,7 @@ export class ImportProductComponent implements OnInit {
               element.soLuong *
               (element.menhGia - (element.menhGia * element.chietKhau) / 100);
             element.shopId = 1;
-             switch (element.ma.substr(0, 2)) {
-               case 'DT': {
-                 element.loai = 'DT';
-                 break;
-                 }
-                default: {
-                element.loai = 'SIM';
-                break;
-                }
-             }
+            this.updateLoai(element);
           });
           this.updateTotalMoney();
         });
@@ -206,7 +197,7 @@ export class ImportProductComponent implements OnInit {
 
   onProductExchangeSelected(event: any) {
     const selectedProduct = this.tableProducts.find(
-      x => x.ma === event.data.ma
+      x => x.ma === event.ma
     );
     if (selectedProduct) {
       // Do nothing
@@ -216,15 +207,29 @@ export class ImportProductComponent implements OnInit {
         ma: event.ma,
         chietKhau: 0,
         soLuong: 0,
-        id: null,
         loai: null,
         menhGia: event.menhgia,
         donGia: null,
-        thanhTien: null
+        thanhTien: null,
+        shopId: 1
       };
+      this.updateLoai(product);
       this.tableProducts.push(product);
     }
     this.updateTotalMoney();
+  }
+
+  updateLoai(product: Product) {
+    switch (product.ma.substr(0, 2)) {
+      case 'DT': {
+        product.loai = 'DT';
+        break;
+        }
+       default: {
+        product.loai = 'SIM';
+       break;
+       }
+    }
   }
 
   updateTotalMoney() {
