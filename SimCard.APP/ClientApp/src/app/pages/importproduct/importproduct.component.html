@@ -121,7 +121,13 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>VAT:</td>
+                        <td>% VAT Tùy Chọn:</td>
+                        <td>
+                            <input type="number" pInputText (input)="onPerventVATChange($event.target.value)" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Tổng Tiền VAT:</td>
                         <td>
                             <input readonly type="number" pInputText value="{{ vatMoney }}" />
                         </td>

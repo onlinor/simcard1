@@ -46,6 +46,8 @@ export class ImportProductComponent implements OnInit {
 
   vatMoney = 0;
 
+  percentvatMoney = 0;
+
   total = 0;
 
   thanhToan = 0;
@@ -238,8 +240,13 @@ export class ImportProductComponent implements OnInit {
       this.totalMoney +=
         line.soLuong * (line.menhGia - (line.menhGia * line.chietKhau) / 100);
     });
-    this.vatMoney = (this.totalMoney * 10) / 100;
+    this.vatMoney = (this.totalMoney * this.percentvatMoney) / 100;
     this.total = this.totalMoney + this.vatMoney;
+  }
+
+  onPerventVATChange(percentValue: number) {
+    this.percentvatMoney = percentValue;
+    this.updateTotalMoney();
   }
 
   isProductexist(ma: string, tables: Product[]): Boolean {

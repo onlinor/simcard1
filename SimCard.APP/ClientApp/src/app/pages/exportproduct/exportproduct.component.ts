@@ -108,8 +108,8 @@ export class ExportProductComponent implements OnInit {
           menhGia: event.data.menhgia,
           loai: event.data.loai,
           chietKhau:
-            ((event.data.menhgia - event.data.donGia) * 100) /
-            event.data.menhgia,
+          parseFloat((((event.data.menhgia - event.data.donGia) * 100) /
+            event.data.menhgia).toFixed(1)),
           donGia: event.data.donGia,
           thanhTien: event.data.exportnumber * event.data.donGia
         };
