@@ -74,7 +74,7 @@
 							<div class="mt-2" *ngIf="isATM">
 								<input type="number" min="0" name="paybybank" autocomplete="off" 
 											pInputText [(ngModel)]="payByBank"
-											(change)="onChangePaybank($event)"/>
+											(change)="onChangePaybank()"/>
 							</div>
 						</div>
 					</div>
@@ -87,7 +87,7 @@
 							<div class="mt-2" *ngIf="isCash">
 									<input type="number" min="0" name="paybycash" autocomplete="off" 
 												pInputText [(ngModel)]="payByCash"
-												(change)="onChangePayCash($event)"/>
+												(change)="onChangePayCash()"/>
 							</div>
 						</div>
 					</div>
