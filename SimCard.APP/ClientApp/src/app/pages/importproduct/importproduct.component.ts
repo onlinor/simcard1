@@ -5,10 +5,9 @@ import {
   FileService,
   ProductService,
   PhieunhapService,
-  SupplierService,
-  ProductExchangeService
+  SupplierService
 } from '../../core/services';
-import { Product, ImportReceipt, Supplier, ProductExchange } from '../../core/models';
+import { Product, ImportReceipt, Supplier } from '../../core/models';
 
 @Component({
   selector: 'app-importproduct',
@@ -16,6 +15,7 @@ import { Product, ImportReceipt, Supplier, ProductExchange } from '../../core/mo
   styleUrls: ['./importproduct.component.css']
 })
 export class ImportProductComponent implements OnInit {
+
   @ViewChild(FormphieuchiComponent)
   myFormChiChild: FormphieuchiComponent;
 
@@ -38,7 +38,7 @@ export class ImportProductComponent implements OnInit {
 
   tabviewProducts: Array<Product> = [];
 
-  tabviewProductExchanges: Array<ProductExchange> = [];
+  tabviewProductClones: Array<Product> = [];
 
   suppliers: Array<Supplier> = [];
 
@@ -70,14 +70,13 @@ export class ImportProductComponent implements OnInit {
     private productService: ProductService,
     private phieuhangService: PhieunhapService,
     private supplierService: SupplierService,
-    private productExchangeService: ProductExchangeService
   ) {}
 
   ngOnInit() {
     this.getAllProducts();
-    this.getAllProductExchanges();
     this.getSuppliers();
     this.todayDate = new Date();
+    this.tabviewProductClones = this.tabviewProducts.filter(x => x.loai === 'SS');
   }
 
   onChangeIsPaybankChecked() {
@@ -151,12 +150,6 @@ export class ImportProductComponent implements OnInit {
     });
   }
 
-  getAllProductExchanges() {
-    this.productExchangeService.getAll().subscribe(response => {
-      this.tabviewProductExchanges = response;
-    });
-  }
-
   onProductTableEditCompleted(event: any) {
     // Update donGia and thanhTien for each product(Save time, may put it somewhere else without any function,..)
     const selectedProduct = this.tableProducts.find(
@@ -180,48 +173,42 @@ export class ImportProductComponent implements OnInit {
   }
 
   rowEditCompleted(event: any) {
-    if (event.data.soluongnhap === 0 || event.data.soluongnhap === null) {
+    if (event.data.soLuongNhap <= 0 || !event.data.soLuongNhap) {
       console.log('Input is not correct, please try again');
     } else {
       const selectedProduct = this.tableProducts.find(
         x => x.ma === event.data.ma
       );
       if (selectedProduct) {
-        selectedProduct.donGia =
-          (selectedProduct.menhGia * (100 - selectedProduct.chietKhau)) / 100;
-        selectedProduct.thanhTien =
-          selectedProduct.soLuongNhap * selectedProduct.donGia;
+        // selectedProduct.donGia =
+        //   (selectedProduct.menhGia * (100 - selectedProduct.chietKhau)) / 100;
+        // selectedProduct.thanhTien =
+        //   selectedProduct.soLuongNhap * selectedProduct.donGia;
+        selectedProduct.soLuong += event.data.soLuongNhap;
+        this.updateTotalMoney();
+      } else {
+        const product: Product = {
+          chietKhau: 0,
+          donGia: 0,
+          loai: event.data.loai,
+          ma: event.data.ma,
+          menhGia: event.data.menhgia,
+          shopId: 1,
+          soLuong: event.data.soLuongNhap,
+          supplierId: event.data.supplierId,
+          ten: event.data.ten,
+          thanhTien: 0,
+        };
+        this.tableProducts.push(product);
       }
       this.updateTotalMoney();
     }
   }
 
-  onProductExchangeSelected(event: any) {
-    const selectedProduct = this.tableProducts.find(
-      x => x.ma === event.ma
-    );
-    if (selectedProduct) {
-      // Do nothing
-    } else {
-      const product: Product = {
-        ten: event.ten,
-        ma: event.ma,
-        chietKhau: 0,
-        soLuong: 0,
-        loai: event.loai,
-        menhGia: event.menhgia,
-        donGia: null,
-        thanhTien: null,
-        shopId: 1
-      };
-      this.tableProducts.push(product);
-    }
-    this.updateTotalMoney();
-  }
-
   updateTotalMoney() {
     this.totalMoney = 0;
     this.tableProducts.forEach(line => {
+      line.thanhTien = line.donGia * line.soLuong;
       this.totalMoney +=
         line.soLuong * (line.menhGia - (line.menhGia * line.chietKhau) / 100);
     });
@@ -477,5 +464,23 @@ export class ImportProductComponent implements OnInit {
       </html>`
     );
     popupWin.document.close();
+  }
+
+  handleChange(e) {
+    const index = e.index;
+    switch (index) {
+      case 0: {
+        this.tabviewProductClones = this.tabviewProducts.filter(x => x.loai === 'SS');
+        break;
+      }
+      case 1: {
+        this.tabviewProductClones = this.tabviewProducts.filter(x => x.loai === 'TC');
+        break;
+      }
+      default: {
+        this.tabviewProductClones = this.tabviewProducts.filter(x => x.loai === 'SS');
+        break;
+      }
+   }
   }
 }

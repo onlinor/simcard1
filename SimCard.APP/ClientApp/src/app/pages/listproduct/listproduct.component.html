@@ -20,7 +20,7 @@
         </td>
         <ng-container *ngFor="let col of columns">
             <td *ngIf="col.header === 'Nhà Cung Cấp' && suppliers; else DifferentHeaders">
-                    {{suppliers[rowData.supplierId - 1].name}}
+                    {{suppliers[rowData.supplierId - 1]?.name}}
             </td>
             <ng-template #DifferentHeaders>
                 <td>

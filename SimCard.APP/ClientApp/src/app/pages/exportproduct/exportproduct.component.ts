@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { FormphieuthuComponent } from '../../public/formphieuthu/formphieuthu.component';
-import { Product, ExportReceipt, Customer, Shop } from '../../core/models';
+import { Product, ExportReceipt, Shop } from '../../core/models';
 import {
   PhieuxuatService,
   ProductService,

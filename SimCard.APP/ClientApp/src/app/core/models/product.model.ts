@@ -11,7 +11,4 @@ export class Product {
   shopId?: number;
   supplierId?: number;
   soLuongNhap?: number;
-  soLuongXuat?: number;
-  shopName?: string;
-  supplierName?: string;
 }

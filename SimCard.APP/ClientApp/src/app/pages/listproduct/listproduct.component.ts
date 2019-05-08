@@ -56,20 +56,20 @@ export class ListproductComponent implements OnInit {
   }
 
   addNew() {
+    const tableProducts: Array<Product> = [{
+      chietKhau: 0,
+      donGia: 0,
+      loai: this.productExchange.loai,
+      ma: this.productExchange.ma,
+      menhGia: this.productExchange.menhGia,
+      shopId: 1,
+      soLuong: 0,
+      supplierId: this.productExchange.supplierId,
+      ten: this.productExchange.ten,
+      thanhTien: 0,
+    }];
     this.productExchangeService.save(this.productExchange).subscribe(() => {
-      const initialProduct: Product = {
-        chietKhau: 0,
-        donGia: 0,
-        loai: this.productExchange.loai,
-        ma: this.productExchange.ma,
-        menhGia: this.productExchange.menhGia,
-        shopId: 1,
-        soLuong: 0,
-        supplierId: this.productExchange.supplierId,
-        ten: this.productExchange.ten,
-        thanhTien: 0,
-      };
-      this.productService.save(initialProduct).subscribe(() => {});
+      this.productService.save(tableProducts).subscribe(() => {});
       this.showProductExchangesResponse();
     });
 
