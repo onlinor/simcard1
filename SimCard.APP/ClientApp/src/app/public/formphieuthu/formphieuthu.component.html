@@ -15,7 +15,7 @@
 					<label>Số phiếu thu</label>
 				</div>
 				<div class="ui-g-6">
-					<input name="maPhieu" autocomplete="off" pInputText [(ngModel)]="dataPhieuThu.maPhieu" [disabled]="true" />
+					<input name="maPhieu" autocomplete="off" pInputText [(ngModel)]="dataPhieuThu.maPhieu" readonly />
 				</div>
 			</div>
 			<div class="ui-g-12">
@@ -92,7 +92,7 @@
 						</div>
 					</div>
 					<input type="text" name="hinhThucThu" autocomplete="off" pInputText [(ngModel)]="dataPhieuThu.hinhThucNop"
-					 [disabled]="true" />
+					readonly />
 				</div>
 			</div>
 			<div class="ui-g-12" *ngIf="isATM">
@@ -109,7 +109,7 @@
 				</div>
 				<div class="ui-g-6">
 					<input type="number" min="0" name="soTien" autocomplete="off"
-							 pInputText [(ngModel)]="dataPhieuThu.soTienThu" [disabled]="true"/>
+							 pInputText [(ngModel)]="dataPhieuThu.soTienThu" readonly />
 				</div>
 			</div>
 			<div class="ui-g-12">

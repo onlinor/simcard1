@@ -5,9 +5,10 @@ import {
   FileService,
   ProductService,
   PhieunhapService,
-  SupplierService
+  SupplierService,
+  ProductExchangeService
 } from '../../core/services';
-import { Product, ImportReceipt, Supplier } from '../../core/models';
+import { Product, ImportReceipt, Supplier, ProductExchange } from '../../core/models';
 
 @Component({
   selector: 'app-importproduct',
@@ -37,11 +38,15 @@ export class ImportProductComponent implements OnInit {
 
   tabviewProducts: Array<Product> = [];
 
+  tabviewProductExchanges: Array<ProductExchange> = [];
+
   suppliers: Array<Supplier> = [];
 
   totalMoney = 0;
 
   vatMoney = 0;
+
+  percentvatMoney = 0;
 
   total = 0;
 
@@ -64,11 +69,13 @@ export class ImportProductComponent implements OnInit {
     private fileService: FileService,
     private productService: ProductService,
     private phieuhangService: PhieunhapService,
-    private supplierService: SupplierService
+    private supplierService: SupplierService,
+    private productExchangeService: ProductExchangeService
   ) {}
 
   ngOnInit() {
     this.getAllProducts();
+    this.getAllProductExchanges();
     this.getSuppliers();
     this.todayDate = new Date();
   }
@@ -119,8 +126,10 @@ export class ImportProductComponent implements OnInit {
       this.fileService
         .uploadProductList(formData)
         .subscribe((response: Array<Product>) => {
+          let tempProductList: Array<Product> = new Array<Product>();
+          tempProductList = Object.assign(tempProductList, this.tableProducts);
           this.tableProducts = Object.assign(this.tableProducts, response);
-
+          this.tableProducts.push(...tempProductList);
           // Update donGia and thanhTien, shopID is belong-ed to for each product
           // (Save time, may put it somewhere else without any function,..)
           this.tableProducts.forEach(element => {
@@ -130,16 +139,6 @@ export class ImportProductComponent implements OnInit {
               element.soLuong *
               (element.menhGia - (element.menhGia * element.chietKhau) / 100);
             element.shopId = 1;
-             switch (element.ma.substr(0, 2)) {
-               case 'DT': {
-                 element.loai = 'DT';
-                 break;
-                 }
-                default: {
-                element.loai = 'SIM';
-                break;
-                }
-             }
           });
           this.updateTotalMoney();
         });
@@ -149,6 +148,12 @@ export class ImportProductComponent implements OnInit {
   getAllProducts() {
     this.productService.getAll().subscribe(response => {
       this.tabviewProducts = response;
+    });
+  }
+
+  getAllProductExchanges() {
+    this.productExchangeService.getAll().subscribe(response => {
+      this.tabviewProductExchanges = response;
     });
   }
 
@@ -191,14 +196,42 @@ export class ImportProductComponent implements OnInit {
     }
   }
 
+  onProductExchangeSelected(event: any) {
+    const selectedProduct = this.tableProducts.find(
+      x => x.ma === event.ma
+    );
+    if (selectedProduct) {
+      // Do nothing
+    } else {
+      const product: Product = {
+        ten: event.ten,
+        ma: event.ma,
+        chietKhau: 0,
+        soLuong: 0,
+        loai: event.loai,
+        menhGia: event.menhgia,
+        donGia: null,
+        thanhTien: null,
+        shopId: 1
+      };
+      this.tableProducts.push(product);
+    }
+    this.updateTotalMoney();
+  }
+
   updateTotalMoney() {
     this.totalMoney = 0;
     this.tableProducts.forEach(line => {
       this.totalMoney +=
         line.soLuong * (line.menhGia - (line.menhGia * line.chietKhau) / 100);
     });
-    this.vatMoney = (this.totalMoney * 10) / 100;
+    this.vatMoney = (this.totalMoney * this.percentvatMoney) / 100;
     this.total = this.totalMoney + this.vatMoney;
+  }
+
+  onPerventVATChange(percentValue: number) {
+    this.percentvatMoney = percentValue;
+    this.updateTotalMoney();
   }
 
   isProductexist(ma: string, tables: Product[]): Boolean {

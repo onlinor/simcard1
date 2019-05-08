@@ -1,0 +1,139 @@
+<p-table [columns]="cols" [value]="productExchanges" selectionMode="single" [(selection)]="selectedProductExchange" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="15">
+  <ng-template pTemplate="caption">
+    Nguồn Hàng
+  </ng-template>
+  <ng-template pTemplate="header" let-columns>
+      <tr>
+          <th>
+              Thứ Tự
+          </th>
+          <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+              {{col.header}}
+              <p-sortIcon [field]="col.field"></p-sortIcon>
+          </th>
+      </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+      <tr [pSelectableRow]="rowData">
+        <td>
+            {{rowIndex + 1}}
+        </td>
+        <ng-container *ngFor="let col of columns">
+            <td *ngIf="col.header === 'Nhà Cung Cấp' && suppliers; else DifferentHeaders">
+                    {{suppliers[rowData.supplierId - 1].name}}
+            </td>
+            <ng-template #DifferentHeaders>
+                <td>
+                    {{rowData[col.field]}}
+                </td> 
+            </ng-template>
+        </ng-container>
+      </tr>
+  </ng-template>
+  <ng-template pTemplate="summary" let-rowData>
+      <div style="text-align:left">
+          <button type="button" pButton icon="fa fa-plus" (click)="showDialog()" label="Add"></button>
+      </div>
+  </ng-template>    
+</p-table>
+
+<p-dialog header="Thêm Sản Phẩm" [(visible)]="displayAddDialog" [responsive]="true" showEffect="fade" [modal]="true"  [style]="{width: '300px'}">
+  <div class="ui-g ui-fluid" *ngIf="productExchange">
+    <div class="ui-g-12">
+        <div class="ui-g-4">
+            <label for="ten">Tên</label>
+        </div>
+        <div class="ui-g-8">
+            <input pInputText id="ten" [(ngModel)]="productExchange.ten" />
+        </div>
+    </div>
+    <div class="ui-g-12">
+        <div class="ui-g-4">
+            <label for="ncc">Nhà Cung Cấp</label>
+        </div>
+        <div class="ui-g-8">
+            <div class="mt-2"><p-dropdown class="mt-2" [options]="suppliers" placeholder="Chọn Nhà Cung Cấp" optionLabel="name" [showClear]="true" (onChange)="onDropdownValueChange($event)"></p-dropdown></div>
+        </div>
+    </div>
+    <div class="ui-g-12">
+        <div class="ui-g-4">
+            <label for="loai">Loại</label>
+        </div>
+        <div class="ui-g-8">
+            <div class="mt-2"><p-dropdown class="mt-2" placeholder="Chọn Loại Sản Phẩm" [options]="productExchangeTypes" [showClear]="true" [(ngModel)]="productExchange.loai"></p-dropdown></div>
+        </div>
+    </div>
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label for="ma">Mã</label>
+            </div>
+            <div class="ui-g-8">
+                <input pInputText id="ma" [(ngModel)]="productExchange.ma" />
+            </div>
+        </div>
+    <div class="ui-g-12">
+        <div class="ui-g-4">
+            <label for="menhgia">Mệnh Giá</label>
+        </div>
+        <div class="ui-g-8">
+            <input pInputText type="number" id="menhgia" [(ngModel)]="productExchange.menhGia" />
+        </div>
+    </div>
+  </div>
+  <p-footer>
+      <div class="ui-dialog-buttonpane ui-helper-clearfix">
+          <button type="button" pButton icon="fa fa-plus" (click)="addNew()" label="Thêm"></button>
+      </div>
+  </p-footer>
+</p-dialog>
+
+<p-dialog header="Sửa sản phẩm" [(visible)]="displayEditDialog" [responsive]="true" showEffect="fade" [modal]="true"  [style]="{width: '300px'}">
+    <div class="ui-g ui-fluid" *ngIf="productExchange">
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label for="ten">Tên</label>
+            </div>
+            <div class="ui-g-8">
+                <input pInputText id="ten" [(ngModel)]="productExchange.ten" />
+            </div>
+        </div>
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label for="ncc">Nhà Cung Cấp</label>
+            </div>
+            <div class="ui-g-8">
+                <div class="mt-2"><p-dropdown class="mt-2" [options]="suppliers" placeholder="Chọn Nhà Cung Cấp" optionLabel="name" [showClear]="true" (onChange)="onDropdownValueChange($event)"></p-dropdown></div>
+            </div>
+        </div>
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label for="loai">Loại</label>
+            </div>
+            <div class="ui-g-8">
+                <div class="mt-2"><p-dropdown class="mt-2" [options]="productExchangeTypes" placeholder="Chọn Nhà Cung Cấp" [showClear]="true" [(ngModel)]="productExchange.loai"></p-dropdown></div>
+            </div>
+        </div>
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <label for="ma">Mã</label>
+                </div>
+                <div class="ui-g-8">
+                    <input pInputText id="ma" [(ngModel)]="productExchange.ma" />
+                </div>
+            </div>
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label for="menhgia">Mệnh Giá</label>
+            </div>
+            <div class="ui-g-8">
+                <input pInputText type="number" id="menhgia" [(ngModel)]="productExchange.menhGia" />
+            </div>
+        </div>
+    </div>
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+            <button type="button" pButton icon="fa fa-close" (click)="delete()" label="Xóa"></button>
+            <button type="button" pButton icon="fa fa-check" (click)="edit()" label="Xong"></button>
+        </div>
+    </p-footer>
+</p-dialog>
