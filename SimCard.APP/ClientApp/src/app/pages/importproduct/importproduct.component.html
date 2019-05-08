@@ -123,7 +123,7 @@
                     <tr>
                         <td>% VAT Tùy Chọn:</td>
                         <td>
-                            <input type="number" pInputText (input)="onPerventVATChange($event.target.value)" />
+                            <input type="number" placeholder="%" pInputText (input)="onPerventVATChange($event.target.value)" />
                         </td>
                     </tr>
                     <tr>
@@ -211,7 +211,7 @@
                         <ng-template pTemplate="header" let-columns>
                             <tr>
                                 <th>Tên</th>
-                                <th>Số Lượng</th>
+                                <th>Tồn Kho</th>
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-product>

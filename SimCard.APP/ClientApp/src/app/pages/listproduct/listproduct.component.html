@@ -15,12 +15,19 @@
   </ng-template>
   <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
       <tr [pSelectableRow]="rowData">
-          <td>
-                {{rowIndex + 1}}
-          </td>
-          <td *ngFor="let col of columns">
-              {{rowData[col.field]}}
-          </td>
+        <td>
+            {{rowIndex + 1}}
+        </td>
+        <ng-container *ngFor="let col of columns">
+            <td *ngIf="col.header === 'Nhà Cung Cấp' && suppliers; else DifferentHeaders">
+                    {{suppliers[rowData.supplierId - 1].name}}
+            </td>
+            <ng-template #DifferentHeaders>
+                <td>
+                    {{rowData[col.field]}}
+                </td> 
+            </ng-template>
+        </ng-container>
       </tr>
   </ng-template>
   <ng-template pTemplate="summary" let-rowData>
@@ -42,10 +49,18 @@
     </div>
     <div class="ui-g-12">
         <div class="ui-g-4">
+            <label for="ncc">Nhà Cung Cấp</label>
+        </div>
+        <div class="ui-g-8">
+            <div class="mt-2"><p-dropdown class="mt-2" [options]="suppliers" placeholder="Chọn Nhà Cung Cấp" optionLabel="name" [showClear]="true" (onChange)="onDropdownValueChange($event)"></p-dropdown></div>
+        </div>
+    </div>
+    <div class="ui-g-12">
+        <div class="ui-g-4">
             <label for="loai">Loại</label>
         </div>
         <div class="ui-g-8">
-            <div class="mt-2"><p-dropdown class="mt-2" [options]="productExchangeTypes" [(ngModel)]="productExchange.loai"></p-dropdown></div>
+            <div class="mt-2"><p-dropdown class="mt-2" placeholder="Chọn Loại Sản Phẩm" [options]="productExchangeTypes" [showClear]="true" [(ngModel)]="productExchange.loai"></p-dropdown></div>
         </div>
     </div>
         <div class="ui-g-12">
@@ -84,10 +99,18 @@
         </div>
         <div class="ui-g-12">
             <div class="ui-g-4">
+                <label for="ncc">Nhà Cung Cấp</label>
+            </div>
+            <div class="ui-g-8">
+                <div class="mt-2"><p-dropdown class="mt-2" [options]="suppliers" placeholder="Chọn Nhà Cung Cấp" optionLabel="name" [showClear]="true" (onChange)="onDropdownValueChange($event)"></p-dropdown></div>
+            </div>
+        </div>
+        <div class="ui-g-12">
+            <div class="ui-g-4">
                 <label for="loai">Loại</label>
             </div>
             <div class="ui-g-8">
-                <div class="mt-2"><p-dropdown class="mt-2" [options]="productExchangeTypes" [(ngModel)]="productExchange.loai"></p-dropdown></div>
+                <div class="mt-2"><p-dropdown class="mt-2" [options]="productExchangeTypes" placeholder="Chọn Nhà Cung Cấp" [showClear]="true" [(ngModel)]="productExchange.loai"></p-dropdown></div>
             </div>
         </div>
             <div class="ui-g-12">

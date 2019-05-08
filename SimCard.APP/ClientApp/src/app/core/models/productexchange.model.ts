@@ -4,4 +4,5 @@ export class ProductExchange {
     ma: string;
     menhGia: number;
     loai: string;
+    supplierId: number;
 }

@@ -30,7 +30,8 @@ namespace SimCard.APP.Persistence.Services
                 Ten = productExchangeViewModel.Ten,
                 Ma = productExchangeViewModel.Ma,
                 Menhgia = productExchangeViewModel.Menhgia,
-                Loai = productExchangeViewModel.Loai
+                Loai = productExchangeViewModel.Loai,
+                SupplierId = productExchangeViewModel.SupplierId
             };
       
             await _repository.Create(productExchange);

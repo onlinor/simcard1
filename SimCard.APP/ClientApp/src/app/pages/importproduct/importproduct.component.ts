@@ -139,7 +139,6 @@ export class ImportProductComponent implements OnInit {
               element.soLuong *
               (element.menhGia - (element.menhGia * element.chietKhau) / 100);
             element.shopId = 1;
-            this.updateLoai(element);
           });
           this.updateTotalMoney();
         });
@@ -209,29 +208,15 @@ export class ImportProductComponent implements OnInit {
         ma: event.ma,
         chietKhau: 0,
         soLuong: 0,
-        loai: null,
+        loai: event.loai,
         menhGia: event.menhgia,
         donGia: null,
         thanhTien: null,
         shopId: 1
       };
-      this.updateLoai(product);
       this.tableProducts.push(product);
     }
     this.updateTotalMoney();
-  }
-
-  updateLoai(product: Product) {
-    switch (product.ma.substr(0, 2)) {
-      case 'DT': {
-        product.loai = 'DT';
-        break;
-        }
-       default: {
-        product.loai = 'SIM';
-       break;
-       }
-    }
   }
 
   updateTotalMoney() {

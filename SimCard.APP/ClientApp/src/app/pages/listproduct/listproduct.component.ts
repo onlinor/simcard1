@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductExchange } from '../../core/models';
-import { ProductExchangeService } from '../../core/services';
-import { loadInternal } from '@angular/core/src/render3/util';
+import { ProductExchange, Product, Supplier } from '../../core/models';
+import { ProductExchangeService, ProductService, SupplierService } from '../../core/services';
 
 @Component({
   selector: 'app-listproduct',
@@ -9,6 +8,7 @@ import { loadInternal } from '@angular/core/src/render3/util';
   styleUrls: ['./listproduct.component.css']
 })
 export class ListproductComponent implements OnInit {
+
   displayEditDialog: boolean;
   displayAddDialog: boolean;
 
@@ -22,22 +22,30 @@ export class ListproductComponent implements OnInit {
 
   cols: any[];
 
+  suppliers: Supplier[];
+
   productExchangeTypes = [
-    { label: 'Chọn', value: 'default' },
-    { label: 'SIM', value: 'SIM' },
-    { label: 'Điện Thoại', value: 'DT' }
+    { label: 'Thẻ Cào', value: 'TC' },
+    { label: 'Sim Số', value: 'SS' },
+    { label: 'Điện Thoại', value: 'DT' },
+    { label: 'Phụ Kiện', value: 'PK' }
   ];
 
-  constructor(private productExchangeService: ProductExchangeService) {}
+  constructor(
+    private productExchangeService: ProductExchangeService,
+    private productService: ProductService,
+    private supplierService: SupplierService
+    ) {}
 
   ngOnInit() {
     this.showProductExchangesResponse();
-
+    this.showSuppliersResponse();
     this.cols = [
       { field: 'ten', header: 'Tên' },
       { field: 'ma', header: 'Mã' },
       { field: 'menhgia', header: 'Mệnh Giá' },
-      { field: 'loai', header: 'Loại' }
+      { field: 'loai', header: 'Loại' },
+      { field: 'supplierId', header: 'Nhà Cung Cấp' }
     ];
   }
 
@@ -49,6 +57,19 @@ export class ListproductComponent implements OnInit {
 
   addNew() {
     this.productExchangeService.save(this.productExchange).subscribe(() => {
+      const initialProduct: Product = {
+        chietKhau: 0,
+        donGia: 0,
+        loai: this.productExchange.loai,
+        ma: this.productExchange.ma,
+        menhGia: this.productExchange.menhGia,
+        shopId: 1,
+        soLuong: 0,
+        supplierId: this.productExchange.supplierId,
+        ten: this.productExchange.ten,
+        thanhTien: 0,
+      };
+      this.productService.save(initialProduct).subscribe(() => {});
       this.showProductExchangesResponse();
     });
 
@@ -97,9 +118,20 @@ export class ListproductComponent implements OnInit {
       ten: sp.ten,
       ma: sp.ma,
       menhGia: sp.menhgia,
-      loai: sp.loai
+      loai: sp.loai,
+      supplierId: sp.supplierid
     };
     // assign
     return productExchange;
+  }
+
+  showSuppliersResponse() {
+    this.supplierService.getAll().subscribe(resp => {
+      this.suppliers = resp;
+    });
+  }
+
+  onDropdownValueChange(event: any) {
+    this.productExchange.supplierId = event.value.id;
   }
 }
