@@ -1,10 +1,11 @@
+<!--
 <div class='main-nav'>
     <div class='navbar navbar-inverse navbar-expand-xl'>
         <div class='bt-0' id="navbarNavAltMarkup" [ngClass]='{ "in": isExpanded }'>
             <div class="logo-place">
-                <img src="https://picsum.photos/50/50" alt="picture">
-                <h3 class="color-white">SimCard</h3>
-                <h5 class="color-white">Success, Success, Success, Success</h5>
+                <img src="assets/images/logo.png" alt="logo">
+                <h3 class="company-name color-white">Thành Viễn</h3>
+                <h5 class="company-slogan color-white">Kết nối yêu thương</h5>
             </div>
             <ul class='nav navbar-nav'>
                 <li [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
@@ -29,7 +30,7 @@
                 </li>
                 <li [routerLinkActive]='["link-active"]'>
                     <a class="item-nav" [routerLink]='["/importproduct"]' (click)='collapse()'>
-                        <span class='pi pi-shopping-cart'></span> Nhập Hàng 
+                        <span class='pi pi-shopping-cart'></span> Nhập Hàng
                     </a>
                 </li>
                 <li [routerLinkActive]='["link-active"]'>
@@ -42,6 +43,7 @@
                         <span class='pi pi-shopping-cart'></span> Nhà Mạng
                     </a>
                 </li> -->
+<!--
                 <li [routerLinkActive]='["link-active"]'>
                     <a class="item-nav" [routerLink]='["/supplier"]' (click)='collapse()'>
                         <span class='pi pi-key'></span> Nhà Cung Cấp
@@ -66,3 +68,101 @@
         </div>
     </div>
 </div>
+    -->
+
+
+    <div class="logo-place">
+        <img id="app-logo" src="assets/images/logo.png" alt="logo">
+    </div>
+
+    <div class="sidebar-header">
+        <h3 class="company-name color-white">Thành Viễn</h3>
+        <h5 class="company-slogan color-white">Kết nối yêu thương</h5>
+    </div>
+    <ul class="list-unstyled components">
+        <li [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
+            <a class="item-nav" [routerLink]='["/"]' (click)='collapse()'>
+                <span class='pi pi-home'></span> Trang Chủ
+            </a>
+        </li>
+        <li>
+            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                <span class='pi pi-briefcase'></span> Kinh Doanh
+            </a>
+            <ul class="collapse list-unstyled" id="homeSubmenu">
+                <li [routerLinkActive]='["link-active"]'>
+                    <a class="item-nav" [routerLink]='["/importproduct"]' (click)='collapse()'>
+                        <span class='pi pi-download'></span> Nhập Hàng
+                    </a>
+                </li>
+                <li [routerLinkActive]='["link-active"]'>
+                    <a class="item-nav" [routerLink]='["/exportproduct"]' (click)='collapse()'>
+                        <span class='pi pi-upload'></span> Xuất Hàng
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="#pageKeToan" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                <span class='pi pi-tags'></span> Kế Toán
+            </a>
+            <ul class="collapse list-unstyled" id="pageKeToan">
+                <li [routerLinkActive]='["link-active"]'>
+                    <a class="item-nav" [routerLink]='["/cashbook"]' (click)='collapse()'>
+                        <span class='pi pi-money-bill'></span> Sổ Tiền Mặt
+                    </a>
+                </li>
+                <li [routerLinkActive]='["link-active"]'>
+                    <a class="item-nav" [routerLink]='["/bankbook"]' (click)='collapse()'>
+                        <span class='pi pi-calendar-plus'></span> Sổ Ngân Hàng
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li [routerLinkActive]='["link-active"]'>
+            <a class="item-nav" [routerLink]='["/customer"]' (click)='collapse()'>
+                <span class='pi pi-user'></span> Khách Hàng
+            </a>
+        </li>
+        <li [routerLinkActive]='["link-active"]'>
+            <a class="item-nav" [routerLink]='["/report-home"]' (click)='collapse()'>
+                <span class='pi pi-chart-bar'></span> Báo Cáo
+            </a>
+        </li>
+        <li>
+            <a href="#pageQuanLy" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                <span class='pi pi-bell'></span> Quản Lý
+            </a>
+            <ul class="collapse list-unstyled" id="pageQuanLy">
+                <li [routerLinkActive]='["link-active"]'>
+                    <a class="item-nav" [routerLink]='["/"]' (click)='collapse()'>
+                        <span class='pi pi-share-alt'></span> Chi Nhánh
+                    </a>
+                </li>
+                <li [routerLinkActive]='["link-active"]'>
+                    <a class="item-nav" [routerLink]='["/"]' (click)='collapse()'>
+                        <span class='pi pi-users'></span> Người Dùng
+                    </a>
+                </li>
+                <li [routerLinkActive]='["link-active"]'>
+                    <a class="item-nav" [routerLink]='["/supplier"]' (click)='collapse()'>
+                        <span class='pi pi-th-large'></span> Nhà Cung Cấp
+                    </a>
+                </li>
+                <li [routerLinkActive]='["link-active"]'>
+                    <a class="item-nav" [routerLink]='["/event"]' (click)='collapse()'>
+                        <span class='pi pi-star'></span> Sự Kiện
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li [routerLinkActive]='["link-active"]'>
+            <a class="item-nav" [routerLink]='["/config"]' (click)='collapse()'>
+                <span class='pi pi-cog'></span> Cấu Hình
+            </a>
+        </li>
+    </ul>
+    <!--<ul class="list-unstyled CTAs">
+        <li><a href="#" class="download">Test 111</a></li>
+        <li><a href="#" class="article">Test 222</a></li>
+    </ul>-->

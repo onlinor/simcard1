@@ -41,3 +41,8 @@ Thumbs.db
 bin
 obj
 *.db
+
+/SimCard.API/obj
+/SimCard.APP/Migrations
+/SimCard.APP/appsettings.Development.json
+/SimCard.APP/appsettings.json
