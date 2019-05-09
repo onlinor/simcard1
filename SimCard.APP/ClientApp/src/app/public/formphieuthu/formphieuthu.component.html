@@ -7,7 +7,7 @@
 					<label>Ngày Tạo</label>
 				</div>
 				<div class="ui-g-8">
-					<p>{{ dataPhieuThu.ngayLap | date: 'dd/MM/yyyy' }}</p>
+					<p>{{ dataPhieuThu.dateCreated | date: 'dd/MM/yyyy' }}</p>
 				</div>
 			</div>
 			<div class="ui-g-12">
@@ -32,7 +32,7 @@
 					<label>Người nộp tiền</label>
 				</div>
 				<div class="ui-g-6">
-					<p-dropdown name="dsKhachHang" [options]="dsKhachHang" [(ngModel)]="dataPhieuThu.tenKhachHang" editable="true"
+					<p-dropdown name="dsKhachHang" (onChange)="onChangeNguoiNopTien()" [options]="dsKhachHang" [(ngModel)]="dataPhieuThu.tenKhachHang" editable="true"
 					 placeholder="Chọn dữ liệu"></p-dropdown>
 				</div>
 			</div>
@@ -49,7 +49,7 @@
 					<label>Mã khách hàng</label>
 				</div>
 				<div class="ui-g-6">
-					<input name="maKhachHang" autocomplete="off" pInputText [(ngModel)]="dataPhieuThu.maKhachHang" />
+					<input name="maKhachHang" autocomplete="off" pInputText [(ngModel)]="dataPhieuThu.maKhachHang" [disabled]="true"/>
 				</div>
 			</div>
 			<div class="ui-g-12">
@@ -100,7 +100,7 @@
 					<label>Ngân Hàng</label>
 				</div>
 				<div class="ui-g-6">
-					<p-dropdown name="loaiNganHang" [options]="LoaiNganHang" [(ngModel)]="dataPhieuThu.loaiNganHang"></p-dropdown>
+					<p-dropdown required name="loaiNganHang" [options]="LoaiNganHang" [(ngModel)]="dataPhieuThu.loaiNganHang"></p-dropdown>
 				</div>
 			</div>
 			<div class="ui-g-12">

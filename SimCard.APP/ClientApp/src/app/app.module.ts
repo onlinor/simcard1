@@ -45,6 +45,8 @@ import { FormphieuchibankbookComponent } from './public/formphieuchibankbook/for
 import { FormphieuthubankbookComponent } from './public/formphieuthubankbook/formphieuthubankbook.component';
 import { ImportProductComponent } from './pages/importproduct/importproduct.component';
 import { NetworkComponent } from './pages/network/network.component';
+import { DebtbookComponent } from './pages/debtbook/debtbook.component';
+
 // Service
 import { MessageService } from 'primeng/api';
 import { LogService } from './shared/logging-services/log.service';
@@ -81,7 +83,8 @@ import { ListproductComponent } from './pages/listproduct/listproduct.component'
     ImportProductComponent,
     NetworkComponent,
     LoginComponent,
-    ListproductComponent
+    ListproductComponent,
+    DebtbookComponent
   ],
   imports: [
     CoreModule,
@@ -109,60 +112,18 @@ import { ListproductComponent } from './pages/listproduct/listproduct.component'
     NgxPrintModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      {
-        path: 'customer',
-        component: CustomerComponent,
-        canActivate: [AuthGuard]
-      },
+      { path: 'customer', component: CustomerComponent, canActivate: [AuthGuard]},
       { path: 'event', component: EventsComponent, canActivate: [AuthGuard] },
-      {
-        path: 'config',
-        component: ConfigurationComponent,
-        canActivate: [AuthGuard]
-      },
-      {
-        path: 'exportproduct',
-        component: ExportProductComponent,
-        canActivate: [AuthGuard]
-      },
-      {
-        path: 'supplier',
-        component: SupplierComponent,
-        canActivate: [AuthGuard]
-      },
-      {
-        path: 'cashbook',
-        component: CashbookComponent,
-        canActivate: [AuthGuard]
-      },
-      {
-        path: 'bankbook',
-        component: BankbookComponent,
-        canActivate: [AuthGuard]
-      },
-      {
-        path: 'productexchange',
-        component: ListproductComponent,
-        canActivate: [AuthGuard]
-      },
-      {
-        path: 'importproduct',
-        component: ImportProductComponent,
-        canActivate: [AuthGuard]
-      },
-      {
-        path: 'network',
-        component: NetworkComponent,
-        canActivate: [AuthGuard]
-      },
-      {
-        path: 'report-home',
-        component: ReportHomeComponent,
-        canActivate: [AuthGuard]
-      },
-      { path: 'login',
-      component: LoginComponent
-      }
+      { path: 'config', component: ConfigurationComponent, canActivate: [AuthGuard] },
+      { path: 'exportproduct', component: ExportProductComponent, canActivate: [AuthGuard] },
+      { path: 'supplier', component: SupplierComponent, canActivate: [AuthGuard] },
+      { path: 'cashbook', component: CashbookComponent, canActivate: [AuthGuard]},
+      { path: 'bankbook', component: BankbookComponent, canActivate: [AuthGuard]},
+      { path: 'importproduct', component: ImportProductComponent, canActivate: [AuthGuard] },
+      { path: 'network', component: NetworkComponent, canActivate: [AuthGuard] },
+      { path: 'report-home', component: ReportHomeComponent, canActivate: [AuthGuard] },
+      { path: 'debtbook', component: DebtbookComponent},
+      { path: 'login', component: LoginComponent }
     ])
   ],
   providers: [

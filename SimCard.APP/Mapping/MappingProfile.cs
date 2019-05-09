@@ -16,6 +16,7 @@ namespace SimCard.APP.Mapping
             CreateMap<Event, EventViewModel>().ReverseMap();
             CreateMap<Cashbook, CashbookViewModel>().ReverseMap();
             CreateMap<Bankbook, BankbookViewModel>().ReverseMap();
+            CreateMap<Debtbook, DebtbookViewModel>().ReverseMap();
             CreateMap<ImportReceipt, ImportReceiptViewModel>().ReverseMap();
             CreateMap<ExportReceipt, ExportReceiptViewModel>().ReverseMap();
             CreateMap<Supplier, SupplierViewModel>().ReverseMap();

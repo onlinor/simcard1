@@ -261,6 +261,44 @@ namespace SimCard.APP.Migrations
                     b.ToTable("Customers");
                 });
 
+            modelBuilder.Entity("SimCard.APP.Models.Debtbook", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<decimal>("CongDon")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<DateTime?>("DateModified");
+
+                    b.Property<decimal>("KhachNo")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("MaKhachHang")
+                        .HasMaxLength(255);
+
+                    b.Property<decimal>("NoKhach")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("NoiDungPhieu")
+                        .HasMaxLength(255);
+
+                    b.Property<int>("STT");
+
+                    b.Property<string>("SoPhieu")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("TenKhachHang")
+                        .HasMaxLength(255);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Debtbook");
+                });
+
             modelBuilder.Entity("SimCard.APP.Models.Event", b =>
                 {
                     b.Property<int>("Id")

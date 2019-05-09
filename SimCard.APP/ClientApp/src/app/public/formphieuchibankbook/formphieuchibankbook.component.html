@@ -7,7 +7,7 @@
 					<label>Ngày Tạo</label>
 				</div>
 				<div class="ui-g-8">
-					<p>{{ dataPhieuChi.ngayLap | date: 'dd/MM/yyyy' }}</p>
+					<p>{{ dataPhieuChi.dateCreated | date: 'dd/MM/yyyy' }}</p>
 				</div>
 			</div>
 			<div class="ui-g-12">
@@ -32,7 +32,9 @@
 					<label>Người nhận tiền</label>
 				</div>
 				<div class="ui-g-6">
-					<p-dropdown name="dsKhachHang" [options]="dsKhachHang" [(ngModel)]="dataPhieuChi.tenKhachHang" editable="true"
+					<p-dropdown name="dsKhachHang" [options]="dsKhachHang" (onChange)="onChangeNguoiNopTien()"
+					[(ngModel)]="dataPhieuChi.tenKhachHang"
+					 editable="true"
 					 placeholder="Chọn dữ liệu"></p-dropdown>
 				</div>
 			</div>
