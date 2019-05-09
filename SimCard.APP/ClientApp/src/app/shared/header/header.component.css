@@ -26,19 +26,25 @@
 
 .branch-caption {
     font-weight: bold;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     margin:0;
 }
 
 .branch-name {
     font-weight: bold;
-    font-size: 3.25rem;
+    font-size: 2.25rem;
+    margin: 0;
 }
 
 .branch-contact {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
+    margin: 0;
 }
 
-i.glyphicon {
+i.fa {
     padding-right: 5px;
+}
+
+.navbar-brand, li.nav-item {
+    padding-right: 30px;
 }

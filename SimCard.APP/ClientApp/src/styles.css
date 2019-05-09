@@ -18,12 +18,12 @@
 .header-table {
   display: inline-block;
 }
-html,
+/*html,
 body {
   height: 100vh;
   margin: 0px;
   padding: 0;
-}
+}*/
 .ml-40 {
   margin-left: 39px;
 }
