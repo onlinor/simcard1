@@ -42,14 +42,6 @@ namespace SimCard.APP.Persistence.Services
                 Product MainProduct = await _repository.Query(x => x.Ma.ToLower() == productViewModel.Ma.ToLower() && x.ShopId == 1).FirstOrDefaultAsync();
                 MainProduct.Soluong = MainProduct.Soluong - productViewModel.Soluong;
                 await _repository.Update(MainProduct);
-                if (MainProduct.Soluong == 0)
-                {
-                    await _repository.Remove(MainProduct.Id);
-                }
-                else
-                {
-                    await _repository.Update(MainProduct);
-                }
             }
             await _repository.Create(product);
             return await _unitOfWork.SaveChangeAsync();
@@ -79,17 +71,18 @@ namespace SimCard.APP.Persistence.Services
         public async Task<bool> Update(ProductViewModel productViewModel)
         {
             Product ProductToUpdate = await _repository.Query(x => x.Ma.ToLower() == productViewModel.Ma.ToLower() && x.ShopId == productViewModel.ShopId).FirstOrDefaultAsync();
-            ProductToUpdate.Soluong += productViewModel.Soluong;
-            if (ProductToUpdate.ShopId != 1)
+            if (ProductToUpdate.ShopId == 1 && ProductToUpdate.Soluong == 0)
             {
-                Product MainProduct = await _repository.Query(x => x.Ma.ToLower() == productViewModel.Ma.ToLower() && x.ShopId == 1).FirstOrDefaultAsync();
-                MainProduct.Soluong = MainProduct.Soluong - productViewModel.Soluong;
-                if (MainProduct.Soluong == 0)
+                ProductToUpdate.Soluong += productViewModel.Soluong;
+                ProductToUpdate.DonGia = productViewModel.DonGia;
+            }
+            else
+            {
+                ProductToUpdate.Soluong += productViewModel.Soluong;
+                if (ProductToUpdate.ShopId != 1)
                 {
-                    await _repository.Remove(MainProduct.Id);
-                }
-                else
-                {
+                    Product MainProduct = await _repository.Query(x => x.Ma.ToLower() == productViewModel.Ma.ToLower() && x.ShopId == 1).FirstOrDefaultAsync();
+                    MainProduct.Soluong = MainProduct.Soluong - productViewModel.Soluong;
                     await _repository.Update(MainProduct);
                 }
             }

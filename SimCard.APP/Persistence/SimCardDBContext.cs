@@ -10,6 +10,8 @@ namespace SimCard.APP.Persistence
 
         public DbSet<Product> Products { get; set; }
 
+        public DbSet<ProductExchange> ProductExchanges { get; set; }
+
         public DbSet<Customer> Customers { get; set; }
 
         public DbSet<Configuration> Configurations { get; set; }

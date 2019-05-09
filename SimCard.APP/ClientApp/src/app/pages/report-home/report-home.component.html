@@ -25,23 +25,28 @@
             <p-calendar [(ngModel)]="selectedFilterValue.to" placeholder="Đến ngày"></p-calendar>
           </div>
           <div class="col-3" *ngIf="supportedFilterList.shops == true">
+              <label style="margin-right: 10px;">Chi nhánh</label>
             <p-dropdown [options]="shops" [(ngModel)]="selectedFilterValue.shop" placeholder="Chi nhánh"></p-dropdown>
           </div>
           <div class="col-3" *ngIf="supportedFilterList.products == true">
+              <label style="margin-right: 10px;">Sản phẩm</label>
             <p-dropdown [options]="products" [(ngModel)]="selectedFilterValue.product" placeholder="Sản phẩm"></p-dropdown>
           </div>
         </div>
         <p></p>
         <div class="row">
-          <div class="col-3" *ngIf="supportedFilterList.warehouses == true">
-            <p-dropdown [options]="warehouses" [(ngModel)]="selectedFilterValue.warehouse" placeholder="Kho"></p-dropdown>
-          </div>
-          <div class="col-3" *ngIf="supportedFilterList.customers == true">
-            <p-dropdown [options]="customers" [(ngModel)]="selectedFilterValue.customer" placeholder="Khách hàng"></p-dropdown>
-          </div>
-          <div class="col-3" *ngIf="supportedFilterList.bankAccounts == true">
-            <p-dropdown [options]="bankAccounts" [(ngModel)]="selectedFilterValue.bankAccount" placeholder="Tài khoản NH"></p-dropdown>
-          </div>
+            <div class="col-3" *ngIf="supportedFilterList.warehouses == true">
+                <label style="margin-right: 10px;">Kho</label>
+                <p-dropdown [options]="warehouses" [(ngModel)]="selectedFilterValue.warehouse" placeholder="Kho"></p-dropdown>
+            </div>
+            <div class="col-3" *ngIf="supportedFilterList.customers == true">
+                <label style="margin-right: 10px;">Khách hàng</label>
+                <p-dropdown [options]="customers" [(ngModel)]="selectedFilterValue.customer" placeholder="Khách hàng"></p-dropdown>
+            </div>
+            <div class="col-3" *ngIf="supportedFilterList.bankAccounts == true">
+                <label style="margin-right: 10px;">Tài khoản NH</label>
+                <p-dropdown [options]="bankAccounts" [(ngModel)]="selectedFilterValue.bankAccount" placeholder="Tài khoản NH"></p-dropdown>
+            </div>
           <div class="col-3">
             <button class="ui-button-info mr-2" pButton type="button" label="Lọc" (click)="filter()" icon="pi pi-check" iconPos="left"></button>
             <button class="ui-button-danger" pButton type="button" label="Xoá bộ lọc" (click)="clearFilter()" icon="pi pi-times" iconPos="left"></button>

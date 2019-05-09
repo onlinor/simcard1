@@ -15,7 +15,7 @@
 					<label>Số phiếu thu</label>
 				</div>
 				<div class="ui-g-6">
-					<input name="maPhieu" autocomplete="off" pInputText [(ngModel)]="dataPhieuThu.maPhieu" [disabled]="true" />
+					<input name="maPhieu" autocomplete="off" pInputText [(ngModel)]="dataPhieuThu.maPhieu" readonly />
 				</div>
 			</div>
 			<div class="ui-g-12">
@@ -70,11 +70,11 @@
 							<label>Ngân Hàng</label>
 						</div>
 						<div>
-							<p-checkbox name="ATM" binary="true" [(ngModel)]="isATM" (onChange)="checkedATM($event)"></p-checkbox>
+							<p-checkbox name="ATM" binary="true" [(ngModel)]="isATM" (onChange)="checkedATM()"></p-checkbox>
 							<div class="mt-2" *ngIf="isATM">
 									<input type="number" min="0" name="paybybank" autocomplete="off" 
 												pInputText [(ngModel)]="payByBank"
-												(change)="onChangePaybank($event)"/>
+												(change)="onChangePaybank()"/>
 								</div>
 						</div>
 					</div>
@@ -83,16 +83,16 @@
 							<label>Tiền Mặt</label>
 						</div>
 						<div>
-							<p-checkbox name="cash" binary="true" [(ngModel)]="isCash" (onChange)="checkedCash($event)"></p-checkbox>
+							<p-checkbox name="cash" binary="true" [(ngModel)]="isCash" (onChange)="checkedCash()"></p-checkbox>
 							<div class="mt-2" *ngIf="isCash">
 									<input type="number" min="0" name="paybycash" autocomplete="off" 
 												pInputText [(ngModel)]="payByCash"
-												(change)="onChangePayCash($event)"/>
+												(change)="onChangePayCash()"/>
 							</div>
 						</div>
 					</div>
 					<input type="text" name="hinhThucThu" autocomplete="off" pInputText [(ngModel)]="dataPhieuThu.hinhThucNop"
-					 [disabled]="true" />
+					 readonly />
 				</div>
 			</div>
 			<div class="ui-g-12" *ngIf="isATM">
@@ -109,7 +109,7 @@
 				</div>
 				<div class="ui-g-6">
 					<input type="number" min="0" name="soTien" autocomplete="off" 
-					pInputText [(ngModel)]="dataPhieuThu.soTienThu" [disabled]="true"/>
+					pInputText [(ngModel)]="dataPhieuThu.soTienThu" readonly/>
 				</div>
 			</div>
 			<div class="ui-g-12">
