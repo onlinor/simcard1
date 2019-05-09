@@ -67,12 +67,12 @@ namespace SimCard.APP.Controllers
                         for (int row = 2; row <= rowCount; row++)
                         {
                             dynamic p = new ExpandoObject();
-
-                            p.ten = worksheet.Cells[row, 1].Value.ToString();
-                            p.ma = worksheet.Cells[row, 2].Value.ToString();
-                            p.soLuong = int.Parse(worksheet.Cells[row, 3].Value.ToString());
-                            p.menhGia = decimal.Parse(worksheet.Cells[row, 4].Value.ToString());
-                            p.chietKhau = decimal.Parse(worksheet.Cells[row, 5].Value.ToString());
+                            p.loai = worksheet.Cells[row, 1].Value.ToString();
+                            p.ten = worksheet.Cells[row, 2].Value.ToString();
+                            p.ma = worksheet.Cells[row, 3].Value.ToString();
+                            p.soLuong = int.Parse(worksheet.Cells[row, 4].Value.ToString());
+                            p.menhGia = decimal.Parse(worksheet.Cells[row, 5].Value.ToString());
+                            p.chietKhau = decimal.Parse(worksheet.Cells[row, 6].Value.ToString());
                             importProductList.Add(p);
                         }
                         return importProductList;

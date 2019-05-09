@@ -24,9 +24,5 @@ namespace SimCard.APP.ViewModels
         public string Loai { get; set; }
 
         public string SupplierName { get; set; }
-
-        public int SoLuongNhap { get; set; }
-
-        public int SoLuongXuat { get; set; }
     }
 }

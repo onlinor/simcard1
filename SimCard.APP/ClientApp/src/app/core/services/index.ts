@@ -26,3 +26,4 @@ export * from './configuration.service';
 export * from './cashbook.service';
 export * from './events.service';
 export * from './network.service';
+export * from './productexchange.service';

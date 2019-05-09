@@ -18,5 +18,7 @@ export * from './exportreceipt.model';
 export * from './user.model';
 export * from './login.model';
 export * from './shop.model';
+export * from './productexchange.model';
+
 
 

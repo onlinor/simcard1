@@ -45,15 +45,17 @@ import { FormphieuchibankbookComponent } from './public/formphieuchibankbook/for
 import { FormphieuthubankbookComponent } from './public/formphieuthubankbook/formphieuthubankbook.component';
 import { ImportProductComponent } from './pages/importproduct/importproduct.component';
 import { NetworkComponent } from './pages/network/network.component';
-
 // Service
 import { MessageService } from 'primeng/api';
 import { LogService } from './shared/logging-services/log.service';
 import { LogPublishersService } from './shared/logging-services/log-publishers.service';
+import { ProductExchangeService } from './core/services';
 import { ReportHomeComponent } from './pages/report-home/report-home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { JwtInterceptor, ErrorInterceptor } from './core/interceptors';
 import { AuthGuard } from './core/guards/auth.guard';
+import { ListproductComponent } from './pages/listproduct/listproduct.component';
+
 
 @NgModule({
   declarations: [
@@ -78,7 +80,8 @@ import { AuthGuard } from './core/guards/auth.guard';
     ReportHomeComponent,
     ImportProductComponent,
     NetworkComponent,
-    LoginComponent
+    LoginComponent,
+    ListproductComponent
   ],
   imports: [
     CoreModule,
@@ -138,6 +141,11 @@ import { AuthGuard } from './core/guards/auth.guard';
         canActivate: [AuthGuard]
       },
       {
+        path: 'productexchange',
+        component: ListproductComponent,
+        canActivate: [AuthGuard]
+      },
+      {
         path: 'importproduct',
         component: ImportProductComponent,
         canActivate: [AuthGuard]
@@ -160,6 +168,7 @@ import { AuthGuard } from './core/guards/auth.guard';
   providers: [
     MessageService,
     LogService,
+    ProductExchangeService,
     LogPublishersService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
