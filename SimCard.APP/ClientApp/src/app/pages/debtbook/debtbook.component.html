@@ -1,0 +1,129 @@
+<div class="row pb-60">
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pb-20">
+		<h2 class="text-center text-primary">Sổ Công Nợ Khách Hàng</h2>
+	</div>
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		<div class="col-lg-3">
+			<p>Tên chi nhánh:</p>
+			<p-dropdown [options]="LoaiDonVi" [(ngModel)]="selectedDonVi" name="loaiDonVi">
+			</p-dropdown>
+		</div>
+	</div>
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		<div class="col-lg-3">
+			<p>Tên Khách Hàng</p>
+			<div>
+				<input type="text" pInputText [(ngModel)]="keywordKH" />
+				<span class="pi pi-search m-pointer ml-3" (click)="onSearchKH()"></span>
+			</div>
+			<div class="mt-1">
+				<p-checkbox name="allKH" [(ngModel)]="allKH"></p-checkbox>
+				<span class="pl-1">Tất cả</span>	
+			</div>
+		</div>
+		<div class="col-lg-3">
+			<p>Từ ngày</p>
+			<p-calendar [(ngModel)]="dateFrom" [showIcon]="true"></p-calendar>
+		</div>
+		<div class="col-lg-4">
+			<p>Tới ngày</p>
+			<p-calendar [(ngModel)]="dateTo" [showIcon]="true"></p-calendar>
+			<span class="pi pi-search m-pointer ml-40" (click)="onSearchByDate()"></span>	
+		</div>
+	</div>
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pt-20">
+		<div class="col-lg-3">
+			<p>Tên đơn vị:</p>
+			<p>đon vị 1</p>
+		</div>
+		<div class="col-lg-3">
+			<p>Người đại diện:</p>
+			<p>đon vị 1</p>
+		</div>
+		<div class="col-lg-3">
+			<p>Địa chỉ:</p>
+			<p>đon vị 1</p>
+		</div>
+		<div class="col-lg-3">
+			<p>Số điện thoại:</p>
+			<p>đon vị 1</p>
+		</div>
+	</div>
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pt-20">
+		<div class="float-right">
+			<p>Tổng số công nợ:</p>
+			<input type="number" value="20000"/>
+		</div>
+	</div>
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <app-formphieuchi [isShowDialogPhieuChi]="isShowDialogPhieuChi"
+                                    [isNewCashBook]="isNewCashBook"
+                                    [idSelectedCashbook]="idSelectedCashbook"
+									(outIsShowDialogPhieuChi)="onGetIsShowDialogPhieuChi($event)">
+								</app-formphieuchi>                           
+        <app-formphieuthu [isShowDialogPhieuThu]="isShowDialogPhieuThu"
+                                    [isNewCashBook]="isNewCashBook"
+                                    [idSelectedCashbook]="idSelectedCashbook"
+									(outIsShowDialogPhieuThu)="onGetIsShowDialogPhieuThu($event)">
+								</app-formphieuthu>
+    </div>
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mt-20">
+		<p-table [columns]="cols" #datatable class="table-fixed" [responsive]="true" [value]="debtbookData" [(selection)]="selectedDebtbook"
+			selectionMode="single" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="10">
+			<ng-template pTemplate="caption">
+				<p class="header-table">Danh Sách Sổ Công Nợ</p>
+				<button type="button" class="float-right" pButton label="Xuất Excel" (click)="datatable.exportCSV()"
+					icon="pi pi-download">
+				</button>
+			</ng-template>
+			<ng-template pTemplate="header" let-columns>
+				<tr>
+					<th *ngFor="let col of columns">
+						{{ col.header }}
+					</th>
+				</tr>
+			</ng-template>
+			<ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+				<tr [pSelectableRow]="rowData">
+					<td>{{rowData.stt}}</td>
+					<td>{{rowData.dateCreated | date: "dd/MM/yyyy"}}</td>
+					<td>{{rowData.tenKhachHang}}</td>
+					<td>{{rowData.maKhachHang}}</td>
+					<td>{{rowData.soPhieu}}</td>
+					<td>{{rowData.noiDungPhieu}}</td>
+					<td>{{rowData.noKhach}}</td>
+					<td>{{rowData.khachNo}}</td>
+					<td>{{rowData.congDon}}</td> 
+				</tr>
+			</ng-template>
+		</p-table>
+	</div>
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mt-2">
+		<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 float-right">
+			<label>Cộng dồn</label>&nbsp;
+			<input type="number" [disabled]="true" [ngModel] = "totalIncremental" />
+		</div>	
+		<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 float-right">
+			<label>Khách nợ</label>&nbsp;
+			<input type="number" [disabled]="true" [ngModel] = "totalCreditor" />
+		</div>	
+		<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 float-right">
+			<label>Nợ khách</label>&nbsp;
+			<input type="number" [disabled]="true" [ngModel] = "totalDebtor" />
+		</div>	
+	</div>
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mt-2">
+		<div class="col-lg-3">
+			<button pButton type="button" label="Thu tiền của khách" ></button>
+		</div>
+		<div class="col-lg-3">
+			<button pButton type="button" label="Trả tiền cho khách" ></button>
+		</div>
+		<div class="col-lg-3">
+			<button pButton type="button" label="In phiếu tổng hợp" ></button>
+		</div>
+		<div class="col-lg-3">
+			<button pButton type="button" label="Thoát" ></button>
+		</div>
+	</div>
+</div>
