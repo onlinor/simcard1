@@ -4,3 +4,5 @@
 
 .vs
 .vscode
+/SimCard.API/obj
+/SimCard.APP/Migrations
