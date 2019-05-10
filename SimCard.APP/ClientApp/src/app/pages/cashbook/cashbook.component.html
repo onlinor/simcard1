@@ -14,8 +14,10 @@
 		</div>
 		<div class="col-lg-3 pr-0">
 			<p>Tới ngày</p>
-			<p-calendar [(ngModel)]="toiNgay" [showIcon]="true"></p-calendar>
-			<span class="pi pi-search ml-40 m-pointer" (click)="onSearch()"></span>
+			<div>
+				<p-calendar [(ngModel)]="toiNgay" [showIcon]="true"></p-calendar>
+				<span class="pi pi-search float-right m-pointer" (click)="onSearch()"></span>
+			</div>
 		</div>
 		<div class="col-lg-3">
 			<p>Xuất dữ liệu</p>
