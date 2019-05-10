@@ -163,7 +163,7 @@ import { ListproductComponent } from './pages/listproduct/listproduct.component'
       { path: 'login',
       component: LoginComponent
       }
-    ])
+    ], {'useHash': true})
   ],
   providers: [
     MessageService,
