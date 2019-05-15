@@ -21,9 +21,11 @@
 			<p-calendar [(ngModel)]="tuNgay" [showIcon]="true"></p-calendar>
 		</div>
 		<div class="col-lg-3 pr-0">
-			<p>Tới ngày</p>
-			<p-calendar [(ngModel)]="toiNgay" [showIcon]="true"></p-calendar>
-			<span class="pi pi-search ml-40 m-pointer" (click)="onSearch()"></span>
+            <p>Tới ngày</p>
+            <div>
+                <p-calendar [(ngModel)]="toiNgay" [showIcon]="true"></p-calendar>
+                <span class="pi pi-search m-pointer float-right" (click)="onSearch()"></span>
+            </div>
 		</div>
 		<div class="col-lg-3">
 			<p>Xuất dữ liệu</p>

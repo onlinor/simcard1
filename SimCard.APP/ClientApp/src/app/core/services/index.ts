@@ -27,3 +27,4 @@ export * from './cashbook.service';
 export * from './events.service';
 export * from './network.service';
 export * from './productexchange.service';
+export * from './debtbook.service';

@@ -34,7 +34,8 @@ import {
   AuthService,
   NetworkService,
   PhieunhapService,
-  PhieuxuatService
+  PhieuxuatService,
+  DebtbookService
 } from './services';
 
 @NgModule({
@@ -69,7 +70,8 @@ import {
     NetworkService,
     PhieunhapService,
     AuthService,
-    PhieuxuatService
+    PhieuxuatService,
+    DebtbookService
   ]
 })
 export class CoreModule {

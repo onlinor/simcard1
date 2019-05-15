@@ -89,16 +89,39 @@ export class BankbookComponent implements OnInit, OnDestroy {
     );
   }
 
-  onShowDialogPhieuChi() {
-    this.isShowDialogPhieuChi = true;
-    this.isNewCashBook = true;
-    this.myFormChiChild.customerList = this.customerList;
-    this.myFormChiChild.fillDropdownCustomer();
-  }
+	onShowDialogPhieuChi() {
+		this.isShowDialogPhieuChi = true;
+		this.isNewCashBook = true;
+		this.myFormChiChild.customerList = this.customerList;
+		this.countMaPhieuChi();
+		this.myFormChiChild.fillDropdownCustomer();
+	}
 
-  onGetIsShowDialogPhieuChi(data: any) {
-    this.isShowDialogPhieuChi = data;
-  }
+	countMaPhieuChi() {
+		let countPC = 0;
+		this.bankbook.map(item => {
+			let checkMaPhieuChi = item['maPhieu'].includes('PC');
+			if(checkMaPhieuChi) {
+				countPC ++;
+			}
+		})
+		this.myFormChiChild.countPC = countPC;
+	}
+
+	countMaPhieuThu() {
+		let countPT = 0;
+		this.bankbook.map(item => {
+			let checkMaPhieuThu = item['maPhieu'].includes('PT');
+			if(checkMaPhieuThu) {
+				countPT ++;
+			}
+		})
+		this.myFormThuChild.countPT = countPT;
+	}
+
+	onGetIsShowDialogPhieuChi(data: any) {
+		this.isShowDialogPhieuChi = data;
+	}
 
   onGetDataPhieuChi(data: any) {
     this.getAllBankbook();
@@ -130,12 +153,13 @@ export class BankbookComponent implements OnInit, OnDestroy {
     this.dataPhieuThu = null;
   }
 
-  onShowDialogPhieuThu() {
-    this.isShowDialogPhieuThu = true;
-    this.isNewCashBook = true;
-    this.myFormThuChild.customerList = this.customerList;
-    this.myFormThuChild.fillDropdownCustomer();
-  }
+	onShowDialogPhieuThu() {
+		this.isShowDialogPhieuThu = true;
+		this.isNewCashBook = true;
+		this.myFormThuChild.customerList = this.customerList;
+		this.countMaPhieuThu();
+		this.myFormThuChild.fillDropdownCustomer();
+	}
 
   onGetIsShowDialogPhieuThu(data: any) {
     this.isShowDialogPhieuThu = data;
@@ -228,9 +252,9 @@ export class BankbookComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnDestroy() {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
-  }
+	ngOnDestroy() {
+		if (this.subscription) {
+			this.subscription.unsubscribe();
+		}
+	}
 }

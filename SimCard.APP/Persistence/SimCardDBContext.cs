@@ -14,6 +14,8 @@ namespace SimCard.APP.Persistence
 
         public DbSet<Customer> Customers { get; set; }
 
+        public DbSet <Debtbook> Debtbook { get; set; }
+
         public DbSet<Configuration> Configurations { get; set; }
 
         public DbSet<Event> Events { get; set; }
