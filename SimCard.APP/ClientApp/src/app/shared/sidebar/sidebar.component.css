@@ -110,3 +110,7 @@ li.link-active a:focus {
     text-transform: capitalize;
     margin: 0;
 }
+
+li > a > i {
+    width: 25px;
+}

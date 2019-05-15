@@ -76,98 +76,124 @@
     -->
 
 
-    <div class="logo-place">
-        <img id="app-logo" src="assets/images/logo.png" alt="logo">
-    </div>
+<div class="logo-place">
+    <img id="app-logo" src="assets/images/logo.png" alt="logo">
+</div>
 
-    <div class="sidebar-header">
-        <h3 class="company-name color-white">Thành Viễn</h3>
-        <h5 class="company-slogan color-white">Kết nối yêu thương</h5>
-    </div>
-    <ul class="list-unstyled components">
-        <li [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
-            <a class="item-nav" [routerLink]='["/"]' (click)='collapse()'>
-                <span class='pi pi-home'></span> Trang Chủ
-            </a>
-        </li>
-        <li>
-            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                <span class='pi pi-briefcase'></span> Kinh Doanh
-            </a>
-            <ul class="collapse list-unstyled" id="homeSubmenu">
-                <li [routerLinkActive]='["link-active"]'>
-                    <a class="item-nav" [routerLink]='["/importproduct"]' (click)='collapse()'>
-                        <span class='pi pi-download'></span> Nhập Hàng
-                    </a>
-                </li>
-                <li [routerLinkActive]='["link-active"]'>
-                    <a class="item-nav" [routerLink]='["/exportproduct"]' (click)='collapse()'>
-                        <span class='pi pi-upload'></span> Xuất Hàng
-                    </a>
-                </li>
-            </ul>
-        </li>
-        <li>
-            <a href="#pageKeToan" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                <span class='pi pi-tags'></span> Kế Toán
-            </a>
-            <ul class="collapse list-unstyled" id="pageKeToan">
-                <li [routerLinkActive]='["link-active"]'>
-                    <a class="item-nav" [routerLink]='["/cashbook"]' (click)='collapse()'>
-                        <span class='pi pi-money-bill'></span> Sổ Tiền Mặt
-                    </a>
-                </li>
-                <li [routerLinkActive]='["link-active"]'>
-                    <a class="item-nav" [routerLink]='["/bankbook"]' (click)='collapse()'>
-                        <span class='pi pi-calendar-plus'></span> Sổ Ngân Hàng
-                    </a>
-                </li>
-            </ul>
-        </li>
-        <li [routerLinkActive]='["link-active"]'>
-            <a class="item-nav" [routerLink]='["/customer"]' (click)='collapse()'>
-                <span class='pi pi-user'></span> Khách Hàng
-            </a>
-        </li>
-        <li [routerLinkActive]='["link-active"]'>
-            <a class="item-nav" [routerLink]='["/report-home"]' (click)='collapse()'>
-                <span class='pi pi-chart-bar'></span> Báo Cáo
-            </a>
-        </li>
-        <li>
-            <a href="#pageQuanLy" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                <span class='pi pi-bell'></span> Quản Lý
-            </a>
-            <ul class="collapse list-unstyled" id="pageQuanLy">
-                <li [routerLinkActive]='["link-active"]'>
-                    <a class="item-nav" [routerLink]='["/"]' (click)='collapse()'>
-                        <span class='pi pi-share-alt'></span> Chi Nhánh
-                    </a>
-                </li>
-                <li [routerLinkActive]='["link-active"]'>
-                    <a class="item-nav" [routerLink]='["/"]' (click)='collapse()'>
-                        <span class='pi pi-users'></span> Người Dùng
-                    </a>
-                </li>
-                <li [routerLinkActive]='["link-active"]'>
-                    <a class="item-nav" [routerLink]='["/supplier"]' (click)='collapse()'>
-                        <span class='pi pi-th-large'></span> Nhà Cung Cấp
-                    </a>
-                </li>
-                <li [routerLinkActive]='["link-active"]'>
-                    <a class="item-nav" [routerLink]='["/event"]' (click)='collapse()'>
-                        <span class='pi pi-star'></span> Sự Kiện
-                    </a>
-                </li>
-            </ul>
-        </li>
-        <li [routerLinkActive]='["link-active"]'>
-            <a class="item-nav" [routerLink]='["/config"]' (click)='collapse()'>
-                <span class='pi pi-cog'></span> Cấu Hình
-            </a>
-        </li>
-    </ul>
-    <!--<ul class="list-unstyled CTAs">
-        <li><a href="#" class="download">Test 111</a></li>
-        <li><a href="#" class="article">Test 222</a></li>
-    </ul>-->
+<div class="sidebar-header">
+    <h3 class="company-name color-white">Thành Viễn</h3>
+    <h5 class="company-slogan color-white">Kết nối yêu thương</h5>
+</div>
+<ul class="list-unstyled components">
+    <li [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
+        <a class="item-nav" [routerLink]='["/"]' (click)='collapse()'>
+            <i class="fa fa-home" aria-hidden="true"></i>Trang Chủ
+        </a>
+    </li>
+    <li>
+        <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+            <i class="fa fa-briefcase" aria-hidden="true"></i>Kinh Doanh
+        </a>
+        <ul class="collapse list-unstyled" id="homeSubmenu">
+            <li [routerLinkActive]='["link-active"]'>
+                <a class="item-nav" [routerLink]='["/importproduct"]' (click)='collapse()'>
+                    <i class="fa fa-download" aria-hidden="true"></i>Nhập Hàng
+                </a>
+            </li>
+            <li [routerLinkActive]='["link-active"]'>
+                <a class="item-nav" [routerLink]='["/exportproduct"]' (click)='collapse()'>
+                    <i class="fa fa-upload" aria-hidden="true"></i>Xuất Hàng
+                </a>
+            </li>
+            <li [routerLinkActive]='["link-active"]'>
+                <a class="item-nav" [routerLink]='["/"]' (click)='collapse()'>
+                    <i class="fa fa-percent" aria-hidden="true"></i>Chiết Khấu
+                </a>
+            </li>
+        </ul>
+    </li>
+    <li>
+        <a href="#pageKeToan" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+            <i class="fa fa-calculator" aria-hidden="true"></i>Kế Toán
+        </a>
+        <ul class="collapse list-unstyled" id="pageKeToan">
+            <li [routerLinkActive]='["link-active"]'>
+                <a class="item-nav" [routerLink]='["/cashbook"]' (click)='collapse()'>
+                    <i class="fa fa-money" aria-hidden="true"></i>Sổ Tiền Mặt
+                </a>
+            </li>
+            <li [routerLinkActive]='["link-active"]'>
+                <a class="item-nav" [routerLink]='["/bankbook"]' (click)='collapse()'>
+                    <i class="fa fa-university" aria-hidden="true"></i>Sổ Ngân Hàng
+                </a>
+            </li>
+            <li [routerLinkActive]='["link-active"]'>
+                <a class="item-nav" [routerLink]='["/"]' (click)='collapse()'>
+                    <i class="fa fa-address-book-o" aria-hidden="true"></i>Công Nợ Khách Hàng
+                </a>
+            </li>
+            <li [routerLinkActive]='["link-active"]'>
+                <a class="item-nav" [routerLink]='["/"]' (click)='collapse()'>
+                    <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>Thêm Phiếu Thu
+                </a>
+            </li>
+            <li [routerLinkActive]='["link-active"]'>
+                <a class="item-nav" [routerLink]='["/"]' (click)='collapse()'>
+                    <i class="fa fa-calendar-minus-o" aria-hidden="true"></i>Thêm Phiếu Chi
+                </a>
+            </li>
+            <li [routerLinkActive]='["link-active"]'>
+                <a class="item-nav" [routerLink]='["/"]' (click)='collapse()'>
+                    <i class="fa fa-id-badge" aria-hidden="true"></i>Lương Nhân Viên
+                </a>
+            </li>
+            <li [routerLinkActive]='["link-active"]'>
+                <a class="item-nav" [routerLink]='["/"]' (click)='collapse()'>
+                    <i class="fa fa-calendar-check-o" aria-hidden="true"></i>Bảng Kiểm Tra
+                </a>
+            </li>
+        </ul>
+    </li>
+    <li [routerLinkActive]='["link-active"]'>
+        <a class="item-nav" [routerLink]='["/customer"]' (click)='collapse()'>
+            <i class="fa fa-user-secret" aria-hidden="true"></i>Khách Hàng
+        </a>
+    </li>
+    <li [routerLinkActive]='["link-active"]'>
+        <a class="item-nav" [routerLink]='["/report-home"]' (click)='collapse()'>
+            <i class="fa fa-line-chart" aria-hidden="true"></i>Báo Cáo
+        </a>
+    </li>
+    <li>
+        <a href="#pageQuanLy" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+            <i class="fa fa-bell" aria-hidden="true"></i>Quản Lý
+        </a>
+        <ul class="collapse list-unstyled" id="pageQuanLy">
+            <li [routerLinkActive]='["link-active"]'>
+                <a class="item-nav" [routerLink]='["/"]' (click)='collapse()'>
+                    <i class="fa fa-share-alt" aria-hidden="true"></i>Chi Nhánh
+                </a>
+            </li>
+            <li [routerLinkActive]='["link-active"]'>
+                <a class="item-nav" [routerLink]='["/"]' (click)='collapse()'>
+                    <i class="fa fa-users" aria-hidden="true"></i>Người Dùng
+                </a>
+            </li>
+            <li [routerLinkActive]='["link-active"]'>
+                <a class="item-nav" [routerLink]='["/supplier"]' (click)='collapse()'>
+                    <i class="fa fa-cubes" aria-hidden="true"></i>Nhà Cung Cấp
+                </a>
+            </li>
+            <li [routerLinkActive]='["link-active"]'>
+                <a class="item-nav" [routerLink]='["/event"]' (click)='collapse()'>
+                    <i class="fa fa-star-half-o" aria-hidden="true"></i>Sự Kiện
+                </a>
+            </li>
+        </ul>
+    </li>
+    <li [routerLinkActive]='["link-active"]'>
+        <a class="item-nav" [routerLink]='["/config"]' (click)='collapse()'>
+            <i class="fa fa-cog" aria-hidden="true"></i>Cấu Hình
+        </a>
+    </li>
+</ul>
