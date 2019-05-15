@@ -122,8 +122,9 @@ import { ListproductComponent } from './pages/listproduct/listproduct.component'
       { path: 'importproduct', component: ImportProductComponent, canActivate: [AuthGuard] },
       { path: 'network', component: NetworkComponent, canActivate: [AuthGuard] },
       { path: 'report-home', component: ReportHomeComponent, canActivate: [AuthGuard] },
+      { path: 'productexchange', component: ListproductComponent, canActivate: [AuthGuard] },
       { path: 'debtbook', component: DebtbookComponent},
-        { path: 'login', component: LoginComponent }
+      { path: 'login', component: LoginComponent }
     ], { useHash: true })
   ],
   providers: [
