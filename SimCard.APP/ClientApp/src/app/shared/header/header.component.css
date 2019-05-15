@@ -1,5 +1,5 @@
 .hd-ft-place {
-  padding: 5px 0;
+  *padding: 5px 0;
   overflow-x: hidden;
 }
 .btn-header-section {
@@ -12,10 +12,39 @@
   border-bottom: 1px solid #eee;
 }
 .main-title {
-  padding: 50px 0;
+  *padding: 50px 0;
 }
 .main-info {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+}
+
+.branch {
+    color:#ffffff;
+}
+
+.branch-caption {
+    font-weight: bold;
+    font-size: 1.25rem;
+    margin:0;
+}
+
+.branch-name {
+    font-weight: bold;
+    font-size: 2.25rem;
+    margin: 0;
+}
+
+.branch-contact {
+    font-size: 1.25rem;
+    margin: 0;
+}
+
+i.fa {
+    padding-right: 5px;
+}
+
+.navbar-brand, li.nav-item {
+    padding-right: 30px;
 }
