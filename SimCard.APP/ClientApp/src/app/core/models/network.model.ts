@@ -1,15 +1,16 @@
 export class Network {
+    id: number;
     ma: string;
     ten: string;
-    menhgia: number;
-    chietkhaudauvao: number;
-    chietkhaucaonhat: number;
-    buocnhay: number;
-    khungtien_1: string;
-    khungtien_2: string;
-    khungtien_3: string;
-    khungtien_4: string;
-    khungtien_5: string;
-    khungtien_6: string;
-    khungtien_7: string;
+    menhGia: number;
+    chietKhauDauVao: number;
+    chietKhauCaoNhat: number;
+    buocNhay: number;
+    khungTien_1: string;
+    khungTien_2: string;
+    khungTien_3: string;
+    khungTien_4: string;
+    khungTien_5: string;
+    khungTien_6: string;
+    khungTien_7: string;
 }
