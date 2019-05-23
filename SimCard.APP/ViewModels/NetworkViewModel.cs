@@ -4,32 +4,34 @@ namespace SimCard.APP.ViewModels
 {
     public class NetworkViewModel
     {
+        public int Id { get; set; }
+
         [Required]
         [StringLength(255)]
         public string Ten { get; set; }
         
         public string Ma { get; set; }
 
-        public int Menhgia { get; set; }
+        public int MenhGia { get; set; }
 
-        public float Chietkhaudauvao { get; set; }
+        public float ChietKhauDauVao { get; set; }
 
-        public float Chietkhaucaonhat { get; set; }
+        public float ChietKhauCaoNhat { get; set; }
 
-        public float Buocnhay { get; set; }
+        public float BuocNhay { get; set; }
 
-        public string Khungtien_1 { get; set; }
+        public float KhungTien_1 { get; set; }
 
-        public string Khungtien_2 { get; set; }
+        public float KhungTien_2 { get; set; }
 
-        public string Khungtien_3 { get; set; }
+        public float KhungTien_3 { get; set; }
 
-        public string Khungtien_4 { get; set; }
+        public float KhungTien_4 { get; set; }
 
-        public string Khungtien_5 { get; set; }
+        public float KhungTien_5 { get; set; }
 
-        public string Khungtien_6 { get; set; }
+        public float KhungTien_6 { get; set; }
 
-        public string Khungtien_7 { get; set; }
+        public float KhungTien_7 { get; set; }
     }
 }

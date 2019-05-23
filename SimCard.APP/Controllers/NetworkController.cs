@@ -31,21 +31,14 @@ namespace SimCard.APP.Controllers
         }
 
         [HttpPost("/api/network/add")]
-        public async Task<IActionResult> AddNetworks([FromBody] List<NetworkViewModel> networkViewModels)
+        public async Task<IActionResult> AddNetwork (NetworkViewModel networkViewModel)
         {
-            foreach (var network in networkViewModels)
+            if (await _networkService.IsExisted(networkViewModel.Ma))
             {
-                var existed = await _networkService.IsExisted(network.Ma, network.Ma.ToString());
-                if (existed)
-                {
-                    await _networkService.Update(network);
-                }
-                else
-                {
-                    await _networkService.Create(network);
-                }
+                return BadRequest(networkViewModel.Ma + " already exists!");
             }
-            
+            await _networkService.Create(networkViewModel);
+
             return Ok();
         }
     }

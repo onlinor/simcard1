@@ -6,11 +6,11 @@ export class Network {
     chietKhauDauVao: number;
     chietKhauCaoNhat: number;
     buocNhay: number;
-    khungTien_1: string;
-    khungTien_2: string;
-    khungTien_3: string;
-    khungTien_4: string;
-    khungTien_5: string;
-    khungTien_6: string;
-    khungTien_7: string;
+    khungTien_1: number;
+    khungTien_2: number;
+    khungTien_3: number;
+    khungTien_4: number;
+    khungTien_5: number;
+    khungTien_6: number;
+    khungTien_7: number;
 }

@@ -25,24 +25,22 @@ export class NetworkComponent implements OnInit {
   constructor(private networkService: NetworkService) {}
 
   ngOnInit() {
-    this.networkService
-      .getAll()
-      .subscribe(networks => (this.networks = networks));
+    this.showNetworksResponse();
 
     this.cols = [
       { field: 'ten', header: 'Tên' },
       { field: 'ma', header: 'Mã' },
-      { field: 'menhgia', header: 'Mệnh giá' },
-      { field: 'chietkhaudauvao', header: 'Chiết Khấu Đầu Vào' },
-      { field: 'chietkhaucaonhat', header: 'Chiết Khấu Cao Nhất' },
-      { field: 'buocnhay', header: 'Bước Nhảy' },
-      { field: 'khungtien_1', header: 'Khoảng Giá 1' },
-      { field: 'khungtien_2', header: 'Khoảng Giá 2' },
-      { field: 'khungtien_3', header: 'Khoảng Giá 3' },
-      { field: 'khungtien_4', header: 'Khoảng Giá 4' },
-      { field: 'khungtien_5', header: 'Khoảng Giá 5' },
-      { field: 'khungtien_6', header: 'Khoảng Giá 6' },
-      { field: 'khungtien_7', header: 'Khoảng Giá 7' }
+      { field: 'menhGia', header: 'Mệnh giá' },
+      { field: 'chietKhauDauVao', header: 'Chiết Khấu Đầu Vào' },
+      { field: 'chietKhauCaoNhat', header: 'Chiết Khấu Cao Nhất' },
+      { field: 'buocNhay', header: 'Bước Nhảy' },
+      { field: 'khungTien_1', header: 'Khoảng Giá 1' },
+      { field: 'khungTien_2', header: 'Khoảng Giá 2' },
+      { field: 'khungTien_3', header: 'Khoảng Giá 3' },
+      { field: 'khungTien_4', header: 'Khoảng Giá 4' },
+      { field: 'khungTien_5', header: 'Khoảng Giá 5' },
+      { field: 'khungTien_6', header: 'Khoảng Giá 6' },
+      { field: 'khungTien_7', header: 'Khoảng Giá 7' }
     ];
   }
 
@@ -53,6 +51,7 @@ export class NetworkComponent implements OnInit {
   }
 
   addNew() {
+    this.network.id = 0;
     this.networkService.save(this.network).subscribe(() => {
       this.showNetworksResponse();
     });
