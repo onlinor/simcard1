@@ -1,42 +1,45 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormphieuchiComponent } from '../../public/formphieuchi/formphieuchi.component';
+import { Component, OnInit, ViewChild, OnDestroy } from "@angular/core";
+import { FormphieuchiComponent } from "../../public/formphieuchi/formphieuchi.component";
 
 import {
   FileService,
   ProductService,
   PhieunhapService,
-  SupplierService
-} from '../../core/services';
-import { Product, ImportReceipt, Supplier } from '../../core/models';
+  SupplierService,
+  DebtbookService
+} from "../../core/services";
+import { Product, ImportReceipt, Supplier, Debtbook } from "../../core/models";
+import { Subscription } from "rxjs/subscription";
 
 @Component({
-  selector: 'app-importproduct',
-  templateUrl: './importproduct.component.html',
-  styleUrls: ['./importproduct.component.css']
+  selector: "app-importproduct",
+  templateUrl: "./importproduct.component.html",
+  styleUrls: ["./importproduct.component.css"]
 })
-export class ImportProductComponent implements OnInit {
-
+export class ImportProductComponent implements OnInit, OnDestroy {
   @ViewChild(FormphieuchiComponent)
   myFormChiChild: FormphieuchiComponent;
 
   LoaiNganHang = [
-    { label: 'Chọn', value: 'default' },
-    { label: 'Agribank', value: 'AGB' },
-    { label: 'Vietcombank', value: 'VCB' },
-    { label: 'Viettinbank', value: 'VTB' },
-    { label: 'VPbank', value: 'VPB' },
-    { label: 'Techcombank', value: 'TCB' },
-    { label: 'Shinhanbank', value: 'SHB' },
-    { label: 'Sacombank', value: 'SCB' },
-    { label: 'DongABank', value: 'DAB' },
-    { label: 'AChauBank', value: 'ACB' }
+    { label: "Chọn", value: "default" },
+    { label: "Agribank", value: "AGB" },
+    { label: "Vietcombank", value: "VCB" },
+    { label: "Viettinbank", value: "VTB" },
+    { label: "VPbank", value: "VPB" },
+    { label: "Techcombank", value: "TCB" },
+    { label: "Shinhanbank", value: "SHB" },
+    { label: "Sacombank", value: "SCB" },
+    { label: "DongABank", value: "DAB" },
+    { label: "AChauBank", value: "ACB" }
   ];
 
-  loaiNganHang: String = '';
+  loaiNganHang: String = "";
+  subscription: Subscription;
 
   tableProducts: Array<Product> = [];
 
   tabviewProducts: Array<Product> = [];
+  dataDebtbook: Debtbook = new Debtbook();
 
   tabviewProductClones: Array<Product> = [];
 
@@ -70,20 +73,23 @@ export class ImportProductComponent implements OnInit {
     private productService: ProductService,
     private phieuhangService: PhieunhapService,
     private supplierService: SupplierService,
+    private debtbookService: DebtbookService
   ) {}
 
   ngOnInit() {
     this.getAllProducts();
     this.getSuppliers();
     this.todayDate = new Date();
-    this.tabviewProductClones = this.tabviewProducts.filter(x => x.loai === 'SS');
+    this.tabviewProductClones = this.tabviewProducts.filter(
+      x => x.loai === "SS"
+    );
   }
 
   onChangeIsPaybankChecked() {
     if (!this.isPaybankChecked) {
       this.thanhToan = this.thanhToan - this.payBank;
       this.payBank = 0;
-      this.loaiNganHang = '';
+      this.loaiNganHang = "";
     }
   }
 
@@ -104,6 +110,26 @@ export class ImportProductComponent implements OnInit {
 
   onGetIsShowDialogPhieuChi(data: any) {
     this.isShowDialogPhieuChi = data;
+  }
+
+  addToDebtbook() {
+    // this.dataDebtbook.maKhachHang = "LJ";
+    // this.dataDebtbook.tenKhachHang = this.importReceipt.nguoiDaiDien;
+    // this.dataDebtbook.noiDungPhieu = this.importReceipt.ghiChu;
+    // this.dataDebtbook.soPhieu = this.importReceipt.ma;
+    // this.dataDebtbook.dateCreated = new Date().toLocaleDateString();
+    // this.dataDebtbook.khachNo = 0;
+    // this.dataDebtbook.noKhach = this.importReceipt.tongTien;
+    // this.dataDebtbook.congDon = 0;
+    console.log('aaa', this.dataDebtbook);
+    // this.subscription = this.debtbookService
+    //   .addDebtbook(this.dataDebtbook)
+    //     .subscribe(
+    //       response => {
+    //         console.log("success");
+    //       },
+    //       error => {}
+    //     );
   }
 
   save() {
@@ -174,7 +200,7 @@ export class ImportProductComponent implements OnInit {
 
   rowEditCompleted(event: any) {
     if (event.data.soLuongNhap <= 0 || !event.data.soLuongNhap) {
-      console.log('Input is not correct, please try again');
+      console.log("Input is not correct, please try again");
     } else {
       const selectedProduct = this.tableProducts.find(
         x => x.ma === event.data.ma
@@ -197,7 +223,7 @@ export class ImportProductComponent implements OnInit {
           soLuong: event.data.soLuongNhap,
           supplierId: event.data.supplierId,
           ten: event.data.ten,
-          thanhTien: 0,
+          thanhTien: 0
         };
         this.tableProducts.push(product);
       }
@@ -262,19 +288,20 @@ export class ImportProductComponent implements OnInit {
     this.importReceipt.shopId = 1;
     this.phieuhangService.addPhieunhap(this.importReceipt).subscribe(() => {});
     this.dataImportProductBinding();
+    console.log('import', this.importReceipt);
   }
 
   destroyTickiet() {
     this.tableProducts.length = 0;
-    this.importReceipt.ma = '';
-    this.importReceipt.ghiChu = '';
-    this.importReceipt.prefix = '';
+    this.importReceipt.ma = "";
+    this.importReceipt.ghiChu = "";
+    this.importReceipt.prefix = "";
     this.importReceipt.products = null;
     this.importReceipt.suffix = null;
     this.importReceipt.supplierId = null;
     this.importReceipt.tongTien = 0;
-    this.importReceipt.nguoiDaiDien = '';
-    this.importReceipt.nhanVienLap = '';
+    this.importReceipt.nguoiDaiDien = "";
+    this.importReceipt.nhanVienLap = "";
     this.importReceipt.soDienThoai = null;
     this.importReceipt.tongTien = 0;
     this.importReceipt.tienThanhToan = 0;
@@ -287,8 +314,8 @@ export class ImportProductComponent implements OnInit {
 
   print(): void {
     let printContents, popupWin;
-    printContents = document.getElementById('print-section').innerHTML;
-    popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
+    printContents = document.getElementById("print-section").innerHTML;
+    popupWin = window.open("", "_blank", "top=0,left=0,height=100%,width=auto");
     popupWin.document.open();
     popupWin.document.write(`
       <html>
@@ -461,8 +488,7 @@ export class ImportProductComponent implements OnInit {
           </style>
         </head>
     <body onload="window.print();window.close()">${printContents}</body>
-      </html>`
-    );
+      </html>`);
     popupWin.document.close();
   }
 
@@ -470,17 +496,28 @@ export class ImportProductComponent implements OnInit {
     const index = e.index;
     switch (index) {
       case 0: {
-        this.tabviewProductClones = this.tabviewProducts.filter(x => x.loai === 'SS');
+        this.tabviewProductClones = this.tabviewProducts.filter(
+          x => x.loai === "SS"
+        );
         break;
       }
       case 1: {
-        this.tabviewProductClones = this.tabviewProducts.filter(x => x.loai === 'TC');
+        this.tabviewProductClones = this.tabviewProducts.filter(
+          x => x.loai === "TC"
+        );
         break;
       }
       default: {
-        this.tabviewProductClones = this.tabviewProducts.filter(x => x.loai === 'SS');
+        this.tabviewProductClones = this.tabviewProducts.filter(
+          x => x.loai === "SS"
+        );
         break;
       }
-   }
+    }
+  }
+  ngOnDestroy() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 }

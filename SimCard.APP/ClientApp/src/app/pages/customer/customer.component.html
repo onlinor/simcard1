@@ -108,10 +108,18 @@
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                             <label>Giới Tính <span style="color: red">(*)</span></label><br />
-                            <input type="radio" name="gioiTinh" class="form-check-input" [value]="true" [(ngModel)]="customerInfo.gioiTinh"
-                                required />&nbsp; <label class=" ml-10 form-check-label">Nam</label>&nbsp;
-                            <input type="radio" name="gioiTinh" class="form-check-input" [value]="false" [(ngModel)]="customerInfo.gioiTinh"
-                                required />&nbsp; <label class=" ml-10 form-check-label"> Nữ</label><br />
+                            <div class="form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="radio" name="gioiTinh" class="form-check-input" [value]="true" [(ngModel)]="customerInfo.gioiTinh"
+                                        required />Nam
+                                </label>
+                            </div>
+                            <div class="form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="radio" name="gioiTinh" class="form-check-input" [value]="false" [(ngModel)]="customerInfo.gioiTinh"
+                                        required />Nữ
+                                </label>
+                            </div>
                         </div>
                     </div>
                 </div>

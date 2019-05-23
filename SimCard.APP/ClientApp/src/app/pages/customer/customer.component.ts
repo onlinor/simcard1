@@ -301,7 +301,7 @@ export class CustomerComponent implements OnInit, OnDestroy {
         .addCustomer(this.customerInfo)
         .subscribe(
           () => {
-            this.toastSuccess();
+           // this.toastSuccess();
             this.getAllCustomers();
             const shop: Shop = { name: this.customerInfo.tenCH, id: 1996 };
             this.shopService.addShop(shop).subscribe(() => {});
@@ -313,7 +313,7 @@ export class CustomerComponent implements OnInit, OnDestroy {
         .updateCustomer(this.idSelectedCustomer, this.customerInfo)
         .subscribe(
           () => {
-            this.toastSuccess();
+           // this.toastSuccess();
             this.getAllCustomers();
           },
           error => {}
@@ -340,7 +340,7 @@ export class CustomerComponent implements OnInit, OnDestroy {
       .deleteCustomer(this.idSelectedCustomer)
       .subscribe(
         () => {
-          this.toastSuccess();
+       //   this.toastSuccess();
           this.getAllCustomers();
         },
         error => {}

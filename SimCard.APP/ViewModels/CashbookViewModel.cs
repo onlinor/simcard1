@@ -14,6 +14,8 @@ namespace SimCard.APP.ViewModels
 
         public string MaPhieu { get; set; }
 
+        public string MaPhanBo { get; set; }
+
         public string NoiDungPhieu { get; set; }
 
         public int SoTienThu { get; set; }

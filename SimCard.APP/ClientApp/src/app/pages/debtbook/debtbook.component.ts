@@ -26,7 +26,6 @@ export class DebtbookComponent implements OnInit {
 		{ label: "CN 4", value: "CN4" }
 	];
 	cols: any = [
-		{ fleld: "stt", header: "STT" },
 		{ field: "dateCreated", header: "Ngày" },
 		{ field: "tenKhachHang", header: "Tên Khách Hàng" },
 		{ field: "maKhachHang", header: "Mã Khách Hàng" },
