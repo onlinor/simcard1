@@ -1,13 +1,11 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { FormphieuthuComponent } from '../../public/formphieuthu/formphieuthu.component';
-import { Product, ExportReceipt, Shop, Debtbook } from '../../core/models';
-import { Subscription } from 'rxjs/subscription';
+import { Product, ExportReceipt, Shop } from '../../core/models';
 import {
   PhieuxuatService,
   ProductService,
-  ShopService,
-  DebtbookService
+  ShopService
 } from '../../core/services';
 
 @Component({
@@ -15,11 +13,9 @@ import {
   templateUrl: './exportproduct.component.html',
   styleUrls: ['./exportproduct.component.css']
 })
-export class ExportProductComponent implements OnInit, OnDestroy {
-
+export class ExportProductComponent implements OnInit {
   @ViewChild(FormphieuthuComponent)
   myFormThuChild: FormphieuthuComponent;
-
   LoaiNganHang = [
     { label: 'Chọn', value: 'default' },
     { label: 'Agribank', value: 'AGB' },
@@ -36,14 +32,13 @@ export class ExportProductComponent implements OnInit, OnDestroy {
   shopList: Array<Shop> = [];
 
   loaiNganHang: String = '';
-  subscription: Subscription;
 
   tabviewProducts: Array<Product> = [];
 
   tableProducts: Array<Product> = [];
 
   exportReceipt: ExportReceipt = new ExportReceipt();
-  dataDebtbook: Debtbook = new Debtbook();
+
   totalMoney = 0;
 
   vatMoney = 0;
@@ -63,30 +58,12 @@ export class ExportProductComponent implements OnInit, OnDestroy {
   constructor(
     private productService: ProductService,
     private phieuxuatSerivce: PhieuxuatService,
-    private shopService: ShopService,
-    private debtbookService: DebtbookService
+    private shopService: ShopService
   ) {}
 
   ngOnInit() {
     this.getAllProducts();
     this.getAllShops();
-  }
-
-  addToDebtbook() {
-    this.dataDebtbook.maKhachHang = this.exportReceipt.shopId.toString();
-    this.dataDebtbook.tenKhachHang = this.exportReceipt.nguoiDaiDien;
-    this.dataDebtbook.noiDungPhieu = this.exportReceipt.ghiChu;
-    this.dataDebtbook.soPhieu = this.exportReceipt.ma;
-    this.dataDebtbook.dateCreated = new Date().toLocaleDateString();
-    this.dataDebtbook.khachNo = this.exportReceipt.tongTien;
-    this.dataDebtbook.noKhach = 0;
-    this.dataDebtbook.congDon = 0;
-    this.subscription = this.debtbookService.addDebtbook(this.dataDebtbook)
-      .subscribe (
-        response => {
-          console.log('success');
-        }, error => {}
-      )
   }
 
   onChangePaybank() {
@@ -202,7 +179,6 @@ export class ExportProductComponent implements OnInit, OnDestroy {
       this.savePhieuxuat();
       this.dataExportProductBinding();
       this.getAllProducts();
-      this.addToDebtbook();
       this.tableProducts = [];
     });
   }
@@ -215,10 +191,4 @@ export class ExportProductComponent implements OnInit, OnDestroy {
     this.exportReceipt.products = this.tableProducts;
     this.phieuxuatSerivce.addPhieuxuat(this.exportReceipt).subscribe(() => {});
   }
-
-  ngOnDestroy() {
-		if (this.subscription) {
-			this.subscription.unsubscribe();
-		}
-	}
 }
