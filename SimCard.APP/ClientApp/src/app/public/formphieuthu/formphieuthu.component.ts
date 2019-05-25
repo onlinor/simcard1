@@ -47,7 +47,8 @@ export class FormphieuthuComponent implements OnInit, OnDestroy {
 		noiDungPhieu: '',
 		soTienChi: 0,
 		soTienThu: 0,
-		congDon: 0
+		congDon: 0,
+		shopId: 0
 	};
 	isATM: boolean = false;
 	payByBank: number = 0;
