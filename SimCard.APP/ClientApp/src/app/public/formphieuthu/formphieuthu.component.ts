@@ -31,7 +31,7 @@ export class FormphieuthuComponent implements OnInit, OnDestroy {
 
 	dataPhieuThu: any = {
 		loaiNganHang: '',
-		loaiPhanBo: '',
+		maPhanBo: '',
 		tenKhachHang: '',
 		donViNhan: '',
 		donViNop: '',
@@ -47,7 +47,8 @@ export class FormphieuthuComponent implements OnInit, OnDestroy {
 		noiDungPhieu: '',
 		soTienChi: 0,
 		soTienThu: 0,
-		congDon: 0
+		congDon: 0,
+		shopId: 0
 	};
 	isATM: boolean = false;
 	payByBank: number = 0;
@@ -148,7 +149,6 @@ export class FormphieuthuComponent implements OnInit, OnDestroy {
 				},
 				error => {}
 			)
-			debugger;
 		var debtbookData = {
 			STT: STT,
 			dateCreated: this.dataPhieuThu.ngayLap,
@@ -213,7 +213,7 @@ export class FormphieuthuComponent implements OnInit, OnDestroy {
 		}
 		var tenKH = this.dataPhieuThu.tenKhachHang;
 		var tenkhChecked = this.dsKhachHang.some((item) =>  item['value'] === tenKH);
-		if(tenkhChecked && this.dataPhieuThu.loaiPhanBo === 'NO') {
+		if(tenkhChecked && this.dataPhieuThu.maPhanBo === 'NO') {
 			this.addDebtbook();
 		}
 		this.resetForm();

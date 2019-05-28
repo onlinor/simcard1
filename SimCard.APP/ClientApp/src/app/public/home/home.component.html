@@ -1,1 +1,134 @@
-<h1>SimCard Home Page</h1>
+﻿<h1><i class="fa fa-home" aria-hidden="true"></i> Trang Chủ</h1>
+
+<div class="row mb-3">
+    <div class="col-xl-3 col-lg-6 col-md-12 col-sm-6 py-2">
+        <div class="card bg-success text-white h-100">
+            <div class="card-body bg-success">
+                <div class="rotate">
+                    <i class="fa fa-briefcase fa-4x"></i>
+                </div>
+                <h4 class="display-4">Kinh Doanh</h4>
+                <ul class="sub-menu">
+                    <li [routerLinkActive]='["link-active"]'>
+                        <a class="item-nav" [routerLink]='["/importproduct"]' (click)='collapse()'>
+                            <i class="fa fa-download" aria-hidden="true"></i>Nhập Hàng
+                        </a>
+                    </li>
+                    <li [routerLinkActive]='["link-active"]'>
+                        <a class="item-nav" [routerLink]='["/exportproduct"]' (click)='collapse()'>
+                            <i class="fa fa-upload" aria-hidden="true"></i>Xuất Hàng
+                        </a>
+                    </li>
+                    <li [routerLinkActive]='["link-active"]'>
+                        <a class="item-nav" [routerLink]='["/"]' (click)='collapse()'>
+                            <i class="fa fa-percent" aria-hidden="true"></i>Chiết Khấu
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-lg-6 col-md-12 col-sm-6 py-2">
+        <div class="card text-white bg-danger h-100">
+            <div class="card-body bg-danger">
+                <div class="rotate">
+                    <i class="fa fa-calculator fa-4x"></i>
+                </div>
+                <h3 class="display-4">Kế Toán</h3>
+                <ul class="sub-menu">
+                    <li [routerLinkActive]='["link-active"]'>
+                        <a class="item-nav" [routerLink]='["/cashbook"]' (click)='collapse()'>
+                            <i class="fa fa-money" aria-hidden="true"></i>Sổ Tiền Mặt
+                        </a>
+                    </li>
+                    <li [routerLinkActive]='["link-active"]'>
+                        <a class="item-nav" [routerLink]='["/bankbook"]' (click)='collapse()'>
+                            <i class="fa fa-university" aria-hidden="true"></i>Sổ Ngân Hàng
+                        </a>
+                    </li>
+                    <li [routerLinkActive]='["link-active"]'>
+                        <a class="item-nav" [routerLink]='["/debtbook"]' (click)='collapse()'>
+                            <i class="fa fa-address-book-o" aria-hidden="true"></i>Công Nợ Khách Hàng
+                        </a>
+                    </li>
+                    <li [routerLinkActive]='["link-active"]'>
+                        <a class="item-nav" [routerLink]='["/"]' (click)='collapse()'>
+                            <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>Thêm Phiếu Thu
+                        </a>
+                    </li>
+                    <li [routerLinkActive]='["link-active"]'>
+                        <a class="item-nav" [routerLink]='["/"]' (click)='collapse()'>
+                            <i class="fa fa-calendar-minus-o" aria-hidden="true"></i>Thêm Phiếu Chi
+                        </a>
+                    </li>
+                    <li [routerLinkActive]='["link-active"]'>
+                        <a class="item-nav" [routerLink]='["/"]' (click)='collapse()'>
+                            <i class="fa fa-id-badge" aria-hidden="true"></i>Lương Nhân Viên
+                        </a>
+                    </li>
+                    <li [routerLinkActive]='["link-active"]'>
+                        <a class="item-nav" [routerLink]='["/"]' (click)='collapse()'>
+                            <i class="fa fa-calendar-check-o" aria-hidden="true"></i>Bảng Kiểm Tra
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-lg-6 col-md-12 col-sm-6 py-2">
+        <div class="card text-white bg-info h-100">
+            <div class="card-body bg-info">
+                <div class="rotate">
+                    <i class="fa fa-bell fa-4x"></i>
+                </div>
+                <h3 class="display-4">Quản Lý</h3>
+                <ul class="sub-menu">
+                    <li [routerLinkActive]='["link-active"]'>
+                        <a class="item-nav" [routerLink]='["/"]' (click)='collapse()'>
+                            <i class="fa fa-share-alt" aria-hidden="true"></i>Chi Nhánh
+                        </a>
+                    </li>
+                    <li [routerLinkActive]='["link-active"]'>
+                        <a class="item-nav" [routerLink]='["/"]' (click)='collapse()'>
+                            <i class="fa fa-users" aria-hidden="true"></i>Người Dùng
+                        </a>
+                    </li>
+                    <li [routerLinkActive]='["link-active"]'>
+                        <a class="item-nav" [routerLink]='["/supplier"]' (click)='collapse()'>
+                            <i class="fa fa-cubes" aria-hidden="true"></i>Nhà Cung Cấp
+                        </a>
+                    </li>
+                    <li [routerLinkActive]='["link-active"]'>
+                        <a class="item-nav" [routerLink]='["/event"]' (click)='collapse()'>
+                            <i class="fa fa-star-half-o" aria-hidden="true"></i>Sự Kiện
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-lg-6 col-md-12 col-sm-6 py-2">
+        <div class="card text-white bg-warning h-100">
+            <div class="card-body">
+                <div class="rotate">
+                    <i class="fa fa-th-large fa-4x" aria-hidden="true"></i>
+                </div>
+                <h3 class="display-4" [routerLinkActive]='["link-active"]'>
+                    <a class="item-nav" [routerLink]='["/customer"]' (click)='collapse()'>
+                        <i class="fa fa-user-secret" aria-hidden="true"></i>Khách Hàng
+                    </a>
+                </h3>
+                <h3 class="display-4" [routerLinkActive]='["link-active"]'>
+                    <a class="item-nav" [routerLink]='["/report-home"]' (click)='collapse()'>
+                        <i class="fa fa-line-chart" aria-hidden="true"></i>Báo Cáo
+                    </a>
+                </h3>
+                <h3 class="display-4" [routerLinkActive]='["link-active"]'>
+                    <a class="item-nav" [routerLink]='["/config"]' (click)='collapse()'>
+                        <i class="fa fa-cog" aria-hidden="true"></i>Cấu Hình
+                    </a>
+                </h3>
+            </div>
+        </div>
+    </div>
+</div>

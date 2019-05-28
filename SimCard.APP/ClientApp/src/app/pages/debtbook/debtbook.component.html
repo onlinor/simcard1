@@ -85,7 +85,6 @@
 			</ng-template>
 			<ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
 				<tr [pSelectableRow]="rowData">
-					<td>{{rowData.stt}}</td>
 					<td>{{rowData.dateCreated | date: "dd/MM/yyyy"}}</td>
 					<td>{{rowData.tenKhachHang}}</td>
 					<td>{{rowData.maKhachHang}}</td>

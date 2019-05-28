@@ -1,15 +1,15 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace SimCard.APP.Models
+namespace SimCard.APP.ViewModels
 {
-    public class Network : BaseEntity
+    public class NetworkViewModel
     {
         public int Id { get; set; }
 
         [Required]
         [StringLength(255)]
         public string Ten { get; set; }
-
+        
         public string Ma { get; set; }
 
         public int MenhGia { get; set; }

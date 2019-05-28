@@ -19,12 +19,12 @@
   </ng-template>
   <ng-template pTemplate="summary" let-rowData>
       <div style="text-align:left">
-          <button type="button" pButton icon="fa fa-plus" (click)="showDialogToAdd()" label="Add"></button>
+        <button type="button" pButton icon="fa fa-plus" (click)="showDialog()" label="Add"></button>
       </div>
   </ng-template>    
 </p-table>
 
-<p-dialog header="Network Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true"  [style]="{width: '300px'}">
+<p-dialog header="Thêm Sản Phẩm" [(visible)]="displayAddDialog" [responsive]="true" showEffect="fade" [modal]="true"  [style]="{width: '300px'}">
   <div class="ui-g ui-fluid" *ngIf="network">
       <div class="ui-g-12">
           <div class="ui-g-4">
@@ -44,97 +44,211 @@
       </div>
       <div class="ui-g-12">
           <div class="ui-g-4">
-              <label for="menhgia">Mệnh Giá</label>
+              <label for="menhGia">Mệnh Giá</label>
           </div>
           <div class="ui-g-8">
-              <input pInputText id="menhgia" [(ngModel)]="network.menhgia" />
+              <input pInputText type="number" id="menhGia" [(ngModel)]="network.menhGia" />
           </div>
       </div>
       <div class="ui-g-12">
           <div class="ui-g-4">
-              <label for="chietkhaudauvao">Chiết Khấu Đầu Vào</label>
+              <label for="chietKhauDauVao">Chiết Khấu Đầu Vào</label>
           </div>
           <div class="ui-g-8">
-              <input pInputText id="chietkhaudauvao" [(ngModel)]="network.chietkhaudauvao" />
+              <input pInputText type="number" id="chietKhauDauVao" [(ngModel)]="network.chietKhauDauVao" />
           </div>
       </div>
       <div class="ui-g-12">
           <div class="ui-g-4">
-              <label for="chietkhaucaonhat">Chiết Khấu Cao Nhất</label>
+              <label for="chietKhauCaoNhat">Chiết Khấu Cao Nhất</label>
           </div>
           <div class="ui-g-8">
-              <input pInputText id="chietkhaucaonhat" [(ngModel)]="network.chietkhaucaonhat" />
+              <input pInputText type="number" id="chietKhauCaoNhat" [(ngModel)]="network.chietKhauCaoNhat" />
           </div>
       </div>
       <div class="ui-g-12">
           <div class="ui-g-4">
-              <label for="buocnhay">Bước Nhảy</label>
+              <label for="buocNhay">Bước Nhảy</label>
           </div>
           <div class="ui-g-8">
-              <input pInputText id="buocnhay" [(ngModel)]="network.buocnhay" />
+              <input pInputText id="buocNhay" [(ngModel)]="network.buocNhay" />
           </div>
       </div>
       <div class="ui-g-12">
           <div class="ui-g-4">
-              <label for="khungtien_1">Khoảng Giá 1</label>
+              <label for="khungTien_1">Khoảng Giá 1</label>
           </div>
           <div class="ui-g-8">
-              <input pInputText id="khungtien_1" [(ngModel)]="network.khungtien_1" />
+              <input pInputText  type="number" id="khungTien_1" [(ngModel)]="network.khungTien_1" />
           </div>
       </div>
       <div class="ui-g-12">
           <div class="ui-g-4">
-              <label for="khungtien_2">Khoảng Giá 2</label>
+              <label for="khungTien_2">Khoảng Giá 2</label>
           </div>
           <div class="ui-g-8">
-              <input pInputText id="khungtien_2" [(ngModel)]="network.khungtien_2" />
+              <input pInputText  type="number" id="khungTien_2" [(ngModel)]="network.khungTien_2" />
           </div>
       </div>
       <div class="ui-g-12">
           <div class="ui-g-4">
-              <label for="khungtien_3">Khoảng Giá 3</label>
+              <label for="khungTien_3">Khoảng Giá 3</label>
           </div>
           <div class="ui-g-8">
-              <input pInputText id="khungtien_3" [(ngModel)]="network.khungtien_3" />
+              <input pInputText  type="number" id="khungTien_3" [(ngModel)]="network.khungTien_3" />
           </div>
       </div>
       <div class="ui-g-12">
           <div class="ui-g-4">
-              <label for="khungtien_4">Khoảng Giá 4</label>
+              <label for="khungTien_4">Khoảng Giá 4</label>
           </div>
           <div class="ui-g-8">
-              <input pInputText id="khungtien_4" [(ngModel)]="network.khungtien_4" />
+              <input pInputText  type="number" id="khungTien_4" [(ngModel)]="network.khungTien_4" />
           </div>
       </div>
       <div class="ui-g-12">
           <div class="ui-g-4">
-              <label for="khungtien_5">Khoảng Giá 5</label>
+              <label for="khungTien_5">Khoảng Giá 5</label>
           </div>
           <div class="ui-g-8">
-              <input pInputText id="khungtien_5" [(ngModel)]="network.khungtien_5" />
+              <input pInputText  type="number" id="khungTien_5" [(ngModel)]="network.khungTien_5" />
           </div>
       </div>
       <div class="ui-g-12">
           <div class="ui-g-4">
-              <label for="khungtien_6">Khoảng Giá 6</label>
+              <label for="khungTien_6">Khoảng Giá 6</label>
           </div>
           <div class="ui-g-8">
-              <input pInputText id="khungtien_6" [(ngModel)]="network.khungtien_6" />
+              <input pInputText  type="number" id="khungTien_6" [(ngModel)]="network.khungTien_6" />
           </div>
       </div>
       <div class="ui-g-12">
           <div class="ui-g-4">
-              <label for="khungtien_7">Khoảng Giá 7</label>
+              <label for="khungTien_7">Khoảng Giá 7</label>
           </div>
           <div class="ui-g-8">
-              <input pInputText id="khungtien_7" [(ngModel)]="network.khungtien_7" />
+              <input pInputText  type="number" id="khungTien_7" [(ngModel)]="network.khungTien_7" />
           </div>
       </div>
   </div>
   <p-footer>
       <div class="ui-dialog-buttonpane ui-helper-clearfix">
-          <button type="button" pButton icon="fa fa-close" (click)="delete()" label="Delete"></button>
-          <button type="button" pButton icon="fa fa-check" (click)="save()" label="Save"></button>
+          <button type="button" pButton icon="fa fa-check" (click)="addNew()" label="Thêm"></button>
       </div>
   </p-footer>
+</p-dialog>
+
+<p-dialog header="Sửa sản phẩm" [(visible)]="displayEditDialog" [responsive]="true" showEffect="fade" [modal]="true"  [style]="{width: '300px'}">
+    <div class="ui-g ui-fluid" *ngIf="network">
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label for="ten">Tên</label>
+            </div>
+            <div class="ui-g-8">
+                <input pInputText id="ten" [(ngModel)]="network.ten" />
+            </div>
+        </div>
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label for="ma">Mã</label>
+            </div>
+            <div class="ui-g-8">
+                <input pInputText id="ma" [(ngModel)]="network.ma" />
+            </div>
+        </div>
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label for="menhGia">Mệnh Giá</label>
+            </div>
+            <div class="ui-g-8">
+                <input pInputText id="menhGia" [(ngModel)]="network.menhGia" />
+            </div>
+        </div>
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label for="chietKhauDauVao">Chiết Khấu Đầu Vào</label>
+            </div>
+            <div class="ui-g-8">
+                <input pInputText id="chietKhauDauVao" [(ngModel)]="network.chietKhauDauVao" />
+            </div>
+        </div>
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label for="chietKhauCaoNhat">Chiết Khấu Cao Nhất</label>
+            </div>
+            <div class="ui-g-8">
+                <input pInputText id="chietKhauCaoNhat" [(ngModel)]="network.chietKhauCaoNhat" />
+            </div>
+        </div>
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label for="buocNhay">Bước Nhảy</label>
+            </div>
+            <div class="ui-g-8">
+                <input pInputText id="buocNhay" [(ngModel)]="network.buocNhay" />
+            </div>
+        </div>
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label for="khungTien_1">Khoảng Giá 1</label>
+            </div>
+            <div class="ui-g-8">
+                <input pInputText  type="number" id="khungTien_1" [(ngModel)]="network.khungTien_1" />
+            </div>
+        </div>
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label for="khungTien_2">Khoảng Giá 2</label>
+            </div>
+            <div class="ui-g-8">
+                <input pInputText  type="number" id="khungTien_2" [(ngModel)]="network.khungTien_2" />
+            </div>
+        </div>
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label for="khungTien_3">Khoảng Giá 3</label>
+            </div>
+            <div class="ui-g-8">
+                <input pInputText  type="number" id="khungTien_3" [(ngModel)]="network.khungTien_3" />
+            </div>
+        </div>
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label for="khungTien_4">Khoảng Giá 4</label>
+            </div>
+            <div class="ui-g-8">
+                <input pInputText  type="number" id="khungTien_4" [(ngModel)]="network.khungTien_4" />
+            </div>
+        </div>
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label for="khungTien_5">Khoảng Giá 5</label>
+            </div>
+            <div class="ui-g-8">
+                <input pInputText  type="number" id="khungTien_5" [(ngModel)]="network.khungTien_5" />
+            </div>
+        </div>
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label for="khungTien_6">Khoảng Giá 6</label>
+            </div>
+            <div class="ui-g-8">
+                <input pInputText  type="number" id="khungTien_6" [(ngModel)]="network.khungTien_6" />
+            </div>
+        </div>
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label for="khungTien_7">Khoảng Giá 7</label>
+            </div>
+            <div class="ui-g-8">
+                <input pInputText  type="number" id="khungTien_7" [(ngModel)]="network.khungTien_7" />
+            </div>
+        </div>
+    </div>
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+            <button type="button" pButton icon="fa fa-close" (click)="delete()" label="Xóa"></button>
+            <button type="button" pButton icon="fa fa-check" (click)="edit()" label="Xong"></button>
+        </div>
+    </p-footer>
 </p-dialog>

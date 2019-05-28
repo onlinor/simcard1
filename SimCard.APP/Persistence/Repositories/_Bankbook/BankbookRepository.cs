@@ -61,6 +61,7 @@ namespace SimCard.APP.Persistence.Repositories
                 bankbookToUpdate.DateCreated = bankbookParams.DateCreated;
                 bankbookToUpdate.TenKhachHang = bankbookParams.TenKhachHang;
                 bankbookToUpdate.MaKhachHang = bankbookParams.MaKhachHang;
+                bankbookToUpdate.MaPhanBo = bankbookParams.MaPhanBo;
                 bankbookToUpdate.MaPhieu = bankbookParams.MaPhieu;
                 bankbookToUpdate.NoiDungPhieu = bankbookParams.NoiDungPhieu;
                 bankbookToUpdate.SoTienChi = bankbookParams.SoTienChi;

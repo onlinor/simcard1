@@ -38,7 +38,7 @@ export class FormphieuchibankbookComponent implements OnInit, OnDestroy {
 
 	dataPhieuChi: any = {
 		loaiNganHang: '',
-		loaiPhanBo: '',
+		maPhanBo: '',
 		tenKhachHang: '',
 		donViNhan: 'Cong Ty',
 		donViNop: '',
@@ -153,7 +153,6 @@ export class FormphieuchibankbookComponent implements OnInit, OnDestroy {
 				},
 				error => {}
 			)
-			debugger;
 		var debtbookData = {
 			STT: STT,
 			dateCreated: this.dataPhieuChi.ngayLap,
@@ -218,7 +217,7 @@ export class FormphieuchibankbookComponent implements OnInit, OnDestroy {
 		}
 		var tenKH = this.dataPhieuChi.tenKhachHang;
 		var tenkhChecked = this.dsKhachHang.some((item) =>  item['value'] === tenKH);
-		if(tenkhChecked && this.dataPhieuChi.loaiPhanBo === 'NO') {
+		if(tenkhChecked && this.dataPhieuChi.maPhanBo === 'NO') {
 			this.addDebtbook();
 		}
 		this.resetForm();

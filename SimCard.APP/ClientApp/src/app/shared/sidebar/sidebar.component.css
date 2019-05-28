@@ -1,8 +1,9 @@
+
+/*
 li .glyphicon {
     margin-right: 10px;
 }
 
-/* Highlighting rules for nav menu items */
 li.link-active a,
 li.link-active a:hover,
 li.link-active a:focus {
@@ -10,7 +11,6 @@ li.link-active a:focus {
     color: white;
 }
 
-/* Keep the nav menu independent of scrolling and on top of other items */
 .main-nav {
     position: fixed;
     top: 0;
@@ -18,67 +18,99 @@ li.link-active a:focus {
     right: 0;
     z-index: 1;
 }
+
 .bt-0 {
     border-top: none !important;
 }
+
 .color-white {
     color: white;
 }
-.logo-place {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    border-bottom: 1px solid #eee;
-}
+
 .item-nav {
     padding: 5px 16px !important;
 }
+
 .mw-sidebar {
     min-width: 250px;
 }
+
 @media (max-width: 989px) {
     .main-nav {
         position: static;
     }
 }
+
 @media (min-width: 990px) {
-    /* On small screens, convert the nav menu to a vertical sidebar */
     .main-nav {
         height: 100%;
         width: calc(25% - 70px);
     }
+
     .navbar {
         border-radius: 0px;
         border-width: 0px;
         height: 100%;
         width: 100%;
     }
+
     .navbar-header {
         float: none;
     }
+
     .navbar-collapse {
         border-top: 1px solid #444;
         padding: 0px;
     }
+
     .navbar ul {
         float: none;
     }
+
     .navbar li {
         float: none;
         font-size: 15px;
         margin: 4px;
         width: 100%;
     }
-    .navbar li a {
-        padding: 10px 16px;
-        border-radius: 4px;
-    }
+
+        .navbar li a {
+            padding: 10px 16px;
+            border-radius: 4px;
+        }
+
     .navbar a {
-        /* If a menu item's text is too long, truncate it */
         width: 100%;
         white-space: nowrap;
         overflow-x: hidden;
         text-overflow: ellipsis;
     }
+}
+*/
+
+.logo-place {
+    *height: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    *border-bottom: 1px solid #eee;
+}
+
+#app-logo {
+    width: 100%;
+    border: 1px solid red;
+}
+
+.company-name {
+    text-transform: uppercase;
+    margin: 0px 0px 10px 0px;
+}
+
+.company-slogan {
+    text-transform: capitalize;
+    margin: 0;
+}
+
+li > a > i {
+    width: 25px;
 }

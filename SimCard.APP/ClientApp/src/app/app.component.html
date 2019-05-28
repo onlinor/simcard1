@@ -1,12 +1,27 @@
-<div class="container-fluid main-page">
+<!--<div class="container-fluid main-page">
   <div class="row wrapper-page">
     <div class="col-lg-2">
        <app-sidebar></app-sidebar>
    </div>
     <div class="col-lg-9 mg-0">
       <app-header></app-header>
-      <router-outlet></router-outlet>
+      <div>
+          <router-outlet></router-outlet>
+      </div>
       <app-footer></app-footer>
     </div>
   </div>
+</div>-->
+
+<div class="wrapper">
+    <nav id="sidebar">
+        <app-sidebar></app-sidebar>
+    </nav>
+    <div class="container-fluid" style="padding: 0">
+        <div id="content">
+            <app-header></app-header>
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+    <app-footer></app-footer>
 </div>

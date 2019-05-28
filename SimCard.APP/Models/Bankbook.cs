@@ -15,6 +15,9 @@ namespace SimCard.APP.Models
         public string MaPhieu { get; set; }
 
         [StringLength(255)]
+        public string MaPhanBo { get; set; }
+
+        [StringLength(255)]
         public string NoiDungPhieu { get; set; }
 
         [Column(TypeName = "decimal(18,2)")]

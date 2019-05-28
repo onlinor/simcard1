@@ -39,6 +39,7 @@ namespace SimCard.APP
                 cfg.CreateMissingTypeMaps = true;
             });
 
+            var simCardDatabaseConnectionString = Configuration.GetConnectionString("SimCardDatabase");
             IConfigurationSection appSettingsSection = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);
 
@@ -64,7 +65,7 @@ namespace SimCard.APP
             });
 
             services.AddAutoMapper();
-             services.AddDbContext<SimCardDBContext>(options => options.UseSqlServer("Server=.;Database=SimCard;Integrated Security=True;Trusted_Connection=True;"));
+            services.AddDbContext<SimCardDBContext>(options => options.UseSqlServer(simCardDatabaseConnectionString));
             services.AddDefaultIdentity<User>();
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<IProductRepository, ProductRepository>();
@@ -88,6 +89,7 @@ namespace SimCard.APP
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IProductExchangeService, ProductExchangeService>();
+            services.AddScoped<INetworkService, NetworkService>();
             services.AddCors();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1).AddJsonOptions(options => options.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver()); ;
