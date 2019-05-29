@@ -48,3 +48,7 @@ i.fa {
 .navbar-brand, li.nav-item {
     padding-right: 30px;
 }
+
+.btn-login, .btn-logout {
+    min-width: 100px;
+}
