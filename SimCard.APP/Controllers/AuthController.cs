@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 using SimCard.APP.Models;
-using SimCard.APP.Persistence.Services;
+using SimCard.APP.Service;
 using SimCard.APP.ViewModels;
 
 namespace SimCard.APP.Controllers

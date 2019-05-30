@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc;
 
-using SimCard.APP.Persistence;
-using SimCard.APP.Persistence.Repositories;
+using SimCard.APP.Database;
+using SimCard.APP.Repository;
 using SimCard.APP.ViewModels;
 
 namespace SimCard.APP.Controllers

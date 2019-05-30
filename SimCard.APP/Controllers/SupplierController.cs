@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc;
 
+using SimCard.APP.Database;
 using SimCard.APP.Models;
-using SimCard.APP.Persistence;
-using SimCard.APP.Persistence.Repositories;
+using SimCard.APP.Repository;
 
 namespace SimCard.APP.Controllers
 {

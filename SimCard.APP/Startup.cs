@@ -12,10 +12,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 
+using SimCard.APP.Database;
+using SimCard.APP.Helper;
 using SimCard.APP.Models;
-using SimCard.APP.Persistence;
-using SimCard.APP.Persistence.Repositories;
-using SimCard.APP.Persistence.Services;
+using SimCard.APP.Repository;
+using SimCard.APP.Service;
 using SimCard.APP.ViewModels;
 using SimCard.APP.Workers;
 

@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 using OfficeOpenXml;
 
-using SimCard.APP.Persistence.Services;
+using SimCard.APP.Service;
 using SimCard.APP.ViewModels;
 
 namespace SimCard.APP.Controllers

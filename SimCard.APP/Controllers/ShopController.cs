@@ -5,9 +5,9 @@ using AutoMapper;
 
 using Microsoft.AspNetCore.Mvc;
 
+using SimCard.APP.Database;
 using SimCard.APP.Models;
-using SimCard.APP.Persistence;
-using SimCard.APP.Persistence.Repositories;
+using SimCard.APP.Repository;
 using SimCard.APP.ViewModels;
 
 namespace SimCard.APP.Controllers
@@ -23,7 +23,7 @@ namespace SimCard.APP.Controllers
         {
             _shopRepository = shopRepository;
             _customerRepository = customerRepository;
-            _unitOfWork = unitOfWork;
+            _unitOfWork = unitOfWork ?? throw new System.ArgumentNullException(nameof(unitOfWork));
         }
 
         [HttpPost("/api/shop/add")]
