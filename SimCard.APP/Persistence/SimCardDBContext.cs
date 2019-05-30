@@ -28,6 +28,8 @@ namespace SimCard.APP.Persistence
 
         public DbSet<Network> Networks { get; set; }
 
+        public DbSet<NetworkRange> NetworkRanges { get; set; }
+
         public DbSet<ImportReceipt> ImportReceipts { get; set; }
 
         public DbSet<ImportReceiptProducts> ImportReceiptProducts { get; set; }

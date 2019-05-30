@@ -1,5 +1,5 @@
 export class Network {
-    id: number;
+    id?: number;
     ma: string;
     ten: string;
     menhGia: number;

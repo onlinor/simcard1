@@ -33,6 +33,7 @@ import {
   DocExportingService,
   AuthService,
   NetworkService,
+  NetworkRangeService,
   PhieunhapService,
   PhieuxuatService,
   DebtbookService
@@ -68,6 +69,7 @@ import {
     DocExportingService,
     ShopService,
     NetworkService,
+    NetworkRangeService,
     PhieunhapService,
     AuthService,
     PhieuxuatService,

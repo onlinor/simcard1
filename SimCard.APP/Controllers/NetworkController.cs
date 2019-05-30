@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 
 using OfficeOpenXml;
-
+using SimCard.APP.Models;
 using SimCard.APP.Persistence.Services;
 using SimCard.APP.ViewModels;
 
@@ -38,6 +38,22 @@ namespace SimCard.APP.Controllers
                 return BadRequest(networkViewModel.Ma + " already exists!");
             }
             await _networkService.Create(networkViewModel);
+
+            return Ok();
+        }
+
+        [HttpDelete("/api/network/remove/{id}")]
+        public async Task<IActionResult> RemoveNetwork(int id)
+        {
+            await _networkService.Remove(id);
+
+            return Ok();
+        }
+
+        [HttpPut("/api/network/edit/{id}")]
+        public async Task<IActionResult> EditNetwork(NetworkViewModel productExchangeViewModel)
+        {
+            await _networkService.Update(productExchangeViewModel);
 
             return Ok();
         }
