@@ -24,11 +24,11 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.authService.currentUser !== null ? this.isLoggedIn = true : this.isLoggedIn = false;
+    this.authService.isAuthenticated ? this.isLoggedIn = true : this.isLoggedIn = false;
   }
 
   logout() {
-    this.subscribeService.publish('UserLoggedOn', false);
+    this.subscribeService.publish('UserLoggedIn', false);
     this.authService.logout();
     this.router.navigate(['/']);
   }

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService, SubscribeService } from '../../core/services';
-import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -24,7 +23,7 @@ export class LoginComponent implements OnInit {
     private subscribeService: SubscribeService
   ) {
     // redirect to home if already logged in
-    if (this.authService.currentUserValue) {
+    if (this.authService.isAuthenticated) {
       this.router.navigate(['/']);
     }
   }
@@ -60,16 +59,16 @@ export class LoginComponent implements OnInit {
       })
       .subscribe(
         result => {
+          debugger;
           if (result && result.token) {
             localStorage.setItem('currentUser', JSON.stringify(result));
-            this.authService.currentUserSubject.next(result);
-            this.subscribeService.publish('UserLoggedOn', true);
+            this.subscribeService.publish('UserLoggedIn', true);
             this.router.navigate([this.returnUrl]);
           }
         },
         error => {
           this.error = error;
-          this.subscribeService.publish('UserLoggedOn', false);
+          this.subscribeService.publish('UserLoggedIn', false);
           this.loading = false;
         }
       );

@@ -1,25 +1,18 @@
 ﻿import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
-import { Observable, BehaviorSubject } from 'rxjs';
-import { User } from '../models';
-import { HttpClient } from '@angular/common/http';
-import { Login } from '../models';
+import { Observable } from 'rxjs';
+import { User, Login } from '../models';
 
 @Injectable()
 export class AuthService {
-  public currentUserSubject: BehaviorSubject<User>;
-
-  public currentUser: Observable<User>;
-
-  constructor(private http: HttpClient, private apiService: ApiService) {
-    this.currentUserSubject = new BehaviorSubject<User>(
-      JSON.parse(localStorage.getItem('currentUser'))
-    );
-    this.currentUser = this.currentUserSubject.asObservable();
-  }
+  constructor(private apiService: ApiService) {}
 
   public get currentUserValue(): User {
-    return this.currentUserSubject.value;
+    return JSON.parse(localStorage.getItem('currentUser'));
+  }
+
+  public get isAuthenticated(): boolean {
+    return JSON.parse(localStorage.getItem('currentUser')) !== null;
   }
 
   login(loginInfo: Login): Observable<any> {
@@ -28,6 +21,5 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('currentUser');
-    this.currentUserSubject.next(null);
   }
 }
