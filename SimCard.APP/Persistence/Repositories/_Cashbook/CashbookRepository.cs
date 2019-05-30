@@ -1,12 +1,12 @@
-using Microsoft.EntityFrameworkCore;
-
-using SimCard.APP.Models;
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+
+using Microsoft.EntityFrameworkCore;
+
+using SimCard.APP.Models;
 
 namespace SimCard.APP.Persistence.Repositories
 {

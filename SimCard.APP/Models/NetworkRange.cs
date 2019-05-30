@@ -1,5 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace SimCard.APP.Models
 {
     public class NetworkRange : BaseEntity

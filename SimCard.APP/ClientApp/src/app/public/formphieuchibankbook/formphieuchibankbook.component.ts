@@ -6,7 +6,7 @@ import {
 	EventEmitter,
 	OnDestroy
 } from '@angular/core';
-import { Subscription } from 'rxjs/subscription';
+import { Subscription } from 'rxjs';
 import { BankbookService } from '../../core/services/bankbook.service';
 import { CashbookService } from '../../core/services/cashbook.service';
 import { DebtbookService } from '../../core/services/debtbook.service';

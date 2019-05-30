@@ -1,5 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace SimCard.APP.ViewModels
 {
     public class NetworkRangeViewModel

@@ -20,7 +20,6 @@ import { MultiSelectModule } from "primeng/multiselect";
 import { CoreModule } from "./core/core.module";
 import { SharedModule } from "./shared/shared.module";
 import { PublicModule } from "./public/public.module";
-import { AngularFontAwesomeModule } from "angular-font-awesome";
 import { NgxPrintModule } from "ngx-print";
 
 // Component
@@ -106,7 +105,6 @@ import { ListproductComponent } from "./pages/listproduct/listproduct.component"
     TabViewModule,
     MultiSelectModule,
     FileUploadModule,
-    AngularFontAwesomeModule,
     NgxPrintModule,
     RouterModule.forRoot(
       [

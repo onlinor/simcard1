@@ -1,9 +1,9 @@
-﻿namespace SimCard.APP.Models
+﻿namespace SimCard.APP.ViewModels
 {
     public class LoginViewModel
     {
         public string Username { get; set; }
-        
+
         public string Password { get; set; }
     }
 }

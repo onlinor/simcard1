@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-
 import { ServiceLocator } from '../service-locator';
 import { ApiService } from './api.service';
 import { CommonService } from './common.service';

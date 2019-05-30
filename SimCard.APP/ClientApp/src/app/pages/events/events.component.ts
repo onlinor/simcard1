@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { EventsService } from '../../core/services/events.service';
 import { MessageService } from 'primeng/api';
-import { Subscription } from 'rxjs/subscription';
+import { Subscription } from 'rxjs';
 import { LogService } from '../../shared/logging-services/log.service';
 
 @Component({

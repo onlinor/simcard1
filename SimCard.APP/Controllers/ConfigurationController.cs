@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
 using AutoMapper;
 
 using Microsoft.AspNetCore.Mvc;
@@ -6,9 +9,6 @@ using SimCard.APP.Models;
 using SimCard.APP.Persistence;
 using SimCard.APP.Persistence.Repositories;
 using SimCard.APP.ViewModels;
-
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace SimCard.APP.Controllers
 {

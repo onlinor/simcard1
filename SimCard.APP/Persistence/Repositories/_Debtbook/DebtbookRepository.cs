@@ -1,7 +1,9 @@
-using Microsoft.EntityFrameworkCore;
-using SimCard.APP.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+
+using Microsoft.EntityFrameworkCore;
+
+using SimCard.APP.Models;
 
 namespace SimCard.APP.Persistence.Repositories
 {
@@ -14,12 +16,12 @@ namespace SimCard.APP.Persistence.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<Debtbook>> getAllDebtbook()
+        public async Task<IEnumerable<Debtbook>> GetAllDebtbook()
         {
             return await _context.Debtbook.ToListAsync();
         }
-        
-        public async Task<Debtbook> addDebtbook(Debtbook debtbook)
+
+        public async Task<Debtbook> AddDebtbook(Debtbook debtbook)
         {
             if (debtbook != null)
             {

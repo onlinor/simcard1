@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace SimCard.APP.ViewModels
+﻿namespace SimCard.APP.ViewModels
 {
 
     public class ProductExchangeViewModel

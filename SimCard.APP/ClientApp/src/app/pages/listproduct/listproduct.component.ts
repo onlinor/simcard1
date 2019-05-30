@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductExchange, Product, Supplier } from '../../core/models';
-import { ProductExchangeService, ProductService, SupplierService } from '../../core/services';
+import {
+  ProductExchangeService,
+  ProductService,
+  SupplierService
+} from '../../core/services';
 
 @Component({
   selector: 'app-listproduct',
@@ -8,7 +12,6 @@ import { ProductExchangeService, ProductService, SupplierService } from '../../c
   styleUrls: ['./listproduct.component.css']
 })
 export class ListproductComponent implements OnInit {
-
   displayEditDialog: boolean;
   displayAddDialog: boolean;
 
@@ -35,7 +38,7 @@ export class ListproductComponent implements OnInit {
     private productExchangeService: ProductExchangeService,
     private productService: ProductService,
     private supplierService: SupplierService
-    ) {}
+  ) {}
 
   ngOnInit() {
     this.showProductExchangesResponse();
@@ -56,18 +59,20 @@ export class ListproductComponent implements OnInit {
   }
 
   addNew() {
-    const tableProducts: Array<Product> = [{
-      chietKhau: 0,
-      donGia: 0,
-      loai: this.productExchange.loai,
-      ma: this.productExchange.ma,
-      menhGia: this.productExchange.menhGia,
-      shopId: 1,
-      soLuong: 0,
-      supplierId: this.productExchange.supplierId,
-      ten: this.productExchange.ten,
-      thanhTien: 0,
-    }];
+    const tableProducts: Array<Product> = [
+      {
+        chietKhau: 0,
+        donGia: 0,
+        loai: this.productExchange.loai,
+        ma: this.productExchange.ma,
+        menhGia: this.productExchange.menhGia,
+        shopId: 1,
+        soLuong: 0,
+        supplierId: this.productExchange.supplierId,
+        ten: this.productExchange.ten,
+        thanhTien: 0
+      }
+    ];
     this.productExchangeService.save(this.productExchange).subscribe(() => {
       this.productService.save(tableProducts).subscribe(() => {});
       this.showProductExchangesResponse();
@@ -87,8 +92,14 @@ export class ListproductComponent implements OnInit {
   }
 
   edit() {
-    if (this.productExchanges.find(x => x.id !== this.selectedProductExchange.id
-       && (x.ten === this.productExchange.ten || x.ma === this.productExchange.ma))) {
+    if (
+      this.productExchanges.find(
+        x =>
+          x.id !== this.selectedProductExchange.id &&
+          (x.ten === this.productExchange.ten ||
+            x.ma === this.productExchange.ma)
+      )
+    ) {
       console.log('Trùng');
     } else {
       this.productExchange.id = this.selectedProductExchange.id;

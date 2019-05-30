@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Network, NetworkRange } from '../../core/models';
 import { NetworkService, NetworkRangeService } from '../../core/services';
-import { $ } from 'protractor';
 
 @Component({
   selector: 'app-network',
@@ -9,31 +8,24 @@ import { $ } from 'protractor';
   styleUrls: ['./network.component.css']
 })
 export class NetworkComponent implements OnInit {
-
   displayEditDialog: boolean;
   displayAddDialog: boolean;
-
   displayEditDialogRange: boolean;
   displayAddDialogRange: boolean;
-
   network: Network = new Network();
   networkRange: NetworkRange = new NetworkRange();
-
   selectedNetwork: Network;
   selectedNetworkRange: NetworkRange;
-
   newNetwork: boolean;
   newNetworkRange: boolean;
-
   networks: Network[];
   networkRanges: NetworkRange[];
-
   cols: any[];
   colRanges: any[];
-
-
-  constructor(private networkService: NetworkService,
-              private networkRangeService: NetworkRangeService) {}
+  constructor(
+    private networkService: NetworkService,
+    private networkRangeService: NetworkRangeService
+  ) {}
 
   ngOnInit() {
     this.showNetworksResponse();
@@ -46,17 +38,17 @@ export class NetworkComponent implements OnInit {
       { field: 'chietKhauDauVao', header: 'Chiết Khấu Đầu Vào' },
       { field: 'chietKhauCaoNhat', header: 'Chiết Khấu Cao Nhất' },
       { field: 'buocNhay', header: 'Bước Nhảy' },
-      { field: 'khungTien_1'},
-      { field: 'khungTien_2'},
-      { field: 'khungTien_3'},
-      { field: 'khungTien_4'},
-      { field: 'khungTien_5'},
-      { field: 'khungTien_6'},
-      { field: 'khungTien_7'}
+      { field: 'khungTien_1' },
+      { field: 'khungTien_2' },
+      { field: 'khungTien_3' },
+      { field: 'khungTien_4' },
+      { field: 'khungTien_5' },
+      { field: 'khungTien_6' },
+      { field: 'khungTien_7' }
     ];
 
     this.colRanges = [
-    { field: 'range_1', header: 'Khoảng Giá 1' },
+      { field: 'range_1', header: 'Khoảng Giá 1' },
       { field: 'range_2', header: 'Khoảng Giá 2' },
       { field: 'range_3', header: 'Khoảng Giá 3' },
       { field: 'range_4', header: 'Khoảng Giá 4' },
@@ -79,37 +71,44 @@ export class NetworkComponent implements OnInit {
   }
 
   addNew() {
-    if (((this.network.chietKhauCaoNhat - (this.network.buocNhay * 7)) < 0) ||
-    (this.networks.find(x => x.ma === this.network.ma))) {
+    if (
+      this.network.chietKhauCaoNhat - this.network.buocNhay * 7 < 0 ||
+      this.networks.find(x => x.ma === this.network.ma)
+    ) {
       console.log('Please input correct value :)');
       this.displayAddDialog = false;
     } else {
       this.network.khungTien_1 = this.network.chietKhauCaoNhat;
-      this.network.khungTien_2 = this.network.khungTien_1 - this.network.buocNhay;
-      this.network.khungTien_3 = this.network.khungTien_2 - this.network.buocNhay;
-      this.network.khungTien_4 = this.network.khungTien_3 - this.network.buocNhay;
-      this.network.khungTien_5 = this.network.khungTien_4 - this.network.buocNhay;
-      this.network.khungTien_6 = this.network.khungTien_5 - this.network.buocNhay;
-      this.network.khungTien_7 = this.network.khungTien_6 - this.network.buocNhay;
+      this.network.khungTien_2 =
+        this.network.khungTien_1 - this.network.buocNhay;
+      this.network.khungTien_3 =
+        this.network.khungTien_2 - this.network.buocNhay;
+      this.network.khungTien_4 =
+        this.network.khungTien_3 - this.network.buocNhay;
+      this.network.khungTien_5 =
+        this.network.khungTien_4 - this.network.buocNhay;
+      this.network.khungTien_6 =
+        this.network.khungTien_5 - this.network.buocNhay;
+      this.network.khungTien_7 =
+        this.network.khungTien_6 - this.network.buocNhay;
 
       this.networkService.save(this.network).subscribe(() => {
-      this.showNetworksResponse();
+        this.showNetworksResponse();
 
-      this.network = new Network();
-      this.displayAddDialog = false;
+        this.network = new Network();
+        this.displayAddDialog = false;
       });
     }
   }
 
   addNewRange() {
     this.networkRangeService.save(this.networkRange).subscribe(() => {
-    this.showNetworkRangesResponse();
+      this.showNetworkRangesResponse();
 
-    this.networkRange = new NetworkRange();
-    this.displayAddDialogRange = false;
-  });
-
-}
+      this.networkRange = new NetworkRange();
+      this.displayAddDialogRange = false;
+    });
+  }
 
   delete() {
     const index = this.selectedNetwork.id;
@@ -182,7 +181,7 @@ export class NetworkComponent implements OnInit {
       khungTien_4: sp.khungTien_4,
       khungTien_5: sp.khungTien_5,
       khungTien_6: sp.khungTien_6,
-      khungTien_7: sp.khungTien_7,
+      khungTien_7: sp.khungTien_7
     };
     // assign
     return network;
@@ -198,7 +197,7 @@ export class NetworkComponent implements OnInit {
       range_4: sp.range_1,
       range_5: sp.range_1,
       range_6: sp.range_1,
-      range_7: sp.range_1,
+      range_7: sp.range_1
     };
     // assign
     return networkRange;

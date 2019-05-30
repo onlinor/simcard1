@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
-import { isNullOrUndefined, isString } from 'util';
 
 @Injectable()
 export class CommonService {
   constructor() {}
 
-  isCreateMode(viewModel) {
+  isCreateMode(viewModel: any) {
     if (
-      isNullOrUndefined(viewModel) ||
-      isNullOrUndefined(viewModel.id) ||
+      viewModel === null ||
+      viewModel.id === null ||
       viewModel.id === '' ||
       viewModel.id === 0
     ) {
@@ -18,13 +17,13 @@ export class CommonService {
   }
 
   convertToNumber(value: string) {
-    if (value && isString(value)) {
+    if (value && typeof value === 'string') {
       return parseFloat(value.replace(new RegExp(',', 'g'), ''));
     }
     return parseFloat(value);
   }
 
-  getYears(minYear, maxYear) {
+  getYears(minYear: number, maxYear: number) {
     const years = [];
     const currentYear = new Date().getFullYear();
     for (let year = minYear; year <= maxYear; year++) {

@@ -1,11 +1,11 @@
-using SimCard.APP.Models;
-using SimCard.APP.ViewModels;
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+
+using SimCard.APP.Models;
+using SimCard.APP.ViewModels;
 
 namespace SimCard.APP.Persistence.Repositories
 {

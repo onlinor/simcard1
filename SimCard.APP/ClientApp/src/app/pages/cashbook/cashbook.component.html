@@ -3,6 +3,7 @@
 		<h2 class="text-center text-primary">Theo dõi Sổ tiền mặt</h2>
 	</div>
 	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="row">
 		<div class="col-lg-3">
 			<p>Chọn đơn vị</p>
 			<p-dropdown [options]="LoaiDonVi" [(ngModel)]="selectedDonVi" name="loaiDonVi">
@@ -23,9 +24,11 @@
 			<p>Xuất dữ liệu</p>
 			<p-dropdown [options]="LoaiDuLieu" [(ngModel)]="selectedLoaiDuLieu" name="selectedLoaiDuLieu">
 			</p-dropdown>&nbsp; <span class="pi pi-download m-pointer"></span>
-		</div>
+    </div>
+  </div>
 	</div>
 	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pt-20">
+      <div class="row">
 		<div class="col-lg-3">
 			<p>Tồn đầu kì</p>
 			<input type="text" name="tonDauKi" class="form-control" [(ngModel)]="tonDauKi" />
@@ -41,7 +44,8 @@
 		<div class="col-lg-3">
 			<p>Chi</p>
 			<input type="text" name="searchSoTienChi" class="form-control" [(ngModel)]="searchSoTienChi" />
-		</div>
+    </div>
+    </div>
 	</div>
 	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 place-button">
 		<button type="button" (click)="onShowDialogPhieuChi()" pButton icon="pi pi-info-circle" label="Phiếu Chi"></button>&nbsp;
@@ -50,7 +54,7 @@
 									[idSelectedCashbook]="idSelectedCashbook"
 									(outIsShowDialogPhieuChi)="onGetIsShowDialogPhieuChi($event)"
 									(outDataPhieuChi)="onGetDataPhieuChi($event)"></app-formphieuchi>
-									
+
 		<button type="button" (click)="onShowDialogPhieuThu()" pButton icon="pi pi-info-circle" label="Phiếu Thu"></button>
 		<app-formphieuthu [isShowDialogPhieuThu]="isShowDialogPhieuThu"
 									[isNewCashBook]="isNewCashBook"

@@ -1,9 +1,8 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { FormphieuchibankbookComponent } from '../../public/formphieuchibankbook/formphieuchibankbook.component';
 import { FormphieuthubankbookComponent } from '../../public/formphieuthubankbook/formphieuthubankbook.component';
-import { Subscription } from 'rxjs/subscription';
-import { BankbookService } from '../../core/services/bankbook.service';
-import { CustomerService } from '../../core/services/customer.service';
+import { Subscription } from 'rxjs';
+import { BankbookService, CustomerService } from '../../core/services';
 
 @Component({
   selector: 'app-bankbook',
@@ -50,8 +49,8 @@ export class BankbookComponent implements OnInit, OnDestroy {
   soTienChi: any;
   searchSoTienThu: any;
   searchSoTienChi: any;
-  isShowDialogPhieuChi: boolean = false;
-  isShowDialogPhieuThu: boolean = false;
+  isShowDialogPhieuChi = false;
+  isShowDialogPhieuThu = false;
   bankbook: any = [];
   initialBankbook: any;
   selectedBankbook: any;
@@ -89,43 +88,43 @@ export class BankbookComponent implements OnInit, OnDestroy {
     );
   }
 
-	onShowDialogPhieuChi() {
-		this.isShowDialogPhieuChi = true;
-		this.isNewCashBook = true;
-		this.myFormChiChild.customerList = this.customerList;
-		this.countMaPhieuChi();
-		this.myFormChiChild.fillDropdownCustomer();
-	}
+  onShowDialogPhieuChi() {
+    this.isShowDialogPhieuChi = true;
+    this.isNewCashBook = true;
+    this.myFormChiChild.customerList = this.customerList;
+    this.countMaPhieuChi();
+    this.myFormChiChild.fillDropdownCustomer();
+  }
 
-	countMaPhieuChi() {
-		let countPC = 0;
-		this.bankbook.map(item => {
-			let checkMaPhieuChi = item['maPhieu'].includes('PC');
-			if(checkMaPhieuChi) {
-				countPC ++;
-			}
-		})
-		this.myFormChiChild.countPC = countPC;
-	}
+  countMaPhieuChi() {
+    let countPC = 0;
+    this.bankbook.map(item => {
+      const checkMaPhieuChi = item['maPhieu'].includes('PC');
+      if (checkMaPhieuChi) {
+        countPC++;
+      }
+    });
+    this.myFormChiChild.countPC = countPC;
+  }
 
-	countMaPhieuThu() {
-		let countPT = 0;
-		this.bankbook.map(item => {
-			let checkMaPhieuThu = item['maPhieu'].includes('PT');
-			if(checkMaPhieuThu) {
-				countPT ++;
-			}
-		})
-		this.myFormThuChild.countPT = countPT;
-	}
+  countMaPhieuThu() {
+    let countPT = 0;
+    this.bankbook.map(item => {
+      const checkMaPhieuThu = item['maPhieu'].includes('PT');
+      if (checkMaPhieuThu) {
+        countPT++;
+      }
+    });
+    this.myFormThuChild.countPT = countPT;
+  }
 
-	onGetIsShowDialogPhieuChi(data: any) {
-		this.isShowDialogPhieuChi = data;
-	}
+  onGetIsShowDialogPhieuChi(data: any) {
+    this.isShowDialogPhieuChi = data;
+  }
 
   onGetDataPhieuChi(data: any) {
     this.getAllBankbook();
-    let bankbook = [...this.bankbook];
+    const bankbook = [...this.bankbook];
     this.dataPhieuChi = data;
     if (this.isNewCashBook) {
       bankbook.push(this.dataPhieuChi);
@@ -140,7 +139,7 @@ export class BankbookComponent implements OnInit, OnDestroy {
 
   onGetDataPhieuThu(data: any) {
     this.getAllBankbook();
-    let bankbook = [...this.bankbook];
+    const bankbook = [...this.bankbook];
     this.dataPhieuThu = data;
     if (this.isNewCashBook) {
       bankbook.push(this.dataPhieuThu);
@@ -153,22 +152,22 @@ export class BankbookComponent implements OnInit, OnDestroy {
     this.dataPhieuThu = null;
   }
 
-	onShowDialogPhieuThu() {
-		this.isShowDialogPhieuThu = true;
-		this.isNewCashBook = true;
-		this.myFormThuChild.customerList = this.customerList;
-		this.countMaPhieuThu();
-		this.myFormThuChild.fillDropdownCustomer();
-	}
+  onShowDialogPhieuThu() {
+    this.isShowDialogPhieuThu = true;
+    this.isNewCashBook = true;
+    this.myFormThuChild.customerList = this.customerList;
+    this.countMaPhieuThu();
+    this.myFormThuChild.fillDropdownCustomer();
+  }
 
   onGetIsShowDialogPhieuThu(data: any) {
     this.isShowDialogPhieuThu = data;
   }
 
   onRowSelect(event: any) {
-    let PC = 'PC';
-    let kieuMaPhieu = event.data['maPhieu'];
-    let isPC = kieuMaPhieu.includes(PC);
+    const PC = 'PC';
+    const kieuMaPhieu = event.data['maPhieu'];
+    const isPC = kieuMaPhieu.includes(PC);
     this.isNewCashBook = false;
     this.bankbookTemp = this.cloneBankbook(event.data);
     this.idSelectedBankbook = event.data.id;
@@ -231,17 +230,17 @@ export class BankbookComponent implements OnInit, OnDestroy {
   }
 
   onSearch() {
-    let arrayResult = [];
+    const arrayResult = [];
     this.bankbook = this.initialBankbook;
     this.searchSoTienThu = 0;
     this.searchSoTienChi = 0;
-    let tuNgay = new Date(this.tuNgay);
-    let toiNgay = new Date(this.toiNgay);
+    const tuNgay = new Date(this.tuNgay);
+    const toiNgay = new Date(this.toiNgay);
     if (!tuNgay || !toiNgay) {
       return this.bankbook;
     } else {
       for (const item of this.bankbook) {
-        let ngayLap = new Date(item.ngayLap);
+        const ngayLap = new Date(item.ngayLap);
         if (tuNgay <= ngayLap && ngayLap < toiNgay) {
           arrayResult.push(item);
           this.searchSoTienChi = this.searchSoTienChi + item.soTienChi;
@@ -252,9 +251,9 @@ export class BankbookComponent implements OnInit, OnDestroy {
     }
   }
 
-	ngOnDestroy() {
-		if (this.subscription) {
-			this.subscription.unsubscribe();
-		}
-	}
+  ngOnDestroy() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
 }

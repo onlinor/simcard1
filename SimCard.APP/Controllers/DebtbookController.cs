@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
 using AutoMapper;
 
 using Microsoft.AspNetCore.Mvc;
@@ -6,9 +9,6 @@ using SimCard.APP.Models;
 using SimCard.APP.Persistence;
 using SimCard.APP.Persistence.Repositories;
 using SimCard.APP.ViewModels;
-
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace SimCard.APP.Controllers
 {
@@ -27,21 +27,21 @@ namespace SimCard.APP.Controllers
 
         //api/debtbook
         [HttpGet]
-        public async Task<IEnumerable<DebtbookViewModel>> getAllDebtbook()
+        public async Task<IEnumerable<DebtbookViewModel>> GetAllDebtbook()
         {
-            IEnumerable<Debtbook> debtbook = await _debtbookRepository.getAllDebtbook();
+            IEnumerable<Debtbook> debtbook = await _debtbookRepository.GetAllDebtbook();
             return Mapper.Map<IEnumerable<Debtbook>, IEnumerable<DebtbookViewModel>>(debtbook);
         }
 
         //api/debtbook
         [HttpPost]
-        public async Task<IActionResult> addDebtbook(Debtbook debtbook)
+        public async Task<IActionResult> AddDebtbook(Debtbook debtbook)
         {
             if (debtbook == null)
             {
                 return BadRequest();
             }
-            await _debtbookRepository.addDebtbook(debtbook);
+            await _debtbookRepository.AddDebtbook(debtbook);
             await _unitOfWork.SaveChangeAsync();
             return StatusCode(201);
         }

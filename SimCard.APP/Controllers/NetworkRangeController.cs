@@ -1,16 +1,11 @@
 
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Mvc;
 
-using OfficeOpenXml;
-using SimCard.APP.Models;
 using SimCard.APP.Persistence.Services;
 using SimCard.APP.ViewModels;
-
-using System;
-using System.Collections.Generic;
-using System.Dynamic;
-using System.IO;
-using System.Threading.Tasks;
 
 namespace SimCard.APP.Controllers
 {
@@ -31,7 +26,7 @@ namespace SimCard.APP.Controllers
         }
 
         [HttpPost("/api/networkRange/add")]
-        public async Task<IActionResult> AddNetworkRange (NetworkRangeViewModel networkRangeViewModel)
+        public async Task<IActionResult> AddNetworkRange(NetworkRangeViewModel networkRangeViewModel)
         {
             await _networkRangeService.Create(networkRangeViewModel);
 

@@ -1,15 +1,15 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
+
+using AutoMapper;
 
 using Microsoft.EntityFrameworkCore;
 
 using SimCard.APP.Models;
 using SimCard.APP.ViewModels;
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Threading.Tasks;
 
 namespace SimCard.APP.Persistence.Repositories
 {
@@ -31,7 +31,7 @@ namespace SimCard.APP.Persistence.Repositories
                 foreach (ProductViewModel item in exportReceiptViewModel.Products)
                 {
                     ExportReceiptProducts p = new ExportReceiptProducts();
-                    p.ChietKhau =  (item.Menhgia - item.DonGia.Value) * 100 / item.Menhgia;
+                    p.ChietKhau = (item.Menhgia - item.DonGia.Value) * 100 / item.Menhgia;
                     p.DateCreated = DateTime.Now;
                     p.ProductId = _context.Products.First(x => x.Ma == item.Ma).Id;
                     p.ExportQuantity = item.Soluong;

@@ -1,16 +1,16 @@
 
+using System;
+using System.Collections.Generic;
+using System.Dynamic;
+using System.IO;
+using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Mvc;
 
 using OfficeOpenXml;
 
 using SimCard.APP.Persistence.Services;
 using SimCard.APP.ViewModels;
-
-using System;
-using System.Collections.Generic;
-using System.Dynamic;
-using System.IO;
-using System.Threading.Tasks;
 
 namespace SimCard.APP.Controllers
 {
@@ -45,7 +45,7 @@ namespace SimCard.APP.Controllers
                     await _productService.Create(product);
                 }
             }
-            
+
             return Ok();
         }
 

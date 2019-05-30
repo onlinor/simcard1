@@ -1,12 +1,12 @@
 
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Mvc;
 
 using SimCard.APP.Models;
 using SimCard.APP.Persistence;
 using SimCard.APP.Persistence.Repositories;
-
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace SimCard.APP.Controllers
 {

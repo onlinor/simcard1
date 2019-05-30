@@ -1,7 +1,7 @@
-using SimCard.APP.Models;
-
 using System.Collections.Generic;
 using System.Threading.Tasks;
+
+using SimCard.APP.Models;
 
 namespace SimCard.APP.Persistence.Repositories
 {
@@ -18,7 +18,7 @@ namespace SimCard.APP.Persistence.Repositories
 
         Task<Event> UpdateEventStatus(int id, Event eventParams);
 
-        List<Event> getDSEvent();
+        List<Event> GetDSEvent();
 
         void Remove(Event eventParams);
     }

@@ -1,16 +1,15 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
+
 using AutoMapper;
 
 using Microsoft.EntityFrameworkCore;
 
 using SimCard.APP.Models;
 using SimCard.APP.ViewModels;
-
-using System;
-using System.Collections.Generic;
-using System.Dynamic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Threading.Tasks;
 
 namespace SimCard.APP.Persistence.Repositories
 {
@@ -25,21 +24,21 @@ namespace SimCard.APP.Persistence.Repositories
             _unitOfWork = unitOfWork;
         }
 
- /*        public async Task<bool> AddProduct(ProductViewModel productViewModel)
-        {
-            if (await IsProductExists(productViewModel.Ma, productViewModel))
-            {
-                Product p = await _context.Products.FirstAsync(x => x.Ma.ToLower() == productViewModel.Ma.ToLower());
-                p.Soluong = p.Soluong + productViewModel.Soluong;
-                _context.Products.Update(p);
-            }
-            else
-            {
-                Product product = Mapper.Map<Product>(productViewModel);
-                await _context.Products.AddAsync(product);
-            }
-            return await _unitOfWork.SaveChangeAsync();
-        } */
+        /*        public async Task<bool> AddProduct(ProductViewModel productViewModel)
+               {
+                   if (await IsProductExists(productViewModel.Ma, productViewModel))
+                   {
+                       Product p = await _context.Products.FirstAsync(x => x.Ma.ToLower() == productViewModel.Ma.ToLower());
+                       p.Soluong = p.Soluong + productViewModel.Soluong;
+                       _context.Products.Update(p);
+                   }
+                   else
+                   {
+                       Product product = Mapper.Map<Product>(productViewModel);
+                       await _context.Products.AddAsync(product);
+                   }
+                   return await _unitOfWork.SaveChangeAsync();
+               } */
 
         public async Task<bool> AddProducts(List<ProductViewModel> productViewModels)
         {
@@ -53,7 +52,7 @@ namespace SimCard.APP.Persistence.Repositories
                     _context.Products.Update(p);
                 }
                 else
-                {   
+                {
                     Product product = new Product
                     {
                         DateCreated = DateTime.Now,

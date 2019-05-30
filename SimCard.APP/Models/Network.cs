@@ -4,8 +4,6 @@ namespace SimCard.APP.Models
 {
     public class Network : BaseEntity
     {
-        public int Id { get; set; }
-
         [Required]
         [StringLength(255)]
         public string Ten { get; set; }

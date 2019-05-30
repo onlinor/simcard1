@@ -9,14 +9,6 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 // Modules
 import { RouterModule } from '@angular/router';
 
-// Ex-Modules
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { ModalModule } from 'ngx-bootstrap/modal';
-import { PaginationModule } from 'ngx-bootstrap/pagination';
-import { TooltipModule } from 'ngx-bootstrap/tooltip';
-import { AlertModule } from 'ngx-bootstrap/alert';
-import { TabsModule } from 'ngx-bootstrap/tabs';
-
 // Components
 import { LayoutComponent } from './layout/layout.component';
 
@@ -26,13 +18,7 @@ import { LayoutComponent } from './layout/layout.component';
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule,
-    BsDropdownModule.forRoot(),
-    ModalModule.forRoot(),
-    PaginationModule.forRoot(),
-    TooltipModule.forRoot(),
-    AlertModule.forRoot(),
-    TabsModule.forRoot()
+    BrowserAnimationsModule
   ],
   exports: [LayoutComponent, SidebarComponent],
   declarations: [SharedComponent, LayoutComponent, SidebarComponent]

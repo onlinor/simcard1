@@ -1,7 +1,7 @@
-﻿using SimCard.APP.Models;
-using SimCard.APP.ViewModels;
+﻿using System.Threading.Tasks;
 
-using System.Threading.Tasks;
+using SimCard.APP.Models;
+using SimCard.APP.ViewModels;
 
 namespace SimCard.APP.Persistence.Services
 {

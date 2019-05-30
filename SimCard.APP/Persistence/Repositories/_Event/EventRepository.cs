@@ -1,10 +1,10 @@
-using Microsoft.EntityFrameworkCore;
-
-using SimCard.APP.Models;
-
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
+using Microsoft.EntityFrameworkCore;
+
+using SimCard.APP.Models;
 
 namespace SimCard.APP.Persistence.Repositories
 {
@@ -17,7 +17,7 @@ namespace SimCard.APP.Persistence.Repositories
             _context = context;
         }
 
-        public List<Event> getDSEvent()
+        public List<Event> GetDSEvent()
         {
             return _context.Events.ToList();
         }

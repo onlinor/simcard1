@@ -1,16 +1,11 @@
 
-using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
-using OfficeOpenXml;
+using Microsoft.AspNetCore.Mvc;
 
 using SimCard.APP.Persistence.Services;
 using SimCard.APP.ViewModels;
-
-using System;
-using System.Collections.Generic;
-using System.Dynamic;
-using System.IO;
-using System.Threading.Tasks;
 
 namespace SimCard.APP.Controllers
 {

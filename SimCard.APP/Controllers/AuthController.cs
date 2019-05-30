@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Threading.Tasks;
+
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 using SimCard.APP.Models;
 using SimCard.APP.Persistence.Services;
 using SimCard.APP.ViewModels;
-
-using System.Threading.Tasks;
 
 namespace SimCard.APP.Controllers
 {

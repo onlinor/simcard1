@@ -1,12 +1,13 @@
-using Microsoft.EntityFrameworkCore;
-
-using SimCard.APP.Models;
-using SimCard.APP.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+
+using Microsoft.EntityFrameworkCore;
+
+using SimCard.APP.Models;
+using SimCard.APP.ViewModels;
 
 namespace SimCard.APP.Persistence.Repositories
 {
@@ -48,7 +49,7 @@ namespace SimCard.APP.Persistence.Repositories
 
         public async Task<IEnumerable<Shop>> GetShops()
         {
-            return await _context.Shops.Where(s => s.Id != 1).ToListAsync();  
+            return await _context.Shops.Where(s => s.Id != 1).ToListAsync();
         }
 
         public void Remove(Shop shop)

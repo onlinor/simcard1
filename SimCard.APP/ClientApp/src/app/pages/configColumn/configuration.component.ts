@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ConfigurationService } from '../../core/services/configuration.service';
 import { MessageService } from 'primeng/api';
-import { Subscription } from 'rxjs/subscription';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-configuration',

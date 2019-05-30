@@ -58,13 +58,13 @@ export class MessageService {
     swal(
       defaultConfig,
       function(checkBoxValue) {
-        if (isFunction(config.confirmCallback)) {
+        if (typeof config.confirmCallback === 'function') {
           config.confirmCallback(context, checkBoxValue);
         }
       },
       function(dismiss) {
         // dismiss can be 'overlay', 'cancel', 'close', 'esc', 'timer'
-        if (isFunction(config.cancelCallback)) {
+        if (typeof config.cancelCallback === 'function') {
           config.cancelCallback();
         }
       }

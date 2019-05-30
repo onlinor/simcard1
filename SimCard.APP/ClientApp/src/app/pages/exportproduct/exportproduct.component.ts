@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-
 import { FormphieuthuComponent } from '../../public/formphieuthu/formphieuthu.component';
 import { Product, ExportReceipt, Shop } from '../../core/models';
 import {
@@ -87,7 +86,6 @@ export class ExportProductComponent implements OnInit {
   onDropdownValueChange(event: any) {
     this.exportReceipt.shopId = event.value.id;
     this.myFormThuChild.dataPhieuThu.shopId = event.value.id;
-
   }
 
   rowEditCompleted(event: any) {
@@ -109,9 +107,12 @@ export class ExportProductComponent implements OnInit {
           soLuong: event.data.exportnumber,
           menhGia: event.data.menhgia,
           loai: event.data.loai,
-          chietKhau:
-          parseFloat((((event.data.menhgia - event.data.donGia) * 100) /
-            event.data.menhgia).toFixed(1)),
+          chietKhau: parseFloat(
+            (
+              ((event.data.menhgia - event.data.donGia) * 100) /
+              event.data.menhgia
+            ).toFixed(1)
+          ),
           donGia: event.data.donGia,
           thanhTien: event.data.exportnumber * event.data.donGia
         };

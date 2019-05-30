@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNetCore.Cryptography.KeyDerivation;
-using System;
-using System.IO;
+﻿using System;
 using System.Security.Cryptography;
-using System.Text;
+
+using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 
 namespace SimCard.APP.Persistence
 {
@@ -22,7 +21,7 @@ namespace SimCard.APP.Persistence
         {
             return Convert.ToBase64String(KeyDerivation.Pbkdf2(
                 password: password,
-                salt: Convert.FromBase64String(salt), 
+                salt: Convert.FromBase64String(salt),
                 prf: KeyDerivationPrf.HMACSHA1,
                 iterationCount: 10000,
                 numBytesRequested: 256 / 8

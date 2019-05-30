@@ -1,12 +1,12 @@
-﻿using AutoMapper;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+
+using AutoMapper;
 
 using Microsoft.EntityFrameworkCore;
 
 using SimCard.APP.Models;
 using SimCard.APP.ViewModels;
-
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace SimCard.APP.Persistence.Repositories
 {

@@ -9,15 +9,10 @@ import { SupplierService } from '../../core/services/supplier.service';
 })
 export class SupplierComponent implements OnInit {
   displayDialog: boolean;
-
   supplier: Supplier = new Supplier();
-
   selectedSupplier: Supplier;
-
   newSupplier: boolean;
-
   suppliers: Supplier[];
-
   cols: any[];
 
   constructor(private supplierService: SupplierService) {}

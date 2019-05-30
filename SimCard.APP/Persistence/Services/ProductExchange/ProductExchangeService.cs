@@ -1,13 +1,13 @@
-﻿using AutoMapper;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+
+using AutoMapper;
 
 using Microsoft.EntityFrameworkCore;
 
 using SimCard.APP.Models;
 using SimCard.APP.Persistence.Repositories;
 using SimCard.APP.ViewModels;
-
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace SimCard.APP.Persistence.Services
 {
@@ -33,7 +33,7 @@ namespace SimCard.APP.Persistence.Services
                 Loai = productExchangeViewModel.Loai,
                 SupplierId = productExchangeViewModel.SupplierId
             };
-      
+
             await _repository.Create(productExchange);
             return await _unitOfWork.SaveChangeAsync();
         }

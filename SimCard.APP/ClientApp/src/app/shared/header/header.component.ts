@@ -23,7 +23,9 @@ export class HeaderComponent implements OnInit {
     );
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.authService.currentUser !== null ? this.isLoggedIn = true : this.isLoggedIn = false;
+  }
 
   logout() {
     this.subscribeService.publish('UserLoggedOn', false);

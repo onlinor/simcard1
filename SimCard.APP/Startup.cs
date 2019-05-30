@@ -1,3 +1,5 @@
+using System.Text;
+
 using AutoMapper;
 
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -10,14 +12,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 
-using SimCard.APP.Mapping;
 using SimCard.APP.Models;
 using SimCard.APP.Persistence;
 using SimCard.APP.Persistence.Repositories;
 using SimCard.APP.Persistence.Services;
+using SimCard.APP.ViewModels;
 using SimCard.APP.Workers;
-
-using System.Text;
 
 namespace SimCard.APP
 {
@@ -141,6 +141,26 @@ namespace SimCard.APP
                     spa.UseAngularCliServer(npmScript: "start");
                 }
             });
+        }
+    }
+
+    public class MappingProfile : Profile
+    {
+        public MappingProfile()
+        {
+            CreateMap<Shop, ShopViewModel>().ReverseMap();
+            CreateMap<Product, ProductViewModel>().ReverseMap();
+            CreateMap<Customer, CustomerViewModel>().ReverseMap();
+            CreateMap<Configuration, ConfigurationViewModel>().ReverseMap();
+            CreateMap<Event, EventViewModel>().ReverseMap();
+            CreateMap<Cashbook, CashbookViewModel>().ReverseMap();
+            CreateMap<Bankbook, BankbookViewModel>().ReverseMap();
+            CreateMap<Debtbook, DebtbookViewModel>().ReverseMap();
+            CreateMap<ImportReceipt, ImportReceiptViewModel>().ReverseMap();
+            CreateMap<ExportReceipt, ExportReceiptViewModel>().ReverseMap();
+            CreateMap<Supplier, SupplierViewModel>().ReverseMap();
+            CreateMap<User, UserViewModel>().ReverseMap();
+            CreateMap<ProductExchange, ProductExchangeViewModel>().ReverseMap();
         }
     }
 }

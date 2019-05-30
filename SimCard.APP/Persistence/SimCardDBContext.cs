@@ -14,7 +14,7 @@ namespace SimCard.APP.Persistence
 
         public DbSet<Customer> Customers { get; set; }
 
-        public DbSet <Debtbook> Debtbook { get; set; }
+        public DbSet<Debtbook> Debtbook { get; set; }
 
         public DbSet<Configuration> Configurations { get; set; }
 
@@ -53,7 +53,8 @@ namespace SimCard.APP.Persistence
 
             var salt = PasswordHelper.GetSalt();
             modelBuilder.Entity<User>().HasData(
-                new User {
+                new User
+                {
                     Id = 1,
                     FirstName = "",
                     LastName = "",
@@ -62,7 +63,8 @@ namespace SimCard.APP.Persistence
                     Password = PasswordHelper.HashPassword("admin", salt),
                     Role = Role.Company
                 },
-                new User {
+                new User
+                {
                     Id = 2,
                     FirstName = "Sang",
                     LastName = "Tran",
