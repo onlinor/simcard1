@@ -21,50 +21,52 @@
 
 
 <nav class="navbar navbar-expand" style="background-image: url('../assets/images/header.jpg'); background-size:cover;">
-    <div class="navbar-brand">
-        <p class="branch branch-caption">Chi nhánh</p>
-        <p class="branch branch-name">Hồng Bàng</p>
-        <div class="navbar-header">
-            <button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn">
-                <i class="fa fa-align-left" aria-hidden="true"></i>
-                <span>Thu gọn / Mở rộng</span>
-            </button>
+    <div class="container-fluid">
+        <div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12">
+            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                <p class="branch branch-caption">Chi nhánh</p>
+                <p class="branch branch-name">Hồng Bàng</p>
+                <div class="navbar-header">
+                    <button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn">
+                        <i class="fa fa-align-left" aria-hidden="true"></i>
+                        <span>Thu gọn / Mở rộng</span>
+                    </button>
+                </div>
+            </div>
+            <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12">
+                <div class="row">
+                    <div class="col-xl-7 col-lg-7 col-md-12 col-sm-12">
+                        <p class="branch branch-caption">Địa Chỉ:</p>
+                        <p class="branch branch-contact">785 Hồng Bàng, P.6, Q.6, TP.HCM</p>
+                        <p class="branch branch-caption">MST:</p>
+                        <p class="branch branch-contact">0303253680</p>
+                    </div>
+                    <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12">
+                        <p class="branch branch-caption">Số ĐT:</p>
+                        <p class="branch branch-contact">0283 9605596</p>
+                        <p class="branch branch-caption">Email:</p>
+                        <p class="branch branch-contact">thanhvienhcm@gmail.com</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="navbar-collapse collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <p class="branch branch-caption">Địa Chỉ:</p>
-                <p class="branch branch-contact">785 Hồng Bàng, P.6, Q.6, TP.HCM</p>
-                <p class="branch branch-caption">MST:</p>
-                <p class="branch branch-contact">0303253680</p>
-            </li>
-            <li class="nav-item">
-                <p class="branch branch-caption">Số ĐT:</p>
-                <p class="branch branch-contact">0283 9605596</p>
-                <p class="branch branch-caption">Email:</p>
-                <p class="branch branch-contact">thanhvienhcm@gmail.com</p>
-            </li>
-        </ul>
-
-        <div class="form-inline my-2 my-lg-0" style="margin-bottom: auto !important">
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a routerLink="login" *ngIf="isLoggedIn === false" class="btn btn-primary">
-                        <i class="fa fa-sign-in" aria-hidden="true"></i>
-                        <span>Login</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:void(0)" (click)="logout()" *ngIf="isLoggedIn === true" class="btn btn-danger">
-                        <i class="fa fa-sign-out" aria-hidden="true"></i>
-                        <span>Logout</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
+    <div class="my-2 my-lg-0"></div>
+    <ul class="nav navbar-nav navbar-right" style="margin-bottom: auto !important">
+        <li>
+            <a routerLink="login" *ngIf="isLoggedIn === false" class="btn btn-primary btn-login">
+                <i class="fa fa-sign-in" aria-hidden="true"></i>
+                <span>Login</span>
+            </a>
+        </li>
+        <li>
+            <a href="javascript:void(0)" (click)="logout()" *ngIf="isLoggedIn === true" class="btn btn-danger btn-logout">
+                <i class="fa fa-sign-out" aria-hidden="true"></i>
+                <span>Logout</span>
+            </a>
+        </li>
+    </ul>
 </nav>

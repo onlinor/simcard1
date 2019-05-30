@@ -20,3 +20,5 @@ export * from "./login.model";
 export * from "./shop.model";
 export * from "./productexchange.model";
 export * from "./debtbook.model";
+export * from "./networkRange.model";
+

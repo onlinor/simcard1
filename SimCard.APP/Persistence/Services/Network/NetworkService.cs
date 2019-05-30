@@ -69,26 +69,20 @@ namespace SimCard.APP.Persistence.Services
 
         public async Task<bool> Update(NetworkViewModel networkViewModel)
         {
-            // Network NetworkToUpdate = await _repository.Query(x => x.Ma.ToLower() == networkViewModel.Ma.ToLower() && x.ShopId == networkViewModel.ShopId).FirstOrDefaultAsync();
-            // if (NetworkToUpdate.ShopId == 1 && NetworkToUpdate.Soluong == 0)
-            // {
-            //     NetworkToUpdate.Soluong += networkViewModel.Soluong;
-            //     NetworkToUpdate.DonGia = networkViewModel.DonGia;
-            // }
-            // else
-            // {
-            //     NetworkToUpdate.Soluong += networkViewModel.Soluong;
-            //     if (NetworkToUpdate.ShopId != 1)
-            //     {
-            //         Network MainNetwork = await _repository.Query(x => x.Ma.ToLower() == networkViewModel.Ma.ToLower() && x.ShopId == 1).FirstOrDefaultAsync();
-            //         MainNetwork.Soluong = MainNetwork.Soluong - networkViewModel.Soluong;
-            //         await _repository.Update(MainNetwork);
-            //     }
-            // }
-            // await _repository.Update(NetworkToUpdate);
+            Network NetworkToUpdate = await _repository.Query(x => x.Ma.ToLower() == networkViewModel.Ma.ToLower()).FirstOrDefaultAsync();
 
-            // return await _unitOfWork.SaveChangeAsync();
-            throw new NotImplementedException();
+            NetworkToUpdate.ChietKhauCaoNhat = networkViewModel.ChietKhauCaoNhat;
+            NetworkToUpdate.BuocNhay = networkViewModel.BuocNhay;
+            NetworkToUpdate.KhungTien_1 = networkViewModel.ChietKhauCaoNhat;
+            NetworkToUpdate.KhungTien_2 = NetworkToUpdate.KhungTien_1 - networkViewModel.BuocNhay;
+            NetworkToUpdate.KhungTien_3 = NetworkToUpdate.KhungTien_2 - networkViewModel.BuocNhay;
+            NetworkToUpdate.KhungTien_4 = NetworkToUpdate.KhungTien_3 - networkViewModel.BuocNhay;
+            NetworkToUpdate.KhungTien_5 = NetworkToUpdate.KhungTien_4 - networkViewModel.BuocNhay;
+            NetworkToUpdate.KhungTien_6 = NetworkToUpdate.KhungTien_5 - networkViewModel.BuocNhay;
+            NetworkToUpdate.KhungTien_7 = NetworkToUpdate.KhungTien_6 - networkViewModel.BuocNhay;
+            await _repository.Update(NetworkToUpdate);
+
+            return await _unitOfWork.SaveChangeAsync();
         }
     }
 }

@@ -86,7 +86,6 @@ export class ExportProductComponent implements OnInit {
 
   onDropdownValueChange(event: any) {
     this.exportReceipt.shopId = event.value.id;
-    //add shopid vao form cho nay
     this.myFormThuChild.dataPhieuThu.shopId = event.value.id;
 
   }

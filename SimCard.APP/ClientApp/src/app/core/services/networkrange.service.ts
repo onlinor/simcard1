@@ -3,10 +3,10 @@ import { BaseService } from './base.service';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
-export class NetworkService extends BaseService {
+export class NetworkRangeService extends BaseService {
   constructor() {
     super();
-    this.BASE_URI = '/network';
+    this.BASE_URI = '/networkrange';
   }
 
   getAll(): Observable<any> {
