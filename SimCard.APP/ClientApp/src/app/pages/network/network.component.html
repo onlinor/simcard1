@@ -4,8 +4,8 @@
   </ng-template>
   <ng-template pTemplate="header" let-columns>
       <tr>
-          <th *ngFor="let col of columns" [pSortableColumn]="col.field">
-              {{col.header}}
+          <th *ngFor="let col of columns; index as i" [pSortableColumn]="col.field">
+              {{getRange(i)}}
               <p-sortIcon [field]="col.field"></p-sortIcon>
           </th>
       </tr>
@@ -19,7 +19,7 @@
   </ng-template>
   <ng-template pTemplate="summary" let-rowData>
       <div style="text-align:left">
-        <button type="button" pButton icon="fa fa-plus" (click)="showDialog()" label="Add"></button>
+        <button type="button" pButton icon="fa fa-plus" (click)="showDialog()" label="Thêm"></button>
       </div>
   </ng-template>    
 </p-table>
@@ -55,81 +55,25 @@
               <label for="chietKhauDauVao">Chiết Khấu Đầu Vào</label>
           </div>
           <div class="ui-g-8">
-              <input pInputText type="number" id="chietKhauDauVao" [(ngModel)]="network.chietKhauDauVao" />
+              <input pInputText type="number" value="69" id="chietKhauDauVao" [(ngModel)]="network.chietKhauDauVao" />
           </div>
       </div>
-      <div class="ui-g-12">
-          <div class="ui-g-4">
-              <label for="chietKhauCaoNhat">Chiết Khấu Cao Nhất</label>
-          </div>
-          <div class="ui-g-8">
-              <input pInputText type="number" id="chietKhauCaoNhat" [(ngModel)]="network.chietKhauCaoNhat" />
-          </div>
-      </div>
-      <div class="ui-g-12">
-          <div class="ui-g-4">
-              <label for="buocNhay">Bước Nhảy</label>
-          </div>
-          <div class="ui-g-8">
-              <input pInputText id="buocNhay" [(ngModel)]="network.buocNhay" />
-          </div>
-      </div>
-      <div class="ui-g-12">
-          <div class="ui-g-4">
-              <label for="khungTien_1">Khoảng Giá 1</label>
-          </div>
-          <div class="ui-g-8">
-              <input pInputText  type="number" id="khungTien_1" [(ngModel)]="network.khungTien_1" />
-          </div>
-      </div>
-      <div class="ui-g-12">
-          <div class="ui-g-4">
-              <label for="khungTien_2">Khoảng Giá 2</label>
-          </div>
-          <div class="ui-g-8">
-              <input pInputText  type="number" id="khungTien_2" [(ngModel)]="network.khungTien_2" />
-          </div>
-      </div>
-      <div class="ui-g-12">
-          <div class="ui-g-4">
-              <label for="khungTien_3">Khoảng Giá 3</label>
-          </div>
-          <div class="ui-g-8">
-              <input pInputText  type="number" id="khungTien_3" [(ngModel)]="network.khungTien_3" />
-          </div>
-      </div>
-      <div class="ui-g-12">
-          <div class="ui-g-4">
-              <label for="khungTien_4">Khoảng Giá 4</label>
-          </div>
-          <div class="ui-g-8">
-              <input pInputText  type="number" id="khungTien_4" [(ngModel)]="network.khungTien_4" />
-          </div>
-      </div>
-      <div class="ui-g-12">
-          <div class="ui-g-4">
-              <label for="khungTien_5">Khoảng Giá 5</label>
-          </div>
-          <div class="ui-g-8">
-              <input pInputText  type="number" id="khungTien_5" [(ngModel)]="network.khungTien_5" />
-          </div>
-      </div>
-      <div class="ui-g-12">
-          <div class="ui-g-4">
-              <label for="khungTien_6">Khoảng Giá 6</label>
-          </div>
-          <div class="ui-g-8">
-              <input pInputText  type="number" id="khungTien_6" [(ngModel)]="network.khungTien_6" />
-          </div>
-      </div>
-      <div class="ui-g-12">
-          <div class="ui-g-4">
-              <label for="khungTien_7">Khoảng Giá 7</label>
-          </div>
-          <div class="ui-g-8">
-              <input pInputText  type="number" id="khungTien_7" [(ngModel)]="network.khungTien_7" />
-          </div>
-      </div>
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label for="chietKhauCaoNhat">Chiết Khấu Cao Nhất</label>
+            </div>
+            <div class="ui-g-8">
+                <input pInputText type="number" id="chietKhauCaoNhat" [(ngModel)]="network.chietKhauCaoNhat" />
+            </div>
+        </div>
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label for="buocNhay">Bước Nhảy</label>
+            </div>
+            <div class="ui-g-8">
+                <input pInputText id="buocNhay" type="number" [(ngModel)]="network.buocNhay" />
+            </div>
+        </div>
   </div>
   <p-footer>
       <div class="ui-dialog-buttonpane ui-helper-clearfix">
@@ -145,7 +89,7 @@
                 <label for="ten">Tên</label>
             </div>
             <div class="ui-g-8">
-                <input pInputText id="ten" [(ngModel)]="network.ten" />
+                <input pInputText readonly id="ten" [(ngModel)]="network.ten" />
             </div>
         </div>
         <div class="ui-g-12">
@@ -153,7 +97,7 @@
                 <label for="ma">Mã</label>
             </div>
             <div class="ui-g-8">
-                <input pInputText id="ma" [(ngModel)]="network.ma" />
+                <input pInputText readonly id="ma" [(ngModel)]="network.ma" />
             </div>
         </div>
         <div class="ui-g-12">
@@ -161,7 +105,7 @@
                 <label for="menhGia">Mệnh Giá</label>
             </div>
             <div class="ui-g-8">
-                <input pInputText id="menhGia" [(ngModel)]="network.menhGia" />
+                <input pInputText readonly id="menhGia" type="number" [(ngModel)]="network.menhGia" />
             </div>
         </div>
         <div class="ui-g-12">
@@ -169,7 +113,7 @@
                 <label for="chietKhauDauVao">Chiết Khấu Đầu Vào</label>
             </div>
             <div class="ui-g-8">
-                <input pInputText id="chietKhauDauVao" [(ngModel)]="network.chietKhauDauVao" />
+                <input pInputText id="chietKhauDauVao" type="number" [(ngModel)]="network.chietKhauDauVao" />
             </div>
         </div>
         <div class="ui-g-12">
@@ -177,7 +121,7 @@
                 <label for="chietKhauCaoNhat">Chiết Khấu Cao Nhất</label>
             </div>
             <div class="ui-g-8">
-                <input pInputText id="chietKhauCaoNhat" [(ngModel)]="network.chietKhauCaoNhat" />
+                <input pInputText id="chietKhauCaoNhat" type="number" [(ngModel)]="network.chietKhauCaoNhat" />
             </div>
         </div>
         <div class="ui-g-12">
@@ -185,63 +129,7 @@
                 <label for="buocNhay">Bước Nhảy</label>
             </div>
             <div class="ui-g-8">
-                <input pInputText id="buocNhay" [(ngModel)]="network.buocNhay" />
-            </div>
-        </div>
-        <div class="ui-g-12">
-            <div class="ui-g-4">
-                <label for="khungTien_1">Khoảng Giá 1</label>
-            </div>
-            <div class="ui-g-8">
-                <input pInputText  type="number" id="khungTien_1" [(ngModel)]="network.khungTien_1" />
-            </div>
-        </div>
-        <div class="ui-g-12">
-            <div class="ui-g-4">
-                <label for="khungTien_2">Khoảng Giá 2</label>
-            </div>
-            <div class="ui-g-8">
-                <input pInputText  type="number" id="khungTien_2" [(ngModel)]="network.khungTien_2" />
-            </div>
-        </div>
-        <div class="ui-g-12">
-            <div class="ui-g-4">
-                <label for="khungTien_3">Khoảng Giá 3</label>
-            </div>
-            <div class="ui-g-8">
-                <input pInputText  type="number" id="khungTien_3" [(ngModel)]="network.khungTien_3" />
-            </div>
-        </div>
-        <div class="ui-g-12">
-            <div class="ui-g-4">
-                <label for="khungTien_4">Khoảng Giá 4</label>
-            </div>
-            <div class="ui-g-8">
-                <input pInputText  type="number" id="khungTien_4" [(ngModel)]="network.khungTien_4" />
-            </div>
-        </div>
-        <div class="ui-g-12">
-            <div class="ui-g-4">
-                <label for="khungTien_5">Khoảng Giá 5</label>
-            </div>
-            <div class="ui-g-8">
-                <input pInputText  type="number" id="khungTien_5" [(ngModel)]="network.khungTien_5" />
-            </div>
-        </div>
-        <div class="ui-g-12">
-            <div class="ui-g-4">
-                <label for="khungTien_6">Khoảng Giá 6</label>
-            </div>
-            <div class="ui-g-8">
-                <input pInputText  type="number" id="khungTien_6" [(ngModel)]="network.khungTien_6" />
-            </div>
-        </div>
-        <div class="ui-g-12">
-            <div class="ui-g-4">
-                <label for="khungTien_7">Khoảng Giá 7</label>
-            </div>
-            <div class="ui-g-8">
-                <input pInputText  type="number" id="khungTien_7" [(ngModel)]="network.khungTien_7" />
+                <input pInputText type="number" id="buocNhay" [(ngModel)]="network.buocNhay" />
             </div>
         </div>
     </div>
@@ -252,3 +140,164 @@
         </div>
     </p-footer>
 </p-dialog>
+
+<hr>
+
+<p-table [columns]="colRanges" [value]="networkRanges" selectionMode="single" [(selection)]="selectedNetworkRange" (onRowSelect)="onRowSelectRange($event)">
+    <ng-template pTemplate="caption">
+      Thông Tin Khoảng Giá
+    </ng-template>
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                {{col.header}}
+                <p-sortIcon [field]="col.field"></p-sortIcon>
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr [pSelectableRow]="rowData">
+            <td *ngFor="let col of columns">
+                {{rowData[col.field]}}
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="summary" let-rowData>
+        <div style="text-align:left">
+          <button type="button" pButton icon="fa fa-plus" (click)="showDialogRange()" label="Thêm"></button>
+        </div>
+    </ng-template>    
+  </p-table>
+  
+  <p-dialog header="Thêm Khoảng Giá" [(visible)]="displayAddDialogRange" [responsive]="true" showEffect="fade" [modal]="true"  [style]="{width: '300px'}">
+    <div class="ui-g ui-fluid" *ngIf="networkRange">
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label for="range_1">Khoảng Giá 1</label>
+            </div>
+            <div class="ui-g-8">
+                <input pInputText type="number" id="range_1" [(ngModel)]="networkRange.range_1" />
+            </div>
+        </div>
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label for="range_2">Khoảng Giá 2</label>
+            </div>
+            <div class="ui-g-8">
+                <input pInputText type="number" id="range_2" [(ngModel)]="networkRange.range_2" />
+            </div>
+        </div>
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label for="range_3">Khoảng Giá 3</label>
+            </div>
+            <div class="ui-g-8">
+                <input pInputText type="number" id="range_3" [(ngModel)]="networkRange.range_3" />
+            </div>
+        </div>
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label for="range_4">Khoảng Giá 4</label>
+            </div>
+            <div class="ui-g-8">
+                <input pInputText type="number" id="range_4" [(ngModel)]="networkRange.range_4" />
+            </div>
+        </div>
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label for="range_5">Khoảng Giá 5</label>
+            </div>
+            <div class="ui-g-8">
+                <input pInputText type="number" id="range_5" [(ngModel)]="networkRange.range_5" />
+            </div>
+        </div>
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label for="range_6">Khoảng Giá 6</label>
+            </div>
+            <div class="ui-g-8">
+                <input pInputText type="number" id="range_6" [(ngModel)]="networkRange.range_6" />
+            </div>
+        </div>
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label for="range_7">Khoảng Giá 7</label>
+            </div>
+            <div class="ui-g-8">
+                <input pInputText type="number" id="range_7" [(ngModel)]="networkRange.range_7" />
+            </div>
+        </div>
+    </div>
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+            <button type="button" pButton icon="fa fa-check" (click)="addNewRange()" label="Thêm"></button>
+        </div>
+    </p-footer>
+  </p-dialog>
+  
+  <p-dialog header="Sửa Khoảng Giá" [(visible)]="displayEditDialogRange" [responsive]="true" showEffect="fade" [modal]="true"  [style]="{width: '300px'}">
+      <div class="ui-g ui-fluid" *ngIf="networkRange">
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <label for="range_1">Khoảng Giá 1</label>
+                </div>
+                <div class="ui-g-8">
+                    <input pInputText type="number" id="range_1" [(ngModel)]="networkRange.range_1" />
+                </div>
+            </div>
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <label for="range_2">Khoảng Giá 2</label>
+                </div>
+                <div class="ui-g-8">
+                    <input pInputText type="number" id="range_2" [(ngModel)]="networkRange.range_2" />
+                </div>
+            </div>
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <label for="range_3">Khoảng Giá 3</label>
+                </div>
+                <div class="ui-g-8">
+                    <input pInputText type="number" id="range_3" [(ngModel)]="networkRange.range_3" />
+                </div>
+            </div>
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <label for="range_4">Khoảng Giá 4</label>
+                </div>
+                <div class="ui-g-8">
+                    <input pInputText type="number" id="range_4" [(ngModel)]="networkRange.range_4" />
+                </div>
+            </div>
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <label for="range_5">Khoảng Giá 5</label>
+                </div>
+                <div class="ui-g-8">
+                    <input pInputText type="number" id="range_5" [(ngModel)]="networkRange.range_5" />
+                </div>
+            </div>
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <label for="range_6">Khoảng Giá 6</label>
+                </div>
+                <div class="ui-g-8">
+                    <input pInputText type="number" id="range_6" [(ngModel)]="networkRange.range_6" />
+                </div>
+            </div>
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <label for="range_7">Khoảng Giá 7</label>
+                </div>
+                <div class="ui-g-8">
+                    <input pInputText type="number" id="range_7" [(ngModel)]="networkRange.range_7" />
+                </div>
+            </div>
+      </div>
+      <p-footer>
+          <div class="ui-dialog-buttonpane ui-helper-clearfix">
+              <button type="button" pButton icon="fa fa-close" (click)="deleteRange()" label="Xóa"></button>
+              <button type="button" pButton icon="fa fa-check" (click)="edit()" label="Xong"></button>
+          </div>
+      </p-footer>
+  </p-dialog>

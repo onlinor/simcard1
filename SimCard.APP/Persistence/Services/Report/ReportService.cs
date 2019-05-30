@@ -242,7 +242,7 @@ namespace SimCard.APP.Persistence.Services
             {
                 foreach (var erp in er.ExportReceiptProducts)
                 {
-                    dynamic line = new List<ExpandoObject>();
+                    dynamic line = new ExpandoObject();
                     line.ngayXuat = er.DateCreated;
                     line.maHang = erp.Product.Ma;
                     if (er.ExportToCustomerId != null)
@@ -279,7 +279,7 @@ namespace SimCard.APP.Persistence.Services
             {
                 dynamic line = new ExpandoObject();
 
-                line.tenKhachHang = customer.HoTen;
+                line.khachHang = customer.HoTen;
                 line.maKhachHang = customer.MaKH;
                 line.noKhach = customer.MaKH;
                 line.khachNo = customer.MaKH;
@@ -297,15 +297,16 @@ namespace SimCard.APP.Persistence.Services
             List<Product> products = await _productRepository.Query(p => p.ShopId == 1).Distinct().ToListAsync();
             foreach (Product product in products)
             {
-                dynamic line = new List<ExpandoObject>();
+                dynamic line = new ExpandoObject();
                 line.matHang = product.Ten;
                 line.maHang = product.Ma;
                 line.toanCongTy = product.Soluong;
                 List<Shop> shops = await _shopRepository.Query(s => true).Include(s => s.Products).ToListAsync();
                 foreach (Shop shop in shops)
                 {
-                    line[shop.Name] = shop.Products.FirstOrDefault(p => p.Id == product.Id).Soluong;
-                    line.toanCongTy += (decimal)line[shop.Name];
+                    var shopProduct = shop.Products.FirstOrDefault(p => p.Id == product.Id);
+                    ((IDictionary<string, Object>)line)[shop.Name] = shopProduct != null ? shopProduct.Soluong : 0;
+                    line.toanCongTy += (int)((IDictionary<string, Object>)line)[shop.Name];
                 }
                 result.Add(line);
             }
@@ -422,7 +423,7 @@ namespace SimCard.APP.Persistence.Services
                     rline.phieuNhap = line.phieuNhap;
                     rline.matHang = product.ProductId;
                     rline.chietKhau = product.ChietKhau;
-                    rline.donGiaNhap = product.Product.Menhgia;
+                    rline.giaNhap = product.Product.Menhgia;
                     rline.soLuong = product.ImportQuantity;
                     rline.thanhTien = rline.soLuong * rline.donGiaNhap;
                     result.Add(rline);
@@ -471,7 +472,7 @@ namespace SimCard.APP.Persistence.Services
             {
                 dynamic line = new ExpandoObject();
 
-                line.tenKhachHang = customer.HoTen;
+                line.khachHang = customer.HoTen;
                 line.maKhachHang = customer.MaKH;
                 line.noKhach = customer.MaKH;
                 line.khachNo = customer.MaKH;
@@ -541,7 +542,7 @@ namespace SimCard.APP.Persistence.Services
             {
                 dynamic line = new ExpandoObject();
 
-                line.tenKhachHang = customer.HoTen;
+                line.khachHang = customer.HoTen;
                 line.maKhachHang = customer.MaKH;
                 line.noKhach = customer.MaKH;
                 line.khachNo = customer.MaKH;
@@ -562,19 +563,21 @@ namespace SimCard.APP.Persistence.Services
             var shops = _shopRepository.Query(s => true);
             if (filter.Shop > 0)
             {
-                shops = shops.Where(s => s.Id == filter.Shop).Include(s => s.Cashbooks);
+                shops = shops.Where(s => s.Id == filter.Shop);
             }
-            var listShop = await shops.ToListAsync();
+            var listShop = await shops.Include(s => s.Cashbooks).ToListAsync();
             foreach (var shop in listShop)
             {
                 dynamic line = new ExpandoObject();
+                var soThu = shop.Cashbooks.Where(c => c.MaPhanBo == "TCK" && c.SoTienThu > 0);
+                var soChi = shop.Cashbooks.Where(c => c.MaPhanBo == "TCK" && c.SoTienChi > 0);
 
-                line.cuaHang = shop.Name;
+                line.chiNhanh = shop.Name;
                 line.diaChi = shop.Address;
                 line.giamDoc = shop.Director;
-                line.tienThu = shop.Cashbooks.Where(c => c.MaPhanBo == "TCK" && c.SoTienThu > 0).Sum(c => c.SoTienThu);
-                line.tienChi = shop.Cashbooks.Where(c => c.MaPhanBo == "TCK" && c.SoTienChi > 0).Sum(c => c.SoTienChi);
-                line.congDon = line.tienThu - line.tienChi;
+                line.soThu = soThu != null ? soThu.Sum(c => c.SoTienThu) : 0;
+                line.soChi = soChi != null ? soChi.Sum(c => c.SoTienChi) : 0;
+                line.congDon = line.soThu - line.soChi;
 
                 result.Add(line);
             }
@@ -612,8 +615,8 @@ namespace SimCard.APP.Persistence.Services
             {
                 dynamic line = new ExpandoObject();
 
-                line.productCode = product.Ma;
-                line.productName = product.Ten;
+                line.maHang = product.Ma;
+                line.tenHang = product.Ten;
                 line.doanhThuBanHang = exportProductList.Sum(er => er.ExportQuantity * er.Product.DonGia);
                 line.doanhThuNoiBo = exportProductList.Where(er => er.ExportReceipt.ExportToShopId != null).Sum(er => er.ExportQuantity * er.Product.DonGia);
                 line.doanhThuThuc = line.doanhThuBanHang - line.doanhThuNoiBo;
@@ -681,8 +684,8 @@ namespace SimCard.APP.Persistence.Services
                     latestImport.Products.Where(p => p.ProductId == product.Id).First().NewWarehouseQuantity :
                     latestExport.ExportReceiptProducts.Where(p => p.ProductId == product.Id).First().NewWarehouseQuantity;
 
-                line.productCode = product.Ma;
-                line.productName = product.Ten;
+                line.maHang = product.Ma;
+                line.tenHang = product.Ten;
                 line.tonDauKy = quantityBeginPeriod;
                 line.thanhTienTonDauKy = quantityBeginPeriod * product.DonGia;
                 line.nhapTrongKy = importProductList.Where(ip => ip.ProductId == product.Id).Sum(p => p.ImportQuantity);
