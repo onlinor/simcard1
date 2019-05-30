@@ -8,5 +8,6 @@ import { Component, OnInit } from '@angular/core';
 export class FooterComponent implements OnInit {
   constructor() {}
 
+  copyrightYear: number = new Date().getFullYear();
   ngOnInit() {}
 }
