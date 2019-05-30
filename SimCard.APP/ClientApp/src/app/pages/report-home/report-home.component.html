@@ -59,6 +59,9 @@
           <tr>
             <th *ngFor="let column of reportColumns">{{ column.header }}</th>
           </tr>
+          <tr class="text-center" *ngIf="reportColumns.length === 0">
+            <th>NO DATA</th>
+          </tr>
         </ng-template>
         <ng-template pTemplate="body" let-line>
           <tr>
