@@ -58,7 +58,7 @@ export class ExportProductComponent implements OnInit {
     private productService: ProductService,
     private phieuxuatSerivce: PhieuxuatService,
     private shopService: ShopService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.getAllProducts();
@@ -192,6 +192,6 @@ export class ExportProductComponent implements OnInit {
     this.exportReceipt.tienThanhToan = this.thanhToan;
     this.exportReceipt.tienConLai = this.total - this.thanhToan;
     this.exportReceipt.products = this.tableProducts;
-    this.phieuxuatSerivce.addPhieuxuat(this.exportReceipt).subscribe(() => {});
+    this.phieuxuatSerivce.addPhieuxuat(this.exportReceipt).subscribe(() => { });
   }
 }

@@ -61,7 +61,7 @@ export class ImportProductComponent implements OnInit, OnDestroy {
   payCash = 0;
   isPaycashChecked = false;
 
-  isShowDialogPhieuChi: Boolean = false;
+  isShowDialogPhieuChi = false;
 
   importReceipt: ImportReceipt = new ImportReceipt();
 

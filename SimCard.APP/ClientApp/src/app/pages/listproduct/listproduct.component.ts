@@ -38,7 +38,7 @@ export class ListproductComponent implements OnInit {
     private productExchangeService: ProductExchangeService,
     private productService: ProductService,
     private supplierService: SupplierService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.showProductExchangesResponse();
@@ -74,7 +74,7 @@ export class ListproductComponent implements OnInit {
       }
     ];
     this.productExchangeService.save(this.productExchange).subscribe(() => {
-      this.productService.save(tableProducts).subscribe(() => {});
+      this.productService.save(tableProducts).subscribe(() => { });
       this.showProductExchangesResponse();
     });
 

@@ -115,7 +115,7 @@ export class CustomerComponent implements OnInit, OnDestroy {
     private customerService: CustomerService,
     private messageService: MessageService,
     private shopService: ShopService
-  ) {}
+  ) { }
 
   toastSuccess() {
     this.messageService.add({
@@ -142,7 +142,7 @@ export class CustomerComponent implements OnInit, OnDestroy {
           this.dsNguoiGioiThieu.push(obj);
         });
       },
-      error => {}
+      error => { }
     );
   }
 
@@ -155,7 +155,7 @@ export class CustomerComponent implements OnInit, OnDestroy {
           this.lastIDRecord = response;
           this.onGenerateMaKH();
         },
-        error => {}
+        error => { }
       );
   }
 
@@ -303,9 +303,9 @@ export class CustomerComponent implements OnInit, OnDestroy {
             // this.toastSuccess();
             this.getAllCustomers();
             const shop: Shop = { name: this.customerInfo.tenCH, id: 1996 };
-            this.shopService.addShop(shop).subscribe(() => {});
+            this.shopService.addShop(shop).subscribe(() => { });
           },
-          error => {}
+          error => { }
         );
     } else {
       this.subscription = this.customerService
@@ -315,7 +315,7 @@ export class CustomerComponent implements OnInit, OnDestroy {
             // this.toastSuccess();
             this.getAllCustomers();
           },
-          error => {}
+          error => { }
         );
     }
     this.isOpenDialog = false;
@@ -342,7 +342,7 @@ export class CustomerComponent implements OnInit, OnDestroy {
           //   this.toastSuccess();
           this.getAllCustomers();
         },
-        error => {}
+        error => { }
       );
     this.ngForm.reset();
     this.isOpenDialog = false;
@@ -395,13 +395,13 @@ export class CustomerComponent implements OnInit, OnDestroy {
               tempCustomer.push(this.tempArr);
               this.customerService
                 .addCustomer(this.tempArr)
-                .subscribe(() => {}, error => {});
+                .subscribe(() => { }, error => { });
               this.customers = tempCustomer;
               this.tempArr = {};
             }
           }
         },
-        error => {}
+        error => { }
       );
     }
   }

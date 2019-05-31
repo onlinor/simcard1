@@ -58,7 +58,7 @@ export class DebtbookComponent implements OnInit {
     private cashbookService: CashbookService,
     private bankbookService: BankbookService,
     private debtbookService: DebtbookService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.subscription = this.debtbookService.getAllDebtbook().subscribe(
@@ -67,20 +67,20 @@ export class DebtbookComponent implements OnInit {
         this.initialDebtbook = response;
         console.log('debt', this.debtbookData);
       },
-      error => {}
+      error => { }
     );
     this.subscription = this.cashbookService.getAllCashbook().subscribe(
       response => {
         this.cashbookData = response;
       },
-      error => {}
+      error => { }
     );
 
     this.subscription = this.bankbookService.getAllBankbook().subscribe(
       response => {
         this.bankbookData = response;
       },
-      error => {}
+      error => { }
     );
 
     // this.debtbookData.map(item => {
