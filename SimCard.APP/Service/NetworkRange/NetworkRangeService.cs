@@ -26,7 +26,7 @@ namespace SimCard.APP.Service
         public async Task<bool> Create(NetworkRangeViewModel networkRangeViewModel)
         {
             // NetworkRange networkRange = Mapper.Map<NetworkRange>(networkRangeViewModel); should use one
-            NetworkRange networkRange = new NetworkRange
+            var networkRange = new NetworkRange
             {
                 Range_1 = networkRangeViewModel.Range_1,
                 Range_2 = networkRangeViewModel.Range_2,
@@ -58,7 +58,7 @@ namespace SimCard.APP.Service
 
         public async Task<bool> Update(NetworkRangeViewModel networkRangeViewModel)
         {
-            NetworkRange NetworkRangeToUpdate = await _repository.Query(x => x.Id == networkRangeViewModel.Id).FirstOrDefaultAsync();
+            var NetworkRangeToUpdate = await _repository.Query(x => x.Id == networkRangeViewModel.Id).FirstOrDefaultAsync();
 
             NetworkRangeToUpdate.Range_1 = networkRangeViewModel.Range_1;
             NetworkRangeToUpdate.Range_2 = networkRangeViewModel.Range_2;

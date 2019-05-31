@@ -17,14 +17,14 @@ namespace SimCard.APP.Repository
 
         public SupplierRepository(SimCardDBContext context)
         {
-            this._context = context;
+            _context = context;
 
         }
 
-        public async Task<Supplier> AddSupplier(Supplier Sp)
+        public async Task<Supplier> AddSupplier(Supplier supplier)
         {
-            await _context.Suppliers.AddAsync(Sp);
-            return Sp;
+            await _context.Suppliers.AddAsync(supplier);
+            return supplier;
         }
 
         public async Task<Supplier> GetSupplier(int id)
@@ -47,14 +47,14 @@ namespace SimCard.APP.Repository
             return false;
         }
 
-        public void Remove(Supplier Supplier)
+        public void Remove(Supplier supplier)
         {
-            _context.Suppliers.Remove(Supplier);
+            _context.Suppliers.Remove(supplier);
         }
 
-        public void UpdateSupplier(Supplier Sp)
+        public void UpdateSupplier(Supplier supplier)
         {
-            _context.Suppliers.Update(Sp);
+            _context.Suppliers.Update(supplier);
         }
 
         public IQueryable<Shop> Query(Expression<Func<Shop, bool>> predicate)

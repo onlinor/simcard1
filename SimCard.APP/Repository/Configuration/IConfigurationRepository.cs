@@ -12,6 +12,5 @@ namespace SimCard.APP.Repository
         Task<Configuration> GetConfiguration(int id);
 
         Task<Configuration> UpdateConfiguration(int id, Configuration configuration);
-
     }
 }

@@ -30,19 +30,21 @@ namespace SimCard.APP.Repository
             {
                 var listImportReceiptProduct = new List<ImportReceiptProducts>();
 
-                foreach (ProductViewModel item in importReceiptViewModel.Products)
+                foreach (var item in importReceiptViewModel.Products)
                 {
-                    ImportReceiptProducts p = new ImportReceiptProducts();
-                    p.ChietKhau = (item.Menhgia - item.DonGia.Value) * 100 / item.Menhgia;
-                    p.DateCreated = DateTime.Now;
-                    p.ProductId = _context.Products.First(x => x.Ma == item.Ma).Id;
-                    p.ImportQuantity = item.Soluong;
-                    p.NewWarehouseQuantity = _context.Products.First(x => x.Ma == item.Ma).Soluong;
+                    var p = new ImportReceiptProducts
+                    {
+                        ChietKhau = (item.Menhgia - item.DonGia.Value) * 100 / item.Menhgia,
+                        DateCreated = DateTime.Now,
+                        ProductId = _context.Products.First(x => x.Ma == item.Ma).Id,
+                        ImportQuantity = item.Soluong,
+                        NewWarehouseQuantity = _context.Products.First(x => x.Ma == item.Ma).Soluong
+                    };
                     listImportReceiptProduct.Add(p);
                 }
 
                 // ImportReceipt importReceipt = Mapper.Map<ImportReceipt>(importReceiptViewModel);
-                ImportReceipt importReceipt = new ImportReceipt
+                var importReceipt = new ImportReceipt
                 {
                     DateCreated = DateTime.Now,
                     Ma = importReceiptViewModel.Ma,
@@ -70,7 +72,7 @@ namespace SimCard.APP.Repository
         {
             string currentDate = DateTime.UtcNow.Date.ToString("yyyy-MM-dd").Replace("-", "");
             // No data for new day
-            List<ImportReceipt> existingPNs = await _context.ImportReceipts.Where(x => x.Prefix.Replace("PN", "") == currentDate).ToListAsync();
+            var existingPNs = await _context.ImportReceipts.Where(x => x.Prefix.Replace("PN", "") == currentDate).ToListAsync();
             if (existingPNs.Count() == 0)
             {
                 return ("PN" + currentDate + ".1");
@@ -92,10 +94,10 @@ namespace SimCard.APP.Repository
 
         public async Task<List<ExpandoObject>> GetImportSummary(List<ProductViewModel> productViewModels)
         {
-            List<ExpandoObject> result = new List<ExpandoObject>();
+            var result = new List<ExpandoObject>();
 
             // Where shop id != null => product of shop
-            List<IGrouping<string, Product>> products = await _context.Products.Where(p => p.ShopId != null).GroupBy(p => p.Ma).ToListAsync();
+            var products = await _context.Products.Where(p => p.ShopId != null).GroupBy(p => p.Ma).ToListAsync();
             foreach (IGrouping<string, ImportReceipt> item in products)
             {
                 dynamic keyVal = new ExpandoObject();

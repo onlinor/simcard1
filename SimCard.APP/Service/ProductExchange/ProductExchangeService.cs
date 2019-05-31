@@ -26,7 +26,7 @@ namespace SimCard.APP.Service
         public async Task<bool> Create(ProductExchangeViewModel productExchangeViewModel)
         {
             // Product product = Mapper.Map<Product>(productViewModel); should use one
-            ProductExchange productExchange = new ProductExchange
+            var productExchange = new ProductExchange
             {
                 Ten = productExchangeViewModel.Ten,
                 Ma = productExchangeViewModel.Ma,
@@ -51,7 +51,7 @@ namespace SimCard.APP.Service
 
         public async Task<bool> IsExisted(string code)
         {
-            ProductExchange productExchange = await _repository.Query(x => x.Ma.ToLower() == code.ToLower()).FirstOrDefaultAsync();
+            var productExchange = await _repository.Query(x => x.Ma.ToLower() == code.ToLower()).FirstOrDefaultAsync();
             return productExchange != null;
         }
 
@@ -62,7 +62,7 @@ namespace SimCard.APP.Service
 
         public async Task<bool> Update(ProductExchangeViewModel productExchangeViewModel)
         {
-            ProductExchange ProductExchangeToUpdate = await _repository.Query(x => x.Id == productExchangeViewModel.Id).FirstOrDefaultAsync();
+            var ProductExchangeToUpdate = await _repository.Query(x => x.Id == productExchangeViewModel.Id).FirstOrDefaultAsync();
             Mapper.Map(productExchangeViewModel, ProductExchangeToUpdate);
             await _repository.Update(ProductExchangeToUpdate);
 
