@@ -38,17 +38,6 @@ namespace SimCard.APP.Repository
             return await _context.Bankbook.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        // public async Task<int> GetLastIDBankbookRecord()
-        // {
-        //     return 1;
-        //     // int lastIDRecord = 0;
-        //     // var anyRecord = await context.Bankbook.AnyAsync();
-        //     // if (anyRecord) {
-        //     //     lastIDRecord = await context.Bankbook.MaxAsync(x => x.Id);
-        //     // } 
-        //     // return lastIDRecord;
-        // }
-
         public void Remove(Bankbook bankbookParams)
         {
             _context.Remove(bankbookParams);

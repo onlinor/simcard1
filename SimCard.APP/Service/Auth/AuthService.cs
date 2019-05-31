@@ -9,7 +9,6 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 using SimCard.APP.Helper;
-using SimCard.APP.Models;
 using SimCard.APP.Repository;
 using SimCard.APP.ViewModels;
 
@@ -20,7 +19,6 @@ namespace SimCard.APP.Service
         private readonly IUserRepository _userRepository;
         private readonly AppSettings _appSettings;
 
-
         public AuthService(IUserRepository userRepository, IOptions<AppSettings> appSettings)
         {
             _appSettings = appSettings.Value;
@@ -29,7 +27,7 @@ namespace SimCard.APP.Service
 
         public async Task<AuthResultViewModel> Authenticate(LoginViewModel loginViewModel)
         {
-            User user = await _userRepository.Query(x => x.Username == loginViewModel.Username).FirstOrDefaultAsync();
+            var user = await _userRepository.Query(x => x.Username == loginViewModel.Username).FirstOrDefaultAsync();
 
             // return null if user not found
             if (user == null)
@@ -44,9 +42,9 @@ namespace SimCard.APP.Service
             }
 
             // authentication successful so generate jwt token
-            JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
+            var tokenHandler = new JwtSecurityTokenHandler();
             byte[] key = Encoding.ASCII.GetBytes(_appSettings.Secret);
-            SecurityTokenDescriptor tokenDescriptor = new SecurityTokenDescriptor
+            var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
@@ -57,8 +55,8 @@ namespace SimCard.APP.Service
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
 
-            SecurityToken token = tokenHandler.CreateToken(tokenDescriptor);
-            AuthResultViewModel result = new AuthResultViewModel
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            var result = new AuthResultViewModel
             {
                 Username = user.Username,
                 Token = tokenHandler.WriteToken(token)

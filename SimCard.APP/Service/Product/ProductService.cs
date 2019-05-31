@@ -26,7 +26,7 @@ namespace SimCard.APP.Service
         public async Task<bool> Create(ProductViewModel productViewModel)
         {
             // Product product = Mapper.Map<Product>(productViewModel); should use one
-            Product product = new Product
+            var product = new Product
             {
                 Ten = productViewModel.Ten,
                 Ma = productViewModel.Ma,
@@ -40,9 +40,9 @@ namespace SimCard.APP.Service
 
             if (product.ShopId != 1)
             {
-                Product MainProduct = await _repository.Query(x => x.Ma.ToLower() == productViewModel.Ma.ToLower() && x.ShopId == 1).FirstOrDefaultAsync();
-                MainProduct.Soluong = MainProduct.Soluong - productViewModel.Soluong;
-                await _repository.Update(MainProduct);
+                var p = await _repository.Query(x => x.Ma.ToLower() == productViewModel.Ma.ToLower() && x.ShopId == 1).FirstOrDefaultAsync();
+                p.Soluong = p.Soluong - productViewModel.Soluong;
+                await _repository.Update(p);
             }
             await _repository.Create(product);
             return await _unitOfWork.SaveChangeAsync();
@@ -60,7 +60,7 @@ namespace SimCard.APP.Service
 
         public async Task<bool> IsExisted(string code, int? shopId)
         {
-            Product product = await _repository.Query(x => x.Ma.ToLower() == code.ToLower() && x.ShopId == shopId).FirstOrDefaultAsync();
+            var product = await _repository.Query(x => x.Ma.ToLower() == code.ToLower() && x.ShopId == shopId).FirstOrDefaultAsync();
             return product != null;
         }
 
@@ -71,23 +71,23 @@ namespace SimCard.APP.Service
 
         public async Task<bool> Update(ProductViewModel productViewModel)
         {
-            Product ProductToUpdate = await _repository.Query(x => x.Ma.ToLower() == productViewModel.Ma.ToLower() && x.ShopId == productViewModel.ShopId).FirstOrDefaultAsync();
-            if (ProductToUpdate.ShopId == 1 && ProductToUpdate.Soluong == 0)
+            var product = await _repository.Query(x => x.Ma.ToLower() == productViewModel.Ma.ToLower() && x.ShopId == productViewModel.ShopId).FirstOrDefaultAsync();
+            if (product.ShopId == 1 && product.Soluong == 0)
             {
-                ProductToUpdate.Soluong += productViewModel.Soluong;
-                ProductToUpdate.DonGia = productViewModel.DonGia;
+                product.Soluong += productViewModel.Soluong;
+                product.DonGia = productViewModel.DonGia;
             }
             else
             {
-                ProductToUpdate.Soluong += productViewModel.Soluong;
-                if (ProductToUpdate.ShopId != 1)
+                product.Soluong += productViewModel.Soluong;
+                if (product.ShopId != 1)
                 {
-                    Product MainProduct = await _repository.Query(x => x.Ma.ToLower() == productViewModel.Ma.ToLower() && x.ShopId == 1).FirstOrDefaultAsync();
-                    MainProduct.Soluong = MainProduct.Soluong - productViewModel.Soluong;
-                    await _repository.Update(MainProduct);
+                    var p = await _repository.Query(x => x.Ma.ToLower() == productViewModel.Ma.ToLower() && x.ShopId == 1).FirstOrDefaultAsync();
+                    p.Soluong -= productViewModel.Soluong;
+                    await _repository.Update(p);
                 }
             }
-            await _repository.Update(ProductToUpdate);
+            await _repository.Update(product);
 
             return await _unitOfWork.SaveChangeAsync();
         }

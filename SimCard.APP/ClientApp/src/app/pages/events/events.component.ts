@@ -21,7 +21,7 @@ export class EventsComponent implements OnInit, OnDestroy {
   dsEvent: any;
   selectedEvent: any;
   displayDialog: boolean;
-  selectedLoaiSK: String = 'KM';
+  selectedLoaiSK = 'KM';
   lastIDRecord: any;
   LoaiSK = [
     { label: 'Khuyến Mãi', value: 'KM' },
@@ -61,7 +61,7 @@ export class EventsComponent implements OnInit, OnDestroy {
     private eventService: EventsService,
     private messageService: MessageService,
     private logService: LogService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.getAllEvent();

@@ -46,7 +46,7 @@ namespace SimCard.APP.Repository
 
         public async Task<Event> UpdateEvent(int id, Event eventParams)
         {
-            Event eventToUpdate = _context.Events.Find(id);
+            var eventToUpdate = _context.Events.Find(id);
             if (eventToUpdate != null)
             {
                 eventToUpdate.LoaiSK = eventParams.LoaiSK;
@@ -63,8 +63,8 @@ namespace SimCard.APP.Repository
         }
         public async Task<int> GetLastIDEventRecord()
         {
-            int lastIDRecord = 0;
-            bool anyRecord = await _context.Events.AnyAsync();
+            var lastIDRecord = 0;
+            var anyRecord = await _context.Events.AnyAsync();
             if (anyRecord)
             {
                 lastIDRecord = await _context.Events.MaxAsync(x => x.Id);
@@ -79,7 +79,7 @@ namespace SimCard.APP.Repository
 
         public async Task<Event> UpdateEventStatus(int id, Event eventParams)
         {
-            Event eventToUpdate = _context.Events.Find(id);
+            var eventToUpdate = _context.Events.Find(id);
             if (eventParams != null)
             {
                 eventToUpdate.EventStatus = eventParams.EventStatus;

@@ -1,5 +1,5 @@
 export class Debtbook {
-    dateCreated: Date;
+    stt: number;
 	tenKhachHang: string;
 	maKhachHang: string;
 	soPhieu: string;

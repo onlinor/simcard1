@@ -18,6 +18,5 @@ namespace SimCard.APP.Repository
         Task<int> GetLastIDCustomerRecord();
 
         void Remove(Customer customer);
-
     }
 }

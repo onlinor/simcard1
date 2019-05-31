@@ -20,6 +20,5 @@ namespace SimCard.APP.Repository
         Task<ImportReceiptViewModel> GetByIdAsync(int id);
 
         IQueryable<ImportReceipt> Query(Expression<Func<ImportReceipt, bool>> predicate);
-
     }
 }

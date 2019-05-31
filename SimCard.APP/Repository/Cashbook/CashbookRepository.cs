@@ -19,6 +19,7 @@ namespace SimCard.APP.Repository
         {
             _context = context;
         }
+
         public async Task<Cashbook> AddCashbook(Cashbook cashbookParams)
         {
             if (cashbookParams != null)
@@ -44,17 +45,6 @@ namespace SimCard.APP.Repository
         {
             return _context.Cashbook.Where(predicate);
         }
-
-        // public async Task<int> GetLastIDCashbookRecord()
-        // {
-        //     return 1;
-        //     // int lastIDRecord = 0;
-        //     // var anyRecord = await context.Cashbook.AnyAsync();
-        //     // if (anyRecord) {
-        //     //     lastIDRecord = await context.Cashbook.MaxAsync(x => x.Id);
-        //     // } 
-        //     // return lastIDRecord;
-        // }
 
         public void Remove(Cashbook cashbookParams)
         {

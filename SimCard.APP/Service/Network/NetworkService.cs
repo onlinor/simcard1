@@ -26,7 +26,7 @@ namespace SimCard.APP.Service
         public async Task<bool> Create(NetworkViewModel networkViewModel)
         {
             // Network network = Mapper.Map<Network>(networkViewModel); should use one
-            Network network = new Network
+            var network = new Network
             {
                 Ten = networkViewModel.Ten,
                 Ma = networkViewModel.Ma,
@@ -59,7 +59,7 @@ namespace SimCard.APP.Service
 
         public async Task<bool> IsExisted(string code)
         {
-            Network network = await _repository.Query(x => x.Ma.ToLower() == code.ToLower()).FirstOrDefaultAsync();
+            var network = await _repository.Query(x => x.Ma.ToLower() == code.ToLower()).FirstOrDefaultAsync();
             return network != null;
         }
 
@@ -70,7 +70,7 @@ namespace SimCard.APP.Service
 
         public async Task<bool> Update(NetworkViewModel networkViewModel)
         {
-            Network NetworkToUpdate = await _repository.Query(x => x.Ma.ToLower() == networkViewModel.Ma.ToLower()).FirstOrDefaultAsync();
+            var NetworkToUpdate = await _repository.Query(x => x.Ma.ToLower() == networkViewModel.Ma.ToLower()).FirstOrDefaultAsync();
 
             NetworkToUpdate.ChietKhauCaoNhat = networkViewModel.ChietKhauCaoNhat;
             NetworkToUpdate.BuocNhay = networkViewModel.BuocNhay;

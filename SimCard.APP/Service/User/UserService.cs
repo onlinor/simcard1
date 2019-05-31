@@ -20,7 +20,7 @@ namespace SimCard.APP.Service
 
         public async Task<bool> Create(UserViewModel userViewModel)
         {
-            User user = Mapper.Map<User>(userViewModel);
+            var user = Mapper.Map<User>(userViewModel);
             user.PasswordSalt = PasswordHelper.GetSalt();
             user.Password = PasswordHelper.HashPassword(user.Password, user.PasswordSalt);
             return await _repository.Create(user);

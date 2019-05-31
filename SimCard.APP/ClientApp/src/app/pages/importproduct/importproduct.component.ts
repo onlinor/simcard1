@@ -1,15 +1,15 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { FormphieuchiComponent } from '../../public/formphieuchi/formphieuchi.component';
-
+import { Component, OnInit, ViewChild, OnDestroy } from "@angular/core";
+import { FormphieuchiComponent } from "../../public/formphieuchi/formphieuchi.component";
+import { Subscription } from 'rxjs/subscription';
 import {
   FileService,
   ProductService,
   PhieunhapService,
   SupplierService,
-  DebtbookService
-} from '../../core/services';
-import { Product, ImportReceipt, Supplier, Debtbook } from '../../core/models';
-import { Subscription } from 'rxjs';
+  DebtbookService,
+  CustomerService
+} from "../../core/services";
+import { Product, ImportReceipt, Supplier, Debtbook } from "../../core/models";
 
 @Component({
   selector: 'app-importproduct',
@@ -39,7 +39,7 @@ export class ImportProductComponent implements OnInit, OnDestroy {
   tableProducts: Array<Product> = [];
 
   tabviewProducts: Array<Product> = [];
-  dataDebtbook: Debtbook = new Debtbook();
+  debtbookParams: Debtbook = new Debtbook();
 
   tabviewProductClones: Array<Product> = [];
 
@@ -61,27 +61,40 @@ export class ImportProductComponent implements OnInit, OnDestroy {
   payCash = 0;
   isPaycashChecked = false;
 
-  isShowDialogPhieuChi: Boolean = false;
+  isShowDialogPhieuChi = false;
 
   importReceipt: ImportReceipt = new ImportReceipt();
 
   todayDate: Date;
   receiptNCC: string;
+  customerList: any;
 
   constructor(
     private fileService: FileService,
     private productService: ProductService,
     private phieuhangService: PhieunhapService,
-    private supplierService: SupplierService
+    private supplierService: SupplierService,
+    private customerService: CustomerService
   ) {}
 
   ngOnInit() {
     this.getAllProducts();
     this.getSuppliers();
+    this.getAllCustomer();
     this.todayDate = new Date();
     this.tabviewProductClones = this.tabviewProducts.filter(
       x => x.loai === 'SS'
     );
+  }
+
+  getAllCustomer() {
+    this.subscription = this.customerService.getAllCustomer()
+		.subscribe(
+			response => {
+				this.customerList = response;
+			},
+			error => {}
+		);
   }
 
   onChangeIsPaybankChecked() {
@@ -111,31 +124,26 @@ export class ImportProductComponent implements OnInit, OnDestroy {
     this.isShowDialogPhieuChi = data;
   }
 
+  initialDebtbookData() {
+    this.debtbookParams.maKhachHang = this.myFormChiChild.dataPhieuChi.maKhachHang;
+    this.debtbookParams.tenKhachHang = this.importReceipt.nguoiDaiDien;
+    this.debtbookParams.noiDungPhieu = this.importReceipt.ghiChu;
+    this.debtbookParams.soPhieu = this.importReceipt.ma;
+    this.debtbookParams.khachNo = 0;
+    this.debtbookParams.noKhach = this.importReceipt.tongTien;
+    this.debtbookParams.congDon = 0;
+  }
+
   addToDebtbook() {
-    // this.dataDebtbook.maKhachHang = "LJ";
-    // this.dataDebtbook.tenKhachHang = this.importReceipt.nguoiDaiDien;
-    // this.dataDebtbook.noiDungPhieu = this.importReceipt.ghiChu;
-    // this.dataDebtbook.soPhieu = this.importReceipt.ma;
-    // this.dataDebtbook.dateCreated = new Date().toLocaleDateString();
-    // this.dataDebtbook.khachNo = 0;
-    // this.dataDebtbook.noKhach = this.importReceipt.tongTien;
-    // this.dataDebtbook.congDon = 0;
-    console.log('aaa', this.dataDebtbook);
-    // this.subscription = this.debtbookService
-    //   .addDebtbook(this.dataDebtbook)
-    //     .subscribe(
-    //       response => {
-    //         console.log("success");
-    //       },
-    //       error => {}
-    //     );
+    this.initialDebtbookData();
+    this.myFormChiChild.callApiAddDebtbook(this.debtbookParams);
   }
 
   save() {
+    this.addToDebtbook();
     this.productService.save(this.tableProducts).subscribe(() => {
       this.getAllProducts();
       this.savePhieunhap();
-
       this.tableProducts = [];
     });
   }
@@ -268,15 +276,17 @@ export class ImportProductComponent implements OnInit, OnDestroy {
 
   dataImportProductBinding() {
     this.myFormChiChild.dataPhieuChi.loaiNganHang = this.loaiNganHang;
-    (this.myFormChiChild.dataPhieuChi.nguoiChi = this.importReceipt.nhanVienLap),
-      (this.myFormChiChild.dataPhieuChi.tenKhachHang = this.importReceipt.nguoiDaiDien),
-      (this.myFormChiChild.dataPhieuChi.soTienChi = this.thanhToan),
-      (this.myFormChiChild.isATM = this.isPaybankChecked),
-      (this.myFormChiChild.isCash = this.isPaycashChecked);
+    this.myFormChiChild.dataPhieuChi.nguoiChi = this.importReceipt.nhanVienLap,
+    this.myFormChiChild.dataPhieuChi.tenKhachHang = this.importReceipt.nguoiDaiDien,
+    this.myFormChiChild.dataPhieuChi.soTienChi = this.thanhToan,
+    this.myFormChiChild.isATM = this.isPaybankChecked,
+    this.myFormChiChild.isCash = this.isPaycashChecked;
     this.myFormChiChild.checkedATM();
     this.myFormChiChild.checkedCash();
     this.myFormChiChild.isNewCashBook = true;
     this.isShowDialogPhieuChi = true;
+    this.myFormChiChild.customerList = this.customerList;
+		this.myFormChiChild.fillDropdownCustomer();
   }
 
   savePhieunhap() {

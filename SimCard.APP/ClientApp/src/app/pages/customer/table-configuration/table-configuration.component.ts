@@ -33,9 +33,9 @@ export class TableConfigurationComponent implements OnInit {
   };
   // tslint:disable-next-line:no-output-rename
   @Output('listColumnTable') handleField = new EventEmitter<any>();
-  constructor() {}
+  constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   onSave() {
     this.handleField.emit({

@@ -21,18 +21,18 @@ namespace SimCard.APP.Repository
             _context = context;
         }
 
-        public async Task<ShopViewModel> AddShop(ShopViewModel ShopViewModel)
+        public async Task<ShopViewModel> AddShop(ShopViewModel shopViewModel)
         {
-            if (ShopViewModel != null)
+            if (shopViewModel != null)
             {
-                Shop s = new Shop
+                var s = new Shop
                 {
                     DateCreated = DateTime.Now,
-                    Name = ShopViewModel.Name,
+                    Name = shopViewModel.Name,
                 };
                 await _context.AddAsync(s);
                 await _context.SaveChangesAsync();
-                return ShopViewModel;
+                return shopViewModel;
             }
             return null;
         }

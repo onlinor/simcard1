@@ -25,36 +25,20 @@ namespace SimCard.APP.Repository
             _unitOfWork = unitOfWork;
         }
 
-        /*        public async Task<bool> AddProduct(ProductViewModel productViewModel)
-               {
-                   if (await IsProductExists(productViewModel.Ma, productViewModel))
-                   {
-                       Product p = await _context.Products.FirstAsync(x => x.Ma.ToLower() == productViewModel.Ma.ToLower());
-                       p.Soluong = p.Soluong + productViewModel.Soluong;
-                       _context.Products.Update(p);
-                   }
-                   else
-                   {
-                       Product product = Mapper.Map<Product>(productViewModel);
-                       await _context.Products.AddAsync(product);
-                   }
-                   return await _unitOfWork.SaveChangeAsync();
-               } */
-
         public async Task<bool> AddProducts(List<ProductViewModel> productViewModels)
         {
-            foreach (ProductViewModel item in productViewModels)
+            foreach (var item in productViewModels)
             {
                 if (await IsProductExists(item.Ma))
                 {
-                    Product p = await _context.Products.FirstAsync(x => (x.Ma.ToLower() == item.Ma.ToLower()) && (x.ShopId.Value == item.ShopId.Value));
-                    p.Soluong = p.Soluong + item.Soluong;
+                    var p = await _context.Products.FirstAsync(x => (x.Ma.ToLower() == item.Ma.ToLower()) && (x.ShopId.Value == item.ShopId.Value));
+                    p.Soluong += item.Soluong;
                     p.DateModified = DateTime.Now;
                     _context.Products.Update(p);
                 }
                 else
                 {
-                    Product product = new Product
+                    var product = new Product
                     {
                         DateCreated = DateTime.Now,
                         Ten = item.Ten,
@@ -88,7 +72,7 @@ namespace SimCard.APP.Repository
 
         public async Task<bool> Remove(int id)
         {
-            Product product = await _context.Products.FindAsync(id);
+            var product = await _context.Products.FindAsync(id);
             if (product != null)
             {
                 _context.Products.Remove(product);
@@ -104,7 +88,7 @@ namespace SimCard.APP.Repository
 
         public async Task<bool> UpdateProduct(ProductViewModel productViewModel)
         {
-            Product product = await _context.Products.FindAsync(productViewModel.Id);
+            var product = await _context.Products.FindAsync(productViewModel.Id);
             if (product != null)
             {
                 Mapper.Map(productViewModel, product);
@@ -113,19 +97,5 @@ namespace SimCard.APP.Repository
             }
             return false;
         }
-
-        /* public async Task<List<ExpandoObject>> GetAllProductsGroupByType()
-        {
-            List<ExpandoObject> result = new List<ExpandoObject>();
-            List<IGrouping<string, ImportReceipt>> products = await _context.Products.GroupBy(p => p.ProductType).ToListAsync();
-            foreach (IGrouping<string, ImportReceipt> item in products)
-            {
-                dynamic keyVal = new ExpandoObject();
-                keyVal.Group = item.Key;
-                keyVal.Items = Mapper.Map<List<ProductViewModel>>(item);
-                result.Add(keyVal);
-            }
-            return result;
-        } */
     }
 }

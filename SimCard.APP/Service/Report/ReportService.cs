@@ -158,9 +158,9 @@ namespace SimCard.APP.Service
 
         private async Task<List<ExpandoObject>> Report_ChiTietChiPhiHoatDongKinhDoanh(ReportFilterViewModel filter)
         {
-            List<ExpandoObject> result = new List<ExpandoObject>();
-            DateTime fromDate = filter.From ?? DateTime.Now.AddDays(-7);
-            DateTime toDate = filter.To ?? DateTime.Now;
+            var result = new List<ExpandoObject>();
+            var fromDate = filter.From ?? DateTime.Now.AddDays(-7);
+            var toDate = filter.To ?? DateTime.Now;
 
             var cashBooks = _cashbookRepository.Query(er => true);
             if (filter.Shop != 0)
@@ -186,9 +186,9 @@ namespace SimCard.APP.Service
 
         private async Task<List<ExpandoObject>> Report_ChiTietThuChiKhac(ReportFilterViewModel filter)
         {
-            List<ExpandoObject> result = new List<ExpandoObject>();
-            DateTime fromDate = filter.From ?? DateTime.Now.AddDays(-7);
-            DateTime toDate = filter.To ?? DateTime.Now;
+            var result = new List<ExpandoObject>();
+            var fromDate = filter.From ?? DateTime.Now.AddDays(-7);
+            var toDate = filter.To ?? DateTime.Now;
 
             var exportReceipts = await _exportReceiptRepository.Query(er => er.DateCreated >= fromDate && er.DateCreated <= toDate).ToListAsync();
             var importReceipts = await _importReceiptRepository.Query(er => er.DateCreated >= fromDate && er.DateCreated <= toDate).ToListAsync();
@@ -220,12 +220,12 @@ namespace SimCard.APP.Service
 
         private async Task<List<ExpandoObject>> Report_ChiTietXuatHangVaLoiNhuan(ReportFilterViewModel filter)
         {
-            List<ExpandoObject> result = new List<ExpandoObject>();
-            DateTime fromDate = filter.From ?? DateTime.Now.AddDays(-7);
-            DateTime toDate = filter.To ?? DateTime.Now;
+            var result = new List<ExpandoObject>();
+            var fromDate = filter.From ?? DateTime.Now.AddDays(-7);
+            var toDate = filter.To ?? DateTime.Now;
 
-            IQueryable<Product> productsQuery = _productRepository.Query(p => p.SupplierId == null);
-            IQueryable<ExportReceipt> exportReceiptsQuery = _exportReceiptRepository.Query(er => er.DateCreated >= fromDate && er.DateCreated <= toDate);
+            var productsQuery = _productRepository.Query(p => p.SupplierId == null);
+            var exportReceiptsQuery = _exportReceiptRepository.Query(er => er.DateCreated >= fromDate && er.DateCreated <= toDate);
 
             if (filter.Shop != 0) // Chi nhánh
             {
@@ -270,9 +270,9 @@ namespace SimCard.APP.Service
 
         private async Task<List<ExpandoObject>> Report_CongNoKhachHangToanCongTy(ReportFilterViewModel filter)
         {
-            List<ExpandoObject> result = new List<ExpandoObject>();
-            DateTime fromDate = filter.From ?? DateTime.Now.AddDays(-7);
-            DateTime toDate = filter.To ?? DateTime.Now;
+            var result = new List<ExpandoObject>();
+            var fromDate = filter.From ?? DateTime.Now.AddDays(-7);
+            var toDate = filter.To ?? DateTime.Now;
 
             var custopmers = await _customerRepository.GetAllCustomers();
             foreach (var customer in custopmers)
@@ -293,8 +293,8 @@ namespace SimCard.APP.Service
 
         private async Task<List<ExpandoObject>> Report_HangTonKho(ReportFilterViewModel filter)
         {
-            List<ExpandoObject> result = new List<ExpandoObject>();
-            List<Product> products = await _productRepository.Query(p => p.ShopId == 1).Distinct().ToListAsync();
+            var result = new List<ExpandoObject>();
+            var products = await _productRepository.Query(p => p.ShopId == 1).Distinct().ToListAsync();
             foreach (Product product in products)
             {
                 dynamic line = new ExpandoObject();
@@ -315,9 +315,9 @@ namespace SimCard.APP.Service
 
         private async Task<List<ExpandoObject>> Report_KetQuaKinhDoanh(ReportFilterViewModel filter)
         {
-            List<ExpandoObject> result = new List<ExpandoObject>();
-            DateTime fromDate = filter.From ?? DateTime.Now.AddDays(-7);
-            DateTime toDate = filter.To ?? DateTime.Now;
+            var result = new List<ExpandoObject>();
+            var fromDate = filter.From ?? DateTime.Now.AddDays(-7);
+            var toDate = filter.To ?? DateTime.Now;
 
             var shops = _shopRepository.Query(s => true);
 
@@ -349,7 +349,7 @@ namespace SimCard.APP.Service
 
         private async Task<List<ExpandoObject>> Report_NhapHangTheoMatHang(ReportFilterViewModel filter)
         {
-            List<ExpandoObject> result = new List<ExpandoObject>();
+            var result = new List<ExpandoObject>();
             var fromDate = filter.From ?? DateTime.Now.AddDays(-7);
             var toDate = filter.To ?? DateTime.Now;
 
@@ -390,7 +390,7 @@ namespace SimCard.APP.Service
 
         private async Task<List<ExpandoObject>> Report_NhapHangTheoNhaCungCap(ReportFilterViewModel filter)
         {
-            List<ExpandoObject> result = new List<ExpandoObject>();
+            var result = new List<ExpandoObject>();
             var fromDate = filter.From ?? DateTime.Now.AddDays(-7);
             var toDate = filter.To ?? DateTime.Now;
 
@@ -435,7 +435,7 @@ namespace SimCard.APP.Service
 
         private async Task<List<ExpandoObject>> Report_TongHopChiPhiHoatDongKinhDoanh(ReportFilterViewModel filter)
         {
-            List<ExpandoObject> result = new List<ExpandoObject>();
+            var result = new List<ExpandoObject>();
             DateTime fromDate = filter.From ?? DateTime.Now.AddDays(-7);
             DateTime toDate = filter.To ?? DateTime.Now;
 
@@ -463,9 +463,9 @@ namespace SimCard.APP.Service
 
         private async Task<List<ExpandoObject>> Report_TongHopCongNoKhachHangToanTungCN(ReportFilterViewModel filter)
         {
-            List<ExpandoObject> result = new List<ExpandoObject>();
-            DateTime fromDate = filter.From ?? DateTime.Now.AddDays(-7);
-            DateTime toDate = filter.To ?? DateTime.Now;
+            var result = new List<ExpandoObject>();
+            var fromDate = filter.From ?? DateTime.Now.AddDays(-7);
+            var toDate = filter.To ?? DateTime.Now;
 
             var custopmers = await _customerRepository.GetAllCustomers();
             foreach (var customer in custopmers)
@@ -486,9 +486,9 @@ namespace SimCard.APP.Service
 
         private async Task<List<ExpandoObject>> Report_TongHopGiaoDichVaSoDuTKNHToanCongTy(ReportFilterViewModel filter)
         {
-            List<ExpandoObject> result = new List<ExpandoObject>();
-            DateTime fromDate = filter.From ?? DateTime.Now.AddDays(-7);
-            DateTime toDate = filter.To ?? DateTime.Now;
+            var result = new List<ExpandoObject>();
+            var fromDate = filter.From ?? DateTime.Now.AddDays(-7);
+            var toDate = filter.To ?? DateTime.Now;
 
             var cashbooks = await _cashbookRepository.Query(c => c.DateCreated >= fromDate && c.DateCreated <= toDate).ToListAsync();
             foreach (var cashbook in cashbooks)
@@ -508,9 +508,9 @@ namespace SimCard.APP.Service
 
         private async Task<List<ExpandoObject>> Report_TongHopThuChiKhac(ReportFilterViewModel filter)
         {
-            List<ExpandoObject> result = new List<ExpandoObject>();
-            DateTime fromDate = filter.From ?? DateTime.Now.AddDays(-7);
-            DateTime toDate = filter.To ?? DateTime.Now;
+            var result = new List<ExpandoObject>();
+            var fromDate = filter.From ?? DateTime.Now.AddDays(-7);
+            var toDate = filter.To ?? DateTime.Now;
 
             var shops = await _shopRepository.Query(s => true).Include(s => s.Cashbooks).ToListAsync();
 
@@ -533,9 +533,9 @@ namespace SimCard.APP.Service
 
         private async Task<List<ExpandoObject>> Report_TongHopXuatHangLoiNhuanCongNoTheoKhachHang(ReportFilterViewModel filter)
         {
-            List<ExpandoObject> result = new List<ExpandoObject>();
-            DateTime fromDate = filter.From ?? DateTime.Now.AddDays(-7);
-            DateTime toDate = filter.To ?? DateTime.Now;
+            var result = new List<ExpandoObject>();
+            var fromDate = filter.From ?? DateTime.Now.AddDays(-7);
+            var toDate = filter.To ?? DateTime.Now;
 
             var custopmers = await _customerRepository.GetAllCustomers();
             foreach (var customer in custopmers)
@@ -556,9 +556,9 @@ namespace SimCard.APP.Service
 
         private async Task<List<ExpandoObject>> Report_SoTienMatToanCongTy(ReportFilterViewModel filter)
         {
-            List<ExpandoObject> result = new List<ExpandoObject>();
-            DateTime fromDate = filter.From ?? DateTime.Now.AddDays(-7);
-            DateTime toDate = filter.To ?? DateTime.Now;
+            var result = new List<ExpandoObject>();
+            var fromDate = filter.From ?? DateTime.Now.AddDays(-7);
+            var toDate = filter.To ?? DateTime.Now;
 
             var shops = _shopRepository.Query(s => true);
             if (filter.Shop > 0)
@@ -586,14 +586,13 @@ namespace SimCard.APP.Service
 
         private async Task<List<ExpandoObject>> Report_TongHopXuatHangVaLoiNhuanTheoMatHang(ReportFilterViewModel filter)
         {
+            var result = new List<ExpandoObject>();
+            var fromDate = filter.From ?? DateTime.Now.AddDays(-7);
+            var toDate = filter.To ?? DateTime.Now;
 
-            List<ExpandoObject> result = new List<ExpandoObject>();
-
-            DateTime fromDate = filter.From ?? DateTime.Now.AddDays(-7);
-            DateTime toDate = filter.To ?? DateTime.Now;
-            IQueryable<Product> productsQuery = _productRepository.Query(p => p.SupplierId == null);
-            IQueryable<ImportReceipt> importReceiptsQuery = _importReceiptRepository.Query(ir => ir.DateCreated >= fromDate && ir.DateCreated <= toDate);
-            IQueryable<ExportReceipt> exportReceiptsQuery = _exportReceiptRepository.Query(er => er.DateCreated >= fromDate && er.DateCreated <= toDate);
+            var productsQuery = _productRepository.Query(p => p.SupplierId == null);
+            var importReceiptsQuery = _importReceiptRepository.Query(ir => ir.DateCreated >= fromDate && ir.DateCreated <= toDate);
+            var exportReceiptsQuery = _exportReceiptRepository.Query(er => er.DateCreated >= fromDate && er.DateCreated <= toDate);
 
             if (filter.Shop != 0) // Chi nhánh
             {
@@ -605,10 +604,9 @@ namespace SimCard.APP.Service
             {
                 productsQuery = productsQuery.Where(p => p.Id == filter.Product);
             }
-            List<Product> products = await productsQuery.ToListAsync();
-            IQueryable<ImportReceiptProducts> importProductList = importReceiptsQuery.Include(ir => ir.Products)
-                .OrderByDescending(ir => ir.DateCreated).SelectMany(x => x.Products);
-            IQueryable<ExportReceiptProducts> exportProductList = exportReceiptsQuery.Include(er => er.ExportReceiptProducts).OrderByDescending(er => er.DateCreated)
+            var products = await productsQuery.ToListAsync();
+            var importProductList = importReceiptsQuery.Include(ir => ir.Products).OrderByDescending(ir => ir.DateCreated).SelectMany(x => x.Products);
+            var exportProductList = exportReceiptsQuery.Include(er => er.ExportReceiptProducts).OrderByDescending(er => er.DateCreated)
                 .SelectMany(x => x.ExportReceiptProducts).Include(l => l.ExportReceipt).Include(l => l.Product);
 
             foreach (Product product in products)
@@ -629,14 +627,13 @@ namespace SimCard.APP.Service
 
         private async Task<List<ExpandoObject>> Report_XuatNhapTonTongHop(ReportFilterViewModel filter)
         {
-            List<ExpandoObject> result = new List<ExpandoObject>();
+            var result = new List<ExpandoObject>();
+            var fromDate = filter.From ?? DateTime.Now.AddDays(-7);
+            var toDate = filter.To ?? DateTime.Now;
 
-            DateTime fromDate = filter.From ?? DateTime.Now.AddDays(-7);
-            DateTime toDate = filter.To ?? DateTime.Now;
-
-            IQueryable<Product> productsQuery = _productRepository.Query(p => p.SupplierId == null);
-            IQueryable<ImportReceipt> importReceiptsQuery = _importReceiptRepository.Query(ir => ir.DateCreated >= fromDate && ir.DateCreated <= toDate);
-            IQueryable<ExportReceipt> exportReceiptsQuery = _exportReceiptRepository.Query(er => er.DateCreated >= fromDate && er.DateCreated <= toDate);
+            var productsQuery = _productRepository.Query(p => p.SupplierId == null);
+            var importReceiptsQuery = _importReceiptRepository.Query(ir => ir.DateCreated >= fromDate && ir.DateCreated <= toDate);
+            var exportReceiptsQuery = _exportReceiptRepository.Query(er => er.DateCreated >= fromDate && er.DateCreated <= toDate);
 
             if (filter.Shop != 0) // Chi nhánh
             {
@@ -650,37 +647,35 @@ namespace SimCard.APP.Service
                 productsQuery = productsQuery.Where(p => p.Id == filter.Product);
             }
 
-            List<Product> products = await productsQuery.ToListAsync();
-            IQueryable<ImportReceiptProducts> importProductList = importReceiptsQuery.Include(ir => ir.Products)
-                .OrderByDescending(ir => ir.DateCreated).SelectMany(x => x.Products);
-            IQueryable<ExportReceiptProducts> exportProductList = exportReceiptsQuery
-                .Include(er => er.ExportReceiptProducts).OrderByDescending(er => er.DateCreated).SelectMany(x => x.ExportReceiptProducts);
+            var products = await productsQuery.ToListAsync();
+            var importProductList = importReceiptsQuery.Include(ir => ir.Products).OrderByDescending(ir => ir.DateCreated).SelectMany(x => x.Products);
+            var exportProductList = exportReceiptsQuery.Include(er => er.ExportReceiptProducts).OrderByDescending(er => er.DateCreated).SelectMany(x => x.ExportReceiptProducts);
 
             foreach (Product product in products)
             {
                 dynamic line = new ExpandoObject();
 
                 // Lần nhập cuối cùng của ngày trước kỳ báo cáo 
-                ImportReceipt lastImport = await _importReceiptRepository.Query(ir => ir.DateCreated <= fromDate.AddDays(-1))
+                var lastImport = await _importReceiptRepository.Query(ir => ir.DateCreated <= fromDate.AddDays(-1))
                     .Include(ir => ir.Products).OrderByDescending(ir => ir.DateCreated).FirstOrDefaultAsync();
                 // Lần xuât cuối cùng của ngày trước kỳ báo cáo 
-                ExportReceipt lastExport = await _exportReceiptRepository.Query(ir => ir.DateCreated <= fromDate.AddDays(-1))
+                var lastExport = await _exportReceiptRepository.Query(ir => ir.DateCreated <= fromDate.AddDays(-1))
                     .Include(ir => ir.ExportReceiptProducts).OrderByDescending(ir => ir.DateCreated).FirstOrDefaultAsync();
 
                 // Ngày giờ nhập > Ngày giờ xuất => lấy số lượng sau khi nhập
-                int quantityLastImport = lastImport != null ? lastImport.Products.Where(p => p.ProductId == product.Id).FirstOrDefault().NewWarehouseQuantity : 0;
-                int quantityLastExport = lastExport != null ? lastExport.ExportReceiptProducts.Where(p => p.ProductId == product.Id).FirstOrDefault().NewWarehouseQuantity : 0;
+                var quantityLastImport = lastImport != null ? lastImport.Products.Where(p => p.ProductId == product.Id).FirstOrDefault().NewWarehouseQuantity : 0;
+                var quantityLastExport = lastExport != null ? lastExport.ExportReceiptProducts.Where(p => p.ProductId == product.Id).FirstOrDefault().NewWarehouseQuantity : 0;
 
-                int quantityBeginPeriod = lastImport.DateCreated > lastExport.DateCreated ? quantityLastImport : quantityLastExport;
+                var quantityBeginPeriod = lastImport.DateCreated > lastExport.DateCreated ? quantityLastImport : quantityLastExport;
 
                 // Lần nhập cuối cùng của ngày cuối kỳ báo cáo 
-                ImportReceipt latestImport = await _importReceiptRepository.Query(ir => ir.DateCreated <= toDate)
+                var latestImport = await _importReceiptRepository.Query(ir => ir.DateCreated <= toDate)
                     .Include(ir => ir.Products).OrderByDescending(ir => ir.DateCreated).FirstOrDefaultAsync();
                 // Lần xuât cuối cùng của ngày cuối kỳ báo cáo 
-                ExportReceipt latestExport = await _exportReceiptRepository.Query(ir => ir.DateCreated <= toDate)
+                var latestExport = await _exportReceiptRepository.Query(ir => ir.DateCreated <= toDate)
                     .Include(ir => ir.ExportReceiptProducts).OrderByDescending(ir => ir.DateCreated).FirstOrDefaultAsync();
                 // Ngày giờ nhập > Ngày giờ xuất => lấy số lượng sau khi nhập 
-                int quantityEndPeriod = latestImport.DateCreated > latestExport.DateCreated ?
+                var quantityEndPeriod = latestImport.DateCreated > latestExport.DateCreated ?
                     latestImport.Products.Where(p => p.ProductId == product.Id).First().NewWarehouseQuantity :
                     latestExport.ExportReceiptProducts.Where(p => p.ProductId == product.Id).First().NewWarehouseQuantity;
 
