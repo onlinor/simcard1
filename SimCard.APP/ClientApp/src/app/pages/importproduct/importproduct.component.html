@@ -182,8 +182,89 @@
         </div>
          <div class="ui-g-4">  
             <h3 style="text-align: center">Chọn Sản Phẩm</h3>
-                <p-tabView (onChange)="handleChange($event)">
-                    <p-tabPanel header="Sim Số">
+            <p-tabView (onChange)="handleChange($event)">
+                <p-tabPanel header="Sim Số">
+                    <p-table #dt [value]="tabviewProductClones" selectionMode="single" [paginator]="true" [rows]="10" (onEditComplete)="rowEditCompleted($event)">
+                        <ng-template pTemplate="header" let-columns>
+                            <tr>
+                                <th>Tên</th>
+                                <th>Tồn Kho</th>
+                                <th>Số Lượng</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-product>
+                            <tr>
+                                <td>{{product.ten}}</td>
+                                <td>{{product.soluong}}</td>
+                                <td pEditableColumn [pEditableColumn]="product">
+                                    <p-cellEditor>
+                                        <ng-template pTemplate="input">
+                                            <input pInputText type="number" [(ngModel)]="product.soLuongNhap" />
+                                        </ng-template>
+                                        <ng-template pTemplate="output">
+                                            {{ product.soLuongNhap }}
+                                        </ng-template>
+                                    </p-cellEditor>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </p-tabPanel>
+                <p-tabPanel header="Thẻ Cào">
+                    <p-table #dt [value]="tabviewProductClones" selectionMode="single" [paginator]="true" [rows]="10" (onEditComplete)="rowEditCompleted($event)">
+                        <ng-template pTemplate="header" let-columns>
+                            <tr>
+                                <th>Tên</th>
+                                <th>Tồn Kho</th>
+                                <th>Số Lượng</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-product>
+                            <tr>
+                                <td>{{product.ten}}</td>
+                                <td>{{product.soluong}}</td>
+                                <td pEditableColumn [pEditableColumn]="product">
+                                    <p-cellEditor>
+                                        <ng-template pTemplate="input">
+                                            <input pInputText type="number" [(ngModel)]="product.soLuongNhap" />
+                                        </ng-template>
+                                        <ng-template pTemplate="output">
+                                            {{ product.soLuongNhap }}
+                                        </ng-template>
+                                    </p-cellEditor>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </p-tabPanel>
+                <p-tabPanel header="Điện Thoại">
+                    <p-table #dt [value]="tabviewProductClones" selectionMode="single" [paginator]="true" [rows]="10" (onEditComplete)="rowEditCompleted($event)">
+                        <ng-template pTemplate="header" let-columns>
+                            <tr>
+                                <th>Tên</th>
+                                <th>Tồn Kho</th>
+                                <th>Số Lượng</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-product>
+                            <tr>
+                                <td>{{product.ten}}</td>
+                                <td>{{product.soluong}}</td>
+                                <td pEditableColumn [pEditableColumn]="product">
+                                    <p-cellEditor>
+                                        <ng-template pTemplate="input">
+                                            <input pInputText type="number" [(ngModel)]="product.soLuongNhap" />
+                                        </ng-template>
+                                        <ng-template pTemplate="output">
+                                            {{ product.soLuongNhap }}
+                                        </ng-template>
+                                    </p-cellEditor>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </p-tabPanel>
+                <p-tabPanel header="Phụ Kiện">
                         <p-table #dt [value]="tabviewProductClones" selectionMode="single" [paginator]="true" [rows]="10" (onEditComplete)="rowEditCompleted($event)">
                             <ng-template pTemplate="header" let-columns>
                                 <tr>
@@ -210,34 +291,7 @@
                             </ng-template>
                         </p-table>
                     </p-tabPanel>
-                    <p-tabPanel header="Thẻ Cào">
-                        <p-table #dt [value]="tabviewProductClones" selectionMode="single" [paginator]="true" [rows]="10" (onEditComplete)="rowEditCompleted($event)">
-                            <ng-template pTemplate="header" let-columns>
-                                <tr>
-                                    <th>Tên</th>
-                                    <th>Tồn Kho</th>
-                                    <th>Số Lượng</th>
-                                </tr>
-                            </ng-template>
-                            <ng-template pTemplate="body" let-product>
-                                <tr>
-                                    <td>{{product.ten}}</td>
-                                    <td>{{product.soluong}}</td>
-                                    <td pEditableColumn [pEditableColumn]="product">
-                                        <p-cellEditor>
-                                            <ng-template pTemplate="input">
-                                                <input pInputText type="number" [(ngModel)]="product.soLuongNhap" />
-                                            </ng-template>
-                                            <ng-template pTemplate="output">
-                                                {{ product.soLuongNhap }}
-                                            </ng-template>
-                                        </p-cellEditor>
-                                    </td>
-                                </tr>
-                            </ng-template>
-                        </p-table>
-                    </p-tabPanel>
-                </p-tabView>  
+            </p-tabView>  
         </div>
     </div>
 </div>

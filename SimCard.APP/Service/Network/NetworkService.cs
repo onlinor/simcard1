@@ -85,5 +85,10 @@ namespace SimCard.APP.Service
 
             return await _unitOfWork.SaveChangeAsync();
         }
+
+        public async Task<NetworkViewModel> GetByCode(string code)
+        {
+            return Mapper.Map<NetworkViewModel>(await _repository.Query(x => x.Ma.ToLower() == code).FirstOrDefaultAsync());
+        }
     }
 }

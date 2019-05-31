@@ -12,6 +12,8 @@ namespace SimCard.APP.Service
 
         Task<NetworkViewModel> GetById(int id);
 
+        Task<NetworkViewModel> GetByCode(string code);
+
         Task<bool> Create(NetworkViewModel networkViewModels);
 
         Task<bool> Update(NetworkViewModel networkViewModel);

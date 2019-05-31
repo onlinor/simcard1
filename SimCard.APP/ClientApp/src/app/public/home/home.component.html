@@ -10,6 +10,11 @@
                 <h4 class="display-4">Kinh Doanh</h4>
                 <ul class="sub-menu">
                     <li [routerLinkActive]='["link-active"]'>
+                        <a class="item-nav" [routerLink]='["/productexchange"]'>
+                            <i class="fa fa-upload" aria-hidden="true"></i>Sản Phẩm Nhập
+                        </a>
+                    </li>
+                    <li [routerLinkActive]='["link-active"]'>
                         <a class="item-nav" [routerLink]='["/importproduct"]'>
                             <i class="fa fa-download" aria-hidden="true"></i>Nhập Hàng
                         </a>
@@ -20,7 +25,7 @@
                         </a>
                     </li>
                     <li [routerLinkActive]='["link-active"]'>
-                        <a class="item-nav" [routerLink]='["/"]'>
+                        <a class="item-nav" [routerLink]='["/network"]'>
                             <i class="fa fa-percent" aria-hidden="true"></i>Chiết Khấu
                         </a>
                     </li>

@@ -54,7 +54,8 @@ export class FormphieuchiComponent implements OnInit, OnDestroy {
 		noiDungPhieu: 'Nhập hàng từ nhà cung cấp',
 		soTienChi: 0,
 		soTienThu: 0,
-		congDon: 0
+		congDon: 0,
+		shopId: 0
 	};
 
 	isATM: boolean = false;

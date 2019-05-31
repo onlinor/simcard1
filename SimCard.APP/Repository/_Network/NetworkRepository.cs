@@ -17,39 +17,9 @@ namespace SimCard.APP.Repository
             _context = context;
         }
 
-        public async Task<Network> AddNetwork(Network Nw)
+        public async Task<Network> GetByCodeAsync(string code)
         {
-            if (await IsNetworkExists(Nw))
-            {
-                return Nw;
-            }
-            await _context.Networks.AddAsync(Nw);
-
-            return Nw;
-        }
-        public async Task<IEnumerable<Network>> GetNetworks()
-        {
-            return await _context.Networks.ToListAsync();
-        }
-
-        public async Task<bool> IsNetworkExists(Network Nw)
-        {
-            if (await _context.Networks.AnyAsync(x => x.Id == Nw.Id))
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        public void RemoveNetwork(Network Network)
-        {
-            _context.Networks.Remove(Network);
-        }
-
-        public void UpdateNetwork(Network pr)
-        {
-            throw new System.NotImplementedException();
+            return await _context.Networks.FirstAsync(x => x.Ma == code);
         }
     }
 }

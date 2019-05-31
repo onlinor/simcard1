@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormphieuthuComponent } from '../../public/formphieuthu/formphieuthu.component';
-import { Product, ExportReceipt, Shop } from '../../core/models';
+import { Product, ExportReceipt, Shop, Network } from '../../core/models';
 import {
   PhieuxuatService,
   ProductService,
-  ShopService
+  ShopService,
+  NetworkService
 } from '../../core/services';
 
 @Component({
@@ -38,6 +39,8 @@ export class ExportProductComponent implements OnInit {
 
   exportReceipt: ExportReceipt = new ExportReceipt();
 
+  networks: Array<Network> = [];
+
   totalMoney = 0;
 
   vatMoney = 0;
@@ -57,12 +60,14 @@ export class ExportProductComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private phieuxuatSerivce: PhieuxuatService,
-    private shopService: ShopService
+    private shopService: ShopService,
+    private networkService: NetworkService
   ) {}
 
   ngOnInit() {
     this.getAllProducts();
     this.getAllShops();
+    this.getAllNetworks();
   }
 
   onChangePaybank() {
@@ -170,6 +175,12 @@ export class ExportProductComponent implements OnInit {
   getAllShops() {
     this.shopService.getAll().subscribe(response => {
       this.shopList = response;
+    });
+  }
+
+  getAllNetworks() {
+    this.networkService.getAll().subscribe(response => {
+      this.networks = response;
     });
   }
 

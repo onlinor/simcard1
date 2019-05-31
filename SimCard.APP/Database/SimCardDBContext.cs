@@ -129,6 +129,18 @@ namespace SimCard.APP.Database
                     Name = "Vietnam Mobile"
                 }
             );
+            modelBuilder.Entity<NetworkRange>().HasData(
+                new NetworkRange
+                {
+                    Id = 1,
+                    Range_1 = 100,
+                    Range_2 = 90,
+                    Range_3 = 80,
+                    Range_4 = 70,
+                    Range_5 = 60,
+                    Range_6 = 50               
+                }
+            );
         }
     }
 }

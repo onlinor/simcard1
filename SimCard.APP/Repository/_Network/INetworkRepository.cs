@@ -7,10 +7,6 @@ namespace SimCard.APP.Repository
 {
     public interface INetworkRepository
     {
-        Task<IEnumerable<Network>> GetNetworks();
-        Task<Network> AddNetwork(Network Nw);
-        void UpdateNetwork(Network Nw);
-        void RemoveNetwork(Network Nw);
-        //Task<bool> IsProductExists(Product pr);     
+        Task<Network> GetByCodeAsync(string code);   
     }
 }

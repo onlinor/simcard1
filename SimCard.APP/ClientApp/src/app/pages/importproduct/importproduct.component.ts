@@ -72,8 +72,7 @@ export class ImportProductComponent implements OnInit, OnDestroy {
     private fileService: FileService,
     private productService: ProductService,
     private phieuhangService: PhieunhapService,
-    private supplierService: SupplierService,
-    private debtbookService: DebtbookService
+    private supplierService: SupplierService
   ) {}
 
   ngOnInit() {
@@ -196,6 +195,7 @@ export class ImportProductComponent implements OnInit, OnDestroy {
       element.supplierId = event.value.id;
     });
     this.importReceipt.supplierId = event.value.id;
+    this.myFormChiChild.dataPhieuChi.shopId = event.value.id;
   }
 
   rowEditCompleted(event: any) {
@@ -504,6 +504,18 @@ export class ImportProductComponent implements OnInit, OnDestroy {
       case 1: {
         this.tabviewProductClones = this.tabviewProducts.filter(
           x => x.loai === 'TC'
+        );
+        break;
+      }
+      case 2: {
+        this.tabviewProductClones = this.tabviewProducts.filter(
+          x => x.loai === 'DT'
+        );
+        break;
+      }
+      case 3: {
+        this.tabviewProductClones = this.tabviewProducts.filter(
+          x => x.loai === 'PK'
         );
         break;
       }

@@ -33,8 +33,7 @@ namespace SimCard.APP.Service
                 Range_3 = networkRangeViewModel.Range_3,
                 Range_4 = networkRangeViewModel.Range_4,
                 Range_5 = networkRangeViewModel.Range_5,
-                Range_6 = networkRangeViewModel.Range_6,
-                Range_7 = networkRangeViewModel.Range_7
+                Range_6 = networkRangeViewModel.Range_6
             };
 
             await _repository.Create(networkRange);
@@ -66,7 +65,6 @@ namespace SimCard.APP.Service
             NetworkRangeToUpdate.Range_4 = networkRangeViewModel.Range_4;
             NetworkRangeToUpdate.Range_5 = networkRangeViewModel.Range_5;
             NetworkRangeToUpdate.Range_6 = networkRangeViewModel.Range_6;
-            NetworkRangeToUpdate.Range_7 = networkRangeViewModel.Range_7;
 
             await _repository.Update(NetworkRangeToUpdate);
 

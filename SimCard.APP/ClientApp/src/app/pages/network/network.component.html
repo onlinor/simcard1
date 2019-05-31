@@ -163,77 +163,8 @@
         </tr>
     </ng-template>
     <ng-template pTemplate="summary" let-rowData>
-        <div style="text-align:left">
-          <button type="button" pButton icon="fa fa-plus" (click)="showDialogRange()" label="Thêm"></button>
-        </div>
     </ng-template>    
   </p-table>
-  
-  <p-dialog header="Thêm Khoảng Giá" [(visible)]="displayAddDialogRange" [responsive]="true" showEffect="fade" [modal]="true"  [style]="{width: '300px'}">
-    <div class="ui-g ui-fluid" *ngIf="networkRange">
-        <div class="ui-g-12">
-            <div class="ui-g-4">
-                <label for="range_1">Khoảng Giá 1</label>
-            </div>
-            <div class="ui-g-8">
-                <input pInputText type="number" id="range_1" [(ngModel)]="networkRange.range_1" />
-            </div>
-        </div>
-        <div class="ui-g-12">
-            <div class="ui-g-4">
-                <label for="range_2">Khoảng Giá 2</label>
-            </div>
-            <div class="ui-g-8">
-                <input pInputText type="number" id="range_2" [(ngModel)]="networkRange.range_2" />
-            </div>
-        </div>
-        <div class="ui-g-12">
-            <div class="ui-g-4">
-                <label for="range_3">Khoảng Giá 3</label>
-            </div>
-            <div class="ui-g-8">
-                <input pInputText type="number" id="range_3" [(ngModel)]="networkRange.range_3" />
-            </div>
-        </div>
-        <div class="ui-g-12">
-            <div class="ui-g-4">
-                <label for="range_4">Khoảng Giá 4</label>
-            </div>
-            <div class="ui-g-8">
-                <input pInputText type="number" id="range_4" [(ngModel)]="networkRange.range_4" />
-            </div>
-        </div>
-        <div class="ui-g-12">
-            <div class="ui-g-4">
-                <label for="range_5">Khoảng Giá 5</label>
-            </div>
-            <div class="ui-g-8">
-                <input pInputText type="number" id="range_5" [(ngModel)]="networkRange.range_5" />
-            </div>
-        </div>
-        <div class="ui-g-12">
-            <div class="ui-g-4">
-                <label for="range_6">Khoảng Giá 6</label>
-            </div>
-            <div class="ui-g-8">
-                <input pInputText type="number" id="range_6" [(ngModel)]="networkRange.range_6" />
-            </div>
-        </div>
-        <div class="ui-g-12">
-            <div class="ui-g-4">
-                <label for="range_7">Khoảng Giá 7</label>
-            </div>
-            <div class="ui-g-8">
-                <input pInputText type="number" id="range_7" [(ngModel)]="networkRange.range_7" />
-            </div>
-        </div>
-    </div>
-    <p-footer>
-        <div class="ui-dialog-buttonpane ui-helper-clearfix">
-            <button type="button" pButton icon="fa fa-check" (click)="addNewRange()" label="Thêm"></button>
-        </div>
-    </p-footer>
-  </p-dialog>
   
   <p-dialog header="Sửa Khoảng Giá" [(visible)]="displayEditDialogRange" [responsive]="true" showEffect="fade" [modal]="true"  [style]="{width: '300px'}">
       <div class="ui-g ui-fluid" *ngIf="networkRange">
@@ -285,19 +216,10 @@
                     <input pInputText type="number" id="range_6" [(ngModel)]="networkRange.range_6" />
                 </div>
             </div>
-            <div class="ui-g-12">
-                <div class="ui-g-4">
-                    <label for="range_7">Khoảng Giá 7</label>
-                </div>
-                <div class="ui-g-8">
-                    <input pInputText type="number" id="range_7" [(ngModel)]="networkRange.range_7" />
-                </div>
-            </div>
       </div>
       <p-footer>
           <div class="ui-dialog-buttonpane ui-helper-clearfix">
-              <button type="button" pButton icon="fa fa-close" (click)="deleteRange()" label="Xóa"></button>
-              <button type="button" pButton icon="fa fa-check" (click)="edit()" label="Xong"></button>
+              <button type="button" pButton icon="fa fa-check" (click)="editRange()" label="Xong"></button>
           </div>
       </p-footer>
   </p-dialog>
