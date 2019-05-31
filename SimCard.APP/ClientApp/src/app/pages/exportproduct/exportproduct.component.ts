@@ -1,10 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Subscription } from 'rxjs/subscription';
 import { FormphieuthuComponent } from '../../public/formphieuthu/formphieuthu.component';
-import { Product, ExportReceipt, Shop } from '../../core/models';
+import { Product, ExportReceipt, Shop, Debtbook } from '../../core/models';
 import {
   PhieuxuatService,
   ProductService,
-  ShopService
+  ShopService,
+  CustomerService,
+  DebtbookService
 } from '../../core/services';
 
 @Component({
@@ -53,16 +56,35 @@ export class ExportProductComponent implements OnInit {
   isPaycashChecked = false;
 
   isShowDialogPhieuThu: Boolean = false;
+  customerList: any;
 
+  debtbookParams: Debtbook = new Debtbook();
+
+
+  subscription: Subscription;
+  
   constructor(
     private productService: ProductService,
     private phieuxuatSerivce: PhieuxuatService,
-    private shopService: ShopService
-  ) { }
+    private shopService: ShopService,
+    private customerService: CustomerService,
+    private debtbookService: DebtbookService
+  ) {}
 
   ngOnInit() {
     this.getAllProducts();
     this.getAllShops();
+    this.getAllCustomer();
+  }
+
+  getAllCustomer() {
+    this.subscription = this.customerService.getAllCustomer()
+		.subscribe(
+			response => {
+				this.customerList = response;
+			},
+			error => {}
+		);
   }
 
   onChangePaybank() {
@@ -164,6 +186,8 @@ export class ExportProductComponent implements OnInit {
     this.myFormThuChild.checkedCash();
     this.myFormThuChild.isNewCashBook = true;
     this.isShowDialogPhieuThu = true;
+    this.myFormThuChild.customerList = this.customerList;
+		this.myFormThuChild.fillDropdownCustomer();
   }
 
   // get all customers from db
@@ -172,12 +196,28 @@ export class ExportProductComponent implements OnInit {
       this.shopList = response;
     });
   }
+  
+  initialDebtbookData() {
+    this.debtbookParams.maKhachHang = this.myFormThuChild.dataPhieuThu.maKhachHang;
+    this.debtbookParams.tenKhachHang = this.exportReceipt.nguoiDaiDien;
+    this.debtbookParams.noiDungPhieu = this.exportReceipt.ghiChu;
+    this.debtbookParams.soPhieu = this.exportReceipt.ma;
+    this.debtbookParams.khachNo = 0;
+    this.debtbookParams.noKhach = this.exportReceipt.tongTien;
+    this.debtbookParams.congDon = 0;
+  }
+
+  addToDebtbook() {
+    this.initialDebtbookData();
+    this.myFormThuChild.callApiAddDebtbook(this.debtbookParams);
+  }
 
   save() {
     this.tableProducts.forEach(p => {
       p.shopId = this.exportReceipt.shopId;
       p.supplierId = 1;
     });
+    this.addToDebtbook();
     this.productService.save(this.tableProducts).subscribe(() => {
       this.savePhieuxuat();
       this.dataExportProductBinding();

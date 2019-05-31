@@ -59,7 +59,17 @@ export class FormphieuthuComponent implements OnInit, OnDestroy {
 	dataPhieuThuArray: any;
 	customerList: any;
 	countPT: number = 0;
-	debtbookData: any = [];
+	debtbookData: any;
+	debtbookParams: any = {
+		stt: 0,
+		tenKhachHang: '',
+		maKhachHang: '',
+		soPhieu:'',
+		noiDungPhieu: '',
+		noKhach: 0,
+		khachNo: 0,
+		congDon: 0
+	};
 
 	@Input("isShowDialogPhieuThu") isShowDialogPhieuThu: boolean;
 	@Input("isNewCashBook") isNewCashBook: boolean;
@@ -73,6 +83,7 @@ export class FormphieuthuComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnInit() {
+		this.getAllDebtbook();
 	}
 
 	onChangePaybank() {
@@ -139,34 +150,36 @@ export class FormphieuthuComponent implements OnInit, OnDestroy {
 		this.dataPhieuThu.maPhieu = maPhieu;
 	}
 
-	addDebtbook() {
-		var STT = 0;
+	getAllDebtbook() {
 		this.subscription = this.debtbookService.getAllDebtbook()
 			.subscribe(
 				response => {
 					this.debtbookData = response;
-					STT = this.debtbookData.length;
+					this.debtbookParams.stt = this.debtbookData.length;
 				},
 				error => {}
 			)
-		var debtbookData = {
-			STT: STT,
-			dateCreated: this.dataPhieuThu.ngayLap,
-			tenKhachHang: this.dataPhieuThu.tenKhachHang,
-			maKhachHang: this.dataPhieuThu.maKhachHang,
-			soPhieu: this.dataPhieuThu.maPhieu,
-			noiDungPhieu: this.dataPhieuThu.noiDungPhieu,
-			noKhach: this.dataPhieuThu.soTienThu,
-			khachNo: 0,
-			congDon: 0
-		}
+	}
 
-		this.subscription = this.debtbookService.addDebtbook(debtbookData)
+	callApiAddDebtbook(debtbookParams: any) {
+		this.subscription = this.debtbookService.addDebtbook(debtbookParams)
 			.subscribe (
 				response => {
-					console.log('success');
-				}, error => {}
+					console.log('success debt');
+				}, error => {
+					console.log('eorr', error);
+				}
 			)
+	}
+	
+	initialDebtbookData() {
+		this.debtbookParams.tenKhachHang= this.dataPhieuThu.tenKhachHang;
+		this.debtbookParams.maKhachHang= this.dataPhieuThu.maKhachHang;
+		this.debtbookParams.soPhieu= this.dataPhieuThu.maPhieu;
+		this.debtbookParams.noiDungPhieu= this.dataPhieuThu.noiDungPhieu;
+		this.debtbookParams.noKhach= this.dataPhieuThu.soTienThu;
+		this.debtbookParams.khachNo= 0;
+		this.debtbookParams.congDon= 0;
 	}
 
 	onSubmit() {
@@ -214,7 +227,8 @@ export class FormphieuthuComponent implements OnInit, OnDestroy {
 		var tenKH = this.dataPhieuThu.tenKhachHang;
 		var tenkhChecked = this.dsKhachHang.some((item) =>  item['value'] === tenKH);
 		if(tenkhChecked && this.dataPhieuThu.maPhanBo === 'NO') {
-			this.addDebtbook();
+			this.initialDebtbookData();
+			this.callApiAddDebtbook(this.debtbookParams);
 		}
 		this.resetForm();
 		this.isATM = false;
