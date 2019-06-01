@@ -6,7 +6,7 @@ namespace SimCard.APP.Models
     public class Debtbook : BaseEntity
     {
         public int STT { get; set; }
-
+        
         [StringLength(255)]
         public string TenKhachHang { get; set; }
 

@@ -52,5 +52,11 @@ namespace SimCard.APP.Controllers
 
             return Ok();
         }
+
+        [HttpGet("/api/network/{code}")]
+        public async Task<NetworkViewModel> GetByCode(string code)
+        {
+            return await _networkService.GetByCode(code);
+        }
     }
 }

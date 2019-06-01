@@ -45,32 +45,26 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
+    this.loading = true;
 
     // stop here if form is invalid
     if (this.loginForm.invalid) {
       return;
     }
 
-    this.loading = true;
-    this.authService
-      .login({
-        username: this.f.username.value,
-        password: this.f.password.value
-      })
-      .subscribe(
-        result => {
-          debugger;
-          if (result && result.token) {
-            localStorage.setItem('currentUser', JSON.stringify(result));
-            this.subscribeService.publish('UserLoggedIn', true);
-            this.router.navigate([this.returnUrl]);
-          }
-        },
-        error => {
-          this.error = error;
-          this.subscribeService.publish('UserLoggedIn', false);
-          this.loading = false;
-        }
-      );
+    this.authService.login({
+      username: this.f.username.value,
+      password: this.f.password.value
+    }).subscribe(result => {
+      if (result && result.token) {
+        localStorage.setItem('currentUser', JSON.stringify(result));
+        this.subscribeService.publish('UserLoggedIn', true);
+        this.router.navigate([this.returnUrl]);
+      }
+    }, error => {
+      this.error = error;
+      this.subscribeService.publish('UserLoggedIn', false);
+      this.loading = false;
+    });
   }
 }

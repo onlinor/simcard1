@@ -14,7 +14,7 @@ namespace SimCard.APP.Repository
 
         public CustomerRepository(SimCardDBContext context)
         {
-            this._context = context;
+            _context = context;
         }
         public async Task<IEnumerable<Customer>> GetAllCustomers()
         {
@@ -44,7 +44,7 @@ namespace SimCard.APP.Repository
 
         public async Task<Customer> UpdateCustomer(int id, Customer customer)
         {
-            Customer customerToUpdate = _context.Customers.Find(id);
+            var customerToUpdate = _context.Customers.Find(id);
 
             if (customerToUpdate != null)
             {
@@ -75,8 +75,8 @@ namespace SimCard.APP.Repository
 
         public async Task<int> GetLastIDCustomerRecord()
         {
-            int lastIDRecord = 0;
-            bool anyRecord = await _context.Customers.AnyAsync();
+            var lastIDRecord = 0;
+            var anyRecord = await _context.Customers.AnyAsync();
             if (anyRecord)
             {
                 lastIDRecord = await _context.Customers.MaxAsync(x => x.Id);

@@ -8,6 +8,5 @@ namespace SimCard.APP.Models
         public float Range_4 { get; set; }
         public float Range_5 { get; set; }
         public float Range_6 { get; set; }
-        public float Range_7 { get; set; }
     }
 }

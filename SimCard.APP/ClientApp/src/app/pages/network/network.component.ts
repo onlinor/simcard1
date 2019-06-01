@@ -53,8 +53,7 @@ export class NetworkComponent implements OnInit {
       { field: 'range_3', header: 'Khoảng Giá 3' },
       { field: 'range_4', header: 'Khoảng Giá 4' },
       { field: 'range_5', header: 'Khoảng Giá 5' },
-      { field: 'range_6', header: 'Khoảng Giá 6' },
-      { field: 'range_7', header: 'Khoảng Giá 7' }
+      { field: 'range_6', header: 'Khoảng Giá 6' }
     ];
   }
 
@@ -141,6 +140,14 @@ export class NetworkComponent implements OnInit {
     // this.displayEditDialog = false;
   }
 
+  editRange() {
+    this.networkRangeService.update(this.networkRange).subscribe(() => {
+    this.showNetworkRangesResponse();
+    this.networkRange = new NetworkRange();
+    this.displayEditDialogRange = false;
+    });
+  }
+
   showNetworksResponse() {
     this.networkService.getAll().subscribe(resp => {
       this.networks = resp;
@@ -192,12 +199,11 @@ export class NetworkComponent implements OnInit {
     let networkRange: NetworkRange = {
       id: sp.id,
       range_1: sp.range_1,
-      range_2: sp.range_1,
-      range_3: sp.range_1,
-      range_4: sp.range_1,
-      range_5: sp.range_1,
-      range_6: sp.range_1,
-      range_7: sp.range_1
+      range_2: sp.range_2,
+      range_3: sp.range_3,
+      range_4: sp.range_4,
+      range_5: sp.range_5,
+      range_6: sp.range_6
     };
     // assign
     return networkRange;
@@ -222,26 +228,30 @@ export class NetworkComponent implements OnInit {
     if (index === 5) {
       return 'Bước Nhảy';
     }
-    if (index === 6) {
-      return this.networkRanges[0].range_1;
-    }
-    if (index === 7) {
-      return this.networkRanges[0].range_2;
-    }
-    if (index === 8) {
-      return this.networkRanges[0].range_3;
-    }
-    if (index === 9) {
-      return this.networkRanges[0].range_4;
-    }
-    if (index === 10) {
-      return this.networkRanges[0].range_5;
-    }
-    if (index === 11) {
-      return this.networkRanges[0].range_6;
-    }
-    if (index === 12) {
-      return this.networkRanges[0].range_7;
+    if (!this.networkRanges) {
+      return 'Khoảng Giá';
+    } else {
+      if (index === 6) {
+        return ('> ' + (this.networkRanges[0].range_1).toString() + ' Triệu');
+      }
+      if (index === 7) {
+        return (this.networkRanges[0].range_2.toString() + ' - ' + this.networkRanges[0].range_1.toString() + ' Triệu');
+      }
+      if (index === 8) {
+        return (this.networkRanges[0].range_3.toString() + ' - ' + this.networkRanges[0].range_2.toString() + ' Triệu');
+      }
+      if (index === 9) {
+        return (this.networkRanges[0].range_4.toString() + ' - ' + this.networkRanges[0].range_3.toString() + ' Triệu');
+      }
+      if (index === 10) {
+        return (this.networkRanges[0].range_5.toString() + ' - ' + this.networkRanges[0].range_4.toString() + ' Triệu');
+      }
+      if (index === 11) {
+        return (this.networkRanges[0].range_6.toString() + ' - ' + this.networkRanges[0].range_5.toString() + ' Triệu');
+      }
+      if (index === 12) {
+        return ('< ' + (this.networkRanges[0].range_6).toString() + ' Triệu');
+      }
     }
   }
 }

@@ -10,9 +10,9 @@ export class SearchBoxComponent implements OnInit {
   // tslint:disable-next-line:no-output-rename
   @Output('keyword') handleSearchKH = new EventEmitter<any>();
 
-  constructor() {}
+  constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   // emit data
   onSearch() {

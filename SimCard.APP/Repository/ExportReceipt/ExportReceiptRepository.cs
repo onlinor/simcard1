@@ -29,19 +29,21 @@ namespace SimCard.APP.Repository
             {
                 var listExportReceiptProduct = new List<ExportReceiptProducts>();
 
-                foreach (ProductViewModel item in exportReceiptViewModel.Products)
+                foreach (var item in exportReceiptViewModel.Products)
                 {
-                    ExportReceiptProducts p = new ExportReceiptProducts();
-                    p.ChietKhau = (item.Menhgia - item.DonGia.Value) * 100 / item.Menhgia;
-                    p.DateCreated = DateTime.Now;
-                    p.ProductId = _context.Products.First(x => x.Ma == item.Ma).Id;
-                    p.ExportQuantity = item.Soluong;
-                    p.NewWarehouseQuantity = _context.Products.First(x => x.Ma == item.Ma).Soluong;
+                    var p = new ExportReceiptProducts
+                    {
+                        ChietKhau = (item.Menhgia - item.DonGia.Value) * 100 / item.Menhgia,
+                        DateCreated = DateTime.Now,
+                        ProductId = _context.Products.First(x => x.Ma == item.Ma).Id,
+                        ExportQuantity = item.Soluong,
+                        NewWarehouseQuantity = _context.Products.First(x => x.Ma == item.Ma).Soluong
+                    };
                     listExportReceiptProduct.Add(p);
                 }
 
                 // ImportReceipt importReceipt = Mapper.Map<ImportReceipt>(importReceiptViewModel);
-                ExportReceipt exportReceipt = new ExportReceipt
+                var exportReceipt = new ExportReceipt
                 {
                     DateCreated = DateTime.Now,
                     Ma = exportReceiptViewModel.Ma,
@@ -83,7 +85,7 @@ namespace SimCard.APP.Repository
         {
             string currentDate = DateTime.UtcNow.Date.ToString("yyyy-MM-dd").Replace("-", "");
             // No data for new day
-            List<ExportReceipt> existingPNs = await _context.ExportReceipts.Where(x => x.Prefix.Replace("PX", "") == currentDate).ToListAsync();
+            var existingPNs = await _context.ExportReceipts.Where(x => x.Prefix.Replace("PX", "") == currentDate).ToListAsync();
             if (existingPNs.Count() == 0)
             {
                 return ("PX" + currentDate + ".1");

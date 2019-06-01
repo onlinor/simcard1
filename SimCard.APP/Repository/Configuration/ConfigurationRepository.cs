@@ -28,7 +28,7 @@ namespace SimCard.APP.Repository
 
         public async Task<Configuration> UpdateConfiguration(int id, Configuration configuration)
         {
-            Configuration configurationUpdate = _context.Configurations.Find(id);
+            var configurationUpdate = _context.Configurations.Find(id);
             if (configurationUpdate != null)
             {
                 configurationUpdate.GiaTri = configuration.GiaTri;

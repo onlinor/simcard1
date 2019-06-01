@@ -6,5 +6,4 @@ export class NetworkRange {
     range_4: number;
     range_5: number;
     range_6: number;
-    range_7: number;
 }

@@ -91,6 +91,8 @@ namespace SimCard.APP
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IProductExchangeService, ProductExchangeService>();
             services.AddScoped<INetworkService, NetworkService>();
+            services.AddScoped<INetworkService, NetworkService>();
+            services.AddScoped<INetworkRangeService, NetworkRangeService>();
             services.AddCors();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1).AddJsonOptions(options => options.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver()); ;

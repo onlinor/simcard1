@@ -62,6 +62,8 @@ export class BankbookComponent implements OnInit, OnDestroy {
   recieveBankbook: any;
   subscription: Subscription;
   customerList: any;
+  countPC: number = 0;
+	countPT: number = 0;
 
   constructor(
     private bankbookService: BankbookService,
@@ -88,35 +90,35 @@ export class BankbookComponent implements OnInit, OnDestroy {
     );
   }
 
-  onShowDialogPhieuChi() {
-    this.isShowDialogPhieuChi = true;
-    this.isNewCashBook = true;
-    this.myFormChiChild.customerList = this.customerList;
-    this.countMaPhieuChi();
-    this.myFormChiChild.fillDropdownCustomer();
-  }
+	onShowDialogPhieuChi() {
+    debugger;
+		this.isShowDialogPhieuChi = true;
+		this.isNewCashBook = true;
+		this.myFormChiChild.customerList = this.customerList;
+		this.countMaPhieuChi();
+		this.myFormChiChild.fillDropdownCustomer();
+	}
 
-  countMaPhieuChi() {
-    let countPC = 0;
-    this.bankbook.map(item => {
-      const checkMaPhieuChi = item['maPhieu'].includes('PC');
-      if (checkMaPhieuChi) {
-        countPC++;
-      }
-    });
-    this.myFormChiChild.countPC = countPC;
-  }
+	countMaPhieuChi() {
+		this.bankbook.map(item => {
+			let checkMaPhieuChi = item['maPhieu'].includes('PC');
+			if(checkMaPhieuChi) {
+				this.countPC ++;
+			}
+		})
+		this.myFormChiChild.countPC = this.countPC;
+	}
 
-  countMaPhieuThu() {
-    let countPT = 0;
-    this.bankbook.map(item => {
-      const checkMaPhieuThu = item['maPhieu'].includes('PT');
-      if (checkMaPhieuThu) {
-        countPT++;
-      }
-    });
-    this.myFormThuChild.countPT = countPT;
-  }
+	countMaPhieuThu() {
+		let countPT = 0;
+		this.bankbook.map(item => {
+			let checkMaPhieuThu = item['maPhieu'].includes('PT');
+			if(checkMaPhieuThu) {
+				this.countPT ++;
+			}
+		})
+		this.myFormThuChild.countPT = this.countPT;
+	}
 
   onGetIsShowDialogPhieuChi(data: any) {
     this.isShowDialogPhieuChi = data;
