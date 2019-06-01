@@ -306,7 +306,7 @@ namespace SimCard.APP.Service
                 {
                     var shopProduct = shop.Products.FirstOrDefault(p => p.Id == product.Id);
                     ((IDictionary<string, Object>)line)[shop.Name] = shopProduct != null ? shopProduct.Soluong : 0;
-                    line.toanCongTy += (int)((IDictionary<string, Object>)line)[shop.Name];
+                    line.toanCongTy += shopProduct != null ? shopProduct.Soluong : 0;
                 }
                 result.Add(line);
             }
